@@ -58,6 +58,7 @@ final class VerifyWorker: VerifyWorkerLogic {
         isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveRefreshToken,
                                             value: response.refreshToken)
         if isSaved {
+            print("Saved tokens: \nAccess:\(response.accessToken)\nRefresh:\(response.refreshToken)")
             completion(.success(AppState._default))
         } else {
             completion(.failure(Keychain.KeychainError.saveError))
