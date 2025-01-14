@@ -181,6 +181,7 @@
 				AA9B62212D2D5FFE0064CB23 /* Extensions */,
 				AA9B621D2D2D5E650064CB23 /* Screens */,
 				AA9B62102D2D47CE0064CB23 /* Assets.xcassets */,
+				AA8316412D3447600029325C /* UI */,
 				AA9B62122D2D47CE0064CB23 /* LaunchScreen.storyboard */,
 				AA9B62152D2D47CE0064CB23 /* Info.plist */,
 			);
@@ -194,7 +195,6 @@
 				AA9B62652D2FD2190064CB23 /* Signup */,
 				AA9B62442D2EC76A0064CB23 /* VerifyCode */,
 				AA9B621E2D2D5E790064CB23 /* SendPhoneCode */,
-				AA8316412D3447600029325C /* UI */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
