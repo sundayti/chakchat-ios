@@ -10,7 +10,7 @@ import UIKit
 final class StartViewController: UIViewController {
     
     enum Constants {
-        static let chakchatFont: UIFont = UIFont(name: "Micro5-Regular", size: 200)!
+        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 100)!
     }
     
     private lazy var startMessengerButton: UIButton = UIButton(type: .system)
@@ -22,6 +22,11 @@ final class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        for font in UIFont.familyNames {
+            for fontName in UIFont.fontNames(forFamilyName: font) {
+                print(fontName)
+            }
+        }
         configureUI()
     }
     
@@ -62,7 +67,7 @@ final class StartViewController: UIViewController {
         view.addSubview(chakchatStackView)
         chakchatStackView.axis = .vertical
         chakchatStackView.alignment = .center
-        chakchatStackView.spacing = -100
+        chakchatStackView.spacing = 20
         chakchatStackView.pinCentre(view)
     }
     
