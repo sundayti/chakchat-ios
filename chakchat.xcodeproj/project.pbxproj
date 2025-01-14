@@ -10,6 +10,7 @@
 		9B1EC06C2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06B2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf */; };
 		9B1EC06E2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */; };
 		9B1EC0702D369CBA00E01E00 /* RammettoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */; };
+		9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */; };
 		AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */; };
 		AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
@@ -18,7 +19,6 @@
 		AA9B62112D2D47CE0064CB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA9B62102D2D47CE0064CB23 /* Assets.xcassets */; };
 		AA9B62142D2D47CE0064CB23 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AA9B62132D2D47CE0064CB23 /* Base */; };
 		AA9B62202D2D5F790064CB23 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B621F2D2D5F790064CB23 /* StartViewController.swift */; };
-		AA9B62232D2D605A0064CB23 /* UIView + Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62222D2D605A0064CB23 /* UIView + Pin.swift */; };
 		AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62242D2D6C490064CB23 /* SendCodeAssembly.swift */; };
 		AA9B62272D2D6C810064CB23 /* SendCodeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62262D2D6C810064CB23 /* SendCodeInteractor.swift */; };
 		AA9B62292D2D6C970064CB23 /* SendCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62282D2D6C970064CB23 /* SendCodePresenter.swift */; };
@@ -69,6 +69,7 @@
 		9B1EC06B2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RammettoOne-Regular.ttf"; sourceTree = "<group>"; };
+		9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensService.swift; sourceTree = "<group>"; };
 		AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensServiceProtocols.swift; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
@@ -79,7 +80,6 @@
 		AA9B62132D2D47CE0064CB23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA9B62152D2D47CE0064CB23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA9B621F2D2D5F790064CB23 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		AA9B62222D2D605A0064CB23 /* UIView + Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Pin.swift"; sourceTree = "<group>"; };
 		AA9B62242D2D6C490064CB23 /* SendCodeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeAssembly.swift; sourceTree = "<group>"; };
 		AA9B62262D2D6C810064CB23 /* SendCodeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeInteractor.swift; sourceTree = "<group>"; };
 		AA9B62282D2D6C970064CB23 /* SendCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodePresenter.swift; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		AA9B62212D2D5FFE0064CB23 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				AA9B62222D2D605A0064CB23 /* UIView + Pin.swift */,
+				9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -479,8 +479,8 @@
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
 				AA9B627D2D300DEE0064CB23 /* SignupDataValidator.swift in Sources */,
 				AA9B62522D2EC7DC0064CB23 /* VerifyProtocols.swift in Sources */,
+				9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
-				AA9B62232D2D605A0064CB23 /* UIView + Pin.swift in Sources */,
 				AA9B628B2D303FB50064CB23 /* SignupServiceProtocols.swift in Sources */,
 				AA9B62A32D33D6B50064CB23 /* ErrorHandler.swift in Sources */,
 				AA9B627B2D3004850064CB23 /* SignupWorker.swift in Sources */,
