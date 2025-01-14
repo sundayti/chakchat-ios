@@ -54,6 +54,7 @@ class SignupWorker: SignupWorkerLogic {
         
         if isSaved {
             completion(.success(AppState._default))
+            print("Saved tokens: \nAccess:\(successResponse.accessToken)\nRefresh:\(successResponse.refreshToken)")
         } else {
             completion(.failure(Keychain.KeychainError.saveError))
         }
