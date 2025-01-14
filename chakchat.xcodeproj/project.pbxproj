@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA626E842D35440A006EAFD1 /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA626E832D35440A006EAFD1 /* Montserrat-VariableFont_wght.ttf */; };
-		AA626E862D3563F0006EAFD1 /* RobotoMono-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA626E852D3563F0006EAFD1 /* RobotoMono-VariableFont_wght.ttf */; };
+		9B1EC06C2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06B2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf */; };
+		9B1EC06E2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */; };
+		9B1EC0702D369CBA00E01E00 /* RammettoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
 		AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */; };
 		AA9B620A2D2D47CB0064CB23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62092D2D47CB0064CB23 /* SceneDelegate.swift */; };
@@ -63,8 +64,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA626E832D35440A006EAFD1 /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-VariableFont_wght.ttf"; path = "../../../../../../../Downloads/Montserrat/Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
-		AA626E852D3563F0006EAFD1 /* RobotoMono-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoMono-VariableFont_wght.ttf"; path = "../../../../../../../Downloads/Roboto_Mono/RobotoMono-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		9B1EC06B2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RammettoOne-Regular.ttf"; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
 		AA9B62042D2D47CB0064CB23 /* chakchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chakchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,8 +144,9 @@
 		AA8316422D3447680029325C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				AA626E852D3563F0006EAFD1 /* RobotoMono-VariableFont_wght.ttf */,
-				AA626E832D35440A006EAFD1 /* Montserrat-VariableFont_wght.ttf */,
+				9B1EC06B2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf */,
+				9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */,
+				9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */,
 				AA8316452D344AE50029325C /* Micro5-Regular.ttf */,
 			);
 			path = Fonts;
@@ -426,11 +429,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA626E842D35440A006EAFD1 /* Montserrat-VariableFont_wght.ttf in Resources */,
-				AA626E862D3563F0006EAFD1 /* RobotoMono-VariableFont_wght.ttf in Resources */,
 				AA9B62112D2D47CE0064CB23 /* Assets.xcassets in Resources */,
+				9B1EC0702D369CBA00E01E00 /* RammettoOne-Regular.ttf in Resources */,
 				AA9B62142D2D47CE0064CB23 /* Base in Resources */,
+				9B1EC06C2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf in Resources */,
 				AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */,
+				9B1EC06E2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
