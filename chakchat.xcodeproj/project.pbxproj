@@ -149,7 +149,6 @@
 		AA8316412D3447600029325C /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				AA8316422D3447680029325C /* Fonts */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -194,6 +193,7 @@
 				AA9B62212D2D5FFE0064CB23 /* Extensions */,
 				AA9B621D2D2D5E650064CB23 /* Screens */,
 				AA9B62102D2D47CE0064CB23 /* Assets.xcassets */,
+				AA8316422D3447680029325C /* Fonts */,
 				AA8316412D3447600029325C /* UI */,
 				AA9B62122D2D47CE0064CB23 /* LaunchScreen.storyboard */,
 				AA9B62152D2D47CE0064CB23 /* Info.plist */,
