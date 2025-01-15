@@ -34,9 +34,7 @@ final class SendCodeViewController: UIViewController {
     }
     
     private var interactor: SendCodeBusinessLogic
-    private lazy var chakLabel: UILabel = UILabel()
-    private lazy var chatLabel: UILabel = UILabel()
-    private lazy var chakchatStackView = UIStackView(arrangedSubviews: [chakLabel, chatLabel])
+    private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()
     private lazy var sendButton: UIButton = UIButton(type: .system)
     private lazy var sendButtonGradientLayer: CAGradientLayer = CAGradientLayer()
@@ -87,23 +85,8 @@ final class SendCodeViewController: UIViewController {
     }
     
     private func configureChakChatStackView() {
-        view.addSubview(chakLabel)
-        view.addSubview(chatLabel)
-        chakLabel.text = Constants.chakLabelText
-        chakLabel.textAlignment = .center
-        chakLabel.font = Constants.chakchatFont
-        chakLabel.textColor = .black
-        
-        chatLabel.text = Constants.chatLabelText
-        chatLabel.textAlignment = .center
-        chatLabel.font = Constants.chakchatFont
-        chatLabel.textColor = .black
-        
         view.addSubview(chakchatStackView)
-        chakchatStackView.axis = .vertical
-        chakchatStackView.alignment = .center
-        chakchatStackView.spacing = Constants.chakchatStackViewSpacing
-        chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.chakchatStackViewTopAnchor)
+        chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
         chakchatStackView.pinCentreX(view)
     }
     
