@@ -41,6 +41,7 @@ final class SendCodeViewController: UIViewController {
     private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
     private lazy var inputFieldColor: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
+    private lazy var linksColor: UIColor = UIColor(hex: "#FFAE00") ?? UIColor.systemYellow
     private lazy var disclaimerView: UIView = UIView()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var linksTextView: UITextView = UITextView()
@@ -151,7 +152,7 @@ final class SendCodeViewController: UIViewController {
         
         linksTextView.attributedText = attributedString
         linksTextView.linkTextAttributes = [
-            .foregroundColor: UIColor.systemYellow,
+            .foregroundColor: linksColor,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         linksTextView.translatesAutoresizingMaskIntoConstraints = false

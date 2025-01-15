@@ -7,24 +7,44 @@
 
 import Foundation
 import UIKit
+
+// MARK: - VerifyViewController
 final class VerifyViewController: UIViewController {
     
-    enum Constants {
+    // MARK: - Constants
+    private enum Constants {
         static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
         static let inputHintLabelText: String = "Enter the code"
         static let inputHintLabelFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
         static let inputHintLabelTopAnchor: CGFloat = 10
+        static let backButtonName: String = "arrow.left"
+        
+        static let inputDescriptionNumberOfLines: Int = 2
+        static let inputDescriptionText: String = "We sent you a verification code via SMS\non number +7(9**)***-**-**."
+        static let inputDescriptionTop: CGFloat = 10
+        
+        static let digitsStackViewSpacing: CGFloat = 10
+        static let digitsStackViewHeight: CGFloat = 50
+        static let digitsStackViewTop: CGFloat = 20
+        static let digitsStackViewLeading: CGFloat = 40
+        static let digitsStackViewTrailing: CGFloat = 40
+        
+        static let textFieldBorderWidth: CGFloat = 1
+        static let textFieldCornerRadius: CGFloat = 15
+        static let textFieldFont: CGFloat = 24
     }
     
+    // MARK: - Fields
     private var interactor: VerifyBusinessLogic
+    private var textFields: [UITextField] = []
     
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
-    
+    private lazy var digitsBorderColor: UIColor = UIColor(hex: "#FF6200") ?? UIColor.orange
     private lazy var digitsStackView: UIStackView = UIStackView()
     
-    
+    // MARK: - Lifecycle
     init(interactor: VerifyBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -34,12 +54,10 @@ final class VerifyViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var textFields: [UITextField] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        let backButton = UIBarButtonItem(image: UIImage(systemName: Constants.backButtonName), style: .plain, target: self, action: #selector(backButtonPressed))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
         
@@ -50,6 +68,7 @@ final class VerifyViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         configureChakChatStackView()
         configureInputHintLabel()
@@ -57,12 +76,14 @@ final class VerifyViewController: UIViewController {
         configureDigitsStackView()
     }
     
+    // MARK: - ChakChat Configuration
     private func configureChakChatStackView() {
         view.addSubview(chakchatStackView)
         chakchatStackView.pinCentreX(view)
         chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
     }
     
+    // MARK: - Input Hint Label Configuration
     private func configureInputHintLabel() {
         view.addSubview(inputHintLabel)
         inputHintLabel.text = Constants.inputHintLabelText
@@ -71,30 +92,31 @@ final class VerifyViewController: UIViewController {
         inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)
     }
     
+    // MARK: - Input Description Configuration
     private func configureInputDescriptionLabel() {
         view.addSubview(inputDescriptionLabel)
         inputDescriptionLabel.textAlignment = .center
-        inputDescriptionLabel.numberOfLines = 2
+        inputDescriptionLabel.numberOfLines = Constants.inputDescriptionNumberOfLines
         inputDescriptionLabel.textColor = .gray
-        inputDescriptionLabel.text = "We sent you a verification code via SMS\non number +7(9**)***-**-**."
+        inputDescriptionLabel.text = Constants.inputDescriptionText
         inputDescriptionLabel.pinCentreX(view)
-        inputDescriptionLabel.pinTop(inputHintLabel.bottomAnchor, 10)
+        inputDescriptionLabel.pinTop(inputHintLabel.bottomAnchor, Constants.inputDescriptionTop)
     }
     
+    // MARK: - Digits StackView Configuration
     private func configureDigitsStackView() {
         view.addSubview(digitsStackView)
         digitsStackView.axis = .horizontal
         digitsStackView.distribution = .fillEqually
-        digitsStackView.spacing = 10
+        digitsStackView.spacing = Constants.digitsStackViewSpacing
         
         for i in 0..<6 {
             let textField = MyTextField()
-            
-            textField.layer.borderWidth = 1
-            textField.layer.borderColor = UIColor.orange.cgColor
-            textField.layer.cornerRadius = 15
+            textField.layer.borderWidth = Constants.textFieldBorderWidth
+            textField.layer.borderColor = digitsBorderColor.cgColor
+            textField.layer.cornerRadius = Constants.textFieldCornerRadius
             textField.textAlignment = .center
-            textField.font = UIFont.systemFont(ofSize: 24)
+            textField.font = UIFont.systemFont(ofSize: Constants.textFieldFont)
             textField.keyboardType = .numberPad
             textField.delegate = self
             textField.tag = i
@@ -102,13 +124,14 @@ final class VerifyViewController: UIViewController {
             textFields.append(textField)
         }
         
-        digitsStackView.setHeight(50)
-        digitsStackView.pinTop(inputDescriptionLabel.bottomAnchor, 20)
+        digitsStackView.setHeight(Constants.digitsStackViewHeight)
+        digitsStackView.pinTop(inputDescriptionLabel.bottomAnchor, Constants.digitsStackViewTop)
         digitsStackView.pinCentreX(view)
-        digitsStackView.pinLeft(view.leadingAnchor, 40)
-        digitsStackView.pinRight(view.trailingAnchor, 40)
+        digitsStackView.pinLeft(view.leadingAnchor, Constants.digitsStackViewLeading)
+        digitsStackView.pinRight(view.trailingAnchor, Constants.digitsStackViewTrailing)
     }
 
+    // MARK: - TextField Delegate Methods
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Если в поле уже есть текст, выделяем его весь
         if let text = textField.text, !text.isEmpty {
@@ -155,7 +178,7 @@ final class VerifyViewController: UIViewController {
         return false // По дефолту, не заходя ни в какие if, не даем никак редактировать ячейки
     }
     
-    // Метод который проверяет что все элементы textFields не пустые
+    // MARK: - Supporting Methods
     func areAllTextFieldsFilled() -> Bool {
         for field in textFields {
             if field.text?.isEmpty == true {
@@ -174,6 +197,7 @@ final class VerifyViewController: UIViewController {
         return code
     }
     
+    // MARK: - Actions
     @objc
     private func backButtonPressed() {
         interactor.routeToSendCodeScreen(AppState.sendPhoneCode)
@@ -185,9 +209,11 @@ final class VerifyViewController: UIViewController {
     }
 }
 
-extension VerifyViewController: UITextFieldDelegate {
+// MARK: - UITextFieldDelegate Extension
+extension VerifyViewController: UITextFieldDelegate {}
 
-}
+
+// MARK: - Custom UITextField
 // Специальный класс, чтобы при нажатии на backspace курсор переносился на ячейку влево(если ячейка пустая)
 class MyTextField: UITextField {
     override public func deleteBackward() {
