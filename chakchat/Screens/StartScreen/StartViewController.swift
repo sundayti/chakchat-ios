@@ -30,6 +30,8 @@ final class StartViewController: UIViewController {
     private lazy var chakLabel: UILabel = UILabel()
     private lazy var chatLabel: UILabel = UILabel()
     private lazy var tapLabel: UILabel = UILabel()
+    private lazy var centerColor: UIColor = UIColor(hex: "#FFBF00") ?? UIColor.yellow
+    private lazy var edgeColor: UIColor = UIColor(hex: "#FF6200") ?? UIColor.orange
     private lazy var chakchatStackView = UIStackView(arrangedSubviews: [chakLabel, chatLabel])
     private lazy var gradientBackgroundLayer: CAGradientLayer = CAGradientLayer()
     var onRouteToSendCodeScreen: ((AppState) -> Void)?
@@ -57,9 +59,9 @@ final class StartViewController: UIViewController {
     // MARK: - Gradient Background Layer Configuration
     private func configureGradientBackgroundLayer() {
         gradientBackgroundLayer.colors = [
-            UIColor.orange.cgColor,
-            UIColor.yellow.cgColor,
-            UIColor.orange.cgColor
+            edgeColor.cgColor,
+            centerColor.cgColor,
+            edgeColor.cgColor
         ]
         gradientBackgroundLayer.locations = Constants.gradientLocation
         gradientBackgroundLayer.startPoint = Constants.gradientStartPoint
