@@ -36,8 +36,7 @@ final class SendCodeViewController: UIViewController {
     private var interactor: SendCodeBusinessLogic
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()
-    private lazy var sendButton: UIButton = UIButton(type: .system)
-    private lazy var sendButtonGradientLayer: CAGradientLayer = CAGradientLayer()
+    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
     private lazy var disclaimerView: UIView = UIView()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var linksTextView: UITextView = UITextView()
@@ -56,12 +55,6 @@ final class SendCodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        // Updating the size of the gradient layer if the button has changed its size
-        sendButtonGradientLayer.frame = sendButton.bounds
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -106,26 +99,12 @@ final class SendCodeViewController: UIViewController {
     }
     
     private func configureInputButton() {
-        view.addSubview(sendButton)
-        sendButton.setTitle(Constants.inputButtonText, for: .normal)
-        sendButton.setTitleColor(.white, for: .normal)
-        sendButton.titleLabel?.font = Constants.inputButtonFont
-        sendButton.pinCentreX(view)
-        sendButton.pinTop(inputNumberTextField.bottomAnchor, Constants.inputButtonTopAnchor)
-        sendButton.setHeight(Constants.inputButtonHeight)
-        sendButton.setWidth(Constants.inputButtonWidth)
-        
-        sendButtonGradientLayer.colors = Constants.inputButtonGradientColor
-        sendButtonGradientLayer.startPoint = Constants.inputButtonGradientStartPoint
-        sendButtonGradientLayer.endPoint = Constants.inputButtonGradientEndPoint
-        sendButtonGradientLayer.cornerRadius = Constants.inputButtonGradientCornerRadius
-        
-        sendButton.layer.insertSublayer(sendButtonGradientLayer, at: 0)
-        sendButtonGradientLayer.frame = sendButton.bounds
-        
-        sendButton.layoutIfNeeded()
-        
-        sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
+        view.addSubview(sendGradientButton)
+        sendGradientButton.pinCentreX(view)
+        sendGradientButton.pinTop(inputNumberTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
+        sendGradientButton.setHeight(UIConstants.gradientButtonHeight)
+        sendGradientButton.setWidth(UIConstants.gradientButtonWidth)
+        sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
         
     private func configureDisclaimerView() {
