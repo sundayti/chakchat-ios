@@ -7,8 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - UIGradientButton
 final class UIGradientButton: UIButton {
     
+    // MARK: - Fields
     private lazy var buttonGradientLayer: CAGradientLayer? = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = UIConstants.gradientButtonGradientColor
@@ -18,6 +21,7 @@ final class UIGradientButton: UIButton {
         return gradientLayer
     }()
     
+    // MARK: - Initialization
     init(title: String) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)

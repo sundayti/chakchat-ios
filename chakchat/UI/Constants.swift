@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+
+// MARK: - UIConstants
 enum UIConstants {
     //MARK: - UIChakChatStackView constants
     static let chakchatStackViewTopAnchor: CGFloat = 20
@@ -16,12 +18,15 @@ enum UIConstants {
     static let chakchatStackViewSpacing: CGFloat = -50
     
     //MARK: - UIGradientButton constants
-    static let gradientButtonHeight: CGFloat = 50
-    static let gradientButtonWidth: CGFloat = 200
-    static let gradientButtonFont: UIFont = UIFont.systemFont(ofSize: 26, weight: .bold)
-    static let gradientButtonTopAnchor: CGFloat = 40
-    static let gradientButtonGradientColor: [CGColor] = [UIColor.yellow.cgColor, UIColor.orange.cgColor]
-    static let gradientButtonGradientStartPoint: CGPoint = CGPoint(x: 0.0, y: 0.5)
-    static let gradientButtonGradientEndPoint: CGPoint = CGPoint(x: 1, y: 0.5)
+    static let gradientButtonHeight: CGFloat = 48
+    static let gradientButtonWidth: CGFloat = 205
+    static let gradientButtonFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
+    static let gradientButtonTopAnchor: CGFloat = 30
+    static let gradientButtonGradientColor: [CGColor] = [
+        UIColor(hex: "FF6200")?.cgColor ?? UIColor.yellow.cgColor,
+        UIColor(hex: "FFD426")?.cgColor ?? UIColor.orange.cgColor
+    ]
+    static let gradientButtonGradientStartPoint: CGPoint = CGPoint(x: 0.0, y: 2)
+    static let gradientButtonGradientEndPoint: CGPoint = CGPoint(x: -1, y: 0.5)
     static let gradientButtonGradientCornerRadius: CGFloat = 25
 }
