@@ -214,5 +214,21 @@ final class VerifyViewController: UIViewController {
 }
 
 extension VerifyViewController: UITextFieldDelegate {
-    
+
 }
+// Специальный класс, чтобы при нажатии на backspace курсор переносился на ячейку влево(если ячейка пустая)
+class MyTextField: UITextField {
+    override public func deleteBackward() {
+        super.deleteBackward()
+        if let previousTextField = getPreviousTextField() {
+            previousTextField.becomeFirstResponder()
+        }
+    }
+    
+    private func getPreviousTextField() -> UITextField? {
+        let currentTag = self.tag
+        let previousTag = currentTag - 1
+        return self.superview?.viewWithTag(previousTag) as? UITextField
+    }
+}
+
