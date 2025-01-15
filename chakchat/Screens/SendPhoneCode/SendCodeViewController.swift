@@ -10,15 +10,7 @@ import UIKit
 final class SendCodeViewController: UIViewController {
     
     enum Constants {
-        static let chakchatStackViewTopAnchor: CGFloat = 20
-        
-        static let chakLabelText: String = "Chak"
-        static let chatLabelText: String = "Chat"
-        
-        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
         static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
-        
-        static let chakchatStackViewSpacing: CGFloat = -50
         static let inputNumberLabelFontSize: CGFloat = 16
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
@@ -28,16 +20,6 @@ final class SendCodeViewController: UIViewController {
         static let inputNumberTextFieldWidth: CGFloat = 300
         static let inputNumberTextFieldPaddingWidth: CGFloat = 10
         
-        static let inputButtonText: String = "Enter"
-        static let inputButtonHeight: CGFloat = 50
-        static let inputButtonWidth: CGFloat = 200
-        static let inputButtonFont: UIFont = UIFont.systemFont(ofSize: 26, weight: .bold)
-        static let inputButtonTopAnchor: CGFloat = 40
-        static let inputButtonGradientColor: [CGColor] = [UIColor.yellow.cgColor, UIColor.orange.cgColor]
-        
-        static let inputButtonGradientStartPoint: CGPoint = CGPoint(x: 0.0, y: 0.5)
-        static let inputButtonGradientEndPoint: CGPoint = CGPoint(x: 1, y: 0.5)
-        static let inputButtonGradientCornerRadius: CGFloat = 25
         
         static let descriptionLabelText: String = "by continuing, you agree to our"
         

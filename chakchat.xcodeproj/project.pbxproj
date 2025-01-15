@@ -14,6 +14,9 @@
 		AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */; };
 		AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
+		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
+		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
+		AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC622D382057007DEC76 /* UIGradientButton.swift */; };
 		AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */; };
 		AA9B620A2D2D47CB0064CB23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62092D2D47CB0064CB23 /* SceneDelegate.swift */; };
 		AA9B62112D2D47CE0064CB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA9B62102D2D47CE0064CB23 /* Assets.xcassets */; };
@@ -73,6 +76,9 @@
 		AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensService.swift; sourceTree = "<group>"; };
 		AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensServiceProtocols.swift; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
+		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
+		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
 		AA9B62042D2D47CB0064CB23 /* chakchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chakchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA9B62092D2D47CB0064CB23 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +155,8 @@
 		AA8316412D3447600029325C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AA92EC5D2D381B4A007DEC76 /* UIComponents */,
+				AA92EC602D381B8D007DEC76 /* Constants.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -162,6 +170,15 @@
 				AA8316452D344AE50029325C /* Micro5-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */,
+				AA92EC622D382057007DEC76 /* UIGradientButton.swift */,
+			);
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		AA9B61FB2D2D47CB0064CB23 = {
@@ -466,11 +483,13 @@
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
 				AA9B628F2D3152570064CB23 /* Sender.swift in Sources */,
 				AA9B623E2D2D75890064CB23 /* SendCodeService.swift in Sources */,
+				AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */,
 				AA9B62292D2D6C970064CB23 /* SendCodePresenter.swift in Sources */,
 				AA9B626F2D2FD2660064CB23 /* SignupModels.swift in Sources */,
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
 				AA9B622B2D2D6CA40064CB23 /* SendCodeViewController.swift in Sources */,
+				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
 				AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */,
 				AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */,
 				AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */,
@@ -501,6 +520,7 @@
 				AA9B628D2D3149B60064CB23 /* ApiErrorTypes.swift in Sources */,
 				AA9B626D2D2FD25A0064CB23 /* SignupViewController.swift in Sources */,
 				AA9B624E2D2EC7C50064CB23 /* VerifyViewController.swift in Sources */,
+				AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */,
 				AA9B62672D2FD22B0064CB23 /* SignupAssembly.swift in Sources */,
 				AA9B624C2D2EC7B40064CB23 /* VerifyWorker.swift in Sources */,
 				AA9B622D2D2D6CAE0064CB23 /* SendCodeModels.swift in Sources */,
