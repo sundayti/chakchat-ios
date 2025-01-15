@@ -10,16 +10,7 @@ import UIKit
 final class VerifyViewController: UIViewController {
     
     enum Constants {
-        static let chakchatStackViewTopAnchor: CGFloat = 20
-        
-        static let chakLabelText: String = "Chak"
-        static let chatLabelText: String = "Chat"
-        
-        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
         static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
-        
-        static let chakchatStackViewSpacing: CGFloat = -50
-        
         static let inputHintLabelText: String = "Enter the code"
         static let inputHintLabelFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
         static let inputHintLabelTopAnchor: CGFloat = 10
@@ -27,11 +18,7 @@ final class VerifyViewController: UIViewController {
     
     private var interactor: VerifyBusinessLogic
     
-    
-    private lazy var chakLabel: UILabel = UILabel()
-    private lazy var chatLabel: UILabel = UILabel()
-    private lazy var chakchatStackView = UIStackView(arrangedSubviews: [chakLabel, chatLabel])
-    
+    private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
     
@@ -71,24 +58,9 @@ final class VerifyViewController: UIViewController {
     }
     
     private func configureChakChatStackView() {
-        view.addSubview(chakLabel)
-        view.addSubview(chatLabel)
-        chakLabel.text = Constants.chakLabelText
-        chakLabel.textAlignment = .center
-        chakLabel.font = Constants.chakchatFont
-        chakLabel.textColor = .black
-        
-        chatLabel.text = Constants.chatLabelText
-        chatLabel.textAlignment = .center
-        chatLabel.font = Constants.chakchatFont
-        chatLabel.textColor = .black
-        
         view.addSubview(chakchatStackView)
-        chakchatStackView.axis = .vertical
-        chakchatStackView.alignment = .center
-        chakchatStackView.spacing = Constants.chakchatStackViewSpacing
-        chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.chakchatStackViewTopAnchor)
         chakchatStackView.pinCentreX(view)
+        chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
     }
     
     private func configureInputHintLabel() {
