@@ -10,12 +10,12 @@ import UIKit
 final class SendCodeViewController: UIViewController {
     
     enum Constants {
-        static let chakchatStackViewTopAnchor: CGFloat = 40
+        static let chakchatStackViewTopAnchor: CGFloat = 20
         
         static let chakLabelText: String = "Chak"
         static let chatLabelText: String = "Chat"
         
-        static let chakchatFont: UIFont = UIFont(name: "Micro5-Regular", size: 150)!
+        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
         static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
         
         static let chakchatStackViewSpacing: CGFloat = -50
@@ -39,6 +39,16 @@ final class SendCodeViewController: UIViewController {
         static let inputButtonGradientEndPoint: CGPoint = CGPoint(x: 1, y: 0.5)
         static let inputButtonGradientCornerRadius: CGFloat = 25
         
+        static let descriptionLabelText: String = "by continuing, you agree to our"
+        
+        static let policyLabelFont: UIFont = UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
+        static let termOfServiceLabelText: String = "temp of service"
+        static let privacyPolicyLabelText: String = "privacy policy"
+        static let contentPoliciesLabelText: String = "content policies"
+        
+        static let policyStackViewSpacing: CGFloat = 5
+        static let policyStackViewTopAnchor: CGFloat = 5
+        
     }
     
     private var interactor: SendCodeBusinessLogic
@@ -48,6 +58,9 @@ final class SendCodeViewController: UIViewController {
     private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()
     private lazy var sendButton: UIButton = UIButton(type: .system)
     private lazy var sendButtonGradientLayer: CAGradientLayer = CAGradientLayer()
+    private lazy var disclaimerView: UIView = UIView()
+    private lazy var descriptionLabel: UILabel = UILabel()
+    private lazy var linksTextView: UITextView = UITextView()
     
     private var isPhoneNubmerInputValid: Bool = false
     
@@ -71,16 +84,24 @@ final class SendCodeViewController: UIViewController {
         sendButtonGradientLayer.frame = sendButton.bounds
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     private func configureUI() {
         view.backgroundColor = .white
+        
         // I can tap everywhere for didEndEditing
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
+        
         self.navigationItem.hidesBackButton = true
+        
         configureChakChatStackView()
         configureInputNumberTextField()
         configureInputButton()
+        configureDisclaimerView()
     }
     
     private func configureChakChatStackView() {
@@ -141,6 +162,54 @@ final class SendCodeViewController: UIViewController {
         
         sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
+        
+    private func configureDisclaimerView() {
+
+        view.addSubview(disclaimerView)
+        disclaimerView.addSubview(descriptionLabel)
+        
+        descriptionLabel.text = Constants.descriptionLabelText
+        descriptionLabel.textColor = .black
+        descriptionLabel.font = UIFont.systemFont(ofSize: 12)
+
+        linksTextView.isEditable = false
+        linksTextView.isScrollEnabled = false
+        linksTextView.backgroundColor = .clear
+        
+        let attributedString = NSMutableAttributedString(
+            string: "term of service  privacy policy  content policies",
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 12),
+                .foregroundColor: UIColor.gray,
+            ]
+        )
+        
+        // in value property we have to put link
+        attributedString.addAttribute(.link, value: "terms://", range: NSRange(location: 0, length: 15))
+        attributedString.addAttribute(.link, value: "privacy://", range: NSRange(location: 17, length: 14))
+        attributedString.addAttribute(.link, value: "content://", range: NSRange(location: 33, length: 16))
+        
+        linksTextView.attributedText = attributedString
+        linksTextView.linkTextAttributes = [
+            .foregroundColor: UIColor.systemYellow,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        linksTextView.translatesAutoresizingMaskIntoConstraints = false
+        disclaimerView.addSubview(linksTextView)
+        
+        disclaimerView.pinLeft(view.leadingAnchor, 20)
+        disclaimerView.pinRight(view.trailingAnchor, 20)
+        disclaimerView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 10)
+        
+        descriptionLabel.pinTop(disclaimerView.topAnchor, 0)
+        descriptionLabel.pinCentreX(disclaimerView)
+        
+        linksTextView.pinTop(descriptionLabel.bottomAnchor, 4)
+        linksTextView.pinCentreX(disclaimerView)
+        linksTextView.pinBottom(disclaimerView.bottomAnchor, 0)
+        
+    }
+
     
     internal func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
