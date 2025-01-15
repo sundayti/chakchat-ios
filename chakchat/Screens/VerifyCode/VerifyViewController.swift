@@ -10,26 +10,33 @@ import UIKit
 final class VerifyViewController: UIViewController {
     
     enum Constants {
-        static let inputLabelText: String = "Input code"
-        static let inputLabelTopAnchor: CGFloat = 40
+        static let chakchatStackViewTopAnchor: CGFloat = 20
         
-        static let inputTextFieldPlaceholder: String = "Code"
-        static let inputTextFieldTopAnchor: CGFloat = 100
-        static let inputTextFieldHeight: CGFloat = 40
-        static let inputTextFieldWidth: CGFloat = 100
-        static let inputTextFieldPaddingWidth: CGFloat = 10
+        static let chakLabelText: String = "Chak"
+        static let chatLabelText: String = "Chat"
         
-        static let sendButtonText: String = "Send"
-        static let sendButtonBottomAnchor: CGFloat = 40
+        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
+        static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
+        
+        static let chakchatStackViewSpacing: CGFloat = -50
+        
+        static let inputHintLabelText: String = "Enter the code"
+        static let inputHintLabelFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
+        static let inputHintLabelTopAnchor: CGFloat = 10
     }
     
     private var interactor: VerifyBusinessLogic
     
-    private lazy var inputLabel: UILabel = UILabel()
-    private lazy var inputTextField: UITextField = UITextField()
-    private lazy var sendButton: UIButton = UIButton(type: .system)
     
-    private var isVerificationCodeInputValid: Bool = false
+    private lazy var chakLabel: UILabel = UILabel()
+    private lazy var chatLabel: UILabel = UILabel()
+    private lazy var chakchatStackView = UIStackView(arrangedSubviews: [chakLabel, chatLabel])
+    
+    private lazy var inputHintLabel: UILabel = UILabel()
+    private lazy var inputDescriptionLabel: UILabel = UILabel()
+    
+    private lazy var digitsStackView: UIStackView = UIStackView()
+    
     
     init(interactor: VerifyBusinessLogic) {
         self.interactor = interactor
@@ -40,76 +47,159 @@ final class VerifyViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private var textFields: [UITextField] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        view.backgroundColor = .white
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
+        
         configureUI()
     }
     
     private func configureUI() {
-        view.backgroundColor = .white
-        configureInputLabel()
-        configureInputTextField()
-        configureSendButton()
+        configureChakChatStackView()
+        configureInputHintLabel()
+        configureInputDescriptionLabel()
+        configureDigitsStackView()
     }
     
-    private func configureInputLabel() {
-        view.addSubview(inputLabel)
-        inputLabel.text = Constants.inputLabelText
-        inputLabel.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.inputLabelTopAnchor)
-        inputLabel.pinCentreX(view)
-    }
-    
-    private func configureInputTextField() {
-        view.addSubview(inputTextField)
-        inputTextField.placeholder = Constants.inputTextFieldPlaceholder
-        inputTextField.pinTop(inputLabel.bottomAnchor, Constants.inputTextFieldTopAnchor)
-        inputTextField.setHeight(Constants.inputTextFieldHeight)
-        inputTextField.setWidth(Constants.inputTextFieldWidth)
-        inputTextField.pinCentreX(view)
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: Constants.inputTextFieldPaddingWidth, height: inputTextField.frame.height))
-        inputTextField.leftView = paddingView
-        inputTextField.leftViewMode = .always
-        inputTextField.delegate = self
-    }
-    
-    private func configureSendButton() {
-        view.addSubview(sendButton)
-        sendButton.setTitle(Constants.sendButtonText, for: .normal)
-        sendButton.isEnabled = false
-        sendButton.alpha = 0.5
-        sendButton.setTitleColor(.white, for: .normal)
-        sendButton.backgroundColor = .systemBlue
-        sendButton.pinCentreX(view)
-        sendButton.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.sendButtonBottomAnchor)
-        sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
-    }
-    
-    internal func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
+    private func configureChakChatStackView() {
+        view.addSubview(chakLabel)
+        view.addSubview(chatLabel)
+        chakLabel.text = Constants.chakLabelText
+        chakLabel.textAlignment = .center
+        chakLabel.font = Constants.chakchatFont
+        chakLabel.textColor = .black
         
-        switch(textField) {
-        case inputTextField:
-            let validator = VerificationCodeValidator()
-            isVerificationCodeInputValid = validator.validate(text)
-        default:
-            break
+        chatLabel.text = Constants.chatLabelText
+        chatLabel.textAlignment = .center
+        chatLabel.font = Constants.chakchatFont
+        chatLabel.textColor = .black
+        
+        view.addSubview(chakchatStackView)
+        chakchatStackView.axis = .vertical
+        chakchatStackView.alignment = .center
+        chakchatStackView.spacing = Constants.chakchatStackViewSpacing
+        chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.chakchatStackViewTopAnchor)
+        chakchatStackView.pinCentreX(view)
+    }
+    
+    private func configureInputHintLabel() {
+        view.addSubview(inputHintLabel)
+        inputHintLabel.text = Constants.inputHintLabelText
+        inputHintLabel.font = Constants.inputHintLabelFont
+        inputHintLabel.pinCentreX(view)
+        inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)
+    }
+    
+    private func configureInputDescriptionLabel() {
+        view.addSubview(inputDescriptionLabel)
+        inputDescriptionLabel.textAlignment = .center
+        inputDescriptionLabel.numberOfLines = 2
+        inputDescriptionLabel.textColor = .gray
+        inputDescriptionLabel.text = "We sent you a verification code via SMS\non number +7(9**)***-**-**."
+        inputDescriptionLabel.pinCentreX(view)
+        inputDescriptionLabel.pinTop(inputHintLabel.bottomAnchor, 10)
+    }
+    
+    private func configureDigitsStackView() {
+        view.addSubview(digitsStackView)
+        digitsStackView.axis = .horizontal
+        digitsStackView.distribution = .fillEqually
+        digitsStackView.spacing = 10
+        
+        for i in 0..<6 {
+            let textField = MyTextField()
+            
+            textField.layer.borderWidth = 1
+            textField.layer.borderColor = UIColor.orange.cgColor
+            textField.layer.cornerRadius = 15
+            textField.textAlignment = .center
+            textField.font = UIFont.systemFont(ofSize: 24)
+            textField.keyboardType = .numberPad
+            textField.delegate = self
+            textField.tag = i
+            digitsStackView.addArrangedSubview(textField)
+            textFields.append(textField)
         }
-        updateAuthorizationButtonState()
+        
+        digitsStackView.setHeight(50)
+        digitsStackView.pinTop(inputDescriptionLabel.bottomAnchor, 20)
+        digitsStackView.pinCentreX(view)
+        digitsStackView.pinLeft(view.leadingAnchor, 40)
+        digitsStackView.pinRight(view.trailingAnchor, 40)
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Если в поле уже есть текст, выделяем его весь
+        if let text = textField.text, !text.isEmpty {
+            textField.selectAll(nil)
+        }
+    }
+    // Буду писать на русском, чтобы ты точно поняла, для чего это надо
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Проверяем, что введенные данные являются цифрой + только один символ
+        guard let _ = textField.text, string.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil || string.isEmpty else {
+            return false // В противном случае не дает вводить
+        }
+        
+        if !string.isEmpty {
+            textField.text = string // Если введенное значение не nil, то записываем в ячейку
+        }
+        
+        // Если текущее значение в ячейке не nil и следующий индекс не больше количества ячеек массиве
+        // то переходим в следующее поле
+        let nextTag = textField.tag + 1
+        if !string.isEmpty, nextTag < textFields.count {
+            textFields[nextTag].becomeFirstResponder()
+        }
+        
+        // Делаем расфокус + запрос на сервер, когда все поля заполнены
+        if areAllTextFieldsFilled() {
+            let code = getCodeFromTextFields()
+            interactor.sendVerificationRequest(code)
+        } else {
+            print("Fill all fields")
+        }
+        
+        // Удаление символов
+        if string.isEmpty {
+            if textField.tag > 0 { // Если мы не в последней ячейке
+                textFields[textField.tag].text = "" // Меняем содержимое ячейки на ""
+                let prevTag = textField.tag - 1 // Находим индекс предыдущей ячейки
+                textFields[prevTag].becomeFirstResponder() // Переходим на нее
+            } else if textField.tag == 0 { // Если мы в последней ячейке
+                textFields[textField.tag].text = "" // Меняем содержимое ячейки на "", но никуда не переходим
+            }
+        }
+        
+        return false // По дефолту, не заходя ни в какие if, не даем никак редактировать ячейки
     }
     
-    private func updateAuthorizationButtonState() {
-        sendButton.isEnabled = isVerificationCodeInputValid
-        sendButton.alpha = sendButton.isEnabled ? 1.0 : 0.5
+    // Метод который проверяет что все элементы textFields не пустые
+    func areAllTextFieldsFilled() -> Bool {
+        for field in textFields {
+            if field.text?.isEmpty == true {
+                return false
+            }
+        }
+        return true
     }
     
-    @objc
-    private func sendButtonPressed() {
-        interactor.sendVerificationRequest(inputTextField.text!)
+    private func getCodeFromTextFields() -> String {
+        var code: String = ""
+        for field in textFields {
+            code.append(field.text!)
+        }
+        print(code)
+        return code
     }
     
     @objc
@@ -124,5 +214,21 @@ final class VerifyViewController: UIViewController {
 }
 
 extension VerifyViewController: UITextFieldDelegate {
-    
+
 }
+// Специальный класс, чтобы при нажатии на backspace курсор переносился на ячейку влево(если ячейка пустая)
+class MyTextField: UITextField {
+    override public func deleteBackward() {
+        super.deleteBackward()
+        if let previousTextField = getPreviousTextField() {
+            previousTextField.becomeFirstResponder()
+        }
+    }
+    
+    private func getPreviousTextField() -> UITextField? {
+        let currentTag = self.tag
+        let previousTag = currentTag - 1
+        return self.superview?.viewWithTag(previousTag) as? UITextField
+    }
+}
+
