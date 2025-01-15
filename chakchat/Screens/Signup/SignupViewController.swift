@@ -10,17 +10,9 @@ import UIKit
 final class SignupViewController: UIViewController {
     
     enum Constants {
-        static let chakchatStackViewTopAnchor: CGFloat = 20
-        
-        static let chakLabelText: String = "Chak"
-        static let chatLabelText: String = "Chat"
-        
-        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
+    
         static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
         
-        static let chakchatStackViewSpacing: CGFloat = -50
-        
-        static let inputButtonText: String = "Enter"
         static let inputButtonHeight: CGFloat = 50
         static let inputButtonWidth: CGFloat = 200
         static let inputButtonFont: UIFont = UIFont.systemFont(ofSize: 26, weight: .bold)
@@ -35,13 +27,10 @@ final class SignupViewController: UIViewController {
     
     private let interactor: SignupBusinessLogic
     
-    private lazy var chakLabel: UILabel = UILabel()
-    private lazy var chatLabel: UILabel = UILabel()
-    private lazy var chakchatStackView = UIStackView(arrangedSubviews: [chakLabel, chatLabel])
+    private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var nameTextField: UITextField = UITextField()
     private lazy var usernameTextField: UITextField = UITextField()
-    private lazy var sendButtonGradientLayer: CAGradientLayer = CAGradientLayer()
-    private lazy var sendButton: UIButton = UIButton(type: .system)
+    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
     
     private var isNameInputValid: Bool = false
     private var isUsernameInputValid: Bool = false
@@ -57,19 +46,12 @@ final class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let backButton = UIBarButtonItem()
-        navigationItem.leftBarButtonItem = backButton
+        self.navigationItem.hidesBackButton = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
         configureUI()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        // Updating the size of the gradient layer if the button has changed its size
-        sendButtonGradientLayer.frame = sendButton.bounds
     }
     
     private func configureUI() {
@@ -81,23 +63,8 @@ final class SignupViewController: UIViewController {
     }
     
     private func configureChakChatStackView() {
-        view.addSubview(chakLabel)
-        view.addSubview(chatLabel)
-        chakLabel.text = Constants.chakLabelText
-        chakLabel.textAlignment = .center
-        chakLabel.font = Constants.chakchatFont
-        chakLabel.textColor = .black
-        
-        chatLabel.text = Constants.chatLabelText
-        chatLabel.textAlignment = .center
-        chatLabel.font = Constants.chakchatFont
-        chatLabel.textColor = .black
-        
         view.addSubview(chakchatStackView)
-        chakchatStackView.axis = .vertical
-        chakchatStackView.alignment = .center
-        chakchatStackView.spacing = Constants.chakchatStackViewSpacing
-        chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.chakchatStackViewTopAnchor)
+        chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
         chakchatStackView.pinCentreX(view)
     }
     
@@ -130,26 +97,12 @@ final class SignupViewController: UIViewController {
     }
     
     private func configureInputButton() {
-        view.addSubview(sendButton)
-        sendButton.setTitle(Constants.inputButtonText, for: .normal)
-        sendButton.setTitleColor(.white, for: .normal)
-        sendButton.titleLabel?.font = Constants.inputButtonFont
-        sendButton.pinCentreX(view)
-        sendButton.pinTop(usernameTextField.bottomAnchor, Constants.inputButtonTopAnchor)
-        sendButton.setHeight(Constants.inputButtonHeight)
-        sendButton.setWidth(Constants.inputButtonWidth)
-        
-        sendButtonGradientLayer.colors = Constants.inputButtonGradientColor
-        sendButtonGradientLayer.startPoint = Constants.inputButtonGradientStartPoint
-        sendButtonGradientLayer.endPoint = Constants.inputButtonGradientEndPoint
-        sendButtonGradientLayer.cornerRadius = Constants.inputButtonGradientCornerRadius
-        
-        sendButton.layer.insertSublayer(sendButtonGradientLayer, at: 0)
-        sendButtonGradientLayer.frame = sendButton.bounds
-        
-        sendButton.layoutIfNeeded()
-        
-        sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
+        view.addSubview(sendGradientButton)
+        sendGradientButton.pinCentreX(view)
+        sendGradientButton.pinTop(usernameTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
+        sendGradientButton.setHeight(UIConstants.gradientButtonHeight)
+        sendGradientButton.setWidth(UIConstants.gradientButtonWidth)
+        sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
     internal func textFieldDidEndEditing(_ textField: UITextField) {
@@ -169,7 +122,7 @@ final class SignupViewController: UIViewController {
     }
     
     private func updateAuthorizationButtonState() {
-        sendButton.isEnabled = isNameInputValid && isUsernameInputValid
+        sendGradientButton.isEnabled = isNameInputValid && isUsernameInputValid
     }
     
     @objc
