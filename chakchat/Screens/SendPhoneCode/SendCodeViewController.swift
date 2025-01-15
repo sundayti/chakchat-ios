@@ -251,17 +251,17 @@ class PhoneNumberTextField: UITextField, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        configure()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        configure()
     }
     
-    private func setup() {
+    private func configure() {
         self.keyboardType = .numberPad
-        self.text = "+7"
+        self.text = "+7(9"
         self.delegate = self
         self.font = SendCodeViewController.Constants.inputPhoneFont
         self.addTarget(self, action: #selector(formatPhoneNumber), for: .editingChanged)
@@ -272,17 +272,16 @@ class PhoneNumberTextField: UITextField, UITextFieldDelegate {
         
         let rawNumber = text.replacingOccurrences(of: "\\D", with: "", options: .regularExpression)
         
-        guard rawNumber.hasPrefix("7") else {
-            self.text = "+7"
+        guard rawNumber.hasPrefix("79") else {
+            self.text = "+7(9"
             return
         }
 
-        var formattedNumber = "+7"
+        var formattedNumber = "+7(9"
         
-        if rawNumber.count > 1 {
-            formattedNumber += "("
-            let startIndex = rawNumber.index(rawNumber.startIndex, offsetBy: 1)
-            let endIndex = rawNumber.index(startIndex, offsetBy: min(3, rawNumber.count - 1))
+        if rawNumber.count > 2 {
+            let startIndex = rawNumber.index(rawNumber.startIndex, offsetBy: 2)
+            let endIndex = rawNumber.index(startIndex, offsetBy: min(2, rawNumber.count - 2))
             formattedNumber += rawNumber[startIndex..<endIndex]
         }
         if rawNumber.count > 4 {
@@ -309,7 +308,6 @@ class PhoneNumberTextField: UITextField, UITextFieldDelegate {
     
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        _ = textField.text ?? ""
         if range.location < 4 {
             return false
         }
