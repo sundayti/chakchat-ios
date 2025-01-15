@@ -30,7 +30,7 @@ ssl/
 # Xcode
 .DS_Store
 build/
-UI/
+Fonts/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
