@@ -48,29 +48,29 @@ extension UIView {
         trailingAnchor.constraint(equalTo: anchor, constant: -1 * const).isActive = true // trailingAnchor == rightAnchor, но он работает в отличие от rightAnchor
     }
     
-    func pinCentreX(_ other: UIView, _ const: Double = 0) {
+    func pinCenterX(_ other: UIView, _ const: Double = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: other.centerXAnchor, constant: const).isActive = true
     }
     
-    func pinCentreX(_ anchor: NSLayoutXAxisAnchor, _ const: Double = 0) {
+    func pinCenterX(_ anchor: NSLayoutXAxisAnchor, _ const: Double = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: anchor, constant: const).isActive = true
     }
     
-    func pinCentreY(_ other: UIView, _ const: Double = 0) {
+    func pinCenterY(_ other: UIView, _ const: Double = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         centerYAnchor.constraint(equalTo: other.centerYAnchor, constant: const).isActive = true
     }
     
-    func pinCentreY(_ anchor: NSLayoutYAxisAnchor, _ const: Double = 0) {
+    func pinCenterY(_ anchor: NSLayoutYAxisAnchor, _ const: Double = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         centerYAnchor.constraint(equalTo: anchor, constant: const).isActive = true
     }
     
-    func pinCentre(_ otherView: UIView) {
-        pinCentreX(otherView)
-        pinCentreY(otherView)
+    func pinCenter(_ otherView: UIView) {
+        pinCenterX(otherView)
+        pinCenterY(otherView)
     }
     
     func setHeight(_ const: Double) {

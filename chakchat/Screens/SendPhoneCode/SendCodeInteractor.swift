@@ -39,6 +39,7 @@ class SendCodeInteractor: SendCodeBusinessLogic {
                 self.presenter.showError(error)
             }
         }
+//        successTransition(AppState.signupVerifyCode)
     }
     
     func successTransition(_ state: AppState) {

@@ -10,17 +10,15 @@ import UIKit
 
 // MARK: - UIConstants
 enum UIConstants {
+    
     //MARK: - UIChakChatStackView constants
-    static let chakchatStackViewTopAnchor: CGFloat = 20
+    static let chakchatStackViewTopAnchor: CGFloat = 40
     static let chakLabelText: String = "Chak"
     static let chatLabelText: String = "Chat"
     static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
     static let chakchatStackViewSpacing: CGFloat = -50
     
     //MARK: - UIGradientButton constants
-    static let gradientButtonHeight: CGFloat = 48
-    static let gradientButtonWidth: CGFloat = 205
-    static let gradientButtonFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
     static let gradientButtonTopAnchor: CGFloat = 30
     static let gradientButtonGradientColor: [CGColor] = [
         UIColor(hex: "FF6200")?.cgColor ?? UIColor.yellow.cgColor,
@@ -28,5 +26,5 @@ enum UIConstants {
     ]
     static let gradientButtonGradientStartPoint: CGPoint = CGPoint(x: 0.0, y: 2)
     static let gradientButtonGradientEndPoint: CGPoint = CGPoint(x: -1, y: 0.5)
-    static let gradientButtonGradientCornerRadius: CGFloat = 25
+    static let gradientButtonGradientCornerRadius: CGFloat = 21
 }

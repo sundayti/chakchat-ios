@@ -44,9 +44,11 @@ class SignupInteractor: SignupBusinessLogic {
         } else {
             print("Can't find signup key in keychain storage!")
         }
+        //successTransition(AppState._default)
     }
     
+    
     func successTransition(_ state: AppState) {
-        onRouteToChatScreen?(AppState._default)
+        onRouteToChatScreen?(state)
     }
 }

@@ -12,6 +12,9 @@
 		9B1EC0702D369CBA00E01E00 /* RammettoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */; };
 		9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */; };
 		9B1EC0822D383F0B00E01E00 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */; };
+		9B1EC0842D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0832D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf */; };
+		9B1EC0862D39669F00E01E00 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0852D39669F00E01E00 /* Poppins-Regular.ttf */; };
+		9B1EC0882D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0872D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf */; };
 		AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */; };
 		AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
@@ -94,6 +97,9 @@
 		9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RammettoOne-Regular.ttf"; sourceTree = "<group>"; };
 		9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		9B1EC0832D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
+		9B1EC0852D39669F00E01E00 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		9B1EC0872D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
 		AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensService.swift; sourceTree = "<group>"; };
 		AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensServiceProtocols.swift; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
@@ -202,6 +208,9 @@
 		AA8316422D3447680029325C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				9B1EC0832D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf */,
+				9B1EC0852D39669F00E01E00 /* Poppins-Regular.ttf */,
+				9B1EC0872D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf */,
 				9B1EC06B2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf */,
 				9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */,
 				9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */,
@@ -580,11 +589,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA9B62112D2D47CE0064CB23 /* Assets.xcassets in Resources */,
+				9B1EC0882D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf in Resources */,
 				9B1EC0702D369CBA00E01E00 /* RammettoOne-Regular.ttf in Resources */,
 				AA9B62142D2D47CE0064CB23 /* Base in Resources */,
 				9B1EC06C2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf in Resources */,
 				AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */,
 				9B1EC06E2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf in Resources */,
+				9B1EC0842D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
+				9B1EC0862D39669F00E01E00 /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

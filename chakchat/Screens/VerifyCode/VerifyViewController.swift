@@ -79,7 +79,7 @@ final class VerifyViewController: UIViewController {
     // MARK: - ChakChat Configuration
     private func configureChakChatStackView() {
         view.addSubview(chakchatStackView)
-        chakchatStackView.pinCentreX(view)
+        chakchatStackView.pinCenterX(view)
         chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
     }
     
@@ -88,7 +88,7 @@ final class VerifyViewController: UIViewController {
         view.addSubview(inputHintLabel)
         inputHintLabel.text = Constants.inputHintLabelText
         inputHintLabel.font = Constants.inputHintLabelFont
-        inputHintLabel.pinCentreX(view)
+        inputHintLabel.pinCenterX(view)
         inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)
     }
     
@@ -99,7 +99,7 @@ final class VerifyViewController: UIViewController {
         inputDescriptionLabel.numberOfLines = Constants.inputDescriptionNumberOfLines
         inputDescriptionLabel.textColor = .gray
         inputDescriptionLabel.text = Constants.inputDescriptionText
-        inputDescriptionLabel.pinCentreX(view)
+        inputDescriptionLabel.pinCenterX(view)
         inputDescriptionLabel.pinTop(inputHintLabel.bottomAnchor, Constants.inputDescriptionTop)
     }
     
@@ -126,7 +126,7 @@ final class VerifyViewController: UIViewController {
         
         digitsStackView.setHeight(Constants.digitsStackViewHeight)
         digitsStackView.pinTop(inputDescriptionLabel.bottomAnchor, Constants.digitsStackViewTop)
-        digitsStackView.pinCentreX(view)
+        digitsStackView.pinCenterX(view)
         digitsStackView.pinLeft(view.leadingAnchor, Constants.digitsStackViewLeading)
         digitsStackView.pinRight(view.trailingAnchor, Constants.digitsStackViewTrailing)
     }

@@ -13,7 +13,7 @@ final class SendCodeViewController: UIViewController {
     
     // MARK: - Constants
     internal enum Constants {
-        static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
+        static let inputPhoneFont: UIFont = UIFont(name: "OpenSans-Regular", size: 28)!
         static let inputNumberLabelFontSize: CGFloat = 16
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
@@ -22,17 +22,45 @@ final class SendCodeViewController: UIViewController {
         static let inputNumberTextFieldHeight: CGFloat = 60
         static let inputNumberTextFieldWidth: CGFloat = 300
         static let inputNumberTextFieldPaddingWidth: CGFloat = 10
+        static let inputNumberTextFieldCornerRadius: CGFloat = 8
+        static let inputNumberTextFieldBorderWidth: CGFloat = 1
+        static let inputNumberPaddingX: CGFloat = 0
+        static let inputNumberPaddingY: CGFloat = 0
         
         static let descriptionLabelText: String = "by continuing, you agree to our"
+        static let descriptionLabelFontSize: CGFloat = 18
+        static let descriptionLabelTop: CGFloat = 0
+        
+        static let linksText: String = "term of service  privacy policy  content policies"
+        static let linksFontSize: CGFloat = 15
+        static let linksTextTop: CGFloat = 4
+        static let linksTextBottom: CGFloat = 0
+        
+        static let linkTermAddress: String = "terms://"
+        static let linkTermLocation: Int = 0
+        static let linkTermLenght: Int = 15
+        static let linkPrivacyAddress: String = "privacy://"
+        static let linkPrivacyLocation: Int = 17
+        static let linkPrivacyLenght: Int = 14
+        static let linkContentAddress: String = "content://"
+        static let linkContentLocation: Int = 33
+        static let linkContentLenght: Int = 16
         
         static let policyLabelFont: UIFont = UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-        static let termOfServiceLabelText: String = "temp of service"
-        static let privacyPolicyLabelText: String = "privacy policy"
-        static let contentPoliciesLabelText: String = "content policies"
         
         static let policyStackViewSpacing: CGFloat = 5
         static let policyStackViewTopAnchor: CGFloat = 5
         
+        static let inputButtonHeight: CGFloat = 48
+        static let inputButtonWidth: CGFloat = 205
+        static let inputButtonFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
+        
+        static let disclaimerLeading: CGFloat = 20
+        static let disclaimerTrailing: CGFloat = 20
+        static let disclaimerBottom: CGFloat = 10
+        
+        static let disablingCharactersAmount: Int = 4
+        static let numberKerning: CGFloat = 2
     }
     
     // MARK: - Fields
@@ -88,7 +116,7 @@ final class SendCodeViewController: UIViewController {
     private func configureChakChatStackView() {
         view.addSubview(chakchatStackView)
         chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
-        chakchatStackView.pinCentreX(view)
+        chakchatStackView.pinCenterX(view)
     }
     
     // MARK: - Input Number Text Field Configuration
@@ -99,16 +127,23 @@ final class SendCodeViewController: UIViewController {
         inputNumberTextField.pinTop(chakchatStackView.bottomAnchor, Constants.inputNumberTextFieldTopAnchor)
         inputNumberTextField.setHeight(Constants.inputNumberTextFieldHeight)
         inputNumberTextField.setWidth(Constants.inputNumberTextFieldWidth)
-        inputNumberTextField.pinCentreX(view)
+        inputNumberTextField.pinCenterX(view)
         
         inputNumberTextField.borderStyle = .none
-        inputNumberTextField.layer.cornerRadius = 8
-        inputNumberTextField.layer.borderWidth = 1
+        inputNumberTextField.layer.cornerRadius = Constants.inputNumberTextFieldCornerRadius
+        inputNumberTextField.layer.borderWidth = Constants.inputNumberTextFieldBorderWidth
         inputNumberTextField.layer.borderColor = inputFieldColor.cgColor
         
         inputNumberTextField.keyboardType = .numberPad
         inputNumberTextField.borderStyle = .roundedRect
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: Constants.inputNumberTextFieldPaddingWidth, height: inputNumberTextField.frame.height))
+        let paddingView = UIView(
+            frame: CGRect(
+                x: Constants.inputNumberPaddingX,
+                y: Constants.inputNumberPaddingY,
+                width: Constants.inputNumberTextFieldPaddingWidth,
+                height: inputNumberTextField.frame.height
+            )
+        )
         inputNumberTextField.leftView = paddingView
         inputNumberTextField.leftViewMode = .always
         inputNumberTextField.delegate = self
@@ -117,10 +152,11 @@ final class SendCodeViewController: UIViewController {
     // MARK: - Input Button Configuration
     private func configureInputButton() {
         view.addSubview(sendGradientButton)
-        sendGradientButton.pinCentreX(view)
+        sendGradientButton.pinCenterX(view)
         sendGradientButton.pinTop(inputNumberTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
-        sendGradientButton.setHeight(UIConstants.gradientButtonHeight)
-        sendGradientButton.setWidth(UIConstants.gradientButtonWidth)
+        sendGradientButton.setHeight(Constants.inputButtonHeight)
+        sendGradientButton.setWidth(Constants.inputButtonWidth)
+        sendGradientButton.titleLabel?.font = Constants.inputButtonFont
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
         
@@ -131,24 +167,42 @@ final class SendCodeViewController: UIViewController {
         
         descriptionLabel.text = Constants.descriptionLabelText
         descriptionLabel.textColor = .black
-        descriptionLabel.font = UIFont.systemFont(ofSize: 18)
+        descriptionLabel.font = UIFont.systemFont(ofSize: Constants.descriptionLabelFontSize)
 
         linksTextView.isEditable = false
         linksTextView.isScrollEnabled = false
         linksTextView.backgroundColor = .clear
         
         let attributedString = NSMutableAttributedString(
-            string: "term of service  privacy policy  content policies",
+            string: Constants.linksText,
             attributes: [
-                .font: UIFont.systemFont(ofSize: 15),
+                .font: UIFont.systemFont(ofSize: Constants.linksFontSize),
                 .foregroundColor: UIColor.gray,
             ]
         )
         
         // in value property we have to put link
-        attributedString.addAttribute(.link, value: "terms://", range: NSRange(location: 0, length: 15))
-        attributedString.addAttribute(.link, value: "privacy://", range: NSRange(location: 17, length: 14))
-        attributedString.addAttribute(.link, value: "content://", range: NSRange(location: 33, length: 16))
+        attributedString.addAttribute(.link,
+                value: Constants.linkTermAddress,
+                range: NSRange(
+                    location: Constants.linkTermLocation,
+                    length: Constants.linkTermLenght
+                )
+            )
+        attributedString.addAttribute(.link,
+                value: Constants.linkPrivacyAddress,
+                range: NSRange(
+                    location: Constants.linkPrivacyLocation,
+                    length: Constants.linkPrivacyLenght
+                )
+            )
+        attributedString.addAttribute(.link,
+                value: Constants.linkContentAddress,
+                range: NSRange(
+                    location: Constants.linkContentLocation,
+                    length: Constants.linkContentLenght
+                )
+            )
         
         linksTextView.attributedText = attributedString
         linksTextView.linkTextAttributes = [
@@ -158,16 +212,16 @@ final class SendCodeViewController: UIViewController {
         linksTextView.translatesAutoresizingMaskIntoConstraints = false
         disclaimerView.addSubview(linksTextView)
         
-        disclaimerView.pinLeft(view.leadingAnchor, 20)
-        disclaimerView.pinRight(view.trailingAnchor, 20)
-        disclaimerView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 10)
+        disclaimerView.pinLeft(view.leadingAnchor, Constants.disclaimerLeading)
+        disclaimerView.pinRight(view.trailingAnchor, Constants.disclaimerTrailing)
+        disclaimerView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.disclaimerBottom)
         
-        descriptionLabel.pinTop(disclaimerView.topAnchor, 0)
-        descriptionLabel.pinCentreX(disclaimerView)
+        descriptionLabel.pinTop(disclaimerView.topAnchor, Constants.descriptionLabelTop)
+        descriptionLabel.pinCenterX(disclaimerView)
         
-        linksTextView.pinTop(descriptionLabel.bottomAnchor, 4)
-        linksTextView.pinCentreX(disclaimerView)
-        linksTextView.pinBottom(disclaimerView.bottomAnchor, 0)
+        linksTextView.pinTop(descriptionLabel.bottomAnchor, Constants.linksTextTop)
+        linksTextView.pinCenterX(disclaimerView)
+        linksTextView.pinBottom(disclaimerView.bottomAnchor, Constants.linksTextBottom)
     }
 
     // MARK: - TextField Handling
@@ -226,9 +280,15 @@ class PhoneNumberTextField: UITextField, UITextFieldDelegate {
     // MARK: - Configuration
     private func configure() {
         self.keyboardType = .numberPad
-        self.text = "+7(9"
         self.delegate = self
         self.font = SendCodeViewController.Constants.inputPhoneFont
+
+        let text = "+7(9"
+        let attributedString = NSMutableAttributedString(string: text)
+        let kerning: CGFloat = SendCodeViewController.Constants.numberKerning
+        attributedString.addAttribute(.kern, value: kerning, range: NSRange(location: 0, length: text.count))
+        self.attributedText = attributedString
+
         self.addTarget(self, action: #selector(formatPhoneNumber), for: .editingChanged)
     }
     

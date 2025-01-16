@@ -55,6 +55,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 }
             }
         }
+//        routeToSignupScreen(AppState.signup)
     }
     
     func routeToSignupScreen(_ state: AppState) {

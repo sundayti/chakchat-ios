@@ -27,7 +27,6 @@ final class UIGradientButton: UIButton {
         setTitle(title, for: .normal)
         setTitleColor(.white, for: .normal)
         layer.cornerRadius = UIConstants.gradientButtonGradientCornerRadius
-        titleLabel?.font = UIConstants.gradientButtonFont
         
         if let gradientLayer = buttonGradientLayer {
             layer.insertSublayer(gradientLayer, at: 0)
