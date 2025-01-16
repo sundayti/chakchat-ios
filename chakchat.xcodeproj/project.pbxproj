@@ -11,6 +11,7 @@
 		9B1EC06E2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */; };
 		9B1EC0702D369CBA00E01E00 /* RammettoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */; };
 		9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */; };
+		9B1EC0822D383F0B00E01E00 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */; };
 		AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */; };
 		AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
@@ -73,6 +74,7 @@
 		9B1EC06D2D369C6000E01E00 /* RobotoMono-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		9B1EC06F2D369CBA00E01E00 /* RammettoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RammettoOne-Regular.ttf"; sourceTree = "<group>"; };
 		9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
+		9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensService.swift; sourceTree = "<group>"; };
 		AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensServiceProtocols.swift; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */,
+				9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				AA9B625F2D2FC6FD0064CB23 /* VerificationService.swift in Sources */,
 				AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */,
 				AA9B62342D2D71A30064CB23 /* PhoneValidator.swift in Sources */,
+				9B1EC0822D383F0B00E01E00 /* UIColor+Hex.swift in Sources */,
 				AA9B62692D2FD2390064CB23 /* SignupInteractor.swift in Sources */,
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
 				AA9B628F2D3152570064CB23 /* Sender.swift in Sources */,
