@@ -18,6 +18,11 @@
 		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
 		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
 		AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC622D382057007DEC76 /* UIGradientButton.swift */; };
+		AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC652D392CEB007DEC76 /* MockSendCodeWorker.swift */; };
+		AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC6B2D39329F007DEC76 /* MockSender.swift */; };
+		AA92EC6F2D3932D6007DEC76 /* SenderProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC6E2D3932D6007DEC76 /* SenderProtocols.swift */; };
+		AA92EC792D3937C9007DEC76 /* chakchatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC782D3937C9007DEC76 /* chakchatTests.swift */; };
+		AA92EC852D3938EA007DEC76 /* SendCodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC842D3938EA007DEC76 /* SendCodeIntegrationTests.swift */; };
 		AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */; };
 		AA9B620A2D2D47CB0064CB23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62092D2D47CB0064CB23 /* SceneDelegate.swift */; };
 		AA9B62112D2D47CE0064CB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA9B62102D2D47CE0064CB23 /* Assets.xcassets */; };
@@ -67,7 +72,21 @@
 		AA9B62982D3163CA0064CB23 /* SigninEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62972D3163CA0064CB23 /* SigninEndpoints.swift */; };
 		AA9B62A12D32DFC60064CB23 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62A02D32DFC60064CB23 /* StateMachine.swift */; };
 		AA9B62A32D33D6B50064CB23 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62A22D33D6B50064CB23 /* ErrorHandler.swift */; };
+		AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3DC2D393A9A00B9D50E /* MockSendCodeService.swift */; };
+		AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3DE2D393C0F00B9D50E /* MockSendCodePresenter.swift */; };
+		AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */; };
+		AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA92EC7A2D3937C9007DEC76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA9B61FC2D2D47CB0064CB23 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA9B62032D2D47CB0064CB23;
+			remoteInfo = chakchat;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9B1EC06B2D369C5F00E01E00 /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
@@ -81,6 +100,12 @@
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
+		AA92EC652D392CEB007DEC76 /* MockSendCodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSendCodeWorker.swift; sourceTree = "<group>"; };
+		AA92EC6B2D39329F007DEC76 /* MockSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSender.swift; sourceTree = "<group>"; };
+		AA92EC6E2D3932D6007DEC76 /* SenderProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderProtocols.swift; sourceTree = "<group>"; };
+		AA92EC762D3937C9007DEC76 /* chakchatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chakchatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA92EC782D3937C9007DEC76 /* chakchatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chakchatTests.swift; sourceTree = "<group>"; };
+		AA92EC842D3938EA007DEC76 /* SendCodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeIntegrationTests.swift; sourceTree = "<group>"; };
 		AA9B62042D2D47CB0064CB23 /* chakchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chakchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA9B62092D2D47CB0064CB23 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,9 +157,20 @@
 		AA9B62972D3163CA0064CB23 /* SigninEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEndpoints.swift; sourceTree = "<group>"; };
 		AA9B62A02D32DFC60064CB23 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		AA9B62A22D33D6B50064CB23 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		AAA5F3DC2D393A9A00B9D50E /* MockSendCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSendCodeService.swift; sourceTree = "<group>"; };
+		AAA5F3DE2D393C0F00B9D50E /* MockSendCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSendCodePresenter.swift; sourceTree = "<group>"; };
+		AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerProtocols.swift; sourceTree = "<group>"; };
+		AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockErrorHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA92EC732D3937C9007DEC76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA9B62012D2D47CB0064CB23 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -183,10 +219,48 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
+		AA92EC642D392CD7007DEC76 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AA92EC6B2D39329F007DEC76 /* MockSender.swift */,
+				AAA5F3DC2D393A9A00B9D50E /* MockSendCodeService.swift */,
+				AA92EC652D392CEB007DEC76 /* MockSendCodeWorker.swift */,
+				AAA5F3DE2D393C0F00B9D50E /* MockSendCodePresenter.swift */,
+				AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		AA92EC6A2D393250007DEC76 /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA92EC842D3938EA007DEC76 /* SendCodeIntegrationTests.swift */,
+			);
+			path = IntegrationTests;
+			sourceTree = "<group>";
+		};
+		AA92EC6D2D3932C8007DEC76 /* Sender */ = {
+			isa = PBXGroup;
+			children = (
+				AA9B628E2D3152570064CB23 /* Sender.swift */,
+				AA92EC6E2D3932D6007DEC76 /* SenderProtocols.swift */,
+			);
+			path = Sender;
+			sourceTree = "<group>";
+		};
+		AA92EC772D3937C9007DEC76 /* chakchatTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA92EC782D3937C9007DEC76 /* chakchatTests.swift */,
+			);
+			path = chakchatTests;
+			sourceTree = "<group>";
+		};
 		AA9B61FB2D2D47CB0064CB23 = {
 			isa = PBXGroup;
 			children = (
 				AA9B62062D2D47CB0064CB23 /* chakchat */,
+				AA92EC772D3937C9007DEC76 /* chakchatTests */,
 				AA9B62052D2D47CB0064CB23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -195,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				AA9B62042D2D47CB0064CB23 /* chakchat.app */,
+				AA92EC762D3937C9007DEC76 /* chakchatTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,6 +277,8 @@
 		AA9B62062D2D47CB0064CB23 /* chakchat */ = {
 			isa = PBXGroup;
 			children = (
+				AA92EC6A2D393250007DEC76 /* IntegrationTests */,
+				AA92EC642D392CD7007DEC76 /* Mocks */,
 				AA9B62812D302EFF0064CB23 /* Application */,
 				AA9B627E2D3018B00064CB23 /* Contexts */,
 				AA9B625C2D2FC5410064CB23 /* Common */,
@@ -311,11 +388,11 @@
 		AA9B62542D2EDF700064CB23 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				AAA5F3E02D39560900B9D50E /* ErrorHandler */,
+				AA92EC6D2D3932C8007DEC76 /* Sender */,
 				AA9B62622D2FCA830064CB23 /* Endpoints */,
 				AA9B62552D2EDF810064CB23 /* ResponseModels */,
 				AA9B628C2D3149B60064CB23 /* ApiErrorTypes.swift */,
-				AA9B628E2D3152570064CB23 /* Sender.swift */,
-				AA9B62A22D33D6B50064CB23 /* ErrorHandler.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -405,9 +482,36 @@
 			path = SignupService;
 			sourceTree = "<group>";
 		};
+		AAA5F3E02D39560900B9D50E /* ErrorHandler */ = {
+			isa = PBXGroup;
+			children = (
+				AA9B62A22D33D6B50064CB23 /* ErrorHandler.swift */,
+				AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */,
+			);
+			path = ErrorHandler;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AA92EC752D3937C9007DEC76 /* chakchatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA92EC7C2D3937C9007DEC76 /* Build configuration list for PBXNativeTarget "chakchatTests" */;
+			buildPhases = (
+				AA92EC722D3937C9007DEC76 /* Sources */,
+				AA92EC732D3937C9007DEC76 /* Frameworks */,
+				AA92EC742D3937C9007DEC76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA92EC7B2D3937C9007DEC76 /* PBXTargetDependency */,
+			);
+			name = chakchatTests;
+			productName = chakchatTests;
+			productReference = AA92EC762D3937C9007DEC76 /* chakchatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AA9B62032D2D47CB0064CB23 /* chakchat */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA9B62182D2D47CE0064CB23 /* Build configuration list for PBXNativeTarget "chakchat" */;
@@ -435,6 +539,10 @@
 				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
+					AA92EC752D3937C9007DEC76 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = AA9B62032D2D47CB0064CB23;
+					};
 					AA9B62032D2D47CB0064CB23 = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -454,11 +562,19 @@
 			projectRoot = "";
 			targets = (
 				AA9B62032D2D47CB0064CB23 /* chakchat */,
+				AA92EC752D3937C9007DEC76 /* chakchatTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA92EC742D3937C9007DEC76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA9B62022D2D47CB0064CB23 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -475,15 +591,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AA92EC722D3937C9007DEC76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA92EC792D3937C9007DEC76 /* chakchatTests.swift in Sources */,
+				AA92EC852D3938EA007DEC76 /* SendCodeIntegrationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA9B62002D2D47CB0064CB23 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				AA9B625F2D2FC6FD0064CB23 /* VerificationService.swift in Sources */,
 				AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */,
+				AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */,
 				AA9B62342D2D71A30064CB23 /* PhoneValidator.swift in Sources */,
 				9B1EC0822D383F0B00E01E00 /* UIColor+Hex.swift in Sources */,
 				AA9B62692D2FD2390064CB23 /* SignupInteractor.swift in Sources */,
+				AA92EC6F2D3932D6007DEC76 /* SenderProtocols.swift in Sources */,
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
 				AA9B628F2D3152570064CB23 /* Sender.swift in Sources */,
 				AA9B623E2D2D75890064CB23 /* SendCodeService.swift in Sources */,
@@ -492,14 +619,18 @@
 				AA9B626F2D2FD2660064CB23 /* SignupModels.swift in Sources */,
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
+				AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */,
 				AA9B622B2D2D6CA40064CB23 /* SendCodeViewController.swift in Sources */,
+				AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
 				AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */,
 				AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */,
+				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
 				AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */,
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
+				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
 				AA9B627D2D300DEE0064CB23 /* SignupDataValidator.swift in Sources */,
 				AA9B62522D2EC7DC0064CB23 /* VerifyProtocols.swift in Sources */,
 				9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */,
@@ -518,6 +649,7 @@
 				AA9B626B2D2FD2470064CB23 /* SignupPresenter.swift in Sources */,
 				AA9B62362D2D72E30064CB23 /* SendCodeWorker.swift in Sources */,
 				AA9B620A2D2D47CB0064CB23 /* SceneDelegate.swift in Sources */,
+				AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */,
 				AA9B62572D2EDF900064CB23 /* SuccessModels.swift in Sources */,
 				AA9B62322D2D71670064CB23 /* ValidatorsProtocols.swift in Sources */,
 				AA9B62202D2D5F790064CB23 /* StartViewController.swift in Sources */,
@@ -538,6 +670,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AA92EC7B2D3937C9007DEC76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA9B62032D2D47CB0064CB23 /* chakchat */;
+			targetProxy = AA92EC7A2D3937C9007DEC76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		AA9B62122D2D47CE0064CB23 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -550,6 +690,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AA92EC7D2D3937C9007DEC76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XQ5MGT6276;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mrdr.chakchatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chakchat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/chakchat";
+			};
+			name = Debug;
+		};
+		AA92EC7E2D3937C9007DEC76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XQ5MGT6276;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mrdr.chakchatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chakchat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/chakchat";
+			};
+			name = Release;
+		};
 		AA9B62162D2D47CE0064CB23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -726,6 +904,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA92EC7C2D3937C9007DEC76 /* Build configuration list for PBXNativeTarget "chakchatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA92EC7D2D3937C9007DEC76 /* Debug */,
+				AA92EC7E2D3937C9007DEC76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AA9B61FF2D2D47CB0064CB23 /* Build configuration list for PBXProject "chakchat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
