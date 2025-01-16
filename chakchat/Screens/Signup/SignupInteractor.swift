@@ -11,14 +11,20 @@ class SignupInteractor: SignupBusinessLogic {
 
     private let presenter: SignupPresentationLogic
     private let worker: SignupWorkerLogic
+    private let errorHandler: ErrorHandlerLogic
     private let state: AppState
     
     var onRouteToChatScreen: ((AppState) -> Void)?
     
-    init(presenter: SignupPresentationLogic, worker: SignupWorkerLogic, state: AppState) {
+    init(presenter: SignupPresentationLogic,
+         worker: SignupWorkerLogic,
+         state: AppState,
+         errorHandler: ErrorHandlerLogic) {
+        
         self.presenter = presenter
         self.worker = worker
         self.state = state
+        self.errorHandler = errorHandler
     }
     
     func sendSignupRequest(_ name: String, _ username: String) {
@@ -31,7 +37,7 @@ class SignupInteractor: SignupBusinessLogic {
                 case .success(let state):
                     self.successTransition(state)
                 case .failure(let error):
-                    ErrorHandler.handleError(error)
+                    self.errorHandler.handleError(error)
                     self.presenter.showError(error)
                 }
             }
