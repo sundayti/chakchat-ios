@@ -103,6 +103,7 @@ final class SendCodeViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
+        overrideUserInterfaceStyle = .light
         
         self.navigationItem.hidesBackButton = true
         

@@ -76,6 +76,7 @@ final class SignupViewController: UIViewController {
         self.navigationItem.hidesBackButton = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
+        overrideUserInterfaceStyle = .light
         view.addGestureRecognizer(tapGesture)
         
         configureUI()

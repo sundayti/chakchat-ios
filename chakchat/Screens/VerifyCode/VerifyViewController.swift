@@ -57,6 +57,7 @@ final class VerifyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
         let backButton = UIBarButtonItem(image: UIImage(systemName: Constants.backButtonName), style: .plain, target: self, action: #selector(backButtonPressed))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
