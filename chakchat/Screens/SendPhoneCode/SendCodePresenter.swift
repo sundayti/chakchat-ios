@@ -38,5 +38,4 @@ class SendCodePresenter: SendCodePresentationLogic {
 
         return "Unknown error. Please send us an email with the error details to chakkchatt@yandex.ru"
     }
-
 }
