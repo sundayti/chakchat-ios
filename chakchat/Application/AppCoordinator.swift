@@ -16,7 +16,7 @@ final class AppCoordinator {
     init(window: UIWindow) {
         self.window = window
         self.navigationController = UINavigationController()
-        self.signupContext = SignupContext(keychainManager: KeychainManager(), state: AppState._default)
+        self.signupContext = SignupContext(keychainManager: KeychainManager(), state: AppState._default, errorHandler: ErrorHandler())
     }
 
     func start() {
