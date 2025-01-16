@@ -7,10 +7,12 @@
 
 import Foundation
 import UIKit
+
+// MARK: - SignupViewController
 final class SignupViewController: UIViewController {
     
-    enum Constants {
-    
+    // MARK: - Constants
+    private enum Constants {
         static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
         
         static let inputButtonHeight: CGFloat = 50
@@ -23,18 +25,43 @@ final class SignupViewController: UIViewController {
         static let inputButtonGradientEndPoint: CGPoint = CGPoint(x: 1, y: 0.5)
         static let inputButtonGradientCornerRadius: CGFloat = 25
         
+        static let nameTextFieldPlaceholder: String = "Name"
+        static let namePaddingX: CGFloat = 0
+        static let namePaddingY: CGFloat = 0
+        static let namePaddingWidth: CGFloat = 10
+        static let nameTextFieldTop: CGFloat = 40
+        static let nameTextFieldHeight: CGFloat = 50
+        static let nameTextFieldWidth: CGFloat = 300
+        
+        static let borderCornerRadius: CGFloat = 8
+        static let borderWidth: CGFloat = 1
+        
+        static let usernameTextFieldPlaceholder: String = "Username"
+        static let usernamePaddingX: CGFloat = 0
+        static let usernamePaddingY: CGFloat = 0
+        static let usernamePaddingWidth: CGFloat = 10
+        static let usernameTextFieldTop: CGFloat = 20
+        static let usernameTextFieldHeight: CGFloat = 50
+        static let usernameTextFieldWidth: CGFloat = 300
+        
+        static let createButtonHeight: CGFloat = 38
+        static let createButtonWidth: CGFloat = 228
+        static let createButtonFont: UIFont = UIFont.systemFont(ofSize: 20, weight: .bold)
     }
     
+    // MARK: - Fields
     private let interactor: SignupBusinessLogic
     
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var nameTextField: UITextField = UITextField()
     private lazy var usernameTextField: UITextField = UITextField()
-    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
+    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Create account")
+    private lazy var borderColor: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
     
     private var isNameInputValid: Bool = false
     private var isUsernameInputValid: Bool = false
     
+    // MARK: - Lifecycle
     init(interactor: SignupBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -54,6 +81,7 @@ final class SignupViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         configureChakChatStackView()
@@ -62,49 +90,79 @@ final class SignupViewController: UIViewController {
         configureInputButton()
     }
     
+    // MARK: - ChakChat Configuration
     private func configureChakChatStackView() {
         view.addSubview(chakchatStackView)
         chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
-        chakchatStackView.pinCentreX(view)
+        chakchatStackView.pinCenterX(view)
     }
     
+    // MARK: - Name Text Field Configuration
     private func configureNameTextField() {
         view.addSubview(nameTextField)
         nameTextField.borderStyle = UITextField.BorderStyle.roundedRect
-        nameTextField.placeholder = "Name"
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameTextField.frame.height))
+        nameTextField.placeholder = Constants.nameTextFieldPlaceholder
+        let paddingView = UIView(
+            frame: CGRect(
+                x: Constants.namePaddingX,
+                y: Constants.namePaddingY,
+                width: Constants.namePaddingWidth,
+                height: nameTextField.frame.height
+            )
+        )
+        nameTextField.borderStyle = .none
+        nameTextField.layer.cornerRadius = Constants.borderCornerRadius
+        nameTextField.layer.borderWidth = Constants.borderWidth
+        nameTextField.layer.borderColor = borderColor.cgColor
+        
         nameTextField.leftView = paddingView
         nameTextField.leftViewMode = .always
         nameTextField.delegate = self
-        nameTextField.pinTop(chakchatStackView.bottomAnchor, 40)
-        nameTextField.pinCentreX(view)
-        nameTextField.setHeight(50)
-        nameTextField.setWidth(300)
+        nameTextField.pinTop(chakchatStackView.bottomAnchor, Constants.nameTextFieldTop)
+        nameTextField.pinCenterX(view)
+        nameTextField.setHeight(Constants.nameTextFieldHeight)
+        nameTextField.setWidth(Constants.nameTextFieldWidth)
     }
     
+    // MARK: - Username Text Field Configuration
     private func configureUsernameTextField() {
         view.addSubview(usernameTextField)
         usernameTextField.borderStyle = UITextField.BorderStyle.roundedRect
-        usernameTextField.placeholder = "Username"
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: usernameTextField.frame.height))
+        usernameTextField.placeholder = Constants.usernameTextFieldPlaceholder
+        let paddingView = UIView(
+            frame: CGRect(
+                x: Constants.usernamePaddingX,
+                y: Constants.usernamePaddingY,
+                width: Constants.usernamePaddingWidth,
+                height: usernameTextField.frame.height
+            )
+        )
+        usernameTextField.borderStyle = .none
+        usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
+        usernameTextField.layer.borderWidth = Constants.borderWidth
+        usernameTextField.layer.borderColor = borderColor.cgColor
+        
         usernameTextField.leftView = paddingView
         usernameTextField.leftViewMode = .always
         usernameTextField.delegate = self
-        usernameTextField.pinTop(nameTextField.bottomAnchor, 20)
-        usernameTextField.pinCentreX(view)
-        usernameTextField.setHeight(50)
-        usernameTextField.setWidth(300)
+        usernameTextField.pinTop(nameTextField.bottomAnchor, Constants.usernameTextFieldTop)
+        usernameTextField.pinCenterX(view)
+        usernameTextField.setHeight(Constants.usernameTextFieldHeight)
+        usernameTextField.setWidth(Constants.usernameTextFieldWidth)
     }
     
+    // MARK: - Input Button Configuration
     private func configureInputButton() {
         view.addSubview(sendGradientButton)
-        sendGradientButton.pinCentreX(view)
+        sendGradientButton.pinCenterX(view)
         sendGradientButton.pinTop(usernameTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
-        sendGradientButton.setHeight(UIConstants.gradientButtonHeight)
-        sendGradientButton.setWidth(UIConstants.gradientButtonWidth)
+        sendGradientButton.setHeight(Constants.createButtonHeight)
+        sendGradientButton.setWidth(Constants.createButtonWidth)
+        sendGradientButton.titleLabel?.font = Constants.createButtonFont
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
+    // MARK: - TextField Delegate Methods
     internal func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         
@@ -125,6 +183,7 @@ final class SignupViewController: UIViewController {
         sendGradientButton.isEnabled = isNameInputValid && isUsernameInputValid
     }
     
+    // MARK: - Actions
     @objc
     private func dismissKeyboard() {
         view.endEditing(true)
@@ -136,6 +195,5 @@ final class SignupViewController: UIViewController {
     }
 }
 
-extension SignupViewController: UITextFieldDelegate {
-    
-}
+// MARK: - UITextFieldDelegate
+extension SignupViewController: UITextFieldDelegate {}

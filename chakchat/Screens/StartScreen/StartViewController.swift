@@ -88,7 +88,7 @@ final class StartViewController: UIViewController {
         chakchatStackView.axis = .vertical
         chakchatStackView.alignment = .center
         chakchatStackView.spacing = Constants.chakchatStackViewSpacing
-        chakchatStackView.pinCentre(view)
+        chakchatStackView.pinCenter(view)
     }
     
     // MARK: - Tap Label Configuration
@@ -98,7 +98,7 @@ final class StartViewController: UIViewController {
         tapLabel.textAlignment = .center
         tapLabel.font = Constants.tapFont
         tapLabel.textColor = .black
-        tapLabel.pinCentreX(view)
+        tapLabel.pinCenterX(view)
         tapLabel.pinBottom(view, Constants.tapLabelButtom)
     }
     
