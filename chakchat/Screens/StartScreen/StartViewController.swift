@@ -23,6 +23,7 @@ final class StartViewController: UIViewController {
         static let gradientLocation: [NSNumber] = [0.0, 0.5, 1.0]
         static let gradientStartPoint: CGPoint = CGPoint(x: 0.5, y: 0.0)
         static let gradientEndPoint: CGPoint = CGPoint(x: 0.5, y: 1.0)
+        static let gradientSublayerAt: UInt32 = 0
     }
     
     // MARK: - Properties
@@ -67,7 +68,7 @@ final class StartViewController: UIViewController {
         gradientBackgroundLayer.startPoint = Constants.gradientStartPoint
         gradientBackgroundLayer.endPoint = Constants.gradientEndPoint
         gradientBackgroundLayer.frame = view.bounds
-        view.layer.insertSublayer(gradientBackgroundLayer, at: 0)
+        view.layer.insertSublayer(gradientBackgroundLayer, at: Constants.gradientSublayerAt)
     }
     
     // MARK: - ChakChat Label Configuration

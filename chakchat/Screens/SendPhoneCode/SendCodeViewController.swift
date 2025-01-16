@@ -13,7 +13,7 @@ final class SendCodeViewController: UIViewController {
     
     // MARK: - Constants
     internal enum Constants {
-        static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
+        static let inputPhoneFont: UIFont = UIFont(name: "OpenSans-Regular", size: 28)!
         static let inputNumberLabelFontSize: CGFloat = 16
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
@@ -60,6 +60,7 @@ final class SendCodeViewController: UIViewController {
         static let disclaimerBottom: CGFloat = 10
         
         static let disablingCharactersAmount: Int = 4
+        static let numberKerning: CGFloat = 2
     }
     
     // MARK: - Fields
@@ -279,9 +280,15 @@ class PhoneNumberTextField: UITextField, UITextFieldDelegate {
     // MARK: - Configuration
     private func configure() {
         self.keyboardType = .numberPad
-        self.text = "+7(9"
         self.delegate = self
         self.font = SendCodeViewController.Constants.inputPhoneFont
+
+        let text = "+7(9"
+        let attributedString = NSMutableAttributedString(string: text)
+        let kerning: CGFloat = SendCodeViewController.Constants.numberKerning
+        attributedString.addAttribute(.kern, value: kerning, range: NSRange(location: 0, length: text.count))
+        self.attributedText = attributedString
+
         self.addTarget(self, action: #selector(formatPhoneNumber), for: .editingChanged)
     }
     

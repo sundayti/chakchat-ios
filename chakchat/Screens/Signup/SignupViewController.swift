@@ -13,7 +13,7 @@ final class SignupViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
+        static let nameFont: UIFont = UIFont(name: "Inter-Regular", size: 20)!
         
         static let inputButtonHeight: CGFloat = 50
         static let inputButtonWidth: CGFloat = 200
@@ -110,6 +110,7 @@ final class SignupViewController: UIViewController {
                 height: nameTextField.frame.height
             )
         )
+        nameTextField.font = Constants.nameFont
         nameTextField.borderStyle = .none
         nameTextField.layer.cornerRadius = Constants.borderCornerRadius
         nameTextField.layer.borderWidth = Constants.borderWidth
@@ -137,6 +138,7 @@ final class SignupViewController: UIViewController {
                 height: usernameTextField.frame.height
             )
         )
+        usernameTextField.font = Constants.nameFont
         usernameTextField.borderStyle = .none
         usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
         usernameTextField.layer.borderWidth = Constants.borderWidth

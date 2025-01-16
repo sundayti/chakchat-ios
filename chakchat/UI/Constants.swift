@@ -10,8 +10,9 @@ import UIKit
 
 // MARK: - UIConstants
 enum UIConstants {
+    
     //MARK: - UIChakChatStackView constants
-    static let chakchatStackViewTopAnchor: CGFloat = 20
+    static let chakchatStackViewTopAnchor: CGFloat = 40
     static let chakLabelText: String = "Chak"
     static let chatLabelText: String = "Chat"
     static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
