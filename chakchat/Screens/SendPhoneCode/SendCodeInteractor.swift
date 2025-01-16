@@ -11,14 +11,20 @@ class SendCodeInteractor: SendCodeBusinessLogic {
 
     private var presenter: SendCodePresentationLogic
     private var worker: SendCodeWorkerLogic
+    private var errorHandler: ErrorHandlerLogic
     private var state: AppState
     
     var onRouteToVerifyScreen: ((AppState) -> Void)?
     
-    init(presenter: SendCodePresentationLogic, worker: SendCodeWorkerLogic, state: AppState) {
+    init(presenter: SendCodePresentationLogic, 
+         worker: SendCodeWorkerLogic,
+         state: AppState,
+         errorHandler: ErrorHandlerLogic) {
+        
         self.presenter = presenter
         self.worker = worker
         self.state = state
+        self.errorHandler = errorHandler
     }
     
     func sendCodeRequest(_ request: SendCodeModels.SendCodeRequest) {
@@ -29,7 +35,7 @@ class SendCodeInteractor: SendCodeBusinessLogic {
             case .success(let state):
                 self.successTransition(state)
             case .failure(let error):
-                ErrorHandler.handleError(error)
+                self.errorHandler.handleError(error)
                 self.presenter.showError(error)
             }
         }
