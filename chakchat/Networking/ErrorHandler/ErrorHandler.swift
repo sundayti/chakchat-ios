@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-final class ErrorHandler {
-    static func handleError(_ error: Error) {
+final class ErrorHandler: ErrorHandlerLogic {
+    func handleError(_ error: Error) {
         if error is Keychain.KeychainError {
             guard let keychainError = error as? Keychain.KeychainError else {
                 print("Error: Cant handle keychain error")
@@ -35,7 +35,7 @@ final class ErrorHandler {
         }
     }
     
-    static private func handleKeychainError(_ keychainError: Keychain.KeychainError) {
+    private func handleKeychainError(_ keychainError: Keychain.KeychainError) {
         switch keychainError {
         case Keychain.KeychainError.saveError:
             print("Error: Saving in keychain storage error")
@@ -48,7 +48,7 @@ final class ErrorHandler {
         }
     }
     
-    static private func handleApiError(_ apiError: APIError) {
+    private func handleApiError(_ apiError: APIError) {
         switch apiError {
         case .invalidURL:
             print("Error: The URL is invalid.")
@@ -73,7 +73,7 @@ final class ErrorHandler {
         }
     }
 
-    static private func handleApiResponseError(_ apiResponseError: APIErrorResponse) {
+    private func handleApiResponseError(_ apiResponseError: APIErrorResponse) {
         switch apiResponseError.errorType {
         case ApiErrorType.internalError.rawValue:
             print("Error: Internal server error.")

@@ -16,7 +16,12 @@ enum SendCodeAssembly {
         
         let worker = SendCodeWorker(sendCodeService: sendCodeService, keychainManager: context.keychainManager)
         
-        let interactor = SendCodeInteractor(presenter: presenter, worker: worker, state: context.state)
+        let interactor = SendCodeInteractor(presenter: presenter, 
+                                            worker: worker, 
+                                            state: context.state,
+                                            errorHandler: context.errorHandler
+        )
+        
         let view = SendCodeViewController(interactor: interactor)
         presenter.view = view
         

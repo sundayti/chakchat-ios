@@ -11,15 +11,20 @@ final class VerifyInteractor: VerifyBusinessLogic {
     
     private var presentor: VerifyPresentationLogic
     private var worker: VerifyWorkerLogic
+    private var errorHandler: ErrorHandlerLogic
     var state: AppState
     
     var onRouteToSignupScreen: ((AppState) -> Void)?
     var onRouteToChatScreen: ((AppState) -> Void)?
     var onRouteToSendCodeScreen: ((AppState) -> Void)?
     
-    init(presentor: VerifyPresentationLogic, worker: VerifyWorkerLogic, state: AppState) {
+    init(presentor: VerifyPresentationLogic,
+         worker: VerifyWorkerLogic,
+         errorHandler: ErrorHandlerLogic,
+         state: AppState) {
         self.presentor = presentor
         self.worker = worker
+        self.errorHandler = errorHandler
         self.state = state
     }
     
@@ -33,7 +38,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 case .success(let state):
                     self.routeToChatScreen(state)
                 case .failure(let error):
-                    ErrorHandler.handleError(error)
+                    self.errorHandler.handleError(error)
                     self.presentor.showError(error)
                 }
             }
@@ -45,7 +50,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 case .success(let state):
                     self.routeToSignupScreen(state)
                 case .failure(let error):
-                    ErrorHandler.handleError(error)
+                    self.errorHandler.handleError(error)
                     self.presentor.showError(error)
                 }
             }
