@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-enum ApiErrorType: String, Codable {
+enum ApiErrorType: String, Codable, Error {
     case internalError = "internal"
     case invalidJson = "invalid_json"
     case validationFailed = "validation_failed"
@@ -28,7 +28,13 @@ enum ApiErrorType: String, Codable {
     case usernameAlreadyExists = "username_already_exists"
 }
 
-enum APIError: Error {
+// Equatable for unitTests
+enum APIError: Error, Equatable {
+    
+    static func == (lhs: APIError, rhs: APIError) -> Bool {
+        return lhs.localizedDescription == rhs.localizedDescription
+    }
+    
     case invalidURL
     case invalidRequest
     case networkError(Error)
