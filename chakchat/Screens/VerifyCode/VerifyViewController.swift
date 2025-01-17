@@ -36,10 +36,10 @@ final class VerifyViewController: UIViewController {
         static let alphaStart: CGFloat = 0
         static let alphaEnd: CGFloat = 1
         static let errorLabelFontSize: CGFloat = 18
-        static let errorLabelTop: CGFloat = 540
+        static let errorLabelTop: CGFloat = 10
         static let errorDuration: TimeInterval = 0.5
         static let errorMessageDuration: TimeInterval = 2
-        static let numberOfLines: Int = 0
+        static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
     }
     
@@ -86,14 +86,6 @@ final class VerifyViewController: UIViewController {
         errorLabel.alpha = Constants.alphaStart
         errorLabel.isHidden = false
         errorLabel.text = message
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
-        errorLabel.pinCenterX(view)
-        errorLabel.pinTop(view, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
         
         // Slowly increase alpha to 1 for full visibility.
         UIView.animate(withDuration: Constants.errorDuration, animations: {
@@ -172,6 +164,21 @@ final class VerifyViewController: UIViewController {
         digitsStackView.pinLeft(view.leadingAnchor, Constants.digitsStackViewLeading)
         digitsStackView.pinRight(view.trailingAnchor, Constants.digitsStackViewTrailing)
     }
+    
+    // MARK: - Error Label Configuration
+    private func configurateErrorLabel() {
+        view.addSubview(errorLabel)
+        errorLabel.isHidden = true
+        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
+        errorLabel.textColor = errorColor
+        errorLabel.pinCenterX(view)
+        errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
+        errorLabel.setWidth(Constants.maxWidth)
+        errorLabel.numberOfLines = Constants.numberOfLines
+        errorLabel.lineBreakMode = .byWordWrapping
+        errorLabel.textAlignment = .center
+    }
+
 
     // MARK: - TextField Delegate Methods
     func textFieldDidBeginEditing(_ textField: UITextField) {
