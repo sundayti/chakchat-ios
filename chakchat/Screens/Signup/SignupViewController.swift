@@ -51,7 +51,7 @@ final class SignupViewController: UIViewController {
         static let alphaStart: CGFloat = 0
         static let alphaEnd: CGFloat = 1
         static let errorLabelFontSize: CGFloat = 18
-        static let errorLabelBottom: CGFloat = 490
+        static let errorLabelTop: CGFloat = -8
         static let errorDuration: TimeInterval = 0.5
         static let errorMessageDuration: TimeInterval = 2
         static let maxWidth: CGFloat = 310
@@ -102,7 +102,7 @@ final class SignupViewController: UIViewController {
         errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
         errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
-        errorLabel.pinBottom(view, Constants.errorLabelBottom)
+        errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
         errorLabel.setWidth(Constants.maxWidth)
         errorLabel.numberOfLines = Constants.numberOfLines
         errorLabel.lineBreakMode = .byWordWrapping
