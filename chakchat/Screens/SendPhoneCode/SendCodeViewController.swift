@@ -70,9 +70,9 @@ final class SendCodeViewController: UIViewController {
         static let shortNumberDuration: TimeInterval = 0.5
         
         static let errorLabelFontSize: CGFloat = 18
-        static let errorLabelTop: CGFloat = 360
+        static let errorLabelTop: CGFloat = 0
         static let errorDuration: TimeInterval = 0.5
-        static let numberOfLines: Int = 0
+        static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
     }
     
@@ -120,7 +120,7 @@ final class SendCodeViewController: UIViewController {
         errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
         errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
-        errorLabel.pinTop(view, Constants.errorLabelTop)
+        errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
         errorLabel.setWidth(Constants.maxWidth)
         errorLabel.numberOfLines = Constants.numberOfLines
         errorLabel.lineBreakMode = .byWordWrapping
