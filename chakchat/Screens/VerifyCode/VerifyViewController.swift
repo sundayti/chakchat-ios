@@ -36,10 +36,10 @@ final class VerifyViewController: UIViewController {
         static let alphaStart: CGFloat = 0
         static let alphaEnd: CGFloat = 1
         static let errorLabelFontSize: CGFloat = 18
-        static let errorLabelTop: CGFloat = 540
+        static let errorLabelTop: CGFloat = 10
         static let errorDuration: TimeInterval = 0.5
         static let errorMessageDuration: TimeInterval = 2
-        static let numberOfLines: Int = 0
+        static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
     }
     
@@ -89,7 +89,7 @@ final class VerifyViewController: UIViewController {
         errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
         errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
-        errorLabel.pinTop(view, Constants.errorLabelTop)
+        errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
         errorLabel.setWidth(Constants.maxWidth)
         errorLabel.numberOfLines = Constants.numberOfLines
         errorLabel.lineBreakMode = .byWordWrapping
