@@ -99,14 +99,6 @@ final class SignupViewController: UIViewController {
         errorLabel.alpha = Constants.alphaStart
         errorLabel.isHidden = false
         errorLabel.text = message
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
-        errorLabel.pinCenterX(view)
-        errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
         
         // Slowly increase alpha to 1 for full visibility.
         UIView.animate(withDuration: Constants.errorDuration, animations: {
@@ -204,6 +196,20 @@ final class SignupViewController: UIViewController {
         sendGradientButton.setWidth(Constants.createButtonWidth)
         sendGradientButton.titleLabel?.font = Constants.createButtonFont
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
+    }
+    
+    // MARK: - Error Label Configuration
+    private func configurateErrorLabel() {
+        view.addSubview(errorLabel)
+        errorLabel.isHidden = true
+        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
+        errorLabel.textColor = errorColor
+        errorLabel.pinCenterX(view)
+        errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
+        errorLabel.setWidth(Constants.maxWidth)
+        errorLabel.numberOfLines = Constants.numberOfLines
+        errorLabel.lineBreakMode = .byWordWrapping
+        errorLabel.textAlignment = .center
     }
     
     // MARK: - TextField Delegate Methods
