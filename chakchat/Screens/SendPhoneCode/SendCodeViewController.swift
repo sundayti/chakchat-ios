@@ -258,10 +258,10 @@ final class SendCodeViewController: UIViewController {
         UIView.animate(withDuration: UIConstants.animationDuration, animations: {
             self.sendGradientButton.transform = CGAffineTransform(scaleX: UIConstants.buttonScale, y: UIConstants.buttonScale)
             }, completion: { _ in
-                UIView.animate(withDuration: UIConstants.animationDuration) {
-                    self.sendGradientButton.transform = CGAffineTransform.identity
-                }
-            })
+            UIView.animate(withDuration: UIConstants.animationDuration) {
+                self.sendGradientButton.transform = CGAffineTransform.identity
+            }
+        })
         
         let cleanedPhone = inputNumberTextField.text!.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
         if isPhoneNubmerInputValid {

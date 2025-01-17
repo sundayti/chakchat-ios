@@ -194,6 +194,13 @@ final class SignupViewController: UIViewController {
     
     @objc
     private func sendButtonPressed() {
+        UIView.animate(withDuration: UIConstants.animationDuration, animations: {
+            self.sendGradientButton.transform = CGAffineTransform(scaleX: UIConstants.buttonScale, y: UIConstants.buttonScale)
+            }, completion: { _ in
+            UIView.animate(withDuration: UIConstants.animationDuration) {
+                self.sendGradientButton.transform = CGAffineTransform.identity
+            }
+        })
         interactor.sendSignupRequest(nameTextField.text!, usernameTextField.text!)
     }
 }
