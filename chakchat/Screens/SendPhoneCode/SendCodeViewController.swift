@@ -61,6 +61,13 @@ final class SendCodeViewController: UIViewController {
         
         static let disablingCharactersAmount: Int = 4
         static let numberKerning: CGFloat = 2
+        
+        static let shortNumberLabelText: String = "Please enter a valid phone number"
+        static let errorMessageDuration: TimeInterval = 2
+        static let alphaStart: CGFloat = 0
+        static let alphaEnd: CGFloat = 1
+        static let shortNumberLabelTop: CGFloat = 360
+        static let shortNumberDuration: TimeInterval = 0.5
     }
     
     // MARK: - Fields
@@ -68,8 +75,10 @@ final class SendCodeViewController: UIViewController {
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
+    private lazy var shortNumberLabel: UILabel = UILabel()
     private lazy var inputFieldColor: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
     private lazy var linksColor: UIColor = UIColor(hex: "#FFAE00") ?? UIColor.systemYellow
+    private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     private lazy var disclaimerView: UIView = UIView()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var linksTextView: UITextView = UITextView()
@@ -261,7 +270,34 @@ final class SendCodeViewController: UIViewController {
                     phone: cleanedPhone)
             )
         } else {
-            print("Input correct phone number")
+//            print("Input correct phone number")
+            showShortPhoneNumberError()
+        }
+    }
+    
+    // MARK: - Short Number error handling
+    private func showShortPhoneNumberError() {
+        view.addSubview(shortNumberLabel)
+        shortNumberLabel.alpha = Constants.alphaStart
+        shortNumberLabel.isHidden = false
+        shortNumberLabel.text = Constants.shortNumberLabelText
+        shortNumberLabel.font = UIFont.systemFont(ofSize: Constants.descriptionLabelFontSize)
+        shortNumberLabel.textColor = errorColor
+        shortNumberLabel.pinCenterX(view)
+        shortNumberLabel.pinTop(view, Constants.shortNumberLabelTop)
+        
+        // Slowly increase alpha to 1 for full visibility.
+        UIView.animate(withDuration: Constants.shortNumberDuration, animations: {
+            self.shortNumberLabel.alpha = Constants.alphaEnd
+        })
+
+        // Hide label with animation
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
+            UIView.animate(withDuration: Constants.shortNumberDuration, animations: {
+                self.shortNumberLabel.alpha = Constants.alphaStart
+            }, completion: { _ in
+                self.shortNumberLabel.isHidden = true
+            })
         }
     }
 }
