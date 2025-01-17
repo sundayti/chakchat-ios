@@ -25,7 +25,6 @@
 		AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC652D392CEB007DEC76 /* MockSendCodeWorker.swift */; };
 		AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC6B2D39329F007DEC76 /* MockSender.swift */; };
 		AA92EC6F2D3932D6007DEC76 /* SenderProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC6E2D3932D6007DEC76 /* SenderProtocols.swift */; };
-		AA92EC792D3937C9007DEC76 /* chakchatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC782D3937C9007DEC76 /* chakchatTests.swift */; };
 		AA92EC852D3938EA007DEC76 /* SendCodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC842D3938EA007DEC76 /* SendCodeIntegrationTests.swift */; };
 		AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */; };
 		AA9B620A2D2D47CB0064CB23 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62092D2D47CB0064CB23 /* SceneDelegate.swift */; };
@@ -112,7 +111,6 @@
 		AA92EC6B2D39329F007DEC76 /* MockSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSender.swift; sourceTree = "<group>"; };
 		AA92EC6E2D3932D6007DEC76 /* SenderProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderProtocols.swift; sourceTree = "<group>"; };
 		AA92EC762D3937C9007DEC76 /* chakchatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chakchatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA92EC782D3937C9007DEC76 /* chakchatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chakchatTests.swift; sourceTree = "<group>"; };
 		AA92EC842D3938EA007DEC76 /* SendCodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeIntegrationTests.swift; sourceTree = "<group>"; };
 		AA9B62042D2D47CB0064CB23 /* chakchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chakchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9B62072D2D47CB0064CB23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -259,19 +257,10 @@
 			path = Sender;
 			sourceTree = "<group>";
 		};
-		AA92EC772D3937C9007DEC76 /* chakchatTests */ = {
-			isa = PBXGroup;
-			children = (
-				AA92EC782D3937C9007DEC76 /* chakchatTests.swift */,
-			);
-			path = chakchatTests;
-			sourceTree = "<group>";
-		};
 		AA9B61FB2D2D47CB0064CB23 = {
 			isa = PBXGroup;
 			children = (
 				AA9B62062D2D47CB0064CB23 /* chakchat */,
-				AA92EC772D3937C9007DEC76 /* chakchatTests */,
 				AA9B62052D2D47CB0064CB23 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -610,7 +599,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA92EC792D3937C9007DEC76 /* chakchatTests.swift in Sources */,
 				AA92EC852D3938EA007DEC76 /* SendCodeIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

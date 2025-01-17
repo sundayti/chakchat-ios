@@ -7,10 +7,13 @@
 
 import Foundation
 import UIKit
-final class MockErrorHandler {
-    var handledError : (any Error)?
-    func handleError(_ error: any Error) {
+final class MockErrorHandler: ErrorHandlerLogic {
+    
+    var handledError: (any Error)?
+    
+    func handleError(_ error: any Error) -> ErrorId {
         handledError = error
+        return ErrorId(message: nil, type: ErrorOutput.None)
     }
 }
 
