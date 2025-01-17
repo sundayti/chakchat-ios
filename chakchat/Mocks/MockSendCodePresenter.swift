@@ -16,5 +16,4 @@ class MockSendCodePresenter: SendCodePresentationLogic {
         errorMessage = error.message
         isErrorShown = true
     }
-    
 }

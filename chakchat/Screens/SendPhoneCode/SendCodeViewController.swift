@@ -68,6 +68,12 @@ final class SendCodeViewController: UIViewController {
         static let alphaEnd: CGFloat = 1
         static let shortNumberLabelTop: CGFloat = 360
         static let shortNumberDuration: TimeInterval = 0.5
+        
+        static let errorLabelFontSize: CGFloat = 18
+        static let errorLabelTop: CGFloat = 360
+        static let errorDuration: TimeInterval = 0.5
+        static let numberOfLines: Int = 0
+        static let maxWidth: CGFloat = 320
     }
     
     // MARK: - Fields
@@ -82,6 +88,7 @@ final class SendCodeViewController: UIViewController {
     private lazy var disclaimerView: UIView = UIView()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var linksTextView: UITextView = UITextView()
+    private lazy var errorLabel: UILabel = UILabel()
     
     private var isPhoneNubmerInputValid: Bool = false
     
@@ -102,6 +109,36 @@ final class SendCodeViewController: UIViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    // MARK: - Show Error as label
+    func showError(_ message: String?) {
+        view.addSubview(errorLabel)
+        errorLabel.alpha = Constants.alphaStart
+        errorLabel.isHidden = false
+        errorLabel.text = message
+        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
+        errorLabel.textColor = errorColor
+        errorLabel.pinCenterX(view)
+        errorLabel.pinTop(view, Constants.errorLabelTop)
+        errorLabel.setWidth(Constants.maxWidth)
+        errorLabel.numberOfLines = Constants.numberOfLines
+        errorLabel.lineBreakMode = .byWordWrapping
+        errorLabel.textAlignment = .center
+        
+        // Slowly increase alpha to 1 for full visibility.
+        UIView.animate(withDuration: Constants.errorDuration, animations: {
+            self.errorLabel.alpha = Constants.alphaEnd
+        })
+
+        // Hide label with animation
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
+            UIView.animate(withDuration: Constants.errorDuration, animations: {
+                self.errorLabel.alpha = Constants.alphaStart
+            }, completion: { _ in
+                self.errorLabel.isHidden = true
+            })
+        }
     }
     
     // MARK: - UI Configuration

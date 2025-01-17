@@ -106,7 +106,7 @@ final class ErrorHandler: ErrorHandlerLogic {
             
         case ApiErrorType.sendCodeFreqExceeded.rawValue:
             print("Error: Too many requests. Please wait before retrying.")
-            return ErrorId(message: "You are requesting a code too often. Please try again later", type: ErrorOutput.DisappearingLabel)
+            return ErrorId(message: "You are requesting a code too often", type: ErrorOutput.DisappearingLabel)
             
         case ApiErrorType.signinKeyNotFound.rawValue:
             print("Error: Sign-in key not found.")
@@ -154,7 +154,7 @@ final class ErrorHandler: ErrorHandlerLogic {
             
         case ApiErrorType.usernameAlreadyExists.rawValue:
             print("Error: Username is already taken.")
-            return ErrorId(message: "User with this nickname already exists. Think of a new nickname.", type: ErrorOutput.DisappearingLabel)
+            return ErrorId(message: "User with this nickname already exists", type: ErrorOutput.DisappearingLabel)
             
         default:
             print("Error: An unknown error occurred.")
