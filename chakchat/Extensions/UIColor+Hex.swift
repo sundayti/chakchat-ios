@@ -2,7 +2,7 @@
 //  UIColor+Hex.swift
 //  chakchat
 //
-//  Created by Людмила Хромова on 15.01.2025.
+//  Created by Елизавета Хромова on 15.01.2025.
 //
 
 

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ErrorHandlerLogic {
-    func handleError(_ error: Error)
+    func handleError(_ error: Error) -> ErrorId
 }

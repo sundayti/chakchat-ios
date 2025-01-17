@@ -8,33 +8,37 @@
 import Foundation
 
 final class ErrorHandler: ErrorHandlerLogic {
-    func handleError(_ error: Error) {
+    
+    private let serverErrorMessage: String = "Server error. Try later or send us an email with the error details to chakkchatt@yandex.ru"
+    
+    func handleError(_ error: Error) -> ErrorId {
         if error is Keychain.KeychainError {
             guard let keychainError = error as? Keychain.KeychainError else {
                 print("Error: Cant handle keychain error")
-                return
+                return ErrorId(message: nil, type: ErrorOutput.None)
             }
-            handleKeychainError(keychainError)
+            return handleKeychainError(keychainError)
         }
         
         if error is APIError {
             guard let apiError = error as? APIError else {
                 print("Error: Cant handle api error ")
-                return
+                return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             }
-            handleApiError(apiError)
+            return handleApiError(apiError)
         }
         
         if error is APIErrorResponse {
             guard let apiErrorResponse = error as? APIErrorResponse else {
                 print("Error: Cant handle api error response")
-                return
+                return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             }
-            handleApiResponseError(apiErrorResponse)
+            return handleApiResponseError(apiErrorResponse)
         }
+        return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
     }
     
-    private func handleKeychainError(_ keychainError: Keychain.KeychainError) {
+    private func handleKeychainError(_ keychainError: Keychain.KeychainError) -> ErrorId {
         switch keychainError {
         case Keychain.KeychainError.saveError:
             print("Error: Saving in keychain storage error")
@@ -45,9 +49,10 @@ final class ErrorHandler: ErrorHandlerLogic {
         case Keychain.KeychainError.deleteError:
             print("Error: Deleting from keychain storage error")
         }
+        return ErrorId(message: nil, type: ErrorOutput.None)
     }
     
-    private func handleApiError(_ apiError: APIError) {
+    private func handleApiError(_ apiError: APIError) -> ErrorId {
         switch apiError {
         case .invalidURL:
             print("Error: The URL is invalid.")
@@ -70,16 +75,18 @@ final class ErrorHandler: ErrorHandlerLogic {
         case .unknown:
             print("Error: An unknown error occurred.")
         }
+        return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
     }
     
-    private func handleApiResponseError(_ apiResponseError: APIErrorResponse) {
+    private func handleApiResponseError(_ apiResponseError: APIErrorResponse) -> ErrorId {
         switch apiResponseError.errorType {
         case ApiErrorType.internalError.rawValue:
             print("Error: Internal server error.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.invalidJson.rawValue:
             print("Error: Invalid JSON received.")
-            
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
         case ApiErrorType.validationFailed.rawValue:
             if let details = apiResponseError.errorDetails {
                 let detailMessages = details.map { "\($0.field): \($0.message)" }.joined(separator: "\n")
@@ -87,54 +94,71 @@ final class ErrorHandler: ErrorHandlerLogic {
             } else {
                 print("Error: Validation failed.")
             }
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.userNotFound.rawValue:
             print("Error: User not found.")
+            return ErrorId(message: nil, type: ErrorOutput.None)
             
         case ApiErrorType.idempotencyKeyMissing.rawValue:
             print("Error: Idempotency key is missing.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.sendCodeFreqExceeded.rawValue:
             print("Error: Too many requests. Please wait before retrying.")
+            return ErrorId(message: "You are requesting a code too often. Please try again later", type: ErrorOutput.DisappearingLabel)
             
         case ApiErrorType.signinKeyNotFound.rawValue:
             print("Error: Sign-in key not found.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.wrongCode.rawValue:
             print("Error: Incorrect code entered.")
+            return ErrorId(message: "Incorrect code", type: ErrorOutput.DisappearingLabel)
             
         case ApiErrorType.refreshTokenExpired.rawValue:
             print("Error: Session expired. Please log in again.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.refreshTokenInvalidated.rawValue:
             print("Error: Session invalidated. Please log in again.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.invalidToken.rawValue:
             print("Error: Invalid token provided.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.invalidTokenType.rawValue:
             print("Error: Token type is invalid.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.unauthorized.rawValue:
             print("Error: Unauthorized access.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.accessTokenExpired.rawValue:
             print("Error: Access token expired.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.notFound.rawValue:
             print("Error: Requested resource not found.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.userAlreadyExists.rawValue:
             print("Error: User already exists.")
+            return ErrorId(message: nil, type: ErrorOutput.None)
             
         case ApiErrorType.signupKeyNotFound.rawValue:
             print("Error: Sign-up key not found.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.usernameAlreadyExists.rawValue:
             print("Error: Username is already taken.")
+            return ErrorId(message: "User with this nickname already exists. Think of a new nickname.", type: ErrorOutput.DisappearingLabel)
             
         default:
             print("Error: An unknown error occurred.")
+            return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
         }
     }
 }
