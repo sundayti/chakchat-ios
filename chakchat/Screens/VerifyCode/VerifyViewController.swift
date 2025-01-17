@@ -86,14 +86,6 @@ final class VerifyViewController: UIViewController {
         errorLabel.alpha = Constants.alphaStart
         errorLabel.isHidden = false
         errorLabel.text = message
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
-        errorLabel.pinCenterX(view)
-        errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
         
         // Slowly increase alpha to 1 for full visibility.
         UIView.animate(withDuration: Constants.errorDuration, animations: {
@@ -172,6 +164,21 @@ final class VerifyViewController: UIViewController {
         digitsStackView.pinLeft(view.leadingAnchor, Constants.digitsStackViewLeading)
         digitsStackView.pinRight(view.trailingAnchor, Constants.digitsStackViewTrailing)
     }
+    
+    // MARK: - Error Label Configuration
+    private func configurateErrorLabel() {
+        view.addSubview(errorLabel)
+        errorLabel.isHidden = true
+        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
+        errorLabel.textColor = errorColor
+        errorLabel.pinCenterX(view)
+        errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
+        errorLabel.setWidth(Constants.maxWidth)
+        errorLabel.numberOfLines = Constants.numberOfLines
+        errorLabel.lineBreakMode = .byWordWrapping
+        errorLabel.textAlignment = .center
+    }
+
 
     // MARK: - TextField Delegate Methods
     func textFieldDidBeginEditing(_ textField: UITextField) {
