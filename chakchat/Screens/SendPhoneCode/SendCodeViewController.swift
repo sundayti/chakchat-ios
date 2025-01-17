@@ -113,18 +113,9 @@ final class SendCodeViewController: UIViewController {
     
     // MARK: - Show Error as label
     func showError(_ message: String?) {
-        view.addSubview(errorLabel)
         errorLabel.alpha = Constants.alphaStart
         errorLabel.isHidden = false
         errorLabel.text = message
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
-        errorLabel.pinCenterX(view)
-        errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
         
         // Slowly increase alpha to 1 for full visibility.
         UIView.animate(withDuration: Constants.errorDuration, animations: {
@@ -269,6 +260,20 @@ final class SendCodeViewController: UIViewController {
         linksTextView.pinTop(descriptionLabel.bottomAnchor, Constants.linksTextTop)
         linksTextView.pinCenterX(disclaimerView)
         linksTextView.pinBottom(disclaimerView.bottomAnchor, Constants.linksTextBottom)
+    }
+    
+    // MARK: - Error Label Configuration
+    private func configurateErrorLabel() {
+        view.addSubview(errorLabel)
+        errorLabel.isHidden = true
+        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
+        errorLabel.textColor = errorColor
+        errorLabel.pinCenterX(view)
+        errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
+        errorLabel.setWidth(Constants.maxWidth)
+        errorLabel.numberOfLines = Constants.numberOfLines
+        errorLabel.lineBreakMode = .byWordWrapping
+        errorLabel.textAlignment = .center
     }
 
     // MARK: - TextField Handling
