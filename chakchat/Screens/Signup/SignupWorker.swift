@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 class SignupWorker: SignupWorkerLogic {
 
     private let keychainManager: KeychainManagerBusinessLogic

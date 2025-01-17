@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+
 class SignupInteractor: SignupBusinessLogic {
 
     private let presenter: SignupPresentationLogic
