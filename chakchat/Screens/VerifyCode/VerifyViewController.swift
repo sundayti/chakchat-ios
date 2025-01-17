@@ -36,8 +36,11 @@ final class VerifyViewController: UIViewController {
         static let alphaStart: CGFloat = 0
         static let alphaEnd: CGFloat = 1
         static let errorLabelFontSize: CGFloat = 18
-        static let errorLabelTop: CGFloat = 360
+        static let errorLabelTop: CGFloat = 540
         static let errorDuration: TimeInterval = 0.5
+        static let errorMessageDuration: TimeInterval = 2
+        static let numberOfLines: Int = 0
+        static let maxWidth: CGFloat = 320
     }
     
     // MARK: - Fields
@@ -87,6 +90,10 @@ final class VerifyViewController: UIViewController {
         errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(view, Constants.errorLabelTop)
+        errorLabel.setWidth(Constants.maxWidth)
+        errorLabel.numberOfLines = Constants.numberOfLines
+        errorLabel.lineBreakMode = .byWordWrapping
+        errorLabel.textAlignment = .center
         
         // Slowly increase alpha to 1 for full visibility.
         UIView.animate(withDuration: Constants.errorDuration, animations: {
@@ -94,7 +101,7 @@ final class VerifyViewController: UIViewController {
         })
 
         // Hide label with animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorDuration) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
             UIView.animate(withDuration: Constants.errorDuration, animations: {
                 self.errorLabel.alpha = Constants.alphaStart
             }, completion: { _ in

@@ -17,8 +17,8 @@ class SendCodePresenter: SendCodePresentationLogic {
         switch error.type {
         case .Alert:
             showAlert(error.message)
-        case .DisappearingLabel: break
-            // In this screen there is no such error.
+        case .DisappearingLabel:
+            view?.showError(error.message)
         case .None: break
             // Show nothing
         }
