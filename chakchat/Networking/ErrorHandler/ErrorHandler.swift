@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 final class ErrorHandler: ErrorHandlerLogic {
     func handleError(_ error: Error) {
@@ -72,7 +71,7 @@ final class ErrorHandler: ErrorHandlerLogic {
             print("Error: An unknown error occurred.")
         }
     }
-
+    
     private func handleApiResponseError(_ apiResponseError: APIErrorResponse) {
         switch apiResponseError.errorType {
         case ApiErrorType.internalError.rawValue:

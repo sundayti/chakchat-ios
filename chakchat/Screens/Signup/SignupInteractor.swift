@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+
 class SignupInteractor: SignupBusinessLogic {
 
     private let presenter: SignupPresentationLogic
@@ -44,7 +44,7 @@ class SignupInteractor: SignupBusinessLogic {
         } else {
             print("Can't find signup key in keychain storage!")
         }
-        //successTransition(AppState._default)
+//        successTransition(AppState._default)
     }
     
     

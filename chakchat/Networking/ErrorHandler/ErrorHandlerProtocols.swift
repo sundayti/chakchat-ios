@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+
 protocol ErrorHandlerLogic {
     func handleError(_ error: Error)
 }
