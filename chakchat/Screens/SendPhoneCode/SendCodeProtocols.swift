@@ -14,7 +14,7 @@ protocol SendCodeBusinessLogic {
 }
 
 protocol SendCodePresentationLogic {
-    func showError(_ error: Error)
+    func showError(_ error: ErrorId)
 }
 
 protocol SendCodeWorkerLogic {

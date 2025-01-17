@@ -32,6 +32,12 @@ final class VerifyViewController: UIViewController {
         static let textFieldBorderWidth: CGFloat = 1
         static let textFieldCornerRadius: CGFloat = 15
         static let textFieldFont: CGFloat = 24
+        
+        static let alphaStart: CGFloat = 0
+        static let alphaEnd: CGFloat = 1
+        static let errorLabelFontSize: CGFloat = 18
+        static let errorLabelTop: CGFloat = 360
+        static let errorDuration: TimeInterval = 0.5
     }
     
     // MARK: - Fields
@@ -42,7 +48,9 @@ final class VerifyViewController: UIViewController {
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
     private lazy var digitsBorderColor: UIColor = UIColor(hex: "#FF6200") ?? UIColor.orange
+    private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     private lazy var digitsStackView: UIStackView = UIStackView()
+    private lazy var errorLabel: UILabel = UILabel()
     
     // MARK: - Lifecycle
     init(interactor: VerifyBusinessLogic) {
@@ -67,6 +75,32 @@ final class VerifyViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         
         configureUI()
+    }
+    
+    // MARK: - Show Error as label
+    func showError(_ message: String?) {
+        view.addSubview(errorLabel)
+        errorLabel.alpha = Constants.alphaStart
+        errorLabel.isHidden = false
+        errorLabel.text = message
+        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
+        errorLabel.textColor = errorColor
+        errorLabel.pinCenterX(view)
+        errorLabel.pinTop(view, Constants.errorLabelTop)
+        
+        // Slowly increase alpha to 1 for full visibility.
+        UIView.animate(withDuration: Constants.errorDuration, animations: {
+            self.errorLabel.alpha = Constants.alphaEnd
+        })
+
+        // Hide label with animation
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorDuration) {
+            UIView.animate(withDuration: Constants.errorDuration, animations: {
+                self.errorLabel.alpha = Constants.alphaStart
+            }, completion: { _ in
+                self.errorLabel.isHidden = true
+            })
+        }
     }
     
     // MARK: - UI Configuration

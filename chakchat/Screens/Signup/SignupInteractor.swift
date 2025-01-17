@@ -37,8 +37,8 @@ class SignupInteractor: SignupBusinessLogic {
                 case .success(let state):
                     self.successTransition(state)
                 case .failure(let error):
-                    self.errorHandler.handleError(error)
-                    self.presenter.showError(error)
+                    let errorId = self.errorHandler.handleError(error)
+                    self.presenter.showError(errorId)
                 }
             }
         } else {
