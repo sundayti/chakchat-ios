@@ -12,9 +12,9 @@ class MockSendCodePresenter: SendCodePresentationLogic {
     var errorMessage: String?
     var isErrorShown = false
     
-    func showError(_ error: any Error) {
+    func showError(_ error: ErrorId) {
+        errorMessage = error.message
         isErrorShown = true
-        errorMessage = error.localizedDescription
     }
     
 }

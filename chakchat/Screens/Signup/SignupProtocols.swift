@@ -20,5 +20,5 @@ protocol SignupWorkerLogic {
 }
 
 protocol SignupPresentationLogic {
-    func showError(_ error: Error)
+    func showError(_ error: ErrorId)
 }

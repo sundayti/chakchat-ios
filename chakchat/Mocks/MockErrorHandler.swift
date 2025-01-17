@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-final class MockErrorHandler : ErrorHandlerLogic {
+final class MockErrorHandler {
     var handledError : (any Error)?
     func handleError(_ error: any Error) {
         handledError = error

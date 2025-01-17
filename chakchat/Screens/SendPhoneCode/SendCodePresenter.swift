@@ -13,8 +13,19 @@ class SendCodePresenter: SendCodePresentationLogic {
     
     weak var view: SendCodeViewController?
     
-    func showError(_ error: Error) {
-        let alert = UIAlertController(title: "Error", message: error.getErrorMessage, preferredStyle: .alert)
+    func showError(_ error: ErrorId) {
+        switch error.type {
+        case .Alert:
+            showAlert(error.message)
+        case .DisappearingLabel: break
+            // In this screen there is no such error.
+        case .None: break
+            // Show nothing
+        }
+    }
+    
+    func showAlert(_ message: String?) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
         view?.present(alert, animated: true, completion: nil)

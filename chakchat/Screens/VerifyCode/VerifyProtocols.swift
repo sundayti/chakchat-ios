@@ -16,7 +16,7 @@ protocol VerifyBusinessLogic {
 }
 
 protocol VerifyPresentationLogic {
-    func showError(_ error: Error)
+    func showError(_ error: ErrorId)
 }
 
 protocol VerifyWorkerLogic {

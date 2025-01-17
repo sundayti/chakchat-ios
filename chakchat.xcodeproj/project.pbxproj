@@ -15,7 +15,7 @@
 		9B1EC0842D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0832D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf */; };
 		9B1EC0862D39669F00E01E00 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0852D39669F00E01E00 /* Poppins-Regular.ttf */; };
 		9B1EC0882D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0872D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf */; };
-		9B1EC08B2D3A537500E01E00 /* Error+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC08A2D3A537500E01E00 /* Error+Message.swift */; };
+		9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC08C2D3A828D00E01E00 /* ErrorId.swift */; };
 		AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */; };
 		AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
@@ -101,7 +101,7 @@
 		9B1EC0832D395F5D00E01E00 /* Inter-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
 		9B1EC0852D39669F00E01E00 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		9B1EC0872D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
-		9B1EC08A2D3A537500E01E00 /* Error+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Message.swift"; sourceTree = "<group>"; };
+		9B1EC08C2D3A828D00E01E00 /* ErrorId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorId.swift; sourceTree = "<group>"; };
 		AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensService.swift; sourceTree = "<group>"; };
 		AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensServiceProtocols.swift; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
@@ -338,7 +338,6 @@
 			children = (
 				9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */,
 				9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */,
-				9B1EC08A2D3A537500E01E00 /* Error+Message.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -497,6 +496,7 @@
 		AAA5F3E02D39560900B9D50E /* ErrorHandler */ = {
 			isa = PBXGroup;
 			children = (
+				9B1EC08C2D3A828D00E01E00 /* ErrorId.swift */,
 				AA9B62A22D33D6B50064CB23 /* ErrorHandler.swift */,
 				AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */,
 			);
@@ -639,8 +639,8 @@
 				AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
 				AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */,
-				9B1EC08B2D3A537500E01E00 /* Error+Message.swift in Sources */,
 				AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */,
+				9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */,
 				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
 				AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
