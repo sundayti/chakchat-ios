@@ -11,10 +11,10 @@ enum StartAssembly {
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController{
         let view = StartViewController()
         
-        view.onRouteToSendCodeScreen = { state in
-            context.state = state
+        view.onRouteToSendCodeScreen = { [weak context, weak coordinator] state in
+            context?.state = state
             print(state)
-            coordinator.showRegistrationScreen()
+            coordinator?.showRegistrationScreen()
         }
         
         return view
