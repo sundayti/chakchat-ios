@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol KeychainManagerBusinessLogic {
     func save(key: String, value: UUID) -> Bool
