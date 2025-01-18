@@ -1,0 +1,42 @@
+name: Test Swift Code
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Xcode
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_15.3.app
+          xcodebuild -version
+
+      - name: Install dependencies (if using Swift Package Manager)
+        run: |
+          if [ -f "Package.swift" ]; then
+            swift package resolve
+          fi
+
+      - name: Run Unit Tests
+        run: |
+          xcodebuild test \
+          -scheme chakchat \
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.4'          
+
+      - name: Upload test result logs (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/Logs/Test
+
