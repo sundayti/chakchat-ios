@@ -346,7 +346,18 @@ final class SendCodeViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension SendCodeViewController: UITextFieldDelegate {
-    // hello world
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField.text != nil else { return true }
+        
+        // Prohibit changing the first 4 characters.
+        let protectedRange = NSRange(location: 0, length: 4)
+        if range.location < protectedRange.length {
+            return false
+        }
+        
+        return true
+    }
+
 }
 
 // MARK: - PhoneNumberTextField
@@ -368,66 +379,96 @@ class PhoneNumberTextField: UITextField, UITextFieldDelegate {
         self.keyboardType = .numberPad
         self.delegate = self
         self.font = SendCodeViewController.Constants.inputPhoneFont
-
-        let text = "+7(9"
-        let attributedString = NSMutableAttributedString(string: text)
-        let kerning: CGFloat = SendCodeViewController.Constants.numberKerning
-        attributedString.addAttribute(.kern, value: kerning, range: NSRange(location: 0, length: text.count))
-        self.attributedText = attributedString
-
+        self.text = "+7 9"
         self.addTarget(self, action: #selector(formatPhoneNumber), for: .editingChanged)
     }
     
     // MARK: - Phone Number Formatting
     @objc private func formatPhoneNumber() {
-        guard let text = self.text else { return }
+        guard let selectedRange = self.selectedTextRange else { return }
+        let cursorOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.start)
         
-        // Remove all characters except numbers.
-        let rawNumber = text.replacingOccurrences(of: "\\D", with: "", options: .regularExpression)
         
-        // If the number does not start with "+79" we reset the field.
+        // Delete not numbers.
+        let rawNumber = self.text?.replacingOccurrences(of: "\\D", with: "", options: .regularExpression) ?? ""
+        
+        // Chack if number starts with 79
         guard rawNumber.hasPrefix("79") else {
-            self.text = "+7(9"
+            self.text = "+7 9"
+            return
+        }
+        
+        // Limit the number length to 11 digits (79XXXXXXXXX)
+        let maxDigits = 11
+        let trimmedNumber = String(rawNumber.prefix(maxDigits))
+        
+        // We format the number in the format "+7 9XX XXX XX XX"
+        var formattedNumber = "+7 9"
+        if trimmedNumber.count > 2 {
+            formattedNumber += String(trimmedNumber.dropFirst(2))
+        }
+        
+        // Add the spaces.
+        if formattedNumber.count > 6 {
+            formattedNumber.insert(" ", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 6))
+        }
+        if formattedNumber.count > 10 {
+            formattedNumber.insert(" ", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 10))
+        }
+        if formattedNumber.count > 13 {
+            formattedNumber.insert(" ", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 13))
+        }
+        
+        // Updating the text.
+        self.text = formattedNumber
+        
+        // Correct cursor position.
+        var newCursorOffset = cursorOffset
+        
+        if cursorOffset == 7 {
+            newCursorOffset += 1
+        }
+        if cursorOffset == 11 {
+            newCursorOffset += 1
+        }
+        if cursorOffset == 14 {
+            newCursorOffset += 1
+        }
+        
+        // Set new cursor position.
+        if let newPosition = self.position(from: self.beginningOfDocument, offset: newCursorOffset) {
+            self.selectedTextRange = self.textRange(from: newPosition, to: newPosition)
+        }
+    }
+    
+    // MARK: - Defining behavior when deleting characters
+    override public func deleteBackward() {
+        guard let selectedRange = self.selectedTextRange else {
+            super.deleteBackward()
             return
         }
 
-        var formattedNumber = "+7(9"
+        let cursorOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.start)
+
+        var offset = 0
         
-        // Add grouping of numbers in the format +7(XXX)-XXX-XX-XX.
-        if rawNumber.count > 2 {
-            let startIndex = rawNumber.index(rawNumber.startIndex, offsetBy: 2)
-            let endIndex = rawNumber.index(startIndex, offsetBy: min(2, rawNumber.count - 2))
-            formattedNumber += rawNumber[startIndex..<endIndex]
-        }
-        if rawNumber.count > 4 {
-            formattedNumber += ")"
-            let startIndex = rawNumber.index(rawNumber.startIndex, offsetBy: 4)
-            let endIndex = rawNumber.index(startIndex, offsetBy: min(3, rawNumber.count - 4))
-            formattedNumber += rawNumber[startIndex..<endIndex]
-        }
-        if rawNumber.count > 7 {
-            formattedNumber += "-"
-            let startIndex = rawNumber.index(rawNumber.startIndex, offsetBy: 7)
-            let endIndex = rawNumber.index(startIndex, offsetBy: min(2, rawNumber.count - 7))
-            formattedNumber += rawNumber[startIndex..<endIndex]
-        }
-        if rawNumber.count > 9 {
-            formattedNumber += "-"
-            let startIndex = rawNumber.index(rawNumber.startIndex, offsetBy: 9)
-            let endIndex = rawNumber.index(startIndex, offsetBy: min(2, rawNumber.count - 9))
-            formattedNumber += rawNumber[startIndex..<endIndex]
+        if (1...4).contains(cursorOffset) {
+            // If the cursor is somewhere between + and the first 9, do nothing.
+            return
+        } else if Set([7, 11, 14]).contains(cursorOffset) {
+            // If the cursor on the place +7 9xx |xxx |xx |xx, delete space and number.
+            super.deleteBackward()
+            super.deleteBackward()
+            offset = -2
+        } else {
+            // If the cursor on another position, delete number and move cursor.
+            super.deleteBackward()
+            offset = -1
         }
         
-        self.text = formattedNumber
-    }
-    
-    // MARK: Delegate Methods
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // Disable editing of first 4 characters.
-        if range.location < 4 {
-            return false
+        // Set new position.
+        if let newPosition = self.position(from: selectedRange.start, offset: offset) {
+            self.selectedTextRange = self.textRange(from: newPosition, to: newPosition)
         }
-        return true
     }
 }
-
