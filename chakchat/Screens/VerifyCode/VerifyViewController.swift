@@ -145,7 +145,7 @@ final class VerifyViewController: UIViewController {
         digitsStackView.spacing = Constants.digitsStackViewSpacing
         
         for i in 0..<6 {
-            let textField = MyTextField()
+            let textField = DeletableTextField()
             textField.layer.borderWidth = Constants.textFieldBorderWidth
             textField.layer.borderColor = digitsBorderColor.cgColor
             textField.layer.cornerRadius = Constants.textFieldCornerRadius
@@ -264,7 +264,7 @@ extension VerifyViewController: UITextFieldDelegate {}
 
 // MARK: - Custom UITextField
 // Специальный класс, чтобы при нажатии на backspace курсор переносился на ячейку влево(если ячейка пустая)
-class MyTextField: UITextField {
+class DeletableTextField: UITextField {
     override public func deleteBackward() {
         super.deleteBackward()
         if let previousTextField = getPreviousTextField() {
