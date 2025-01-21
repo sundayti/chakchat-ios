@@ -86,6 +86,7 @@
 		AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3DE2D393C0F00B9D50E /* MockSendCodePresenter.swift */; };
 		AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */; };
 		AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */; };
+		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +182,7 @@
 		AAA5F3DE2D393C0F00B9D50E /* MockSendCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSendCodePresenter.swift; sourceTree = "<group>"; };
 		AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerProtocols.swift; sourceTree = "<group>"; };
 		AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockErrorHandler.swift; sourceTree = "<group>"; };
+		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 			children = (
 				AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */,
 				AA92EC622D382057007DEC76 /* UIGradientButton.swift */,
+				E11D350A2D40009F00A698EA /* UIErrorLabel.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -693,6 +696,7 @@
 				AA9B62322D2D71670064CB23 /* ValidatorsProtocols.swift in Sources */,
 				AA7BADE72D3F9FB80030AC82 /* ChatsScreenPresenter.swift in Sources */,
 				AA9B62202D2D5F790064CB23 /* StartViewController.swift in Sources */,
+				E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */,
 				AA9B628D2D3149B60064CB23 /* ApiErrorTypes.swift in Sources */,
 				AA9B626D2D2FD25A0064CB23 /* SignupViewController.swift in Sources */,
 				AA9B624E2D2EC7C50064CB23 /* VerifyViewController.swift in Sources */,

@@ -53,7 +53,7 @@ final class VerifyViewController: UIViewController {
     private lazy var digitsBorderColor: UIColor = UIColor(hex: "#FF6200") ?? UIColor.orange
     private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     private lazy var digitsStackView: UIStackView = UIStackView()
-    private lazy var errorLabel: UILabel = UILabel()
+    private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     // MARK: - Lifecycle
     init(interactor: VerifyBusinessLogic) {
@@ -82,23 +82,8 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - Show Error as label
     func showError(_ message: String?) {
-        view.addSubview(errorLabel)
-        errorLabel.alpha = Constants.alphaStart
-        errorLabel.isHidden = false
-        errorLabel.text = message
-        
-        // Slowly increase alpha to 1 for full visibility.
-        UIView.animate(withDuration: Constants.errorDuration, animations: {
-            self.errorLabel.alpha = Constants.alphaEnd
-        })
-
-        // Hide label with animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
-            UIView.animate(withDuration: Constants.errorDuration, animations: {
-                self.errorLabel.alpha = Constants.alphaStart
-            }, completion: { _ in
-                self.errorLabel.isHidden = true
-            })
+        if message != nil {
+            errorLabel.showError(message)
         }
     }
     
@@ -108,6 +93,7 @@ final class VerifyViewController: UIViewController {
         configureInputHintLabel()
         configureInputDescriptionLabel()
         configureDigitsStackView()
+        configurateErrorLabel()
     }
     
     // MARK: - ChakChat Configuration
@@ -168,15 +154,8 @@ final class VerifyViewController: UIViewController {
     // MARK: - Error Label Configuration
     private func configurateErrorLabel() {
         view.addSubview(errorLabel)
-        errorLabel.isHidden = true
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
     }
 
 

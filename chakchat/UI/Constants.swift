@@ -33,4 +33,14 @@ enum UIConstants {
     static let animationDuration: TimeInterval = 0.1
     static let buttonAlphaOnPress: CGFloat = 0.8
     static let buttonAlphaOnRelease: CGFloat = 1.0
+    
+    // MARK: - UIErrorLabel
+    static let errorLabelFontSize: CGFloat = 18
+    static let errorLabelNumberOfLines: Int = 2
+    static let errorLabelMaxWidth: CGFloat = 320
+    static let errorLabelColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
+    static let errorDuration: TimeInterval = 0.5
+    static let errorMessageDuration: TimeInterval = 2
+    static let alphaStart: CGFloat = 0
+    static let alphaEnd: CGFloat = 1
 }

@@ -63,17 +63,12 @@ final class SendCodeViewController: UIViewController {
         static let numberKerning: CGFloat = 2
         
         static let shortNumberLabelText: String = "Please enter a valid phone number"
-        static let errorMessageDuration: TimeInterval = 2
-        static let alphaStart: CGFloat = 0
-        static let alphaEnd: CGFloat = 1
         static let shortNumberLabelTop: CGFloat = 360
         static let shortNumberDuration: TimeInterval = 0.5
         
-        static let errorLabelFontSize: CGFloat = 18
-        static let errorLabelTop: CGFloat = 0
-        static let errorDuration: TimeInterval = 0.5
         static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
+        static let errorLabelTop: CGFloat = 0
     }
     
     // MARK: - Fields
@@ -88,7 +83,7 @@ final class SendCodeViewController: UIViewController {
     private lazy var disclaimerView: UIView = UIView()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var linksTextView: UITextView = UITextView()
-    private lazy var errorLabel: UILabel = UILabel()
+    private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     private var isPhoneNubmerInputValid: Bool = false
     
@@ -113,22 +108,8 @@ final class SendCodeViewController: UIViewController {
     
     // MARK: - Show Error as label
     func showError(_ message: String?) {
-        errorLabel.alpha = Constants.alphaStart
-        errorLabel.isHidden = false
-        errorLabel.text = message
-        
-        // Slowly increase alpha to 1 for full visibility.
-        UIView.animate(withDuration: Constants.errorDuration, animations: {
-            self.errorLabel.alpha = Constants.alphaEnd
-        })
-
-        // Hide label with animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
-            UIView.animate(withDuration: Constants.errorDuration, animations: {
-                self.errorLabel.alpha = Constants.alphaStart
-            }, completion: { _ in
-                self.errorLabel.isHidden = true
-            })
+        if message != nil {
+            errorLabel.showError(message)
         }
     }
     
@@ -148,6 +129,7 @@ final class SendCodeViewController: UIViewController {
         configureInputNumberTextField()
         configureInputButton()
         configureDisclaimerView()
+        configurateErrorLabel()
     }
     
     // MARK: - ChakChat Stack View Configuration
@@ -265,15 +247,8 @@ final class SendCodeViewController: UIViewController {
     // MARK: - Error Label Configuration
     private func configurateErrorLabel() {
         view.addSubview(errorLabel)
-        errorLabel.isHidden = true
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
     }
 
     // MARK: - TextField Handling
@@ -313,33 +288,7 @@ final class SendCodeViewController: UIViewController {
             )
         } else {
 //            print("Input correct phone number")
-            showShortPhoneNumberError()
-        }
-    }
-    
-    // MARK: - Short Number error handling
-    private func showShortPhoneNumberError() {
-        view.addSubview(shortNumberLabel)
-        shortNumberLabel.alpha = Constants.alphaStart
-        shortNumberLabel.isHidden = false
-        shortNumberLabel.text = Constants.shortNumberLabelText
-        shortNumberLabel.font = UIFont.systemFont(ofSize: Constants.descriptionLabelFontSize)
-        shortNumberLabel.textColor = errorColor
-        shortNumberLabel.pinCenterX(view)
-        shortNumberLabel.pinTop(view, Constants.shortNumberLabelTop)
-        
-        // Slowly increase alpha to 1 for full visibility.
-        UIView.animate(withDuration: Constants.shortNumberDuration, animations: {
-            self.shortNumberLabel.alpha = Constants.alphaEnd
-        })
-
-        // Hide label with animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
-            UIView.animate(withDuration: Constants.shortNumberDuration, animations: {
-                self.shortNumberLabel.alpha = Constants.alphaStart
-            }, completion: { _ in
-                self.shortNumberLabel.isHidden = true
-            })
+            errorLabel.showError(Constants.shortNumberLabelText)
         }
     }
 }
