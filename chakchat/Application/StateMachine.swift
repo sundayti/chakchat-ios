@@ -12,6 +12,7 @@ enum AppState {
     case signupVerifyCode
     case signup
     case signin
+    case onChats
     case _default
 }
 

@@ -25,7 +25,7 @@ class SignupWorker: SignupWorkerLogic {
                 switch result {
                 case .success(let successResponse):
                     self.saveToken(successResponse, completion: completion)
-                    completion(.success(AppState._default))
+                    completion(.success(AppState.onChats))
                 case .failure(let apiError):
                     completion(.failure(apiError))
                 }

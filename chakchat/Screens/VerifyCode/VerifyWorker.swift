@@ -32,7 +32,7 @@ final class VerifyWorker: VerifyWorkerLogic {
                         return
                     }
                     self.saveToken(successResponse, completion: completion)
-                    completion(.success(AppState._default))
+                    completion(.success(AppState.onChats))
                 case .failure(let apiError):
                     completion(.failure(apiError))
                 }
