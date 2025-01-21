@@ -122,6 +122,7 @@ final class SignupViewController: UIViewController {
         configureNameTextField()
         configureUsernameTextField()
         configureInputButton()
+        configurateErrorLabel()
     }
     
     // MARK: - ChakChat Configuration

@@ -108,6 +108,7 @@ final class VerifyViewController: UIViewController {
         configureInputHintLabel()
         configureInputDescriptionLabel()
         configureDigitsStackView()
+        configurateErrorLabel()
     }
     
     // MARK: - ChakChat Configuration

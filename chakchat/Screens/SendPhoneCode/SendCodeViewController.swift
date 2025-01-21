@@ -148,6 +148,7 @@ final class SendCodeViewController: UIViewController {
         configureInputNumberTextField()
         configureInputButton()
         configureDisclaimerView()
+        configurateErrorLabel()
     }
     
     // MARK: - ChakChat Stack View Configuration
