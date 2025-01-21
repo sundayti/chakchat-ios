@@ -27,7 +27,7 @@ final class AppCoordinator {
     }
     
     private func CreateStartScreen() -> UIViewController {
-        return StartAssembly.build(with: signupContext, coordinator: self)
+        return SignupAssembly.build(with: signupContext, coordinator: self)
     }
     
     func showRegistrationScreen() {
@@ -55,6 +55,6 @@ final class AppCoordinator {
     }
 
     private func CreateChatScreen() -> UIViewController {
-        return UIViewController() // temporary, ChatScreen coming soon
+        return ChatsAssembly.build()
     }
 }
