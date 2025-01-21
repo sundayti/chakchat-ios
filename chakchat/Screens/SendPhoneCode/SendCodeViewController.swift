@@ -106,6 +106,7 @@ final class SendCodeViewController: UIViewController {
         return .portrait
     }
     
+    // MARK: - Show Error as label
     func showError(_ message: String?) {
         if message != nil {
             errorLabel.showError(message)

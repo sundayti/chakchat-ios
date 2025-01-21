@@ -67,7 +67,7 @@ final class SignupViewController: UIViewController {
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Create account")
     private lazy var borderColor: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
     private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
-    private lazy var errorLabel: UILabel = UILabel()
+    private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     private var isNameInputValid: Bool = false
     private var isUsernameInputValid: Bool = false
@@ -95,23 +95,8 @@ final class SignupViewController: UIViewController {
     
     // MARK: - Show Error as label
     func showError(_ message: String?) {
-        view.addSubview(errorLabel)
-        errorLabel.alpha = Constants.alphaStart
-        errorLabel.isHidden = false
-        errorLabel.text = message
-        
-        // Slowly increase alpha to 1 for full visibility.
-        UIView.animate(withDuration: Constants.errorDuration, animations: {
-            self.errorLabel.alpha = Constants.alphaEnd
-        })
-
-        // Hide label with animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
-            UIView.animate(withDuration: Constants.errorDuration, animations: {
-                self.errorLabel.alpha = Constants.alphaStart
-            }, completion: { _ in
-                self.errorLabel.isHidden = true
-            })
+        if message != nil {
+            errorLabel.showError(message)
         }
     }
     
@@ -202,15 +187,8 @@ final class SignupViewController: UIViewController {
     // MARK: - Error Label Configuration
     private func configurateErrorLabel() {
         view.addSubview(errorLabel)
-        errorLabel.isHidden = true
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
     }
     
     // MARK: - TextField Delegate Methods
