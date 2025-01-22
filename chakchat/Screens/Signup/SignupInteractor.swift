@@ -7,8 +7,10 @@
 
 import Foundation
 
-class SignupInteractor: SignupBusinessLogic {
+// MARK: - SignupInteractor
+final class SignupInteractor: SignupBusinessLogic {
 
+    // MARK: - Properties
     private let presenter: SignupPresentationLogic
     private let worker: SignupWorkerLogic
     private let errorHandler: ErrorHandlerLogic
@@ -16,6 +18,7 @@ class SignupInteractor: SignupBusinessLogic {
     
     var onRouteToChatScreen: ((AppState) -> Void)?
     
+    // MARK: - Initialization
     init(presenter: SignupPresentationLogic,
          worker: SignupWorkerLogic,
          state: AppState,
@@ -27,6 +30,7 @@ class SignupInteractor: SignupBusinessLogic {
         self.errorHandler = errorHandler
     }
     
+    // MARK: - Signup Request
     func sendSignupRequest(_ name: String, _ username: String) {
         print("Send request to worker")
         
@@ -45,10 +49,10 @@ class SignupInteractor: SignupBusinessLogic {
                 self.presenter.showError(errorId)
             }
         }
-       //successTransition(AppState.onChats)
+       // successTransition(AppState.onChats)
     }
     
-    
+    // MARK: - Routing
     func successTransition(_ state: AppState) {
         onRouteToChatScreen?(state)
     }

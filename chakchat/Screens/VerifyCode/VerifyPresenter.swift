@@ -11,8 +11,10 @@ import UIKit
 // MARK: - VerifyPresenter
 final class VerifyPresenter: VerifyPresentationLogic {
     
+    // MARK: - Properties
     weak var view: VerifyViewController?
     
+    // MARK: - Error Handling
     func showError(_ error: ErrorId) {
         switch error.type {
         case .Alert:
@@ -24,6 +26,7 @@ final class VerifyPresenter: VerifyPresentationLogic {
         }
     }
     
+    // MARK: - Alert Presentation
     func showAlert(_ message: String?) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

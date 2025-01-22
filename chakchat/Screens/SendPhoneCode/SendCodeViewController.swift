@@ -71,7 +71,7 @@ final class SendCodeViewController: UIViewController {
         static let errorLabelTop: CGFloat = 0
     }
     
-    // MARK: - Fields
+    // MARK: - Properties
     private var interactor: SendCodeBusinessLogic
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()

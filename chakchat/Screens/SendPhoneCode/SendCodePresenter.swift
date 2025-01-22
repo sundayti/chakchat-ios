@@ -11,8 +11,10 @@ import UIKit
 // MARK: - SendCodePresenter
 class SendCodePresenter: SendCodePresentationLogic {
     
+    // MARK: - Properties
     weak var view: SendCodeViewController?
     
+    // MARK: - Error Handling
     func showError(_ error: ErrorId) {
         switch error.type {
         case .Alert:
@@ -24,6 +26,7 @@ class SendCodePresenter: SendCodePresentationLogic {
         }
     }
     
+    // MARK: - Alert Presentation
     func showAlert(_ message: String?) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

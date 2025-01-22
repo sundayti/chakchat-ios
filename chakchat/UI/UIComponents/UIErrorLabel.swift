@@ -49,6 +49,7 @@ final class UIErrorLabel: UILabel {
         }
     }
     
+    // MARK: - Common Initialization
     private func commonInit() {
         self.font = UIFont.systemFont(ofSize: UIConstants.errorLabelFontSize)
         self.isHidden = true

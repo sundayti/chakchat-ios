@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SigninEndpoints
 enum SigninEndpoints: String {
     case sendPhoneCodeEndpoint = "http://localhost:80/api/identity/v1.0/signin/send-phone-code"
     case signinEndpoint = "http://localhost:80/api/identity/v1.0/signin"

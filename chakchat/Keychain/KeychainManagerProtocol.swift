@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - KeychainManagerBusinessLogic
 protocol KeychainManagerBusinessLogic {
     func save(key: String, value: UUID) -> Bool
     func save(key: String, value: String) -> Bool

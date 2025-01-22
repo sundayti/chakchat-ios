@@ -6,13 +6,14 @@
 //
 
 import Foundation
-import UIKit
 
-
-class MockSender {
+// MARK: - MockSender
+final class MockSender {
     
+    // MARK: - Properties
     var result: Result<Data, Error>?
     
+    // MARK: - Sending
     func send<T, U>(requestBody: T, responseType: U.Type, endpoint: String, completion: @escaping (Result<U, any Error>) -> Void) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
         if let result = result as? Result<U, any Error> {
             completion(result)

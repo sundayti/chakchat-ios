@@ -58,9 +58,9 @@ final class SignupViewController: UIViewController {
         static let numberOfLines: Int = 2
     }
     
-    // MARK: - Fields
+    // MARK: - Properties
     private let interactor: SignupBusinessLogic
-    
+
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var nameTextField: UITextField = UITextField()
     private lazy var usernameTextField: UITextField = UITextField()

@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - RefreshTokensService
 final class RefreshTokensService: RefreshTokensServiceLogic {
     
     func sendRefreshTokensRequest(_ request: Refresh.RefreshRequest, 
@@ -20,6 +21,7 @@ final class RefreshTokensService: RefreshTokensServiceLogic {
     
 }
 
+// MARK: - Refresh Models
 enum Refresh {
     
     struct RefreshRequest: Codable {

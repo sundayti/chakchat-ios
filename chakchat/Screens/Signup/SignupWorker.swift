@@ -6,16 +6,21 @@
 //
 
 import Foundation
-class SignupWorker: SignupWorkerLogic {
 
+// MARK: - SignupWorker
+final class SignupWorker: SignupWorkerLogic {
+
+    // MARK: - Properties
     private let keychainManager: KeychainManagerBusinessLogic
     let signupService: SignupServiceLogic
     
+    // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic, signupService: SignupServiceLogic) {
         self.keychainManager = keychainManager
         self.signupService = signupService
     }
     
+    // MARK: - Request Sending
     func sendRequest(_ request: Signup.SignupRequest, completion: @escaping (Result<AppState, Error>) -> Void) {
         print("Send request to service")
         
@@ -33,6 +38,7 @@ class SignupWorker: SignupWorkerLogic {
         }
     }
     
+    // MARK: - Signup Code Getting
     func getSignupCode() -> UUID? {
         guard let savedSignupKey = keychainManager.getUUID(key: KeychainManager.keyForSaveSignupCode) else {
             return nil
@@ -40,6 +46,7 @@ class SignupWorker: SignupWorkerLogic {
         return savedSignupKey
     }
     
+    // MARK: - Token Saving
     func saveToken(_ successResponse: SuccessModels.Tokens,
                    completion: @escaping (Result<AppState, Error>) -> Void) {
         var isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken,

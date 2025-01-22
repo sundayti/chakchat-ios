@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SignupServiceLogic
 protocol SignupServiceLogic {
     func sendSignupRequest(_ request: Signup.SignupRequest,
                            completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void)

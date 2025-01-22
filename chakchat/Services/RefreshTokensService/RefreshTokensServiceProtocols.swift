@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - RefreshTokensServiceLogic
 protocol RefreshTokensServiceLogic {
     func sendRefreshTokensRequest(_ request: Refresh.RefreshRequest, completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void)
 }

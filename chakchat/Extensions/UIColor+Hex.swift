@@ -5,9 +5,9 @@
 //  Created by Елизавета Хромова on 15.01.2025.
 //
 
+import UIKit
 
 // MARK: - UIColor extension
-import UIKit
 internal extension UIColor {
     
     // MARK: - Hex letters

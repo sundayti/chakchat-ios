@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - VerificationServiceLogic
 protocol VerificationServiceLogic {
     func sendVerificationRequest<Request: Codable, Response: Codable>(
         _ request: Request,

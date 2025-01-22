@@ -6,13 +6,16 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SignupContext
 final class SignupContext {
     
+    // MARK: - Properties
     let keychainManager: KeychainManagerBusinessLogic
     let errorHandler: ErrorHandlerLogic
     var state: AppState
     
+    // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic, state: AppState, errorHandler: ErrorHandlerLogic) {
         self.keychainManager = keychainManager
         self.state = state

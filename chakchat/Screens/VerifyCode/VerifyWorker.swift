@@ -6,18 +6,21 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - VerifyWorker
 final class VerifyWorker: VerifyWorkerLogic {
     
+    // MARK: - Properties
     private let verificationService: VerificationServiceLogic
     private let keychainManager: KeychainManagerBusinessLogic
 
-    
+    // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic, verificationService: VerificationServiceLogic) {
         self.keychainManager = keychainManager
         self.verificationService = verificationService
     }
     
+    // MARK: - Verification Request
     func sendVerificationRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<AppState, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
         print("Send request to service")
         verificationService.sendVerificationRequest(request,
@@ -40,6 +43,7 @@ final class VerifyWorker: VerifyWorkerLogic {
         }
     }
     
+    // MARK: - Verify Code Getting
     func getVerifyCode(_ key: String) -> UUID? {
         guard let savedKey = keychainManager.getUUID(key: key) else {
             return nil
@@ -47,7 +51,8 @@ final class VerifyWorker: VerifyWorkerLogic {
         return savedKey
     }
     
-    func saveToken(_ response: SuccessModels.Tokens, 
+    // MARK: - Token Saving
+    func saveToken(_ response: SuccessModels.Tokens,
                    completion: @escaping (Result<AppState, Error>) -> Void) {
         var isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken,
                                            value: response.accessToken)

@@ -5,9 +5,9 @@
 //  Created by лизо4ка курунок on 22.01.2025.
 //
 
-// MARK: - UIFont extension
 import UIKit
 
+// MARK: - UIFont Extension
 extension UIFont {
     static func loadCustomFont(name: String, size: CGFloat) -> UIFont {
         let fallbackFont = UIFont.systemFont(ofSize: size)

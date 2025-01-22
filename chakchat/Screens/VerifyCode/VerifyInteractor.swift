@@ -6,9 +6,11 @@
 //
 
 import Foundation
-import UIKit
+ 
+// MARK: - VerifyInteractor
 final class VerifyInteractor: VerifyBusinessLogic {
     
+    // MARK: - Properties
     private var presentor: VerifyPresentationLogic
     private var worker: VerifyWorkerLogic
     private var errorHandler: ErrorHandlerLogic
@@ -18,6 +20,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
     var onRouteToChatScreen: ((AppState) -> Void)?
     var onRouteToSendCodeScreen: ((AppState) -> Void)?
     
+    // MARK: - Initialization
     init(presentor: VerifyPresentationLogic,
          worker: VerifyWorkerLogic,
          errorHandler: ErrorHandlerLogic,
@@ -28,6 +31,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
         self.state = state
     }
     
+    // MARK: - Verification Request
     func sendVerificationRequest(_ code: String) {
         print("Send request to worker")
         
@@ -64,9 +68,10 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 }
             }
         }
-//        routeToSignupScreen(AppState.signup)
+        // routeToSignupScreen(AppState.signup)
     }
     
+    // MARK: - Routing
     func routeToSignupScreen(_ state: AppState) {
         onRouteToSignupScreen?(state)
     }
