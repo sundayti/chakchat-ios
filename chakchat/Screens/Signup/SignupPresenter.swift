@@ -28,9 +28,6 @@ final class SignupPresenter: SignupPresentationLogic {
     
     // MARK: - Alert Presentation
     func showAlert(_ message: String?) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        view?.present(alert, animated: true, completion: nil)
+        view?.showAlert(message: message)
     }
 }

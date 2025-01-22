@@ -89,6 +89,7 @@
 		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
 		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 		E11D350F2D40C3F400A698EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350E2D40C3F400A698EA /* Colors.swift */; };
+		E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +188,7 @@
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,7 @@
 				9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */,
 				9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */,
 				E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */,
+				E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
 				AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */,
+				E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */,
 				AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */,
 				AA9B62272D2D6C810064CB23 /* SendCodeInteractor.swift in Sources */,
 				AA9B622F2D2D6CB90064CB23 /* SendCodeProtocols.swift in Sources */,
