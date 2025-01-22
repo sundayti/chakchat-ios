@@ -87,6 +87,7 @@
 		AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */; };
 		AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */; };
 		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
+		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerProtocols.swift; sourceTree = "<group>"; };
 		AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockErrorHandler.swift; sourceTree = "<group>"; };
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
+		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +361,7 @@
 			children = (
 				9B1EC07F2D36CEEF00E01E00 /* UIView+Pin.swift */,
 				9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */,
+				E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -667,6 +670,7 @@
 				AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */,
+				E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */,
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
 				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
 				AA9B627D2D300DEE0064CB23 /* SignupDataValidator.swift in Sources */,
