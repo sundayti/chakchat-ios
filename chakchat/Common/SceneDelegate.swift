@@ -17,10 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        appCoordinator = AppCoordinator(window: window!)
+        guard let window = self.window else {
+            print("Window is nil")
+            return
+        }
+        
+        appCoordinator = AppCoordinator(window: window)
         appCoordinator?.start()
         
-        window?.makeKeyAndVisible()
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
