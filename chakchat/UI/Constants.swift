@@ -15,7 +15,7 @@ enum UIConstants {
     static let chakchatStackViewTopAnchor: CGFloat = 40
     static let chakLabelText: String = "Chak"
     static let chatLabelText: String = "Chat"
-    static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
+    static let chakchatFont: UIFont = UIFont.loadCustomFont(name: "RammettoOne-Regular", size: 80)
     static let chakchatStackViewSpacing: CGFloat = -50
     
     // MARK: - UIGradientButton constants
