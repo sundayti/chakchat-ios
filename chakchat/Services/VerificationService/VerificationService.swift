@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - VerificationService
 final class VerificationService: VerificationServiceLogic {
     
     func sendVerificationRequest<Request: Codable, Response: Codable>(

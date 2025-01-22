@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+ 
+// MARK: - SendCodeServiceLogic
 protocol SendCodeServiceLogic {
     func sendCodeRequest<Request: Codable, Response: Codable>(
         _ request: Request,

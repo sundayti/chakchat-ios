@@ -13,7 +13,7 @@ final class SendCodeViewController: UIViewController {
     
     // MARK: - Constants
     internal enum Constants {
-        static let inputPhoneFont: UIFont = UIFont(name: "OpenSans-Regular", size: 28)!
+        static let inputPhoneFont: UIFont = UIFont.loadCustomFont(name: "OpenSans-Regular", size: 28)
         static let inputNumberLabelFontSize: CGFloat = 16
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
@@ -71,15 +71,12 @@ final class SendCodeViewController: UIViewController {
         static let errorLabelTop: CGFloat = 0
     }
     
-    // MARK: - Fields
+    // MARK: - Properties
     private var interactor: SendCodeBusinessLogic
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
     private lazy var shortNumberLabel: UILabel = UILabel()
-    private lazy var inputFieldColor: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
-    private lazy var linksColor: UIColor = UIColor(hex: "#FFAE00") ?? UIColor.systemYellow
-    private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     private lazy var disclaimerView: UIView = UIView()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var linksTextView: UITextView = UITextView()
@@ -152,7 +149,7 @@ final class SendCodeViewController: UIViewController {
         inputNumberTextField.borderStyle = .none
         inputNumberTextField.layer.cornerRadius = Constants.inputNumberTextFieldCornerRadius
         inputNumberTextField.layer.borderWidth = Constants.inputNumberTextFieldBorderWidth
-        inputNumberTextField.layer.borderColor = inputFieldColor.cgColor
+        inputNumberTextField.layer.borderColor = Colors.gray.cgColor
         
         inputNumberTextField.keyboardType = .numberPad
         inputNumberTextField.borderStyle = .roundedRect
@@ -226,7 +223,7 @@ final class SendCodeViewController: UIViewController {
         
         linksTextView.attributedText = attributedString
         linksTextView.linkTextAttributes = [
-            .foregroundColor: linksColor,
+            .foregroundColor: Colors.darkYellow,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
         linksTextView.translatesAutoresizingMaskIntoConstraints = false
@@ -280,14 +277,19 @@ final class SendCodeViewController: UIViewController {
             }
         })
         
-        let cleanedPhone = inputNumberTextField.text!.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        guard let phoneText = inputNumberTextField.text else {
+            errorLabel.showError(Constants.shortNumberLabelText)
+            return
+        }
+        
+        let cleanedPhone = phoneText.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        
         if isPhoneNubmerInputValid {
             interactor.sendCodeRequest(
                 SendCodeModels.SendCodeRequest(
                     phone: cleanedPhone)
             )
         } else {
-//            print("Input correct phone number")
             errorLabel.showError(Constants.shortNumberLabelText)
         }
     }

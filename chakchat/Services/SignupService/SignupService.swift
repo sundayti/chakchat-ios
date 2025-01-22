@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SignupService
 final class SignupService: SignupServiceLogic {
     
     func sendSignupRequest(_ request: Signup.SignupRequest,

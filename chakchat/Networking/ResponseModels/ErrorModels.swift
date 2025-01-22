@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 
+// MARK: - APIErrorResponse Models
 struct APIErrorResponse: Codable, Error {
     let errorType: String
     let errorMessage: String
@@ -20,6 +20,7 @@ struct APIErrorResponse: Codable, Error {
     }
 }
 
+// MARK: - ErrorDetail Models
 struct ErrorDetail: Codable {
     let field: String
     let message: String

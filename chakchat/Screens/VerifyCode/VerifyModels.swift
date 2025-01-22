@@ -6,9 +6,11 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - Verify Models
 enum Verify {
     
+    // MARK: - Authorization Request Models
     struct VerifySigninRequest: Codable {
         let signinKey: UUID
         let code: String
@@ -19,6 +21,7 @@ enum Verify {
         }
     }
     
+    // MARK: - Registration Request Models
     struct VerifySignupRequest: Codable {
         let signupKey: UUID
         let code: String

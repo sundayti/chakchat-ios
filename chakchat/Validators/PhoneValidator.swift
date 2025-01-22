@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - PhoneValidator
 class PhoneValidator: SendCodeValidator {
     func validate(_ value: String) -> Bool {
         let phoneRegex = #"^\+7 \d{3} \d{3} \d{2} \d{2}$"#

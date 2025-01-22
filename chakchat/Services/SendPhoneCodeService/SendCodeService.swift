@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+ 
+// MARK: - SendCodeService
 final class SendCodeService: SendCodeServiceLogic {
     
     func sendCodeRequest<Request: Codable, Response: Codable>(

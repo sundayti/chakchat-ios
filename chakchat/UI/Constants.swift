@@ -15,14 +15,14 @@ enum UIConstants {
     static let chakchatStackViewTopAnchor: CGFloat = 40
     static let chakLabelText: String = "Chak"
     static let chatLabelText: String = "Chat"
-    static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 80)!
+    static let chakchatFont: UIFont = UIFont.loadCustomFont(name: "RammettoOne-Regular", size: 80)
     static let chakchatStackViewSpacing: CGFloat = -50
     
     // MARK: - UIGradientButton constants
     static let gradientButtonTopAnchor: CGFloat = 30
     static let gradientButtonGradientColor: [CGColor] = [
-        UIColor(hex: "FF6200")?.cgColor ?? UIColor.yellow.cgColor,
-        UIColor(hex: "FFD426")?.cgColor ?? UIColor.orange.cgColor
+        Colors.orange.cgColor,
+        Colors.yellow.cgColor
     ]
     static let gradientButtonGradientStartPoint: CGPoint = CGPoint(x: 0.0, y: 2)
     static let gradientButtonGradientEndPoint: CGPoint = CGPoint(x: -1, y: 0.5)
@@ -38,7 +38,6 @@ enum UIConstants {
     static let errorLabelFontSize: CGFloat = 18
     static let errorLabelNumberOfLines: Int = 2
     static let errorLabelMaxWidth: CGFloat = 320
-    static let errorLabelColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     static let errorDuration: TimeInterval = 0.5
     static let errorMessageDuration: TimeInterval = 2
     static let alphaStart: CGFloat = 0

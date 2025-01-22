@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - ApiErrorType
 enum ApiErrorType: String, Codable, Error {
     case internalError = "internal"
     case invalidJson = "invalid_json"
@@ -28,6 +29,7 @@ enum ApiErrorType: String, Codable, Error {
     case usernameAlreadyExists = "username_already_exists"
 }
 
+// MARK: - APIError
 // Equatable for unitTests
 enum APIError: Error, Equatable {
     

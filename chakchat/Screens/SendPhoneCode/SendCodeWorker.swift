@@ -6,17 +6,21 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SendCodeWorker
 final class SendCodeWorker: SendCodeWorkerLogic {
     
+    // MARK: - Properties
     private let sendCodeService: SendCodeServiceLogic
     private let keychainManager: KeychainManagerBusinessLogic
     
+    // MARK: - Initialization
     init(sendCodeService: SendCodeServiceLogic, keychainManager: KeychainManagerBusinessLogic) {
         self.sendCodeService = sendCodeService
         self.keychainManager = keychainManager
     }
     
+    // MARK: - Authentication Requests
     func sendInRequest(_ request: SendCodeModels.SendCodeRequest,
                      completion: @escaping (Result<AppState, Error>) -> Void) {
         print("Send request to service")
@@ -50,6 +54,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
         }
     }
     
+    // MARK: - Registration Requests
     func sendUpRequest(_ request: SendCodeModels.SendCodeRequest,
                        completion: @escaping (Result<AppState, Error>) -> Void) {
         sendCodeService.sendCodeRequest(request,

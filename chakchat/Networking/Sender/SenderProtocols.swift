@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SenderLogic
 protocol SenderLogic {
-    
     static func send<T: Codable, U: Codable>(
         requestBody: T,
         responseType: U.Type,

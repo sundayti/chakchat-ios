@@ -6,12 +6,14 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SignupBusinessLogic
 protocol SignupBusinessLogic {
     func sendSignupRequest(_ name: String, _ username: String)
     func successTransition(_ state: AppState)
 }
 
+// MARK: - SignupWorkerLogic
 protocol SignupWorkerLogic {
     func sendRequest(_ request: Signup.SignupRequest,
                      completion: @escaping (Result<AppState, Error>) -> Void)
@@ -19,6 +21,7 @@ protocol SignupWorkerLogic {
     func getSignupCode() -> UUID?
 }
 
+// MARK: - SignupPresentationLogic
 protocol SignupPresentationLogic {
     func showError(_ error: ErrorId)
 }

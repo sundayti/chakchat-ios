@@ -7,10 +7,14 @@
 
 import Foundation
 import UIKit
-class SignupPresenter: SignupPresentationLogic {
 
+// MARK: - SignupPresenter
+final class SignupPresenter: SignupPresentationLogic {
+
+    // MARK: - Properties
     weak var view: SignupViewController?
     
+    // MARK: - Error Handling
     func showError(_ error: ErrorId) {
         switch error.type {
         case .Alert:
@@ -22,10 +26,8 @@ class SignupPresenter: SignupPresentationLogic {
         }
     }
     
+    // MARK: - Alert Presentation
     func showAlert(_ message: String?) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        view?.present(alert, animated: true, completion: nil)
+        view?.showAlert(message: message)
     }
 }
