@@ -31,7 +31,7 @@ class SignupInteractor: SignupBusinessLogic {
         print("Send request to worker")
         
         guard let signupKey = worker.getSignupCode() else {
-            print("Can't find signup key in keychain storage!")
+            print("Can't find signup key in keychain storage.")
             return
         }
         
