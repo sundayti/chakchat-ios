@@ -14,7 +14,7 @@ enum SendCodeAssembly {
         
         let sendCodeService = SendCodeService()
         
-        let worker = SendCodeWorker(sendCodeService: sendCodeService, keychainManager: context.keychainManager)
+        let worker = SendCodeWorker(sendCodeService: sendCodeService, keychainManager: context.keychainManager, userDefaultsManager: context.userDefaultsManager)
         
         let interactor = SendCodeInteractor(presenter: presenter, 
                                             worker: worker, 
