@@ -29,20 +29,21 @@ class SignupInteractor: SignupBusinessLogic {
     
     func sendSignupRequest(_ name: String, _ username: String) {
         print("Send request to worker")
-        let signupKey: UUID! = worker.getSignupCode()
-        if signupKey != nil {
-            worker.sendRequest(Signup.SignupRequest(signupKey: signupKey, name: name, username: username)) { [weak self] result in
-                guard let self = self else {return}
-                switch result {
-                case .success(let state):
-                    self.successTransition(state)
-                case .failure(let error):
-                    let errorId = self.errorHandler.handleError(error)
-                    self.presenter.showError(errorId)
-                }
-            }
-        } else {
+        
+        guard let signupKey = worker.getSignupCode() else {
             print("Can't find signup key in keychain storage!")
+            return
+        }
+        
+        worker.sendRequest(Signup.SignupRequest(signupKey: signupKey, name: name, username: username)) { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let state):
+                self.successTransition(state)
+            case .failure(let error):
+                let errorId = self.errorHandler.handleError(error)
+                self.presenter.showError(errorId)
+            }
         }
        //successTransition(AppState.onChats)
     }
