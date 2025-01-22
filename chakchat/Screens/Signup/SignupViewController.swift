@@ -65,8 +65,6 @@ final class SignupViewController: UIViewController {
     private lazy var nameTextField: UITextField = UITextField()
     private lazy var usernameTextField: UITextField = UITextField()
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Create account")
-    private lazy var borderColor: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
-    private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     private var isNameInputValid: Bool = false
@@ -134,7 +132,7 @@ final class SignupViewController: UIViewController {
         nameTextField.borderStyle = .none
         nameTextField.layer.cornerRadius = Constants.borderCornerRadius
         nameTextField.layer.borderWidth = Constants.borderWidth
-        nameTextField.layer.borderColor = borderColor.cgColor
+        nameTextField.layer.borderColor = Colors.gray.cgColor
         
         nameTextField.leftView = paddingView
         nameTextField.leftViewMode = .always
@@ -162,7 +160,7 @@ final class SignupViewController: UIViewController {
         usernameTextField.borderStyle = .none
         usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
         usernameTextField.layer.borderWidth = Constants.borderWidth
-        usernameTextField.layer.borderColor = borderColor.cgColor
+        usernameTextField.layer.borderColor = Colors.gray.cgColor
         
         usernameTextField.leftView = paddingView
         usernameTextField.leftViewMode = .always

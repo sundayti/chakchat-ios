@@ -53,7 +53,7 @@ final class UIErrorLabel: UILabel {
     private func commonInit() {
         self.font = UIFont.systemFont(ofSize: UIConstants.errorLabelFontSize)
         self.isHidden = true
-        self.textColor = UIConstants.errorLabelColor
+        self.textColor = Colors.orange
         self.textAlignment = .center
         self.lineBreakMode = .byWordWrapping
         self.numberOfLines = UIConstants.errorLabelNumberOfLines

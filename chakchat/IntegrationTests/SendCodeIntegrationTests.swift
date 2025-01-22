@@ -218,7 +218,7 @@ final class SendCodeIntegrationTests: XCTestCase {
     
     // MARK: - Test Keychaing Save Error
     func testKeychaingSaveError() throws {
-        var uuid = UUID()
+        let uuid = UUID()
         mockSender?.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
         mockSendCodeService?.result = .success(SuccessModels.SendCodeSignupData(signupKey: uuid))
         mockSendCodeWorker?.result = .failure(Keychain.KeychainError.saveError)

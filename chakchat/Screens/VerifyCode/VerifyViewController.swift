@@ -50,8 +50,6 @@ final class VerifyViewController: UIViewController {
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
-    private lazy var digitsBorderColor: UIColor = UIColor(hex: "#FF6200") ?? UIColor.orange
-    private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     private lazy var digitsStackView: UIStackView = UIStackView()
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
@@ -133,7 +131,7 @@ final class VerifyViewController: UIViewController {
         for i in 0..<6 {
             let textField = DeletableTextField()
             textField.layer.borderWidth = Constants.textFieldBorderWidth
-            textField.layer.borderColor = digitsBorderColor.cgColor
+            textField.layer.borderColor = Colors.orange.cgColor
             textField.layer.cornerRadius = Constants.textFieldCornerRadius
             textField.textAlignment = .center
             textField.font = UIFont.systemFont(ofSize: Constants.textFieldFont)
