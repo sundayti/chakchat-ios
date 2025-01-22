@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 enum SettingsScreenAssembly {
     static func build() -> UIViewController {
-        var presenter = SettingsScreenPresenter()
-        var worker = SettingsScreenWorker()
-        var interactor = SettingsScreenInteractor(presenter: presenter, worker: worker)
-        var view = SettingsScreenViewController(interactor: interactor)
+        let presenter = SettingsScreenPresenter()
+        let worker = SettingsScreenWorker()
+        let interactor = SettingsScreenInteractor(presenter: presenter, worker: worker)
+        let view = SettingsScreenViewController(interactor: interactor)
         presenter.view = view
         return view
     }
