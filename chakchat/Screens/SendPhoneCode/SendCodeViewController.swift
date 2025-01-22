@@ -13,7 +13,7 @@ final class SendCodeViewController: UIViewController {
     
     // MARK: - Constants
     internal enum Constants {
-        static let inputPhoneFont: UIFont = UIFont(name: "OpenSans-Regular", size: 28)!
+        static let inputPhoneFont: UIFont = UIFont.loadCustomFont(name: "OpenSans-Regular", size: 28)
         static let inputNumberLabelFontSize: CGFloat = 16
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
@@ -280,14 +280,19 @@ final class SendCodeViewController: UIViewController {
             }
         })
         
-        let cleanedPhone = inputNumberTextField.text!.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        guard let phoneText = inputNumberTextField.text else {
+            errorLabel.showError(Constants.shortNumberLabelText)
+            return
+        }
+        
+        let cleanedPhone = phoneText.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        
         if isPhoneNubmerInputValid {
             interactor.sendCodeRequest(
                 SendCodeModels.SendCodeRequest(
                     phone: cleanedPhone)
             )
         } else {
-//            print("Input correct phone number")
             errorLabel.showError(Constants.shortNumberLabelText)
         }
     }
