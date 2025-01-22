@@ -13,7 +13,7 @@ final class SignupViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let nameFont: UIFont = UIFont(name: "Inter-Regular", size: 20)!
+        static let nameFont: UIFont = UIFont.loadCustomFont(name: "Inter-Regular", size: 20)
         
         static let inputButtonHeight: CGFloat = 50
         static let inputButtonWidth: CGFloat = 200
@@ -227,7 +227,14 @@ final class SignupViewController: UIViewController {
                 self.sendGradientButton.transform = CGAffineTransform.identity
             }
         })
-        interactor.sendSignupRequest(nameTextField.text!, usernameTextField.text!)
+        
+        guard let name = nameTextField.text, !name.isEmpty,
+              let username = usernameTextField.text, !username.isEmpty else {
+            showError("You need to enter name and username")
+            return
+        }
+
+        interactor.sendSignupRequest(name, username)
     }
 }
 
