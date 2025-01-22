@@ -13,8 +13,8 @@ final class StartViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 100)!
-        static let tapFont: UIFont = UIFont(name: "Montserrat-Bold", size: 25)!
+        static let chakchatFont: UIFont = UIFont.loadCustomFont(name: "RammettoOne-Regular", size: 100)
+        static let tapFont: UIFont = UIFont.loadCustomFont(name: "Montserrat-Bold", size: 25)
         static let chakchatStackViewSpacing: CGFloat = -60
         static let tapLabelButtom: CGFloat = 50
         static let tapLabelText: String = "Tap"
