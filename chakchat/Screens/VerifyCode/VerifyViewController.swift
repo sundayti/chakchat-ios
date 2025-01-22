@@ -13,7 +13,7 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
+        static let inputPhoneFont: UIFont = UIFont.loadCustomFont(name: "RobotoMono-Regular", size: 28)
         static let inputHintLabelText: String = "Enter the code"
         static let inputHintLabelFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
         static let inputHintLabelTopAnchor: CGFloat = 10
@@ -218,8 +218,13 @@ final class VerifyViewController: UIViewController {
     
     private func getCodeFromTextFields() -> String {
         var code: String = ""
+        
         for field in textFields {
-            code.append(field.text!)
+            guard let text = field.text, !text.isEmpty else {
+                print("Empty text field found")
+                return code
+            }
+            code.append(text)
         }
         print(code)
         return code
