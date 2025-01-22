@@ -51,6 +51,7 @@ final class ChatsScreenViewController: UIViewController {
         settingButton.contentVerticalAlignment = .fill
         settingButton.setHeight(40)
         settingButton.setWidth(40)
+        settingButton.addTarget(self, action: #selector(settingButtonPressed), for: .touchUpInside)
     }
     
     private func configureNewChatButton() {
@@ -60,5 +61,10 @@ final class ChatsScreenViewController: UIViewController {
         newChatButton.contentVerticalAlignment = .fill
         newChatButton.setHeight(40)
         newChatButton.setWidth(40)
+    }
+    
+    @objc
+    private func settingButtonPressed() {
+        navigationController?.pushViewController(SettingsScreenAssembly.build(), animated: true)
     }
 }
