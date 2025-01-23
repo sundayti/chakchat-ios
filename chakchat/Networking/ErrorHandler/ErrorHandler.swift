@@ -11,7 +11,7 @@ import Foundation
 final class ErrorHandler: ErrorHandlerLogic {
     
     // MARK: - Constants
-    private let serverErrorMessage: String = "Server error. Try later or send us an email with the error details to chakkchatt@yandex.ru"
+    private let serverErrorMessage: String = "Server error."
     
     // MARK: - Handle Error Method
     func handleError(_ error: Error) -> ErrorId {
