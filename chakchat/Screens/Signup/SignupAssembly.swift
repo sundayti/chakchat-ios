@@ -15,7 +15,9 @@ enum SignupAssembly {
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SignupPresenter()
         let signupService: SignupServiceLogic = SignupService()
-        let worker = SignupWorker(keychainManager: context.keychainManager, signupService: signupService)
+        
+        let worker = SignupWorker(keychainManager: context.keychainManager, userDefautlsManager: context.userDefaultsManager, signupService: signupService)
+        
         let interactor = SignupInteractor(presenter: presenter, 
                                           worker: worker,
                                           state: context.state,

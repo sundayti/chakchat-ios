@@ -11,9 +11,15 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     var presenter: ChatsScreenPresentationLogic
     var worker: ChatsScreenWorkerLogic
     
+    var onRouteToSettings: (() -> Void)?
+    
     init(presenter: ChatsScreenPresentationLogic, worker: ChatsScreenWorkerLogic) {
         self.presenter = presenter
         self.worker = worker
+    }
+    
+    func routeToSettingsScreen() {
+        onRouteToSettings?()
     }
     
 }

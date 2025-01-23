@@ -13,11 +13,12 @@ final class SendCodeWorker: SendCodeWorkerLogic {
     // MARK: - Properties
     private let sendCodeService: SendCodeServiceLogic
     private let keychainManager: KeychainManagerBusinessLogic
+    private let userDefaultsManager: UserDefaultsManager
     
-    // MARK: - Initialization
-    init(sendCodeService: SendCodeServiceLogic, keychainManager: KeychainManagerBusinessLogic) {
+    init(sendCodeService: SendCodeServiceLogic, keychainManager: KeychainManagerBusinessLogic, userDefaultsManager: UserDefaultsManager) {
         self.sendCodeService = sendCodeService
         self.keychainManager = keychainManager
+        self.userDefaultsManager = userDefaultsManager
     }
     
     // MARK: - Authentication Requests
@@ -34,6 +35,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSigninCode,
                                                        value: successResponse.signinKey)
                     if isSaved {
+                        self.userDefaultsManager.savePhone(phone: request.phone)
                         completion(.success(AppState.signin))
                     } else {
                         completion(.failure(Keychain.KeychainError.saveError))
@@ -67,6 +69,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSignupCode,
                                                        value: successResponse.signupKey)
                     if isSaved {
+                        self.userDefaultsManager.savePhone(phone: request.phone)
                         completion(.success(AppState.signupVerifyCode))
                     } else {
                         completion(.failure(Keychain.KeychainError.saveError))
