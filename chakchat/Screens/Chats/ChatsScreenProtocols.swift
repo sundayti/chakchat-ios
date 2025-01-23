@@ -7,7 +7,7 @@
 
 import Foundation
 protocol ChatsScreenBusinessLogic {
-    
+    func routeToSettingsScreen()
 }
 
 protocol ChatsScreenPresentationLogic {

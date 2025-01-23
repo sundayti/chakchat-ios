@@ -65,6 +65,6 @@ final class ChatsScreenViewController: UIViewController {
     
     @objc
     private func settingButtonPressed() {
-        navigationController?.pushViewController(SettingsScreenAssembly.build(), animated: true)
+        interactor.routeToSettingsScreen()
     }
 }
