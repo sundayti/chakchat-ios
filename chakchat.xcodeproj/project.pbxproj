@@ -90,6 +90,7 @@
 		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 		E11D350F2D40C3F400A698EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350E2D40C3F400A698EA /* Colors.swift */; };
 		E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */; };
+		E11D35182D42799200A698EA /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35172D42799200A698EA /* MailHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +190,7 @@
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		E11D35172D42799200A698EA /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +436,7 @@
 				AA9B62622D2FCA830064CB23 /* Endpoints */,
 				AA9B62552D2EDF810064CB23 /* ResponseModels */,
 				AA9B628C2D3149B60064CB23 /* ApiErrorTypes.swift */,
+				E11D35172D42799200A698EA /* MailHelper.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				AA9B62322D2D71670064CB23 /* ValidatorsProtocols.swift in Sources */,
 				AA7BADE72D3F9FB80030AC82 /* ChatsScreenPresenter.swift in Sources */,
 				AA9B62202D2D5F790064CB23 /* StartViewController.swift in Sources */,
+				E11D35182D42799200A698EA /* MailHelper.swift in Sources */,
 				E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */,
 				AA9B628D2D3149B60064CB23 /* ApiErrorTypes.swift in Sources */,
 				AA9B626D2D2FD25A0064CB23 /* SignupViewController.swift in Sources */,
