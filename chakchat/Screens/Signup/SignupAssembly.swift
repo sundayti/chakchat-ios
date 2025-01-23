@@ -16,12 +16,13 @@ enum SignupAssembly {
         let presenter = SignupPresenter()
         let signupService: SignupServiceLogic = SignupService()
         
-        let worker = SignupWorker(keychainManager: context.keychainManager, userDefautlsManager: context.userDefaultsManager, signupService: signupService)
+        let worker = SignupWorker(keychainManager: context.keychainManager, userDefautlsManager: context.userDefaultManager, signupService: signupService)
         
         let interactor = SignupInteractor(presenter: presenter, 
                                           worker: worker,
                                           state: context.state,
                                           errorHandler: context.errorHandler)
+        
         let view = SignupViewController(interactor: interactor)
         presenter.view = view
         

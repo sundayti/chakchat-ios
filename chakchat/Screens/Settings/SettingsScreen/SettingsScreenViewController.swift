@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 final class SettingsScreenViewController: UIViewController {
     
-    var userDefaultsService: UserDefaultsService = UserDefaultsService()
-    
     private var settingsTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private let sections = [
         [("My profile", UIImage(systemName: "person.crop.circle"))],
@@ -83,7 +81,7 @@ final class SettingsScreenViewController: UIViewController {
         iconImageView.layer.masksToBounds = true
         iconImageView.pinCenterX(view)
         iconImageView.pinTop(view.safeAreaLayoutGuide.topAnchor, 10)
-        iconImageView.image = userDefaultsService.loadAvatar() ?? UIImage(systemName: "person.circle")
+        iconImageView.image = UIImage(systemName: "person.circle")
     }
     /*
     private func configureEditProfileButton() {
