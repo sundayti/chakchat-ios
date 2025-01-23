@@ -33,7 +33,7 @@
 		AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADFD2D3FCA610030AC82 /* SettingsScreenProtocols.swift */; };
 		AA7BAE002D3FCA740030AC82 /* SettingsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADFF2D3FCA740030AC82 /* SettingsScreenViewController.swift */; };
 		AA7BAE032D3FD1900030AC82 /* SettingsMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BAE022D3FD1900030AC82 /* SettingsMenuCell.swift */; };
-		AA7BAE3D2D40E8920030AC82 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BAE3C2D40E8920030AC82 /* UserDefaultsService.swift */; };
+		AA7BAE3D2D40E8920030AC82 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BAE3C2D40E8920030AC82 /* UserDefaultsManager.swift */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
 		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
 		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
@@ -138,7 +138,7 @@
 		AA7BADFD2D3FCA610030AC82 /* SettingsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenProtocols.swift; sourceTree = "<group>"; };
 		AA7BADFF2D3FCA740030AC82 /* SettingsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenViewController.swift; sourceTree = "<group>"; };
 		AA7BAE022D3FD1900030AC82 /* SettingsMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuCell.swift; sourceTree = "<group>"; };
-		AA7BAE3C2D40E8920030AC82 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		AA7BAE3C2D40E8920030AC82 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 		AA7BAE3B2D40E87E0030AC82 /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
-				AA7BAE3C2D40E8920030AC82 /* UserDefaultsService.swift */,
+				AA7BAE3C2D40E8920030AC82 /* UserDefaultsManager.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -372,18 +372,18 @@
 		AA9B62062D2D47CB0064CB23 /* chakchat */ = {
 			isa = PBXGroup;
 			children = (
-				AA7BAE3B2D40E87E0030AC82 /* UserDefaults */,
 				AA92EC6A2D393250007DEC76 /* IntegrationTests */,
 				AA92EC642D392CD7007DEC76 /* Mocks */,
 				AA9B62812D302EFF0064CB23 /* Application */,
 				AA9B627E2D3018B00064CB23 /* Contexts */,
 				AA9B625C2D2FC5410064CB23 /* Common */,
+				AA9B62372D2D75050064CB23 /* Services */,
 				AA9B62542D2EDF700064CB23 /* Networking */,
 				AA9B623F2D2EC0010064CB23 /* Keychain */,
-				AA9B62372D2D75050064CB23 /* Services */,
+				AA7BAE3B2D40E87E0030AC82 /* UserDefaults */,
+				AA9B621D2D2D5E650064CB23 /* Screens */,
 				AA9B62302D2D71580064CB23 /* Validators */,
 				AA9B62212D2D5FFE0064CB23 /* Extensions */,
-				AA9B621D2D2D5E650064CB23 /* Screens */,
 				AA9B62102D2D47CE0064CB23 /* Assets.xcassets */,
 				AA8316422D3447680029325C /* Fonts */,
 				AA8316412D3447600029325C /* UI */,
@@ -720,7 +720,7 @@
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
 				AA9B628F2D3152570064CB23 /* Sender.swift in Sources */,
 				AA9B623E2D2D75890064CB23 /* SendCodeService.swift in Sources */,
-				AA7BAE3D2D40E8920030AC82 /* UserDefaultsService.swift in Sources */,
+				AA7BAE3D2D40E8920030AC82 /* UserDefaultsManager.swift in Sources */,
 				AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */,
 				AA9B62292D2D6C970064CB23 /* SendCodePresenter.swift in Sources */,
 				AA9B626F2D2FD2660064CB23 /* SignupModels.swift in Sources */,

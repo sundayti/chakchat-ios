@@ -8,10 +8,13 @@
 import Foundation
 import UIKit
 enum ChatsAssembly {
-    static func build() -> UIViewController {
+    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ChatsScreenPresenter()
         let worker = ChatsScreenWorker()
         let interactor = ChatsScreenInteractor(presenter: presenter, worker: worker)
+        interactor.onRouteToSettings = { [weak coordinator] in
+            coordinator?.showSettingsScreen()
+        }
         let view = ChatsScreenViewController(interactor: interactor)
         presenter.view = view
         return view
