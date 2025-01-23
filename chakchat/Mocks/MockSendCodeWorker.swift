@@ -6,11 +6,14 @@
 //
 
 import Foundation
-import UIKit
-class MockWorker: SendCodeWorkerLogic {
+
+// MARK: - MockWorker
+final class MockWorker: SendCodeWorkerLogic {
     
+    // MARK: - Properties
     var result: Result<AppState, Error>?
     
+    // MARK: - Requests Handling
     func sendInRequest(_ request: SendCodeModels.SendCodeRequest, completion: @escaping (Result<AppState, any Error>) -> Void) {
         if let result = result {
             completion(result)
@@ -22,6 +25,4 @@ class MockWorker: SendCodeWorkerLogic {
             completion(result)
         }
     }
-    
-
 }

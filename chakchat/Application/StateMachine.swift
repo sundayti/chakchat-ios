@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - AppState
 enum AppState {
     case sendPhoneCode
     case signupVerifyCode

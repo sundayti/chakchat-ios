@@ -6,8 +6,11 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - Sender
 final class Sender {
+    
+    // MARK: - Sender Method
     static func send<T: Codable, U: Codable>(
         requestBody: T,
         responseType: U.Type,
@@ -70,6 +73,7 @@ final class Sender {
     }
 }
 
+// MARK: - SuccessResponse
 struct SuccessResponse<T: Codable>: Codable {
     let data: T
 }

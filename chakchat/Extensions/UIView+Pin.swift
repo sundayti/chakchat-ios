@@ -6,7 +6,8 @@
 //
 
 import UIKit
-//MARK: - Pins
+
+// MARK: - Pins
 extension UIView {
     func pinTop(_ otherView: UIView, _ const: Double) {
         translatesAutoresizingMaskIntoConstraints = false

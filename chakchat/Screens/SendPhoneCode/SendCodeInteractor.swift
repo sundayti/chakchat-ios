@@ -6,9 +6,11 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SendCodeInteractor
 class SendCodeInteractor: SendCodeBusinessLogic {
 
+    // MARK: - Properties
     private var presenter: SendCodePresentationLogic
     private var worker: SendCodeWorkerLogic
     private var errorHandler: ErrorHandlerLogic
@@ -16,7 +18,8 @@ class SendCodeInteractor: SendCodeBusinessLogic {
     
     var onRouteToVerifyScreen: ((AppState) -> Void)?
     
-    init(presenter: SendCodePresentationLogic, 
+    // MARK: - Initialization
+    init(presenter: SendCodePresentationLogic,
          worker: SendCodeWorkerLogic,
          state: AppState,
          errorHandler: ErrorHandlerLogic) {
@@ -27,6 +30,7 @@ class SendCodeInteractor: SendCodeBusinessLogic {
         self.errorHandler = errorHandler
     }
     
+    // MARK: - Code Request Handling
     func sendCodeRequest(_ request: SendCodeModels.SendCodeRequest) {
         print("Send request to worker")
         worker.sendInRequest(request) { [weak self] result in
@@ -39,11 +43,11 @@ class SendCodeInteractor: SendCodeBusinessLogic {
                 self.presenter.showError(errorId)
             }
         }
-//        successTransition(AppState.signupVerifyCode)
+        // successTransition(AppState.signupVerifyCode)
     }
     
+    // MARK: - Routing
     func successTransition(_ state: AppState) {
-        
         onRouteToVerifyScreen?(state)
     }
 }

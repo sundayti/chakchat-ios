@@ -7,8 +7,10 @@
 
 import Foundation
 
-class SignupInteractor: SignupBusinessLogic {
+// MARK: - SignupInteractor
+final class SignupInteractor: SignupBusinessLogic {
 
+    // MARK: - Properties
     private let presenter: SignupPresentationLogic
     private let worker: SignupWorkerLogic
     private let errorHandler: ErrorHandlerLogic
@@ -16,6 +18,7 @@ class SignupInteractor: SignupBusinessLogic {
     
     var onRouteToChatScreen: ((AppState) -> Void)?
     
+    // MARK: - Initialization
     init(presenter: SignupPresentationLogic,
          worker: SignupWorkerLogic,
          state: AppState,
@@ -27,27 +30,29 @@ class SignupInteractor: SignupBusinessLogic {
         self.errorHandler = errorHandler
     }
     
+    // MARK: - Signup Request
     func sendSignupRequest(_ name: String, _ username: String) {
         print("Send request to worker")
-        let signupKey: UUID! = worker.getSignupCode()
-        if signupKey != nil {
-            worker.sendRequest(Signup.SignupRequest(signupKey: signupKey, name: name, username: username)) { [weak self] result in
-                guard let self = self else {return}
-                switch result {
-                case .success(let state):
-                    self.successTransition(state)
-                case .failure(let error):
-                    let errorId = self.errorHandler.handleError(error)
-                    self.presenter.showError(errorId)
-                }
-            }
-        } else {
-            print("Can't find signup key in keychain storage!")
+        
+        guard let signupKey = worker.getSignupCode() else {
+            print("Can't find signup key in keychain storage.")
+            return
         }
-       //successTransition(AppState.onChats)
+        
+        worker.sendRequest(Signup.SignupRequest(signupKey: signupKey, name: name, username: username)) { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let state):
+                self.successTransition(state)
+            case .failure(let error):
+                let errorId = self.errorHandler.handleError(error)
+                self.presenter.showError(errorId)
+            }
+        }
+       // successTransition(AppState.onChats)
     }
     
-    
+    // MARK: - Routing
     func successTransition(_ state: AppState) {
         onRouteToChatScreen?(state)
     }

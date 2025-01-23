@@ -13,7 +13,7 @@ final class SignupViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let nameFont: UIFont = UIFont(name: "Inter-Regular", size: 20)!
+        static let nameFont: UIFont = UIFont.loadCustomFont(name: "Inter-Regular", size: 20)
         
         static let inputButtonHeight: CGFloat = 50
         static let inputButtonWidth: CGFloat = 200
@@ -58,16 +58,14 @@ final class SignupViewController: UIViewController {
         static let numberOfLines: Int = 2
     }
     
-    // MARK: - Fields
+    // MARK: - Properties
     private let interactor: SignupBusinessLogic
-    
+
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var nameTextField: UITextField = UITextField()
     private lazy var usernameTextField: UITextField = UITextField()
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Create account")
-    private lazy var borderColor: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
-    private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
-    private lazy var errorLabel: UILabel = UILabel()
+    private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     private var isNameInputValid: Bool = false
     private var isUsernameInputValid: Bool = false
@@ -95,23 +93,8 @@ final class SignupViewController: UIViewController {
     
     // MARK: - Show Error as label
     func showError(_ message: String?) {
-        view.addSubview(errorLabel)
-        errorLabel.alpha = Constants.alphaStart
-        errorLabel.isHidden = false
-        errorLabel.text = message
-        
-        // Slowly increase alpha to 1 for full visibility.
-        UIView.animate(withDuration: Constants.errorDuration, animations: {
-            self.errorLabel.alpha = Constants.alphaEnd
-        })
-
-        // Hide label with animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
-            UIView.animate(withDuration: Constants.errorDuration, animations: {
-                self.errorLabel.alpha = Constants.alphaStart
-            }, completion: { _ in
-                self.errorLabel.isHidden = true
-            })
+        if message != nil {
+            errorLabel.showError(message)
         }
     }
     
@@ -122,6 +105,7 @@ final class SignupViewController: UIViewController {
         configureNameTextField()
         configureUsernameTextField()
         configureInputButton()
+        configurateErrorLabel()
     }
     
     // MARK: - ChakChat Configuration
@@ -148,7 +132,7 @@ final class SignupViewController: UIViewController {
         nameTextField.borderStyle = .none
         nameTextField.layer.cornerRadius = Constants.borderCornerRadius
         nameTextField.layer.borderWidth = Constants.borderWidth
-        nameTextField.layer.borderColor = borderColor.cgColor
+        nameTextField.layer.borderColor = Colors.gray.cgColor
         
         nameTextField.leftView = paddingView
         nameTextField.leftViewMode = .always
@@ -176,7 +160,7 @@ final class SignupViewController: UIViewController {
         usernameTextField.borderStyle = .none
         usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
         usernameTextField.layer.borderWidth = Constants.borderWidth
-        usernameTextField.layer.borderColor = borderColor.cgColor
+        usernameTextField.layer.borderColor = Colors.gray.cgColor
         
         usernameTextField.leftView = paddingView
         usernameTextField.leftViewMode = .always
@@ -201,15 +185,8 @@ final class SignupViewController: UIViewController {
     // MARK: - Error Label Configuration
     private func configurateErrorLabel() {
         view.addSubview(errorLabel)
-        errorLabel.isHidden = true
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
     }
     
     // MARK: - TextField Delegate Methods
@@ -248,7 +225,14 @@ final class SignupViewController: UIViewController {
                 self.sendGradientButton.transform = CGAffineTransform.identity
             }
         })
-        interactor.sendSignupRequest(nameTextField.text!, usernameTextField.text!)
+        
+        guard let name = nameTextField.text, !name.isEmpty,
+              let username = usernameTextField.text, !username.isEmpty else {
+            showError("You need to enter name and username")
+            return
+        }
+
+        interactor.sendSignupRequest(name, username)
     }
 }
 

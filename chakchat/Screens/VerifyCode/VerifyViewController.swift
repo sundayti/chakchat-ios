@@ -13,7 +13,7 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let inputPhoneFont: UIFont = UIFont(name: "RobotoMono-Regular", size: 28)!
+        static let inputPhoneFont: UIFont = UIFont.loadCustomFont(name: "RobotoMono-Regular", size: 28)
         static let inputHintLabelText: String = "Enter the code"
         static let inputHintLabelFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
         static let inputHintLabelTopAnchor: CGFloat = 10
@@ -50,10 +50,8 @@ final class VerifyViewController: UIViewController {
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
-    private lazy var digitsBorderColor: UIColor = UIColor(hex: "#FF6200") ?? UIColor.orange
-    private lazy var errorColor: UIColor = UIColor(hex: "FF6200") ?? UIColor.orange
     private lazy var digitsStackView: UIStackView = UIStackView()
-    private lazy var errorLabel: UILabel = UILabel()
+    private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     // MARK: - Lifecycle
     init(interactor: VerifyBusinessLogic) {
@@ -82,23 +80,8 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - Show Error as label
     func showError(_ message: String?) {
-        view.addSubview(errorLabel)
-        errorLabel.alpha = Constants.alphaStart
-        errorLabel.isHidden = false
-        errorLabel.text = message
-        
-        // Slowly increase alpha to 1 for full visibility.
-        UIView.animate(withDuration: Constants.errorDuration, animations: {
-            self.errorLabel.alpha = Constants.alphaEnd
-        })
-
-        // Hide label with animation
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.errorMessageDuration) {
-            UIView.animate(withDuration: Constants.errorDuration, animations: {
-                self.errorLabel.alpha = Constants.alphaStart
-            }, completion: { _ in
-                self.errorLabel.isHidden = true
-            })
+        if message != nil {
+            errorLabel.showError(message)
         }
     }
     
@@ -108,6 +91,7 @@ final class VerifyViewController: UIViewController {
         configureInputHintLabel()
         configureInputDescriptionLabel()
         configureDigitsStackView()
+        configurateErrorLabel()
     }
     
     // MARK: - ChakChat Configuration
@@ -147,7 +131,7 @@ final class VerifyViewController: UIViewController {
         for i in 0..<6 {
             let textField = DeletableTextField()
             textField.layer.borderWidth = Constants.textFieldBorderWidth
-            textField.layer.borderColor = digitsBorderColor.cgColor
+            textField.layer.borderColor = Colors.orange.cgColor
             textField.layer.cornerRadius = Constants.textFieldCornerRadius
             textField.textAlignment = .center
             textField.font = UIFont.systemFont(ofSize: Constants.textFieldFont)
@@ -168,15 +152,8 @@ final class VerifyViewController: UIViewController {
     // MARK: - Error Label Configuration
     private func configurateErrorLabel() {
         view.addSubview(errorLabel)
-        errorLabel.isHidden = true
-        errorLabel.font = UIFont.systemFont(ofSize: Constants.errorLabelFontSize)
-        errorLabel.textColor = errorColor
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
-        errorLabel.setWidth(Constants.maxWidth)
-        errorLabel.numberOfLines = Constants.numberOfLines
-        errorLabel.lineBreakMode = .byWordWrapping
-        errorLabel.textAlignment = .center
     }
 
 
@@ -239,8 +216,13 @@ final class VerifyViewController: UIViewController {
     
     private func getCodeFromTextFields() -> String {
         var code: String = ""
+        
         for field in textFields {
-            code.append(field.text!)
+            guard let text = field.text, !text.isEmpty else {
+                print("Empty text field found")
+                return code
+            }
+            code.append(text)
         }
         print(code)
         return code

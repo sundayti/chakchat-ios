@@ -6,9 +6,11 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SendCodeModels
 enum SendCodeModels {
     
+    // MARK: - Request Models
     struct SendCodeRequest: Codable {
         let phone: String
     }

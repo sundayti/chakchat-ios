@@ -13,8 +13,8 @@ final class StartViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let chakchatFont: UIFont = UIFont(name: "RammettoOne-Regular", size: 100)!
-        static let tapFont: UIFont = UIFont(name: "Montserrat-Bold", size: 25)!
+        static let chakchatFont: UIFont = UIFont.loadCustomFont(name: "RammettoOne-Regular", size: 100)
+        static let tapFont: UIFont = UIFont.loadCustomFont(name: "Montserrat-Bold", size: 25)
         static let chakchatStackViewSpacing: CGFloat = -60
         static let tapLabelButtom: CGFloat = 50
         static let tapLabelText: String = "Tap"
@@ -31,8 +31,6 @@ final class StartViewController: UIViewController {
     private lazy var chakLabel: UILabel = UILabel()
     private lazy var chatLabel: UILabel = UILabel()
     private lazy var tapLabel: UILabel = UILabel()
-    private lazy var centerColor: UIColor = UIColor(hex: "#FFBF00") ?? UIColor.yellow
-    private lazy var edgeColor: UIColor = UIColor(hex: "#FF6200") ?? UIColor.orange
     private lazy var chakchatStackView = UIStackView(arrangedSubviews: [chakLabel, chatLabel])
     private lazy var gradientBackgroundLayer: CAGradientLayer = CAGradientLayer()
     var onRouteToSendCodeScreen: ((AppState) -> Void)?
@@ -60,9 +58,9 @@ final class StartViewController: UIViewController {
     // MARK: - Gradient Background Layer Configuration
     private func configureGradientBackgroundLayer() {
         gradientBackgroundLayer.colors = [
-            edgeColor.cgColor,
-            centerColor.cgColor,
-            edgeColor.cgColor
+            Colors.orange.cgColor,
+            Colors.yellow.cgColor,
+            Colors.orange.cgColor
         ]
         gradientBackgroundLayer.locations = Constants.gradientLocation
         gradientBackgroundLayer.startPoint = Constants.gradientStartPoint

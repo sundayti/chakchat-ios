@@ -7,16 +7,19 @@
 
 import XCTest
 
+// MARK: - SendCodeIntegrationTests
 @testable import chakchat
 final class SendCodeIntegrationTests: XCTestCase {
     
-    var mockSender: MockSender!
-    var mockSendCodeService: MockSendCodeService!
-    var mockSendCodeWorker: MockWorker!
-    var mockSendCodePresenter: MockSendCodePresenter!
-    var mockErrorHandler: MockErrorHandler!
-    var interactor: SendCodeInteractor!
+    // MARK: - Properties
+    var mockSender: MockSender?
+    var mockSendCodeService: MockSendCodeService?
+    var mockSendCodeWorker: MockWorker?
+    var mockSendCodePresenter: MockSendCodePresenter?
+    var mockErrorHandler: MockErrorHandler?
+    var interactor: SendCodeInteractor?
 
+    // MARK: - Set Up With Error
     override func setUpWithError() throws {
         mockSender = MockSender()
         mockSendCodeService = MockSendCodeService()
@@ -24,12 +27,23 @@ final class SendCodeIntegrationTests: XCTestCase {
         mockSendCodePresenter = MockSendCodePresenter()
         mockErrorHandler = MockErrorHandler()
         
-        interactor = SendCodeInteractor(presenter: mockSendCodePresenter,
-                                        worker: mockSendCodeWorker,
-                                        state: AppState.sendPhoneCode,
-                                        errorHandler: mockErrorHandler)
+        let sendCodeInteractor: SendCodeInteractor? = {
+            guard let presenter = mockSendCodePresenter,
+                  let worker = mockSendCodeWorker,
+                  let errorHandler = mockErrorHandler else {
+                return nil
+            }
+            return SendCodeInteractor(
+                presenter: presenter,
+                worker: worker,
+                state: AppState.sendPhoneCode,
+                errorHandler: errorHandler
+            )
+        }()
+        interactor = sendCodeInteractor
     }
 
+    // MARK: - Tear Down Wirh Error
     override func tearDownWithError() throws {
         mockSender = nil
         mockSendCodeService = nil
@@ -38,38 +52,40 @@ final class SendCodeIntegrationTests: XCTestCase {
         interactor = nil
     }
 
+    // MARK: - Test Success
     func testSuccess() throws {
         let uuid = UUID()
-        mockSender.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
-        mockSendCodeService.result = .success(SuccessModels.SendCodeSignupData(signupKey: uuid))
-        mockSendCodeWorker.result = .success(AppState.signin)
+        mockSender?.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
+        mockSendCodeService?.result = .success(SuccessModels.SendCodeSignupData(signupKey: uuid))
+        mockSendCodeWorker?.result = .success(AppState.signin)
         
         let expectation = self.expectation(description: "Test success called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertFalse(self.mockSendCodePresenter.isErrorShown, "Error should not be shown")
+            XCTAssertFalse(self.mockSendCodePresenter?.isErrorShown == true, "Error should not be shown")
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test Internal Error
     func testInternalError() throws {
-        mockSender.result = .failure(
+        mockSender?.result = .failure(
             APIErrorResponse(
                 errorType: ApiErrorType.internalError.rawValue,
                 errorMessage: "",
                 errorDetails: nil)
         )
-        mockSendCodeService.result = .failure(
+        mockSendCodeService?.result = .failure(
             APIErrorResponse(
                 errorType: ApiErrorType.internalError.rawValue,
                 errorMessage: "",
                 errorDetails: nil)
         )
-        mockSendCodeWorker.result = .failure(
+        mockSendCodeWorker?.result = .failure(
             APIErrorResponse(
                 errorType: ApiErrorType.internalError.rawValue,
                 errorMessage: "",
@@ -78,27 +94,33 @@ final class SendCodeIntegrationTests: XCTestCase {
         
         let expectation = self.expectation(description: "Test failure called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertTrue(self.mockSendCodePresenter.isErrorShown, "Error should be shown")
+            XCTAssertTrue(self.mockSendCodePresenter?.isErrorShown == true, "Error should be shown")
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test Invalid URL
     func testInvalidURL() throws {
-        mockSender.result = .failure(APIError.invalidURL)
-        mockSendCodeService.result = .failure(APIError.invalidURL)
-        mockSendCodeWorker.result = .failure(APIError.invalidURL)
+        mockSender?.result = .failure(APIError.invalidURL)
+        mockSendCodeService?.result = .failure(APIError.invalidURL)
+        mockSendCodeWorker?.result = .failure(APIError.invalidURL)
         
         let expectation = self.expectation(description: "Test invalid url called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(APIError.invalidURL, self.mockErrorHandler.handledError as! APIError)
+            guard let handledError = self.mockErrorHandler?.handledError as? APIError else {
+                XCTFail("handledError is not of type APIError")
+                return
+            }
+            
+            XCTAssertEqual(APIError.invalidURL, handledError)
             expectation.fulfill()
         }
         
@@ -106,120 +128,155 @@ final class SendCodeIntegrationTests: XCTestCase {
         
     }
     
+    // MARK: - Test Invalid Request
     func testInvalidRequest() throws {
-        mockSender.result = .failure(APIError.invalidRequest)
-        mockSendCodeService.result = .failure(APIError.invalidRequest)
-        mockSendCodeWorker.result = .failure(APIError.invalidRequest)
+        mockSender?.result = .failure(APIError.invalidRequest)
+        mockSendCodeService?.result = .failure(APIError.invalidRequest)
+        mockSendCodeWorker?.result = .failure(APIError.invalidRequest)
         
         let expectation = self.expectation(description: "Test invalid request called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(APIError.invalidRequest, self.mockErrorHandler.handledError as! APIError)
+            guard let handledError = self.mockErrorHandler?.handledError as? APIError else {
+                XCTFail("handledError is not of type APIError")
+                return
+            }
+            XCTAssertEqual(APIError.invalidRequest, handledError)
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test No Data
     func testNoData() throws {
-        mockSender.result = .failure(APIError.noData)
-        mockSendCodeService.result = .failure(APIError.noData)
-        mockSendCodeWorker.result = .failure(APIError.noData)
+        mockSender?.result = .failure(APIError.noData)
+        mockSendCodeService?.result = .failure(APIError.noData)
+        mockSendCodeWorker?.result = .failure(APIError.noData)
         
         let expectation = self.expectation(description: "Test no data called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(APIError.noData, self.mockErrorHandler.handledError as! APIError)
+            guard let handledError = self.mockErrorHandler?.handledError as? APIError else {
+                XCTFail("handledError is not of type APIError")
+                return
+            }
+            XCTAssertEqual(APIError.noData, handledError)
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test Invalid Json
     func testInvalidJson() throws {
-        mockSender.result = .failure(ApiErrorType.invalidJson)
-        mockSendCodeService.result = .failure(ApiErrorType.invalidJson)
-        mockSendCodeWorker.result = .failure(ApiErrorType.invalidJson)
+        mockSender?.result = .failure(ApiErrorType.invalidJson)
+        mockSendCodeService?.result = .failure(ApiErrorType.invalidJson)
+        mockSendCodeWorker?.result = .failure(ApiErrorType.invalidJson)
         
         let expectation = self.expectation(description: "Test invalid json called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(ApiErrorType.invalidJson, self.mockErrorHandler.handledError as! ApiErrorType)
+            guard let handledError = self.mockErrorHandler?.handledError as? ApiErrorType else {
+                XCTFail("handledError is not of type APIError")
+                return
+            }
+            XCTAssertEqual(ApiErrorType.invalidJson, handledError)
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test Validation Error
     func testValidationError() throws {
-        mockSender.result = .failure(ApiErrorType.validationFailed)
-        mockSendCodeService.result = .failure(ApiErrorType.validationFailed)
-        mockSendCodeWorker.result = .failure(ApiErrorType.validationFailed)
+        mockSender?.result = .failure(ApiErrorType.validationFailed)
+        mockSendCodeService?.result = .failure(ApiErrorType.validationFailed)
+        mockSendCodeWorker?.result = .failure(ApiErrorType.validationFailed)
         
         let expectation = self.expectation(description: "Test validation failed called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(ApiErrorType.validationFailed, self.mockErrorHandler.handledError as! ApiErrorType)
+            guard let handledError = self.mockErrorHandler?.handledError as? ApiErrorType else {
+                XCTFail("handledError is not of type ApiErrorType")
+                return
+            }
+            XCTAssertEqual(ApiErrorType.validationFailed, handledError)
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test Keychaing Save Error
     func testKeychaingSaveError() throws {
-        var uuid = UUID()
-        mockSender.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
-        mockSendCodeService.result = .success(SuccessModels.SendCodeSignupData(signupKey: uuid))
-        mockSendCodeWorker.result = .failure(Keychain.KeychainError.saveError)
+        let uuid = UUID()
+        mockSender?.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
+        mockSendCodeService?.result = .success(SuccessModels.SendCodeSignupData(signupKey: uuid))
+        mockSendCodeWorker?.result = .failure(Keychain.KeychainError.saveError)
         
         let expectation = self.expectation(description: "Test keychain save error called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(Keychain.KeychainError.saveError, self.mockErrorHandler.handledError as! Keychain.KeychainError)
+            guard let handledError = self.mockErrorHandler?.handledError as? Keychain.KeychainError else {
+                XCTFail("handledError is not of type KeychainError")
+                return
+            }
+            XCTAssertEqual(Keychain.KeychainError.saveError, handledError)
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test User Already Exists
     func testUserAlreadyExists() throws {
-        mockSender.result = .failure(ApiErrorType.userAlreadyExists)
-        mockSendCodeService.result = .failure(ApiErrorType.userAlreadyExists)
-        mockSendCodeWorker.result = .failure(ApiErrorType.userAlreadyExists)
+        mockSender?.result = .failure(ApiErrorType.userAlreadyExists)
+        mockSendCodeService?.result = .failure(ApiErrorType.userAlreadyExists)
+        mockSendCodeWorker?.result = .failure(ApiErrorType.userAlreadyExists)
         
         let expectation = self.expectation(description: "Test user already exists called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(ApiErrorType.userAlreadyExists, self.mockErrorHandler.handledError as! ApiErrorType)
+            guard let handledError = self.mockErrorHandler?.handledError as? ApiErrorType else {
+                XCTFail("handledError is not of type ApiErrorType")
+                return
+            }
+            XCTAssertEqual(ApiErrorType.userAlreadyExists, handledError)
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 1)
     }
     
+    // MARK: - Test Send Code Freq Exceeded
     func testSendCodeFreqExceeded() throws {
-        mockSender.result = .failure(ApiErrorType.sendCodeFreqExceeded)
-        mockSendCodeService.result = .failure(ApiErrorType.sendCodeFreqExceeded)
-        mockSendCodeWorker.result = .failure(ApiErrorType.sendCodeFreqExceeded)
+        mockSender?.result = .failure(ApiErrorType.sendCodeFreqExceeded)
+        mockSendCodeService?.result = .failure(ApiErrorType.sendCodeFreqExceeded)
+        mockSendCodeWorker?.result = .failure(ApiErrorType.sendCodeFreqExceeded)
         
         let expectation = self.expectation(description: "Test send code freq exceeded called")
         
-        interactor.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
+        interactor?.sendCodeRequest(SendCodeModels.SendCodeRequest(phone: "79776002210"))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertEqual(ApiErrorType.sendCodeFreqExceeded, self.mockErrorHandler.handledError as! ApiErrorType)
+            guard let handledError = self.mockErrorHandler?.handledError as? ApiErrorType else {
+                XCTFail("handledError is not of type ApiErrorType")
+                return
+            }
+            XCTAssertEqual(ApiErrorType.sendCodeFreqExceeded, handledError)
             expectation.fulfill()
         }
         

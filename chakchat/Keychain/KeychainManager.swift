@@ -7,13 +7,16 @@
 
 import Foundation
 
+// MARK: - KeychainManager
 final class KeychainManager: KeychainManagerBusinessLogic {
     
+    // MARK: - Constants
     static let keyForSaveSigninCode: String = "signinCode"
     static let keyForSaveSignupCode: String = "signupCode"
     static let keyForSaveAccessToken: String = "accessToken"
     static let keyForSaveRefreshToken: String = "refreshToken"
     
+    // MARK: - Saving Methods
     // for verification code and other data with UUID type
     func save(key: String, value: UUID) -> Bool {
         return save(key: key, value: value.uuidString)
@@ -38,11 +41,15 @@ final class KeychainManager: KeychainManagerBusinessLogic {
         let status = SecItemAdd(query as CFDictionary, nil)
         return status == errSecSuccess
     }
+    
+    // MARK: - UUID Getting Method
     // for verification code and other data with UUID type
     func getUUID(key: String) -> UUID? {
         guard let valueString = getPhone(key: key) else { return nil }
         return UUID(uuidString: valueString)
     }
+    
+    // MARK: - Phone Getting Method
     // for phone and other data with string type
     func getPhone(key: String) -> String? {
         let query: [String: Any] = [
@@ -60,6 +67,7 @@ final class KeychainManager: KeychainManagerBusinessLogic {
         return valueString
     }
     
+    // MARK: - Deleting Method
     func delete(key: String) -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -71,6 +79,7 @@ final class KeychainManager: KeychainManagerBusinessLogic {
     }
 }
 
+// MARK: Keychain Models
 enum Keychain {
     enum KeychainError: Error {
         case saveError

@@ -6,12 +6,15 @@
 //
 
 import Foundation
-import UIKit
-class MockSendCodePresenter: SendCodePresentationLogic {
+
+// MARK: - MockSendCodePresenter
+final class MockSendCodePresenter: SendCodePresentationLogic {
     
+    // MARK: - Properties
     var errorMessage: String?
     var isErrorShown = false
     
+    // MARK: - Error Handling
     func showError(_ error: ErrorId) {
         errorMessage = error.message
         isErrorShown = true

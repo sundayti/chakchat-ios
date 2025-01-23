@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - StartAssembly
 enum StartAssembly {
+    
+    // MARK: - Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController{
         let view = StartViewController()
         

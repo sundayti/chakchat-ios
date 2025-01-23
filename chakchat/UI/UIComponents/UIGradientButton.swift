@@ -11,7 +11,7 @@ import UIKit
 // MARK: - UIGradientButton
 final class UIGradientButton: UIButton {
     
-    // MARK: - Fields
+    // MARK: - Properties
     private lazy var buttonGradientLayer: CAGradientLayer? = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = UIConstants.gradientButtonGradientColor

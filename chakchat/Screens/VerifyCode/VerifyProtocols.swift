@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 
+// MARK: - VerifyBusinessLogic
 protocol VerifyBusinessLogic {
     func sendVerificationRequest(_ code: String)
     func routeToSignupScreen(_ state: AppState)
@@ -15,10 +15,12 @@ protocol VerifyBusinessLogic {
     func routeToSendCodeScreen(_ state: AppState)
 }
 
+// MARK: - VerifyPresentationLogic
 protocol VerifyPresentationLogic {
     func showError(_ error: ErrorId)
 }
 
+// MARK: - VerifyWorkerLogic
 protocol VerifyWorkerLogic {
     func sendVerificationRequest<Request: Codable, Response: Codable>(
         _ request: Request,

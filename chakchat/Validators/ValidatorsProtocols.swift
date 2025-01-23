@@ -6,15 +6,18 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - SendCodeValidator
 protocol SendCodeValidator {
     func validate(_ value: String) -> Bool
 }
 
+// MARK: - VerificationValidator
 protocol VerificationValidator {
     func validate(_ value: String) -> Bool
 }
 
+// MARK: - SignupValidator
 protocol SignupValidator {
     func validateName(_ value: String) -> Bool
     func validateUsername(_ value: String) -> Bool

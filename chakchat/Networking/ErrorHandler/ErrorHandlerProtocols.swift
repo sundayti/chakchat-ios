@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - ErrorHandlerLogic
 protocol ErrorHandlerLogic {
     func handleError(_ error: Error) -> ErrorId
 }

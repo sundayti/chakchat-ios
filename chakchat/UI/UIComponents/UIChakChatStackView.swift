@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - UICkakChatStackView
 final class UIChakChatStackView: UIStackView {
+    
+    // MARK: - Properties
     private lazy var chakLabel: UILabel = {
         let label = UILabel()
         label.text = UIConstants.chakLabelText
@@ -34,6 +38,7 @@ final class UIChakChatStackView: UIStackView {
         return stackView
     }()
     
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         addArrangedSubview(chakchatStackView)

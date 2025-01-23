@@ -7,10 +7,13 @@
 
 import Foundation
 
+// MARK: - ErrorHandler
 final class ErrorHandler: ErrorHandlerLogic {
     
+    // MARK: - Constants
     private let serverErrorMessage: String = "Server error. Try later or send us an email with the error details to chakkchatt@yandex.ru"
     
+    // MARK: - Handle Error Method
     func handleError(_ error: Error) -> ErrorId {
         if error is Keychain.KeychainError {
             guard let keychainError = error as? Keychain.KeychainError else {
@@ -38,6 +41,7 @@ final class ErrorHandler: ErrorHandlerLogic {
         return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
     }
     
+    // MARK: - Handle Keychain Error Method
     private func handleKeychainError(_ keychainError: Keychain.KeychainError) -> ErrorId {
         switch keychainError {
         case Keychain.KeychainError.saveError:
@@ -52,6 +56,7 @@ final class ErrorHandler: ErrorHandlerLogic {
         return ErrorId(message: nil, type: ErrorOutput.None)
     }
     
+    // MARK: - Handle Api Error Method
     private func handleApiError(_ apiError: APIError) -> ErrorId {
         switch apiError {
         case .invalidURL:
@@ -78,6 +83,7 @@ final class ErrorHandler: ErrorHandlerLogic {
         return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
     }
     
+    // MARK: - Handle Api Response Error Method
     private func handleApiResponseError(_ apiResponseError: APIErrorResponse) -> ErrorId {
         switch apiResponseError.errorType {
         case ApiErrorType.internalError.rawValue:

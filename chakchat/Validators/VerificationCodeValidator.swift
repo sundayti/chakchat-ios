@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import UIKit
+
+// MARK: - VerificationCodeValidator
 final class VerificationCodeValidator: VerificationValidator {
     func validate(_ value: String) -> Bool {
         let verificationCodeRegex = "^[0-9]{6}$"
