@@ -20,7 +20,7 @@ final class AppCoordinator {
     init(window: UIWindow) {
         self.window = window
         self.navigationController = UINavigationController()
-        self.signupContext = SignupContext(keychainManager: KeychainManager(), state: AppState._default, errorHandler: ErrorHandler())
+        self.signupContext = SignupContext(keychainManager: KeychainManager(), errorHandler: ErrorHandler(), userDefaultManager: UserDefaultsManager(), state: AppState._default)
     }
 
     func start() {
@@ -32,7 +32,7 @@ final class AppCoordinator {
     
     // MARK: - Start Screen Creation
     private func CreateStartScreen() -> UIViewController {
-        return StartAssembly.build(with: signupContext, coordinator: self)
+        return ChatsAssembly.build(with: signupContext, coordinator: self)
     }
     
     // MARK: - Registration Screen Showing
@@ -66,6 +66,11 @@ final class AppCoordinator {
 
     // MARK: - Chat Screen Creation
     private func CreateChatScreen() -> UIViewController {
-        return ChatsAssembly.build()
+        return ChatsAssembly.build(with: signupContext, coordinator: self)
+    }
+    
+    func showSettingsScreen() {
+        let settingsVC = SettingsScreenAssembly.build()
+        navigationController.pushViewController(settingsVC, animated: true)
     }
 }
