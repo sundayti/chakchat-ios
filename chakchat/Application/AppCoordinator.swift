@@ -27,7 +27,7 @@ final class AppCoordinator {
     }
     
     private func CreateStartScreen() -> UIViewController {
-        return SignupAssembly.build(with: signupContext, coordinator: self)
+        return StartAssembly.build(with: signupContext, coordinator: self)
     }
     
     func showRegistrationScreen() {
