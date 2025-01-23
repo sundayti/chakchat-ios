@@ -159,30 +159,30 @@ final class VerifyViewController: UIViewController {
 
     // MARK: - TextField Delegate Methods
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Если в поле уже есть текст, выделяем его весь
+        // If there is already text in field, select it.
         if let text = textField.text, !text.isEmpty {
             textField.selectAll(nil)
         }
     }
-    // Буду писать на русском, чтобы ты точно поняла, для чего это надо
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // Проверяем, что введенные данные являются цифрой + только один символ
+        // Check if entered data is number and it is a one character.
         guard let _ = textField.text, string.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil || string.isEmpty else {
-            return false // В противном случае не дает вводить
+            return false
         }
         
         if !string.isEmpty {
-            textField.text = string // Если введенное значение не nil, то записываем в ячейку
+            textField.text = string  // If the entered text is not nil, write it.
         }
         
-        // Если текущее значение в ячейке не nil и следующий индекс не больше количества ячеек массиве
-        // то переходим в следующее поле
+        // If current value in the cell is not nil and next index not greater that amount of cells in array,
+        // go to next field.
         let nextTag = textField.tag + 1
         if !string.isEmpty, nextTag < textFields.count {
             textFields[nextTag].becomeFirstResponder()
         }
         
-        // Делаем расфокус + запрос на сервер, когда все поля заполнены
+        // We make a defocus + request to the server when all fields are filled.
         if areAllTextFieldsFilled() {
             let code = getCodeFromTextFields()
             interactor.sendVerificationRequest(code)
@@ -190,18 +190,18 @@ final class VerifyViewController: UIViewController {
             print("Fill all fields")
         }
         
-        // Удаление символов
+        // Deleting character.
         if string.isEmpty {
-            if textField.tag > 0 { // Если мы не в последней ячейке
-                textFields[textField.tag].text = "" // Меняем содержимое ячейки на ""
-                let prevTag = textField.tag - 1 // Находим индекс предыдущей ячейки
-                textFields[prevTag].becomeFirstResponder() // Переходим на нее
-            } else if textField.tag == 0 { // Если мы в последней ячейке
-                textFields[textField.tag].text = "" // Меняем содержимое ячейки на "", но никуда не переходим
+            if textField.tag > 0 { // If we not in last cell.
+                textFields[textField.tag].text = "" // Change the value in cell to "".
+                let prevTag = textField.tag - 1 // Find previous index.
+                textFields[prevTag].becomeFirstResponder() // Go to previous cell.
+            } else if textField.tag == 0 { // If we in last cell
+                textFields[textField.tag].text = "" // Change the value but don't go anywhere.
             }
         }
         
-        return false // По дефолту, не заходя ни в какие if, не даем никак редактировать ячейки
+        return false
     }
     
     // MARK: - Supporting Methods
@@ -245,7 +245,7 @@ extension VerifyViewController: UITextFieldDelegate {}
 
 
 // MARK: - Custom UITextField
-// Специальный класс, чтобы при нажатии на backspace курсор переносился на ячейку влево(если ячейка пустая)
+// Special class so that when you press backspace the cursor moves to the cell to the left (if the cell is empty).
 class DeletableTextField: UITextField {
     override public func deleteBackward() {
         super.deleteBackward()

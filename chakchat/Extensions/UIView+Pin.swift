@@ -36,7 +36,7 @@ extension UIView {
     
     func pinLeft(_ anchor: NSLayoutXAxisAnchor, _ const: Double) {
         translatesAutoresizingMaskIntoConstraints = false
-        leadingAnchor.constraint(equalTo: anchor, constant: const).isActive = true // leading аналогично trailing
+        leadingAnchor.constraint(equalTo: anchor, constant: const).isActive = true
     }
     
     func pinRight(_ otherView: UIView, _ const: Double) {
@@ -46,7 +46,7 @@ extension UIView {
     
     func pinRight(_ anchor: NSLayoutXAxisAnchor, _ const: Double) {
         translatesAutoresizingMaskIntoConstraints = false
-        trailingAnchor.constraint(equalTo: anchor, constant: -1 * const).isActive = true // trailingAnchor == rightAnchor, но он работает в отличие от rightAnchor
+        trailingAnchor.constraint(equalTo: anchor, constant: -1 * const).isActive = true
     }
     
     func pinCenterX(_ other: UIView, _ const: Double = 0) {
