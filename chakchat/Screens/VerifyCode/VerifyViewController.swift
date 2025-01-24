@@ -129,7 +129,7 @@ final class VerifyViewController: UIViewController {
         digitsStackView.spacing = Constants.digitsStackViewSpacing
         
         for i in 0..<6 {
-            let textField = DeletableTextField()
+            let textField = UIDeletableTextField()
             textField.layer.borderWidth = Constants.textFieldBorderWidth
             textField.layer.borderColor = Colors.orange.cgColor
             textField.layer.cornerRadius = Constants.textFieldCornerRadius
@@ -155,13 +155,46 @@ final class VerifyViewController: UIViewController {
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
     }
-
-
-    // MARK: - TextField Delegate Methods
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.selectedTextRange = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
+    
+    // MARK: - Supporting Methods
+    func areAllTextFieldsFilled() -> Bool {
+        for field in textFields {
+            if field.text?.isEmpty == true {
+                return false
+            }
+        }
+        return true
     }
+    
+    // MARK: - Get Code From Text Fields Method
+    private func getCodeFromTextFields() -> String {
+        var code: String = ""
+        
+        for field in textFields {
+            guard let text = field.text, !text.isEmpty else {
+                print("Empty text field found")
+                return code
+            }
+            code.append(text)
+        }
+        print(code)
+        return code
+    }
+    
+    // MARK: - Actions
+    @objc
+    private func backButtonPressed() {
+        interactor.routeToSendCodeScreen(AppState.sendPhoneCode)
+    }
+    
+    @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
 
+// MARK: - UITextFieldDelegate Extension
+extension VerifyViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let allowedCharacters = CharacterSet.decimalDigits
@@ -233,61 +266,8 @@ final class VerifyViewController: UIViewController {
         return false
     }
     
-    // MARK: - Supporting Methods
-    func areAllTextFieldsFilled() -> Bool {
-        for field in textFields {
-            if field.text?.isEmpty == true {
-                return false
-            }
-        }
-        return true
-    }
-    
-    // MARK: - Get Code From Text Fields Method
-    private func getCodeFromTextFields() -> String {
-        var code: String = ""
-        
-        for field in textFields {
-            guard let text = field.text, !text.isEmpty else {
-                print("Empty text field found")
-                return code
-            }
-            code.append(text)
-        }
-        print(code)
-        return code
-    }
-    
-    // MARK: - Actions
-    @objc
-    private func backButtonPressed() {
-        interactor.routeToSendCodeScreen(AppState.sendPhoneCode)
-    }
-    
-    @objc
-    private func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-
-// MARK: - UITextFieldDelegate Extension
-extension VerifyViewController: UITextFieldDelegate {}
-
-
-// MARK: - Custom UITextField
-// Special class so that when you press backspace the cursor moves to the cell to the left (if the cell is empty).
-class DeletableTextField: UITextField {
-    override public func deleteBackward() {
-        super.deleteBackward()
-        if let previousTextField = getPreviousTextField() {
-            previousTextField.becomeFirstResponder()
-        }
-    }
-    
-    private func getPreviousTextField() -> UITextField? {
-        let currentTag = self.tag
-        let previousTag = currentTag - 1
-        return self.superview?.viewWithTag(previousTag) as? UITextField
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.selectedTextRange = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
     }
 }
 
