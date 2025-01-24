@@ -159,30 +159,59 @@ final class VerifyViewController: UIViewController {
 
     // MARK: - TextField Delegate Methods
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // If there is already text in field, select it.
-        if let text = textField.text, !text.isEmpty {
-            textField.selectAll(nil)
-        }
+        textField.selectedTextRange = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // Check if entered data is number and it is a one character.
+        
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        
+        // If there are not only digits, don't paste it.
+        if !allowedCharacters.isSuperset(of: characterSet) {
+            return false
+        }
+        
+        // If the text is entering (from clipboard for example).
+        if string.count > 1 {
+            // Clear all fields.
+            for field in textFields {
+                field.text = ""
+            }
+            
+            // Put one character in one field.
+            for (index, char) in string.enumerated() {
+                if index < textFields.count {
+                    textFields[index].text = String(char)
+                }
+            }
+            
+            // If all characters are set, go to last field.
+            if string.count <= textFields.count {
+                textFields[string.count - 1].becomeFirstResponder()
+            } else {
+                textFields.last?.becomeFirstResponder()
+            }
+            
+            return false
+        }
+        
+        // If we set a single character.
         guard let _ = textField.text, string.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil || string.isEmpty else {
             return false
         }
         
         if !string.isEmpty {
-            textField.text = string  // If the entered text is not nil, write it.
+            textField.text = string
         }
         
-        // If current value in the cell is not nil and next index not greater that amount of cells in array,
-        // go to next field.
+        // Go to next field if there is a character in the current.
         let nextTag = textField.tag + 1
         if !string.isEmpty, nextTag < textFields.count {
             textFields[nextTag].becomeFirstResponder()
         }
         
-        // We make a defocus + request to the server when all fields are filled.
+        // Chack if all fields are full and send request to server.
         if areAllTextFieldsFilled() {
             let code = getCodeFromTextFields()
             interactor.sendVerificationRequest(code)
@@ -192,12 +221,12 @@ final class VerifyViewController: UIViewController {
         
         // Deleting character.
         if string.isEmpty {
-            if textField.tag > 0 { // If we not in last cell.
-                textFields[textField.tag].text = "" // Change the value in cell to "".
-                let prevTag = textField.tag - 1 // Find previous index.
-                textFields[prevTag].becomeFirstResponder() // Go to previous cell.
-            } else if textField.tag == 0 { // If we in last cell
-                textFields[textField.tag].text = "" // Change the value but don't go anywhere.
+            if textField.tag > 0 { // If it isn't first cell.
+                textFields[textField.tag].text = "" // Clear current cell.
+                let prevTag = textField.tag - 1 // Go to previous cell.
+                textFields[prevTag].becomeFirstResponder()
+            } else if textField.tag == 0 { // If we are in first cell.
+                textFields[textField.tag].text = "" // Clear the cell.
             }
         }
         
@@ -214,6 +243,7 @@ final class VerifyViewController: UIViewController {
         return true
     }
     
+    // MARK: - Get Code From Text Fields Method
     private func getCodeFromTextFields() -> String {
         var code: String = ""
         
