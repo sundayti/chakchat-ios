@@ -8,57 +8,50 @@
 import Foundation
 import UIKit
 
-class UserDefaultsManager {
+class UserDefaultsManager: UserDefaultsManagerProtocol {
+
     private let avatarKey = "userAvatar"
     private let nicknameKey = "userNickname"
     private let usernameKey = "userUsername"
     private let phoneKey = "userPhone"
-
-    func saveAvatar(image: UIImage, compressionQuality: CGFloat = 0.8) -> Bool {
-        guard let imageData = image.jpegData(compressionQuality: compressionQuality) else {
-            print("Error: can't save the icon")
-            return false
-        }
-        UserDefaults.standard.set(imageData, forKey: avatarKey)
-        return true
+    
+    func saveAvatar(_ icon: UIImage) {
+        print("Hello world")
     }
     
-    func saveInitials(nickname: String, username: String) {
+    func saveNickname(_ nickname: String) {
         UserDefaults.standard.set(nickname, forKey: nicknameKey)
+    }
+    
+    func saveUsername(_ username: String) {
         UserDefaults.standard.set(username, forKey: usernameKey)
     }
     
-    func savePhone(phone: String) {
+    func savePhone(_ phone: String) {
         UserDefaults.standard.set(phone, forKey: phoneKey)
     }
-
+    
     func loadAvatar() -> UIImage? {
-        guard let imageData = UserDefaults.standard.data(forKey: avatarKey) else {
-            return nil
-        }
-        return UIImage(data: imageData)
+        return nil
     }
     
-    func loadNickname() -> String? {
+    func loadNickname() -> String {
         guard let nickname = UserDefaults.standard.string(forKey: nicknameKey) else {
-            print("Can't find nickname in user defaults")
-            return nil
+            return ""
         }
         return nickname
     }
     
-    func loadUsername() -> String? {
+    func loadUsername() -> String {
         guard let username = UserDefaults.standard.string(forKey: usernameKey) else {
-            print("Can't find username in user defaults")
-            return nil
+            return ""
         }
         return username
     }
     
-    func loadPhone() -> String? {
+    func loadPhone() -> String {
         guard let phone = UserDefaults.standard.string(forKey: phoneKey) else {
-            print("Can't find phone in user defaults")
-            return nil
+            return ""
         }
         return phone
     }
