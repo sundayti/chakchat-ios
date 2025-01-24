@@ -32,7 +32,7 @@ final class AppCoordinator {
     
     // MARK: - Start Screen Creation
     private func CreateStartScreen() -> UIViewController {
-        return ChatsAssembly.build(with: signupContext, coordinator: self)
+        return StartAssembly.build(with: signupContext, coordinator: self)
     }
     
     // MARK: - Registration Screen Showing
@@ -70,7 +70,12 @@ final class AppCoordinator {
     }
     
     func showSettingsScreen() {
-        let settingsVC = SettingsScreenAssembly.build()
+        let settingsVC = SettingsScreenAssembly.build(with: signupContext, coordinator: self)
         navigationController.pushViewController(settingsVC, animated: true)
+    }
+    
+    func showProfileSettingsScreen() {
+        let profileSettingsVC = ProfileSettingsAssembly.build(with: signupContext, coordinator: self)
+        navigationController.pushViewController(profileSettingsVC, animated: true)
     }
 }
