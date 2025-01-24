@@ -48,13 +48,9 @@ final class SettingsScreenViewController: UIViewController {
     // Methods for configuration by using UserDefaultsStorage
     public func configureUserData(_ data: SettingsScreenModels.UserData) {
         configureNicknameLabel(data.nickname)
-        configureDataStackView(data.nickname, data.phone)
+        configureDataStackView(data.username, data.phone)
     }
     
-    // If we need to have edit button in settings:
-    // 1). Uncomment all
-    // 2). Edit configureSettingTableView():
-    // settingsTableView.pinTop(iconImageView.bottomAnchor, 20) -> settingsTableView.pinTop(editProfileButton.bottomAnchor, 20)
     private func configureUI() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = .black
@@ -97,16 +93,15 @@ final class SettingsScreenViewController: UIViewController {
         view.addSubview(settingsTableView)
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
-        settingsTableView.alwaysBounceVertical = false
-        settingsTableView.isScrollEnabled = false
         settingsTableView.separatorStyle = .singleLine
         settingsTableView.pinHorizontal(view)
-        settingsTableView.pinTop(iconImageView.bottomAnchor, 20)
+        settingsTableView.pinTop(iconImageView.bottomAnchor, 60)
         settingsTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
         settingsTableView.register(SettingsMenuCell.self, forCellReuseIdentifier: SettingsMenuCell.cellIdentifier)
         settingsTableView.backgroundColor = view.backgroundColor
     }
     
+    // Here you can edit nickname data (under icon)
     private func configureNicknameLabel(_ nickname: String) {
         view.addSubview(nicknameLabel)
         nicknameLabel.pinCenterX(view)
@@ -115,6 +110,7 @@ final class SettingsScreenViewController: UIViewController {
         nicknameLabel.text = nickname
     }
     
+    // Here you can edit user data (thing under avatar)
     private func configureDataStackView(_ username: String, _ phone: String) {
         view.addSubview(phoneLabel)
         view.addSubview(usernameLabel)
@@ -132,6 +128,8 @@ final class SettingsScreenViewController: UIViewController {
         dataStackView.axis = .horizontal
         dataStackView.alignment = .center
         dataStackView.spacing = 10  
+        dataStackView.pinCenterX(view)
+        dataStackView.pinTop(nicknameLabel.bottomAnchor, 10)
         
     }
     
