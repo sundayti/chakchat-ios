@@ -90,10 +90,6 @@ final class SendCodeViewController: UIViewController {
         configureUI()
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
-    
     // MARK: - Show Error as label
     func showError(_ message: String?) {
         if message != nil {
@@ -266,15 +262,17 @@ final class SendCodeViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension SendCodeViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard textField.text != nil else { return true }
-        
-        // Prohibit changing the first 4 characters.
-        if range.location < 4 {
-            return false
-        }
-        
-        return true
-    }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        // Получаем текущую позицию курсора
+        if let selectedRange = textField.selectedTextRange {
+            let cursorOffset = textField.offset(from: textField.beginningOfDocument, to: selectedRange.start)
 
+            // Если курсор находится в диапазоне от 0 до 4, перемещаем его на позицию 4
+            if cursorOffset < 4 && selectedRange.isEmpty {
+                if let newPosition = textField.position(from: textField.beginningOfDocument, offset: 4) {
+                    textField.selectedTextRange = textField.textRange(from: newPosition, to: newPosition)
+                }
+            }
+        }
+    }
 }

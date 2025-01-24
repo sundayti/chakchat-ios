@@ -67,7 +67,6 @@ final class UIPhoneNumberTextField: UITextField, UITextFieldDelegate {
         guard let selectedRange = self.selectedTextRange else { return }
         let cursorOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.start)
         
-        
         // Delete not numbers.
         let rawNumber = self.text?.replacingOccurrences(of: "\\D", with: "", options: .regularExpression) ?? ""
         
@@ -130,15 +129,31 @@ final class UIPhoneNumberTextField: UITextField, UITextFieldDelegate {
         let isTextSelected = selectedRange.start != selectedRange.end
 
         if isTextSelected {
+            let startOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.start)
+            let endOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.end)
+            
+            if startOffset >= 0 && startOffset <= 4 {
+                if endOffset <= 4 {
+                    return
+                }
+
+                let newStartPosition = self.position(from: self.beginningOfDocument, offset: 4)!
+                let newEndPosition = self.position(from: newStartPosition, offset: endOffset - startOffset - (4 - startOffset))!
+                self.selectedTextRange = self.textRange(from: newStartPosition, to: newEndPosition)
+                
+                super.deleteBackward()
+                return
+            }
+
             super.deleteBackward()
             return
         }
-
+        
         let cursorOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.start)
 
         var offset = 0
         
-        if (1...3).contains(cursorOffset) {
+        if (1...4).contains(cursorOffset) {
             // If the cursor is somewhere between + and the first 9, do nothing.
             return
         } else if Set([7, 11, 14]).contains(cursorOffset) {
@@ -155,6 +170,40 @@ final class UIPhoneNumberTextField: UITextField, UITextFieldDelegate {
         // Set new position.
         if let newPosition = self.position(from: selectedRange.start, offset: offset) {
             self.selectedTextRange = self.textRange(from: newPosition, to: newPosition)
+        }
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField.text != nil else { return true }
+                
+        // Prohibit changing the first 4 characters.
+        let protectedRange = NSRange(location: 0, length: 4)
+        if range.location < protectedRange.length {
+            return false
+        }
+        
+        return true
+    }
+    
+    // MARK: - Override Paste
+    override func paste(_ sender: Any?) {
+        if var pastedText = UIPasteboard.general.string {
+            if pastedText.hasPrefix("+79") {
+                pastedText = pastedText.replacingOccurrences(of: "\\D", with: "", options: .regularExpression)
+                let substring = String(pastedText.suffix(pastedText.count - 2))
+                self.insertText(substring)
+            } else if pastedText.hasPrefix("89") && pastedText.count >= 11 {
+                pastedText = pastedText.replacingOccurrences(of: "\\D", with: "", options: .regularExpression)
+                let substring = String(pastedText.suffix(pastedText.count - 2))
+                self.insertText(substring)
+            } else {
+                pastedText = pastedText.replacingOccurrences(of: "\\D", with: "", options: .regularExpression)
+                self.insertText(pastedText)
+            }
+        }
+        if let endPosition = self.position(from: self.endOfDocument, offset: 0) {
+            self.selectedTextRange = self.textRange(from: endPosition, to: endPosition)
         }
     }
 }
