@@ -12,6 +12,9 @@ enum ProfileSettingsAssembly {
         let presenter = ProfileSettingsPresenter()
         let worker = ProfileSettingsWorker()
         let interactor = ProfileSettingsInteractor(presenter: presenter, worker: worker)
+        interactor.onRouteToSettingsMenu = { [weak coordinator] in
+            coordinator?.popScreen()
+        }
         let view = ProfileSettingsViewController(interactor: interactor)
         presenter.view = view
         return view

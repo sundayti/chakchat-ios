@@ -7,7 +7,8 @@
 
 import Foundation
 protocol ProfileSettingsBusinessLogic {
-    
+    func backToSettingsMenu()
+    func saveNewData()
 }
 protocol ProfileSettingsPresentationLogic {
     
