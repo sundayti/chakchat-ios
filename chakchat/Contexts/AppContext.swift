@@ -13,14 +13,16 @@ final class SignupContext {
     // MARK: - Properties
     let keychainManager: KeychainManagerBusinessLogic
     let errorHandler: ErrorHandlerLogic
-    let userDefaultManager: UserDefaultsManager
+    let userDefaultManager: UserDefaultsManagerProtocol
+    let eventManager: (EventPublisherProtocol & EventRegistererProtocol)
     var state: AppState
     
     // MARK: - Initialization
-    init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultManager: UserDefaultsManager, state: AppState) {
+    init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultManager: UserDefaultsManagerProtocol, eventManager: (EventPublisherProtocol & EventRegistererProtocol), state: AppState) {
         self.keychainManager = keychainManager
         self.errorHandler = errorHandler
         self.userDefaultManager = userDefaultManager
+        self.eventManager = eventManager
         self.state = state
     }
 }

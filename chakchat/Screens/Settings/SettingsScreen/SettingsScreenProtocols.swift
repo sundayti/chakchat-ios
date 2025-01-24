@@ -7,10 +7,12 @@
 
 import Foundation
 protocol SettingsScreenBusinessLogic {
-    
+    func profileSettingsRoute()
+    func showUserData(_ data: SettingsScreenModels.UserData)
+    func loadUserData()
 }
 protocol SettingsScreenPresentationLogic {
-    
+    func showUserData(_ data: SettingsScreenModels.UserData)
 }
 protocol SettingsScreenWorkerLogic {
     

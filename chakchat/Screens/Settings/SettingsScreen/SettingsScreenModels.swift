@@ -7,5 +7,9 @@
 
 import Foundation
 enum SettingsScreenModels {
-    
+    struct UserData {
+        var nickname: String
+        var username: String
+        var phone: String
+    }
 }

@@ -12,10 +12,10 @@ final class SignupWorker: SignupWorkerLogic {
 
     // MARK: - Properties
     private let keychainManager: KeychainManagerBusinessLogic
-    private let userDefautlsManager: UserDefaultsManager
+    private let userDefautlsManager: UserDefaultsManagerProtocol
     private let signupService: SignupServiceLogic
     
-    init(keychainManager: KeychainManagerBusinessLogic, userDefautlsManager: UserDefaultsManager, signupService: SignupServiceLogic) {
+    init(keychainManager: KeychainManagerBusinessLogic, userDefautlsManager: UserDefaultsManagerProtocol, signupService: SignupServiceLogic) {
         self.keychainManager = keychainManager
         self.userDefautlsManager = userDefautlsManager
         self.signupService = signupService
@@ -31,7 +31,8 @@ final class SignupWorker: SignupWorkerLogic {
                 switch result {
                 case .success(let successResponse):
                     self.saveToken(successResponse, completion: completion)
-                    self.userDefautlsManager.saveInitials(nickname: request.name, username: request.username)
+                    self.userDefautlsManager.saveNickname(request.name)
+                    self.userDefautlsManager.saveUsername(request.username)
                     completion(.success(AppState.onChats))
                 case .failure(let apiError):
                     completion(.failure(apiError))

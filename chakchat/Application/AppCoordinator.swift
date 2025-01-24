@@ -20,7 +20,7 @@ final class AppCoordinator {
     init(window: UIWindow) {
         self.window = window
         self.navigationController = UINavigationController()
-        self.signupContext = SignupContext(keychainManager: KeychainManager(), errorHandler: ErrorHandler(), userDefaultManager: UserDefaultsManager(), state: AppState._default)
+        self.signupContext = SignupContext(keychainManager: KeychainManager(), errorHandler: ErrorHandler(), userDefaultManager: UserDefaultsManager(), eventManager: EventManager(), state: AppState._default)
     }
 
     func start() {
@@ -70,7 +70,12 @@ final class AppCoordinator {
     }
     
     func showSettingsScreen() {
-        let settingsVC = SettingsScreenAssembly.build()
+        let settingsVC = SettingsScreenAssembly.build(with: signupContext, coordinator: self)
         navigationController.pushViewController(settingsVC, animated: true)
+    }
+    
+    func showProfileSettingsScreen() {
+        let profileSettingsVC = ProfileSettingsAssembly.build(with: signupContext, coordinator: self)
+        navigationController.pushViewController(profileSettingsVC, animated: true)
     }
 }

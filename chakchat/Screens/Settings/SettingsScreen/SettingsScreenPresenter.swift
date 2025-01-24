@@ -7,6 +7,10 @@
 
 import Foundation
 final class SettingsScreenPresenter: SettingsScreenPresentationLogic {
-    
+        
     weak var view: SettingsScreenViewController?
+    
+    func showUserData(_ data: SettingsScreenModels.UserData) {
+        view?.configureUserData(data)
+    }
 }
