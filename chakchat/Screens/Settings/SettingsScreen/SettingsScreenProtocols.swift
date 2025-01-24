@@ -7,7 +7,7 @@
 
 import Foundation
 protocol SettingsScreenBusinessLogic {
-    
+    func profileSettingsRoute()
 }
 protocol SettingsScreenPresentationLogic {
     

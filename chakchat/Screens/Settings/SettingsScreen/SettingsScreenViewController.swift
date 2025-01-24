@@ -41,7 +41,7 @@ final class SettingsScreenViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
     }
-    // If we need to have edit button in setting:
+    // If we need to have edit button in settings:
     // 1). Uncomment all
     // 2). Edit configureSettingTableView():
     // settingsTableView.pinTop(iconImageView.bottomAnchor, 20) -> settingsTableView.pinTop(editProfileButton.bottomAnchor, 20)
@@ -49,11 +49,10 @@ final class SettingsScreenViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = .black
         configureSettingsLabel()
-        //configureButtonLabel()
+        configureButtonLabel()
         navigationItem.titleView = settingsLabel
         view.backgroundColor = .white
         configureIconImageView()
-        //configureEditProfileButton()
         configureSettingTableView()
         
     }
@@ -64,14 +63,14 @@ final class SettingsScreenViewController: UIViewController {
         settingsLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         settingsLabel.textAlignment = .center
     }
-    /*
+    
     private func configureButtonLabel() {
         view.addSubview(buttonLabel)
         buttonLabel.text = "Edit profile"
         buttonLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         buttonLabel.textAlignment = .center
     }
-    */
+    
     private func configureIconImageView() {
         view.addSubview(iconImageView)
         iconImageView.setHeight(90)
@@ -83,16 +82,7 @@ final class SettingsScreenViewController: UIViewController {
         iconImageView.pinTop(view.safeAreaLayoutGuide.topAnchor, 10)
         iconImageView.image = UIImage(systemName: "person.circle")
     }
-    /*
-    private func configureEditProfileButton() {
-        view.addSubview(editProfileButton)
-        editProfileButton.pinCenterX(view)
-        editProfileButton.pinTop(iconImageView.bottomAnchor, 20)
-        editProfileButton.setHeight(40)
-        editProfileButton.setWidth(140)
-        editProfileButton.setTitle(buttonLabel.text, for: .normal)
-    }
-    */
+    
     private func configureSettingTableView() {
         view.addSubview(settingsTableView)
         settingsTableView.delegate = self
@@ -158,5 +148,14 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         let item = sections[indexPath.section][indexPath.row]
         settingsCell.configure(with: item.0, with: item.1!)
         return settingsCell
+    }
+    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        // if pressed section is "My Profile"
+        if indexPath.section == 0 && indexPath.row == 0 {
+            interactor.profileSettingsRoute()
+        }
     }
 }

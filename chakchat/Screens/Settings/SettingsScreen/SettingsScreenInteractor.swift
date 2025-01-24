@@ -10,10 +10,14 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     
     var presenter: SettingsScreenPresentationLogic
     var worker: SettingsScreenWorkerLogic
+    var onRouteToProfileSettings: (() -> Void)?
     
     init(presenter: SettingsScreenPresentationLogic, worker: SettingsScreenWorkerLogic) {
         self.presenter = presenter
         self.worker = worker
     }
     
+    func profileSettingsRoute() {
+        onRouteToProfileSettings?()
+    }
 }
