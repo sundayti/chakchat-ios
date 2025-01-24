@@ -12,20 +12,11 @@ import UIKit
 final class SendCodeViewController: UIViewController {
     
     // MARK: - Constants
-    internal enum Constants {
-        static let inputPhoneFont: UIFont = UIFont.loadCustomFont(name: "OpenSans-Regular", size: 28)
+    private enum Constants {
         static let inputNumberLabelFontSize: CGFloat = 16
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
-        static let inputNumberTextFieldPlaceholder: String = "+7 000 000 0000"
         static let inputNumberTextFieldTopAnchor: CGFloat = 50
-        static let inputNumberTextFieldHeight: CGFloat = 60
-        static let inputNumberTextFieldWidth: CGFloat = 300
-        static let inputNumberTextFieldPaddingWidth: CGFloat = 10
-        static let inputNumberTextFieldCornerRadius: CGFloat = 8
-        static let inputNumberTextFieldBorderWidth: CGFloat = 1
-        static let inputNumberPaddingX: CGFloat = 0
-        static let inputNumberPaddingY: CGFloat = 0
         
         static let descriptionLabelText: String = "by continuing, you agree to our"
         static let descriptionLabelFontSize: CGFloat = 18
@@ -74,7 +65,7 @@ final class SendCodeViewController: UIViewController {
     // MARK: - Properties
     private var interactor: SendCodeBusinessLogic
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
-    private lazy var inputNumberTextField: PhoneNumberTextField = PhoneNumberTextField()
+    private lazy var inputNumberTextField: UIPhoneNumberTextField = UIPhoneNumberTextField()
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
     private lazy var shortNumberLabel: UILabel = UILabel()
     private lazy var disclaimerView: UIView = UIView()
@@ -139,30 +130,8 @@ final class SendCodeViewController: UIViewController {
     // MARK: - Input Number Text Field Configuration
     private func configureInputNumberTextField() {
         view.addSubview(inputNumberTextField)
-        inputNumberTextField.placeholder = Constants.inputNumberTextFieldPlaceholder
-        
         inputNumberTextField.pinTop(chakchatStackView.bottomAnchor, Constants.inputNumberTextFieldTopAnchor)
-        inputNumberTextField.setHeight(Constants.inputNumberTextFieldHeight)
-        inputNumberTextField.setWidth(Constants.inputNumberTextFieldWidth)
         inputNumberTextField.pinCenterX(view)
-        
-        inputNumberTextField.borderStyle = .none
-        inputNumberTextField.layer.cornerRadius = Constants.inputNumberTextFieldCornerRadius
-        inputNumberTextField.layer.borderWidth = Constants.inputNumberTextFieldBorderWidth
-        inputNumberTextField.layer.borderColor = Colors.gray.cgColor
-        
-        inputNumberTextField.keyboardType = .numberPad
-        inputNumberTextField.borderStyle = .roundedRect
-        let paddingView = UIView(
-            frame: CGRect(
-                x: Constants.inputNumberPaddingX,
-                y: Constants.inputNumberPaddingY,
-                width: Constants.inputNumberTextFieldPaddingWidth,
-                height: inputNumberTextField.frame.height
-            )
-        )
-        inputNumberTextField.leftView = paddingView
-        inputNumberTextField.leftViewMode = .always
         inputNumberTextField.delegate = self
     }
     
@@ -301,125 +270,11 @@ extension SendCodeViewController: UITextFieldDelegate {
         guard textField.text != nil else { return true }
         
         // Prohibit changing the first 4 characters.
-        let protectedRange = NSRange(location: 0, length: 4)
-        if range.location < protectedRange.length {
+        if range.location < 4 {
             return false
         }
         
         return true
     }
 
-}
-
-// MARK: - PhoneNumberTextField
-class PhoneNumberTextField: UITextField, UITextFieldDelegate {
-    
-    // MARK: - Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configure()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configure()
-    }
-    
-    // MARK: - Configuration
-    private func configure() {
-        self.keyboardType = .numberPad
-        self.delegate = self
-        self.font = SendCodeViewController.Constants.inputPhoneFont
-        self.text = "+7 9"
-        self.addTarget(self, action: #selector(formatPhoneNumber), for: .editingChanged)
-    }
-    
-    // MARK: - Phone Number Formatting
-    @objc private func formatPhoneNumber() {
-        guard let selectedRange = self.selectedTextRange else { return }
-        let cursorOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.start)
-        
-        
-        // Delete not numbers.
-        let rawNumber = self.text?.replacingOccurrences(of: "\\D", with: "", options: .regularExpression) ?? ""
-        
-        // Chack if number starts with 79
-        guard rawNumber.hasPrefix("79") else {
-            self.text = "+7 9"
-            return
-        }
-        
-        // Limit the number length to 11 digits (79XXXXXXXXX)
-        let maxDigits = 11
-        let trimmedNumber = String(rawNumber.prefix(maxDigits))
-        
-        // We format the number in the format "+7 9XX XXX XX XX"
-        var formattedNumber = "+7 9"
-        if trimmedNumber.count > 2 {
-            formattedNumber += String(trimmedNumber.dropFirst(2))
-        }
-        
-        // Add the spaces.
-        if formattedNumber.count > 6 {
-            formattedNumber.insert(" ", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 6))
-        }
-        if formattedNumber.count > 10 {
-            formattedNumber.insert(" ", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 10))
-        }
-        if formattedNumber.count > 13 {
-            formattedNumber.insert(" ", at: formattedNumber.index(formattedNumber.startIndex, offsetBy: 13))
-        }
-        
-        // Updating the text.
-        self.text = formattedNumber
-        
-        // Correct cursor position.
-        var newCursorOffset = cursorOffset
-        
-        if cursorOffset == 7 {
-            newCursorOffset += 1
-        }
-        if cursorOffset == 11 {
-            newCursorOffset += 1
-        }
-        if cursorOffset == 14 {
-            newCursorOffset += 1
-        }
-        
-        // Set new cursor position.
-        if let newPosition = self.position(from: self.beginningOfDocument, offset: newCursorOffset) {
-            self.selectedTextRange = self.textRange(from: newPosition, to: newPosition)
-        }
-    }
-    
-    // MARK: - Defining behavior when deleting characters
-    override public func deleteBackward() {
-        guard let selectedRange = self.selectedTextRange else {
-            super.deleteBackward()
-            return
-        }
-
-        let cursorOffset = self.offset(from: self.beginningOfDocument, to: selectedRange.start)
-
-        var offset = 0
-        
-        if (1...4).contains(cursorOffset) {
-            // If the cursor is somewhere between + and the first 9, do nothing.
-            return
-        } else if Set([7, 11, 14]).contains(cursorOffset) {
-            // If the cursor on the place +7 9xx |xxx |xx |xx, delete space and number.
-            super.deleteBackward()
-            super.deleteBackward()
-            offset = -2
-        } else {
-            // If the cursor on another position, delete number and move cursor.
-            super.deleteBackward()
-            offset = -1
-        }
-        
-        // Set new position.
-        if let newPosition = self.position(from: selectedRange.start, offset: offset) {
-            self.selectedTextRange = self.textRange(from: newPosition, to: newPosition)
-        }
-    }
 }
