@@ -10,8 +10,12 @@ import UIKit
 enum ProfileSettingsAssembly {
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ProfileSettingsPresenter()
-        let worker = ProfileSettingsWorker()
-        let interactor = ProfileSettingsInteractor(presenter: presenter, worker: worker)
+        let worker = ProfileSettingsWorker(userDefaultsManager: context.userDefaultManager)
+        let userData = getUserData(context.userDefaultManager)
+        let interactor = ProfileSettingsInteractor(presenter: presenter, 
+                                                   worker: worker, userData: userData,
+                                                   eventPublisher: context.eventManager)
+        
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
             coordinator?.popScreen()
         }
@@ -19,4 +23,10 @@ enum ProfileSettingsAssembly {
         presenter.view = view
         return view
     }
+}
+
+private func getUserData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> ProfileSettingsModels.ProfileUserData {
+    let nickname = userDefaultsManager.loadNickname()
+    let username = userDefaultsManager.loadUsername()
+    return ProfileSettingsModels.ProfileUserData(nickname: nickname, username: username)
 }
