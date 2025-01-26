@@ -10,10 +10,12 @@ protocol SettingsScreenBusinessLogic {
     func profileSettingsRoute()
     func showUserData(_ data: SettingsScreenModels.UserData)
     func loadUserData()
+    func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent)
 }
 protocol SettingsScreenPresentationLogic {
     func showUserData(_ data: SettingsScreenModels.UserData)
+    func showNewUserData(_ data: SettingsScreenModels.UserData)
 }
 protocol SettingsScreenWorkerLogic {
-    
+    func loadUserProfileData() -> ProfileSettingsModels.ProfileUserData
 }
