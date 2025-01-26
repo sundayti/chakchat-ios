@@ -47,8 +47,14 @@ final class SettingsScreenViewController: UIViewController {
     }
     // Methods for configuration by using UserDefaultsStorage
     public func configureUserData(_ data: SettingsScreenModels.UserData) {
+        // if user already loaded his data
         configureNicknameLabel(data.nickname)
         configureDataStackView(data.username, data.phone)
+    }
+    
+    public func updateUserData(_ data: SettingsScreenModels.UserData) {
+        nicknameLabel.text = data.nickname
+        usernameLabel.text = data.username
     }
     
     private func configureUI() {
@@ -133,8 +139,6 @@ final class SettingsScreenViewController: UIViewController {
         
     }
     
-
-        
     @objc
     private func backButtonPressed() {
         navigationController?.popViewController(animated: true)
