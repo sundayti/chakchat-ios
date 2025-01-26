@@ -23,11 +23,25 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         showUserData(userData)
     }
     
+    func updateUserData() {
+        showNewUserData(userData)
+    }
+    
     func showUserData(_ data: SettingsScreenModels.UserData) {
         presenter.showUserData(data)
     }
     
+    func showNewUserData(_ data: SettingsScreenModels.UserData) {
+        presenter.showNewUserData(data)
+    }
+    
     func profileSettingsRoute() {
         onRouteToProfileSettings?()
+    }
+    
+    func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
+        userData.nickname = event.newNickname
+        userData.username = event.newUsername
+        updateUserData()
     }
 }
