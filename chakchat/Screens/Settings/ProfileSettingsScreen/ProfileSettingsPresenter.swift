@@ -11,4 +11,7 @@ final class ProfileSettingsPresenter: ProfileSettingsPresentationLogic {
     
     weak var view: ProfileSettingsViewController?
     
+    func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+        view?.configureUserData(userData)
+    }
 }
