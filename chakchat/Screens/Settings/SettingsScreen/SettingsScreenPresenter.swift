@@ -13,4 +13,8 @@ final class SettingsScreenPresenter: SettingsScreenPresentationLogic {
     func showUserData(_ data: SettingsScreenModels.UserData) {
         view?.configureUserData(data)
     }
+    
+    func showNewUserData(_ data: SettingsScreenModels.UserData) {
+        view?.updateUserData(data)
+    }
 }

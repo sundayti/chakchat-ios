@@ -8,4 +8,15 @@
 import Foundation
 final class SettingsScreenWorker: SettingsScreenWorkerLogic {
     
+    let userDefaultsManager: UserDefaultsManagerProtocol
+    
+    init(userDefaultsManager: UserDefaultsManagerProtocol) {
+        self.userDefaultsManager = userDefaultsManager
+    }
+    
+    func loadUserProfileData() -> ProfileSettingsModels.ProfileUserData {
+        let nickname =  userDefaultsManager.loadNickname()
+        let username = userDefaultsManager.loadUsername()
+        return ProfileSettingsModels.ProfileUserData(nickname: nickname, username: username)
+    }
 }

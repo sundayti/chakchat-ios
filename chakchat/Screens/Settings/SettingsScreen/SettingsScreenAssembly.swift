@@ -10,12 +10,15 @@ import UIKit
 enum SettingsScreenAssembly {
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SettingsScreenPresenter()
-        let worker = SettingsScreenWorker()
+        let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultManager)
         let userData = getUserData(context.userDefaultManager)
         let interactor = SettingsScreenInteractor(presenter: presenter, worker: worker, userData: userData)
         interactor.onRouteToProfileSettings = { [weak coordinator] in
             coordinator?.showProfileSettingsScreen()
         }
+        context.eventManager.register(eventType: UpdateProfileDataEvent.self,
+                                      interactor.handleUserDataChangedEvent)
+        
         let view = SettingsScreenViewController(interactor: interactor)
         presenter.view = view
         return view

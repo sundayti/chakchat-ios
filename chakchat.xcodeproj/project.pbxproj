@@ -20,7 +20,7 @@
 		AA1C0E362D43A0D5008E47D8 /* EventPublisherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E352D43A0D5008E47D8 /* EventPublisherProtocol.swift */; };
 		AA1C0E382D43A232008E47D8 /* UserDefaultsManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E372D43A232008E47D8 /* UserDefaultsManagerProtocol.swift */; };
 		AA1C0E3A2D43A5D7008E47D8 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E392D43A5D7008E47D8 /* EventManager.swift */; };
-		AA1C0E3C2D43ACED008E47D8 /* NicknameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E3B2D43ACED008E47D8 /* NicknameEvent.swift */; };
+		AA1C0E3C2D43ACED008E47D8 /* UpdateProfileDataEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E3B2D43ACED008E47D8 /* UpdateProfileDataEvent.swift */; };
 		AA1C0E3E2D43C452008E47D8 /* EventRegistererProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E3D2D43C452008E47D8 /* EventRegistererProtocol.swift */; };
 		AA1C0E412D43C927008E47D8 /* ProfileSettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E402D43C927008E47D8 /* ProfileSettingsAssembly.swift */; };
 		AA1C0E432D43C968008E47D8 /* ProfileSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E422D43C968008E47D8 /* ProfileSettingsInteractor.swift */; };
@@ -140,7 +140,7 @@
 		AA1C0E352D43A0D5008E47D8 /* EventPublisherProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPublisherProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E372D43A232008E47D8 /* UserDefaultsManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManagerProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E392D43A5D7008E47D8 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
-		AA1C0E3B2D43ACED008E47D8 /* NicknameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameEvent.swift; sourceTree = "<group>"; };
+		AA1C0E3B2D43ACED008E47D8 /* UpdateProfileDataEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileDataEvent.swift; sourceTree = "<group>"; };
 		AA1C0E3D2D43C452008E47D8 /* EventRegistererProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRegistererProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E402D43C927008E47D8 /* ProfileSettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsAssembly.swift; sourceTree = "<group>"; };
 		AA1C0E422D43C968008E47D8 /* ProfileSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsInteractor.swift; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1C0E322D43A081008E47D8 /* Event.swift */,
-				AA1C0E3B2D43ACED008E47D8 /* NicknameEvent.swift */,
+				AA1C0E3B2D43ACED008E47D8 /* UpdateProfileDataEvent.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -783,7 +783,7 @@
 				AA1C0E3A2D43A5D7008E47D8 /* EventManager.swift in Sources */,
 				AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */,
 				AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */,
-				AA1C0E3C2D43ACED008E47D8 /* NicknameEvent.swift in Sources */,
+				AA1C0E3C2D43ACED008E47D8 /* UpdateProfileDataEvent.swift in Sources */,
 				AA9B62342D2D71A30064CB23 /* PhoneValidator.swift in Sources */,
 				9B1EC0822D383F0B00E01E00 /* UIColor+Hex.swift in Sources */,
 				AA9B62692D2FD2390064CB23 /* SignupInteractor.swift in Sources */,

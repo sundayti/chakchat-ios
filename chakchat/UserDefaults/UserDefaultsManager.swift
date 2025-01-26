@@ -37,21 +37,21 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func loadNickname() -> String {
         guard let nickname = UserDefaults.standard.string(forKey: nicknameKey) else {
-            return ""
+            return "Default"
         }
         return nickname
     }
     
     func loadUsername() -> String {
         guard let username = UserDefaults.standard.string(forKey: usernameKey) else {
-            return ""
+            return "Default"
         }
         return username
     }
     
     func loadPhone() -> String {
         guard let phone = UserDefaults.standard.string(forKey: phoneKey) else {
-            return ""
+            return "Default"
         }
         return phone
     }
