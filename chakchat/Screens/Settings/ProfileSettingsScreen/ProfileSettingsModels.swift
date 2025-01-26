@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import UIKit
+enum ProfileSettingsModels {
+    struct ProfileUserData {
+        var nickname: String
+        var username: String
+        var icon: UIImage?
+    }
+}
