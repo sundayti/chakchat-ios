@@ -41,6 +41,8 @@ final class VerifyViewController: UIViewController {
         static let errorMessageDuration: TimeInterval = 2
         static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
+        
+        static let timerLabelBottom: CGFloat = 15
     }
     
     // MARK: - Fields
@@ -51,6 +53,7 @@ final class VerifyViewController: UIViewController {
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
     private lazy var digitsStackView: UIStackView = UIStackView()
+    private lazy var timerLabel: UILabel = UILabel()
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     // MARK: - Lifecycle
@@ -82,6 +85,22 @@ final class VerifyViewController: UIViewController {
     func showError(_ message: String?) {
         if message != nil {
             errorLabel.showError(message)
+            if message == "Incorrect code" {
+                incorrectCode()
+            }
+        }
+    }
+    
+    // MARK: - Incorrect Code Handling Method
+    private func incorrectCode() {
+        for i in 0..<textFields.count {
+            textFields[i].text = ""
+            if textFields.indices.contains(i), let thirdTextField = textFields[i] as? UIDeletableTextField {
+                thirdTextField.shakeAndChangeColor()
+            }
+        }
+        if let firstTextField = textFields.first {
+            firstTextField.becomeFirstResponder()
         }
     }
     
@@ -91,7 +110,8 @@ final class VerifyViewController: UIViewController {
         configureInputHintLabel()
         configureInputDescriptionLabel()
         configureDigitsStackView()
-        configurateErrorLabel()
+        configureErrorLabel()
+        configureTimerLabel()
     }
     
     // MARK: - ChakChat Configuration
@@ -131,7 +151,7 @@ final class VerifyViewController: UIViewController {
         for i in 0..<6 {
             let textField = UIDeletableTextField()
             textField.layer.borderWidth = Constants.textFieldBorderWidth
-            textField.layer.borderColor = Colors.orange.cgColor
+            textField.layer.borderColor = UIColor.gray.cgColor
             textField.layer.cornerRadius = Constants.textFieldCornerRadius
             textField.textAlignment = .center
             textField.font = UIFont.systemFont(ofSize: Constants.textFieldFont)
@@ -150,10 +170,21 @@ final class VerifyViewController: UIViewController {
     }
     
     // MARK: - Error Label Configuration
-    private func configurateErrorLabel() {
+    private func configureErrorLabel() {
         view.addSubview(errorLabel)
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
+    }
+    
+    // MARK: - Timer Label Configuration
+    private func configureTimerLabel() {
+        view.addSubview(timerLabel)
+        timerLabel.pinCenterX(view)
+        timerLabel.pinBottom(errorLabel, Constants.timerLabelBottom)
+        timerLabel.font = Constants.inputHintLabelFont
+        timerLabel.textAlignment = .center
+        timerLabel.textColor = .black
+        timerLabel.isHidden = true
     }
     
     // MARK: - Supporting Methods
