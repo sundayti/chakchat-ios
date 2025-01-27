@@ -30,4 +30,9 @@ final class VerifyPresenter: VerifyPresentationLogic {
     func showAlert(_ message: String?) {
         view?.showAlert(message: message)
     }
+    
+    // MARK: - Phone Presentation
+    func showPhone(_ phone: String) {
+        view?.showPhone(phone)
+    }
 }

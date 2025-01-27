@@ -83,4 +83,10 @@ final class VerifyInteractor: VerifyBusinessLogic {
     func routeToSendCodeScreen(_ state: AppState) {
         onRouteToSendCodeScreen?(state)
     }
+    
+    // MARK: - Get Phone
+    func getPhone() {
+        let phone = worker.getPhone()
+        presentor.showPhone(phone)
+    }
 }

@@ -13,11 +13,13 @@ protocol VerifyBusinessLogic {
     func routeToSignupScreen(_ state: AppState)
     func routeToChatScreen(_ state: AppState)
     func routeToSendCodeScreen(_ state: AppState)
+    func getPhone()
 }
 
 // MARK: - VerifyPresentationLogic
 protocol VerifyPresentationLogic {
     func showError(_ error: ErrorId)
+    func showPhone(_ phone: String)
 }
 
 // MARK: - VerifyWorkerLogic
@@ -29,4 +31,5 @@ protocol VerifyWorkerLogic {
         completion: @escaping (Result<AppState, Error>) -> Void
     )
     func getVerifyCode(_ key: String) -> UUID?
+    func getPhone() -> String
 }

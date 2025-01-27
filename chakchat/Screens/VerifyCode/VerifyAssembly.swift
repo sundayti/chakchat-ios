@@ -16,9 +16,9 @@ enum VerifyAssembly {
         
         let presenter = VerifyPresenter()
         let verificationService = VerificationService()
-        let worker = VerifyWorker(keychainManager: context.keychainManager,
-                                  verificationService: verificationService)
-        let interactor = VerifyInteractor(presentor: presenter, 
+        let worker = VerifyWorker(verificationService: verificationService, keychainManager: context.keychainManager, userDefaultsManager: context.userDefaultManager)
+        
+        let interactor = VerifyInteractor(presentor: presenter,
                                           worker: worker,
                                           errorHandler: context.errorHandler, 
                                           state: context.state)

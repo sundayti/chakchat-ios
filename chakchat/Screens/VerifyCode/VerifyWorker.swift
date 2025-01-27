@@ -13,11 +13,13 @@ final class VerifyWorker: VerifyWorkerLogic {
     // MARK: - Properties
     private let verificationService: VerificationServiceLogic
     private let keychainManager: KeychainManagerBusinessLogic
+    private let userDefaultsManager: UserDefaultsManagerProtocol
 
     // MARK: - Initialization
-    init(keychainManager: KeychainManagerBusinessLogic, verificationService: VerificationServiceLogic) {
-        self.keychainManager = keychainManager
+    init(verificationService: VerificationServiceLogic, keychainManager: KeychainManagerBusinessLogic, userDefaultsManager: UserDefaultsManagerProtocol) {
         self.verificationService = verificationService
+        self.keychainManager = keychainManager
+        self.userDefaultsManager = userDefaultsManager
     }
     
     // MARK: - Verification Request
@@ -68,5 +70,11 @@ final class VerifyWorker: VerifyWorkerLogic {
         } else {
             completion(.failure(Keychain.KeychainError.saveError))
         }
+    }
+    
+    // MARK: - Get Phone
+    func getPhone() -> String {
+        let phone = userDefaultsManager.loadPhone()
+        return phone
     }
 }

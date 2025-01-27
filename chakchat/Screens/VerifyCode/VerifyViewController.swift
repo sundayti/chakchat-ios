@@ -20,7 +20,6 @@ final class VerifyViewController: UIViewController {
         static let backButtonName: String = "arrow.left"
         
         static let inputDescriptionNumberOfLines: Int = 2
-        static let inputDescriptionText: String = "We sent you a verification code via SMS\non number +7(9**)***-**-**."
         static let inputDescriptionTop: CGFloat = 10
         
         static let digitsStackViewSpacing: CGFloat = 10
@@ -48,6 +47,7 @@ final class VerifyViewController: UIViewController {
     // MARK: - Fields
     private var interactor: VerifyBusinessLogic
     private var textFields: [UITextField] = []
+    private var inputDescriptionText: String = "We sent you a verification code via SMS\non number "
     
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputHintLabel: UILabel = UILabel()
@@ -81,6 +81,15 @@ final class VerifyViewController: UIViewController {
         configureUI()
     }
     
+    
+    // MARK: - Show Phone
+    func showPhone(_ phone: String) {
+        guard let prettyPhone = formattingNumber(phone) else {
+            return
+        }
+        inputDescriptionText += prettyPhone
+    }
+    
     // MARK: - Show Error as label
     func showError(_ message: String?) {
         if message != nil {
@@ -94,13 +103,17 @@ final class VerifyViewController: UIViewController {
     // MARK: - Incorrect Code Handling Method
     private func incorrectCode() {
         for i in 0..<textFields.count {
-            textFields[i].text = ""
             if textFields.indices.contains(i), let thirdTextField = textFields[i] as? UIDeletableTextField {
                 thirdTextField.shakeAndChangeColor()
             }
         }
-        if let firstTextField = textFields.first {
-            firstTextField.becomeFirstResponder()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            for i in 0..<self.textFields.count {
+                self.textFields[i].text = ""
+            }
+            if let firstTextField = self.textFields.first {
+                firstTextField.becomeFirstResponder()
+            }
         }
     }
     
@@ -108,6 +121,7 @@ final class VerifyViewController: UIViewController {
     private func configureUI() {
         configureChakChatStackView()
         configureInputHintLabel()
+        interactor.getPhone()
         configureInputDescriptionLabel()
         configureDigitsStackView()
         configureErrorLabel()
@@ -136,7 +150,7 @@ final class VerifyViewController: UIViewController {
         inputDescriptionLabel.textAlignment = .center
         inputDescriptionLabel.numberOfLines = Constants.inputDescriptionNumberOfLines
         inputDescriptionLabel.textColor = .gray
-        inputDescriptionLabel.text = Constants.inputDescriptionText
+        inputDescriptionLabel.text = inputDescriptionText
         inputDescriptionLabel.pinCenterX(view)
         inputDescriptionLabel.pinTop(inputHintLabel.bottomAnchor, Constants.inputDescriptionTop)
     }
@@ -210,6 +224,17 @@ final class VerifyViewController: UIViewController {
         }
         print(code)
         return code
+    }
+    
+    // MARK: - Formatting Raw Number
+    private func formattingNumber(_ number: String) -> String? {
+        guard number.count == 11 else {
+            print("Incorrect number length")
+            return nil
+        }
+        let formattedNumber = "+7 (\(number.prefix(4).suffix(3))) \(number.prefix(7).suffix(3))-\(number.prefix(9).suffix(2))-\(number.suffix(2))"
+        
+        return formattedNumber
     }
     
     // MARK: - Actions
