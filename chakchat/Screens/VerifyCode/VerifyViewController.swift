@@ -41,21 +41,31 @@ final class VerifyViewController: UIViewController {
         static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
         
-        static let timerLabelBottom: CGFloat = 15
+        static let timerLabelBottom: CGFloat = 50
         static let extraKeyboardIndent: CGFloat = 40
+        
+        static let inputButtonHeight: CGFloat = 48
+        static let inputButtonWidth: CGFloat = 205
+        static let resendButtonFont: UIFont = UIFont.systemFont(ofSize: 25, weight: .bold)
     }
     
     // MARK: - Fields
     private var interactor: VerifyBusinessLogic
     private var textFields: [UITextField] = []
     private var inputDescriptionText: String = "We sent you a verification code via SMS\non number "
+    private var countdownTimer: Timer?
     
+    private lazy var remainingTime: TimeInterval = 0
+    private lazy var rawPhone: String = ""
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
     private lazy var digitsStackView: UIStackView = UIStackView()
     private lazy var timerLabel: UILabel = UILabel()
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
+    private lazy var resendButton: UIGradientButton = UIGradientButton(title: "Resend Code")
+    
+    let timerDuration: TimeInterval = 90.0
     
     // MARK: - Lifecycle
     init(interactor: VerifyBusinessLogic) {
@@ -100,14 +110,13 @@ final class VerifyViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    
-    
     // MARK: - Show Phone
     func showPhone(_ phone: String) {
         guard let prettyPhone = formattingNumber(phone) else {
             return
         }
         inputDescriptionText += prettyPhone
+        rawPhone = phone
     }
     
     // MARK: - Show Error as label
@@ -118,6 +127,16 @@ final class VerifyViewController: UIViewController {
                 incorrectCode()
             }
         }
+    }
+    
+    // MARK: - Show Timer and Hide Resend Button
+    func hideResendButton() {
+        resendButton.isHidden = true
+        timerLabel.isHidden = false
+        timerLabel.alpha = 1.0
+        timerLabel.text = "Resend code in \(formatTime(Int(timerDuration)))"
+        remainingTime = timerDuration
+        startCountdown()
     }
     
     // MARK: - Incorrect Code Handling Method
@@ -146,6 +165,7 @@ final class VerifyViewController: UIViewController {
         configureDigitsStackView()
         configureErrorLabel()
         configureTimerLabel()
+        configureResendButton()
     }
     
     // MARK: - ChakChat Configuration
@@ -214,15 +234,28 @@ final class VerifyViewController: UIViewController {
     private func configureTimerLabel() {
         view.addSubview(timerLabel)
         timerLabel.pinCenterX(view)
-        timerLabel.pinBottom(errorLabel, Constants.timerLabelBottom)
-        timerLabel.font = Constants.inputHintLabelFont
+        timerLabel.pinBottom(view, Constants.timerLabelBottom)
         timerLabel.textAlignment = .center
-        timerLabel.textColor = .black
-        timerLabel.isHidden = true
+        timerLabel.textColor = .lightGray
+        timerLabel.text = "Resend code in \(formatTime(Int(timerDuration)))"
+        remainingTime = timerDuration
+        startCountdown()
+    }
+    
+    // MARK: - Resend Button Configuration
+    private func configureResendButton() {
+        view.addSubview(resendButton)
+        resendButton.pinCenterX(view)
+        resendButton.pinBottom(view, Constants.timerLabelBottom)
+        resendButton.setHeight(Constants.inputButtonHeight)
+        resendButton.setWidth(Constants.inputButtonWidth)
+        resendButton.titleLabel?.font = Constants.resendButtonFont
+        resendButton.addTarget(self, action: #selector(resendButtonPressed), for: .touchUpInside)
+        resendButton.isHidden = true
     }
     
     // MARK: - Supporting Methods
-    func areAllTextFieldsFilled() -> Bool {
+    private func areAllTextFieldsFilled() -> Bool {
         for field in textFields {
             if field.text?.isEmpty == true {
                 return false
@@ -255,6 +288,18 @@ final class VerifyViewController: UIViewController {
         let formattedNumber = "+7 (\(number.prefix(4).suffix(3))) \(number.prefix(7).suffix(3))-\(number.prefix(9).suffix(2))-\(number.suffix(2))"
         
         return formattedNumber
+    }
+    
+    // MARK: - Format Time
+    private func formatTime(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    // MARK: - Start Countdown
+    func startCountdown() {
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateLabel), userInfo: nil, repeats: true)
     }
     
     // MARK: - Actions
@@ -294,6 +339,40 @@ final class VerifyViewController: UIViewController {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+    }
+    
+    @objc func updateLabel() {
+        remainingTime -= 1
+        if remainingTime > 0 {
+            timerLabel.text = "Resend code in \(formatTime(Int(remainingTime)))"
+        } else {
+            countdownTimer?.invalidate()
+            hideLabel()
+        }
+    }
+
+    @objc func hideLabel() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.timerLabel.alpha = 0.0
+        }) { _ in
+            self.timerLabel.isHidden = true
+        }
+        resendButton.isHidden = false
+    }
+    
+    @objc
+    private func resendButtonPressed() {
+        UIView.animate(withDuration: UIConstants.animationDuration, animations: {
+            self.resendButton.transform = CGAffineTransform(scaleX: UIConstants.buttonScale, y: UIConstants.buttonScale)
+            }, completion: { _ in
+            UIView.animate(withDuration: UIConstants.animationDuration) {
+                self.resendButton.transform = CGAffineTransform.identity
+            }
+        })
+        interactor.resendCodeRequest(
+            Verify.ResendCodeRequest(
+                phone: rawPhone)
+        )
     }
 }
 

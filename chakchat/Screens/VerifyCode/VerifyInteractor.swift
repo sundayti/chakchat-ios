@@ -89,4 +89,37 @@ final class VerifyInteractor: VerifyBusinessLogic {
         let phone = worker.getPhone()
         presentor.showPhone(phone)
     }
+    
+    // MARK: - Resend Code Request
+    func resendCodeRequest(_ request: Verify.ResendCodeRequest) {
+        print("Send request to worker")
+        if (state == AppState.signin) {
+            worker.resendInRequest(request) { [weak self] result in
+                guard let self = self else {return}
+                switch result {
+                case .success(_):
+                    self.successTransition()
+                case .failure(let error):
+                    let errorId = self.errorHandler.handleError(error)
+                    self.presentor.showError(errorId)
+                }
+            }
+        } else if (state == AppState.signupVerifyCode) {
+            worker.resendUpRequest(request) { [weak self] result in
+                guard let self = self else {return}
+                switch result {
+                case .success(_):
+                    self.successTransition()
+                case .failure(let error):
+                    let errorId = self.errorHandler.handleError(error)
+                    self.presentor.showError(errorId)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Routing
+    func successTransition() {
+        presentor.hideResendButton()
+    }
 }

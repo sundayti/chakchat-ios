@@ -57,6 +57,5 @@ final class UIErrorLabel: UILabel {
         self.textAlignment = .center
         self.lineBreakMode = .byWordWrapping
         self.numberOfLines = UIConstants.errorLabelNumberOfLines
-        self.setWidth(UIConstants.errorLabelMaxWidth)
     }
 }

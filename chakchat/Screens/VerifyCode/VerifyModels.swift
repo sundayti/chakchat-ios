@@ -31,4 +31,9 @@ enum Verify {
             case code = "code"
         }
     }
+    
+    // MARK: - Resend Code Request Models
+    struct ResendCodeRequest: Codable {
+        let phone: String
+    }
 }
