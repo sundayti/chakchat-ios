@@ -14,7 +14,9 @@ final class EventManager: EventPublisherProtocol, EventRegistererProtocol {
         let key = ObjectIdentifier(type(of: event))
         if let handlers = handlerDict[key] {
             for handler in handlers {
-                handler(event)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    handler(event)
+                }
             }
         }
     }
