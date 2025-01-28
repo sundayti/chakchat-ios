@@ -42,6 +42,8 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         userData.nickname = event.newNickname
         userData.username = event.newUsername
-        updateUserData()
+        DispatchQueue.main.async {
+            self.updateUserData()
+        }
     }
 }
