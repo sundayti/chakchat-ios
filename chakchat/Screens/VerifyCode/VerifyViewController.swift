@@ -42,6 +42,7 @@ final class VerifyViewController: UIViewController {
         static let maxWidth: CGFloat = 320
         
         static let timerLabelBottom: CGFloat = 15
+        static let extraKeyboardIndent: CGFloat = 40
     }
     
     // MARK: - Fields
@@ -80,6 +81,25 @@ final class VerifyViewController: UIViewController {
         
         configureUI()
     }
+    
+    // MARK: - ViewWillAppear Overriding
+    // Subscribing to Keyboard Notifications
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    // MARK: - ViewWillDisappear Overriding
+    // Unubscribing to Keyboard Notifications
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
     
     
     // MARK: - Show Phone
@@ -246,6 +266,34 @@ final class VerifyViewController: UIViewController {
     @objc
     private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let keyboardHeight = keyboardFrame.height
+
+        // Raise view's elements if the keyboard overlaps the error label.
+        // Check the overlap through digits stack view, because usually the error label is hidden.
+        if let digitsFrame = digitsStackView.superview?.convert(digitsStackView.frame, to: nil) {
+            let bottomY = digitsFrame.maxY
+            let screenHeight = UIScreen.main.bounds.height
+    
+            if bottomY > screenHeight - keyboardHeight {
+                let overlap = bottomY - (screenHeight - keyboardHeight)
+                self.view.frame.origin.y -= overlap + Constants.extraKeyboardIndent
+            }
+        }
+    }
+
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 }
 
