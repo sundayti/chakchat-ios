@@ -44,8 +44,8 @@ final class VerifyViewController: UIViewController {
         static let timerLabelBottom: CGFloat = 50
         static let extraKeyboardIndent: CGFloat = 40
         
-        static let inputButtonHeight: CGFloat = 48
-        static let inputButtonWidth: CGFloat = 205
+        static let resendButtonHeight: CGFloat = 48
+        static let resendButtonWidth: CGFloat = 230
         static let resendButtonFont: UIFont = UIFont.systemFont(ofSize: 25, weight: .bold)
     }
     
@@ -247,8 +247,8 @@ final class VerifyViewController: UIViewController {
         view.addSubview(resendButton)
         resendButton.pinCenterX(view)
         resendButton.pinBottom(view, Constants.timerLabelBottom)
-        resendButton.setHeight(Constants.inputButtonHeight)
-        resendButton.setWidth(Constants.inputButtonWidth)
+        resendButton.setHeight(Constants.resendButtonHeight)
+        resendButton.setWidth(Constants.resendButtonWidth)
         resendButton.titleLabel?.font = Constants.resendButtonFont
         resendButton.addTarget(self, action: #selector(resendButtonPressed), for: .touchUpInside)
         resendButton.isHidden = true
