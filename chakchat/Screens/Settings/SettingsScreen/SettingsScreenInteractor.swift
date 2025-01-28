@@ -12,6 +12,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     var worker: SettingsScreenWorkerLogic
     var userData: SettingsScreenModels.UserData
     var onRouteToProfileSettings: (() -> Void)?
+    var onRouteToConfidentialitySettings: (() -> Void)?
     
     init(presenter: SettingsScreenPresentationLogic, worker: SettingsScreenWorkerLogic, userData: SettingsScreenModels.UserData) {
         self.presenter = presenter
@@ -37,6 +38,10 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     
     func profileSettingsRoute() {
         onRouteToProfileSettings?()
+    }
+    
+    func confidentialitySettingsRoute() {
+        onRouteToConfidentialitySettings?()
     }
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {

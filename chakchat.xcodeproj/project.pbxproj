@@ -48,6 +48,13 @@
 		AA7BAE032D3FD1900030AC82 /* SettingsMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BAE022D3FD1900030AC82 /* SettingsMenuCell.swift */; };
 		AA7BAE3D2D40E8920030AC82 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BAE3C2D40E8920030AC82 /* UserDefaultsManager.swift */; };
 		AA8316482D344B740029325C /* Micro5-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8316452D344AE50029325C /* Micro5-Regular.ttf */; };
+		AA84EFFB2D49129C00678ABA /* ConfidentialityScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84EFFA2D49129C00678ABA /* ConfidentialityScreenAssembly.swift */; };
+		AA84EFFD2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84EFFC2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift */; };
+		AA84EFFF2D4912B600678ABA /* ConfidentialityScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84EFFE2D4912B600678ABA /* ConfidentialityScreenPresenter.swift */; };
+		AA84F0012D4912C900678ABA /* ConfidentialityScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0002D4912C900678ABA /* ConfidentialityScreenViewController.swift */; };
+		AA84F0032D4912D300678ABA /* ConfidentialityScreenWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0022D4912D300678ABA /* ConfidentialityScreenWorker.swift */; };
+		AA84F0052D4912DB00678ABA /* ConfidentialityScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0042D4912DB00678ABA /* ConfidentialityScreenModels.swift */; };
+		AA84F0072D4912E500678ABA /* ConfidentialityScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0062D4912E500678ABA /* ConfidentialityScreenProtocols.swift */; };
 		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
 		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
 		AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC622D382057007DEC76 /* UIGradientButton.swift */; };
@@ -168,6 +175,13 @@
 		AA7BAE022D3FD1900030AC82 /* SettingsMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuCell.swift; sourceTree = "<group>"; };
 		AA7BAE3C2D40E8920030AC82 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		AA8316452D344AE50029325C /* Micro5-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Micro5-Regular.ttf"; sourceTree = "<group>"; };
+		AA84EFFA2D49129C00678ABA /* ConfidentialityScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenAssembly.swift; sourceTree = "<group>"; };
+		AA84EFFC2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenInteractor.swift; sourceTree = "<group>"; };
+		AA84EFFE2D4912B600678ABA /* ConfidentialityScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenPresenter.swift; sourceTree = "<group>"; };
+		AA84F0002D4912C900678ABA /* ConfidentialityScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenViewController.swift; sourceTree = "<group>"; };
+		AA84F0022D4912D300678ABA /* ConfidentialityScreenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenWorker.swift; sourceTree = "<group>"; };
+		AA84F0042D4912DB00678ABA /* ConfidentialityScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenModels.swift; sourceTree = "<group>"; };
+		AA84F0062D4912E500678ABA /* ConfidentialityScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenProtocols.swift; sourceTree = "<group>"; };
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
@@ -316,6 +330,7 @@
 		AA7BADF02D3FC7CA0030AC82 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				AA84EFF92D49127000678ABA /* ConfidentialityScreen */,
 				AA1C0E3F2D43C910008E47D8 /* ProfileSettingsScreen */,
 				AA7BADF22D3FC8770030AC82 /* SettingsScreen */,
 			);
@@ -376,6 +391,20 @@
 				AA8316452D344AE50029325C /* Micro5-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		AA84EFF92D49127000678ABA /* ConfidentialityScreen */ = {
+			isa = PBXGroup;
+			children = (
+				AA84EFFA2D49129C00678ABA /* ConfidentialityScreenAssembly.swift */,
+				AA84EFFC2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift */,
+				AA84F0022D4912D300678ABA /* ConfidentialityScreenWorker.swift */,
+				AA84EFFE2D4912B600678ABA /* ConfidentialityScreenPresenter.swift */,
+				AA84F0002D4912C900678ABA /* ConfidentialityScreenViewController.swift */,
+				AA84F0042D4912DB00678ABA /* ConfidentialityScreenModels.swift */,
+				AA84F0062D4912E500678ABA /* ConfidentialityScreenProtocols.swift */,
+			);
+			path = ConfidentialityScreen;
 			sourceTree = "<group>";
 		};
 		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
@@ -776,7 +805,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA84EFFB2D49129C00678ABA /* ConfidentialityScreenAssembly.swift in Sources */,
 				AA9B625F2D2FC6FD0064CB23 /* VerificationService.swift in Sources */,
+				AA84F0012D4912C900678ABA /* ConfidentialityScreenViewController.swift in Sources */,
 				AA7BAE002D3FCA740030AC82 /* SettingsScreenViewController.swift in Sources */,
 				AA1C0E432D43C968008E47D8 /* ProfileSettingsInteractor.swift in Sources */,
 				E11D350F2D40C3F400A698EA /* Colors.swift in Sources */,
@@ -788,6 +819,7 @@
 				9B1EC0822D383F0B00E01E00 /* UIColor+Hex.swift in Sources */,
 				AA9B62692D2FD2390064CB23 /* SignupInteractor.swift in Sources */,
 				AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */,
+				AA84EFFF2D4912B600678ABA /* ConfidentialityScreenPresenter.swift in Sources */,
 				AA92EC6F2D3932D6007DEC76 /* SenderProtocols.swift in Sources */,
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
 				AA9B628F2D3152570064CB23 /* Sender.swift in Sources */,
@@ -802,10 +834,12 @@
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
 				AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */,
+				AA84F0052D4912DB00678ABA /* ConfidentialityScreenModels.swift in Sources */,
 				AA9B622B2D2D6CA40064CB23 /* SendCodeViewController.swift in Sources */,
 				AA7BADF82D3FCA360030AC82 /* SettingsScreenPresenter.swift in Sources */,
 				AA7BAE032D3FD1900030AC82 /* SettingsMenuCell.swift in Sources */,
 				AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */,
+				AA84F0072D4912E500678ABA /* ConfidentialityScreenProtocols.swift in Sources */,
 				AA7BADE92D3F9FDF0030AC82 /* ChatsScreenViewController.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
 				AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */,
@@ -822,6 +856,7 @@
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
 				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
 				AA9B627D2D300DEE0064CB23 /* SignupDataValidator.swift in Sources */,
+				AA84EFFD2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift in Sources */,
 				AA9B62522D2EC7DC0064CB23 /* VerifyProtocols.swift in Sources */,
 				9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */,
 				AA1C0E332D43A081008E47D8 /* Event.swift in Sources */,
@@ -842,6 +877,7 @@
 				AA7BADF42D3FC9F40030AC82 /* SettingsScreenAssembly.swift in Sources */,
 				AA9B62272D2D6C810064CB23 /* SendCodeInteractor.swift in Sources */,
 				AA7BADF62D3FCA2A0030AC82 /* SettingsScreenInteractor.swift in Sources */,
+				AA84F0032D4912D300678ABA /* ConfidentialityScreenWorker.swift in Sources */,
 				AA9B622F2D2D6CB90064CB23 /* SendCodeProtocols.swift in Sources */,
 				AA9B62432D2EC4840064CB23 /* KeychainManagerProtocol.swift in Sources */,
 				AA9B62642D2FCA930064CB23 /* SignupEndpoints.swift in Sources */,
