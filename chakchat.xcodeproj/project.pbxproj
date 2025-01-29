@@ -55,6 +55,7 @@
 		AA84F0032D4912D300678ABA /* ConfidentialityScreenWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0022D4912D300678ABA /* ConfidentialityScreenWorker.swift */; };
 		AA84F0052D4912DB00678ABA /* ConfidentialityScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0042D4912DB00678ABA /* ConfidentialityScreenModels.swift */; };
 		AA84F0072D4912E500678ABA /* ConfidentialityScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0062D4912E500678ABA /* ConfidentialityScreenProtocols.swift */; };
+		AA84F00A2D491AB600678ABA /* ConfidentialityMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0092D491AB600678ABA /* ConfidentialityMenuCell.swift */; };
 		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
 		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
 		AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC622D382057007DEC76 /* UIGradientButton.swift */; };
@@ -182,6 +183,7 @@
 		AA84F0022D4912D300678ABA /* ConfidentialityScreenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenWorker.swift; sourceTree = "<group>"; };
 		AA84F0042D4912DB00678ABA /* ConfidentialityScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenModels.swift; sourceTree = "<group>"; };
 		AA84F0062D4912E500678ABA /* ConfidentialityScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityScreenProtocols.swift; sourceTree = "<group>"; };
+		AA84F0092D491AB600678ABA /* ConfidentialityMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidentialityMenuCell.swift; sourceTree = "<group>"; };
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 		AA84EFF92D49127000678ABA /* ConfidentialityScreen */ = {
 			isa = PBXGroup;
 			children = (
+				AA84F0082D491A9F00678ABA /* Cells */,
 				AA84EFFA2D49129C00678ABA /* ConfidentialityScreenAssembly.swift */,
 				AA84EFFC2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift */,
 				AA84F0022D4912D300678ABA /* ConfidentialityScreenWorker.swift */,
@@ -405,6 +408,14 @@
 				AA84F0062D4912E500678ABA /* ConfidentialityScreenProtocols.swift */,
 			);
 			path = ConfidentialityScreen;
+			sourceTree = "<group>";
+		};
+		AA84F0082D491A9F00678ABA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AA84F0092D491AB600678ABA /* ConfidentialityMenuCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
@@ -833,6 +844,7 @@
 				AA9B626F2D2FD2660064CB23 /* SignupModels.swift in Sources */,
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
+				AA84F00A2D491AB600678ABA /* ConfidentialityMenuCell.swift in Sources */,
 				AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */,
 				AA84F0052D4912DB00678ABA /* ConfidentialityScreenModels.swift in Sources */,
 				AA9B622B2D2D6CA40064CB23 /* SendCodeViewController.swift in Sources */,
