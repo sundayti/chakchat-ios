@@ -9,15 +9,16 @@ import Foundation
 import UIKit
 final class ConfidentialityScreenViewController: UIViewController {
     
-    let interactor: ConfidentialityScreenBusinessLogic
     private lazy var confidentialitySettingsTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
-    private let sections = [
-        [("Phone number", nil),
-         ("Date of Birth", nil),
-         ("Devices", nil)
+    private var sections = [
+        [("Phone number", nil, "All"),
+         ("Date of Birth", nil, "All"),
+         ("Devices", nil, "All")
         ],
-        [("Black list", UIImage(systemName: "person.crop.circle.badge.xmark"))]
+        [("Black list", UIImage(systemName: "person.crop.circle.badge.xmark"), "")]
     ]
+    
+    let interactor: ConfidentialityScreenBusinessLogic
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +30,18 @@ final class ConfidentialityScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    public func configureSections(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        sections[0][0].2 = userData.phoneNumberState.rawValue // phone status
+        sections[0][1].2 = userData.dateOfBirthState.rawValue // date of birth status
+        sections[0][2].2 = userData.onlineStatus.rawValue // online status
+    }
+    
     private func configureUI() {
         view.backgroundColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = .black
         configureSettingsTable()
+        interactor.loadUserData()
     }
     
     private func configureSettingsTable() {
@@ -45,6 +55,11 @@ final class ConfidentialityScreenViewController: UIViewController {
         confidentialitySettingsTable.register(ConfidentialityMenuCell.self, forCellReuseIdentifier: ConfidentialityMenuCell.cellIdentifier)
         confidentialitySettingsTable.backgroundColor = view.backgroundColor
         
+    }
+    
+    @objc
+    private func backButtonPressed() {
+        interactor.backToSettingsMenu()
     }
     
     required init?(coder: NSCoder) {
@@ -67,11 +82,11 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
             return UITableViewCell()
         }
         let item = sections[indexPath.section][indexPath.row]        
-        confidentialityCell.configure(icon: item.1, title: item.0, status: "Status")
+        confidentialityCell.configure(title: item.0, icon: item.1, status: item.2)
         return confidentialityCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

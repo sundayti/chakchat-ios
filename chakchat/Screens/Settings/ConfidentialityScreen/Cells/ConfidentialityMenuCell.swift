@@ -25,7 +25,7 @@ final class ConfidentialityMenuCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func configure(icon: UIImage?, title: String, status: String) {
+    public func configure(title: String, icon: UIImage?, status: String) {
         settingLabel.text = title
         settingStatus.text = status
         if icon != nil {
@@ -60,7 +60,7 @@ final class ConfidentialityMenuCell: UITableViewCell {
     
     private func configureSettingStatus() {
         contentView.addSubview(settingStatus)
-        settingStatus.tintColor = .gray
+        settingStatus.textColor = .gray
         settingStatus.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         settingStatus.pinCenterY(contentView)
         settingStatus.pinRight(contentView.trailingAnchor, 10)
