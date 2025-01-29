@@ -14,7 +14,6 @@ final class ConfidentialityMenuCell: UITableViewCell {
     private let settingIcon: UIImageView = UIImageView()
     private let settingLabel: UILabel = UILabel()
     private let settingStatus: UILabel = UILabel()
-    private var hasIcon: Bool = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
