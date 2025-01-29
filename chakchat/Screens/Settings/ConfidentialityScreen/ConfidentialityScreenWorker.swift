@@ -13,4 +13,10 @@ final class ConfidentialityScreenWorker: ConfidentialityScreenWorkerLogic {
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
+    
+    func saveNewData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        userDefaultsManager.saveConfidentialityPhoneStatus(userData.phoneNumberState.rawValue)
+        userDefaultsManager.saveConfidentialityDateOfBirthStatus(userData.dateOfBirthState.rawValue)
+        userDefaultsManager.saveConfidentialityOnlineStatus(userData.onlineStatus.rawValue)
+    }
 }
