@@ -47,7 +47,7 @@ final class UIPhoneNumberTextField: UITextField, UITextFieldDelegate {
         self.layer.borderWidth = Constants.borderWidth
         self.setHeight(Constants.height)
         self.setWidth(Constants.width)
-        self.layer.borderColor = Colors.gray.cgColor
+        self.layer.borderColor = UIColor.gray.cgColor
         
         let paddingView = UIView(
             frame: CGRect(

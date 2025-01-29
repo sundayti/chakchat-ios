@@ -20,7 +20,6 @@ final class VerifyViewController: UIViewController {
         static let backButtonName: String = "arrow.left"
         
         static let inputDescriptionNumberOfLines: Int = 2
-        static let inputDescriptionText: String = "We sent you a verification code via SMS\non number +7(9**)***-**-**."
         static let inputDescriptionTop: CGFloat = 10
         
         static let digitsStackViewSpacing: CGFloat = 10
@@ -41,17 +40,32 @@ final class VerifyViewController: UIViewController {
         static let errorMessageDuration: TimeInterval = 2
         static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
+        
+        static let timerLabelBottom: CGFloat = 50
+        static let extraKeyboardIndent: CGFloat = 40
+        
+        static let resendButtonHeight: CGFloat = 48
+        static let resendButtonWidth: CGFloat = 230
+        static let resendButtonFont: UIFont = UIFont.systemFont(ofSize: 25, weight: .bold)
     }
     
     // MARK: - Fields
     private var interactor: VerifyBusinessLogic
     private var textFields: [UITextField] = []
+    private var inputDescriptionText: String = "We sent you a verification code via SMS\non number "
+    private var countdownTimer: Timer?
     
+    private lazy var remainingTime: TimeInterval = 0
+    private lazy var rawPhone: String = ""
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputHintLabel: UILabel = UILabel()
     private lazy var inputDescriptionLabel: UILabel = UILabel()
     private lazy var digitsStackView: UIStackView = UIStackView()
+    private lazy var timerLabel: UILabel = UILabel()
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
+    private lazy var resendButton: UIGradientButton = UIGradientButton(title: "Resend Code")
+    
+    let timerDuration: TimeInterval = 90.0
     
     // MARK: - Lifecycle
     init(interactor: VerifyBusinessLogic) {
@@ -78,10 +92,67 @@ final class VerifyViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - ViewWillAppear Overriding
+    // Subscribing to Keyboard Notifications
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    // MARK: - ViewWillDisappear Overriding
+    // Unubscribing to Keyboard Notifications
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    // MARK: - Show Phone
+    func showPhone(_ phone: String) {
+        guard let prettyPhone = formattingNumber(phone) else {
+            return
+        }
+        inputDescriptionText += prettyPhone
+        rawPhone = phone
+    }
+    
     // MARK: - Show Error as label
     func showError(_ message: String?) {
         if message != nil {
             errorLabel.showError(message)
+            if message == "Incorrect code" {
+                incorrectCode()
+            }
+        }
+    }
+    
+    // MARK: - Show Timer and Hide Resend Button
+    func hideResendButton() {
+        resendButton.isHidden = true
+        timerLabel.isHidden = false
+        timerLabel.alpha = 1.0
+        timerLabel.text = "Resend code in \(formatTime(Int(timerDuration)))"
+        remainingTime = timerDuration
+        startCountdown()
+    }
+    
+    // MARK: - Incorrect Code Handling Method
+    private func incorrectCode() {
+        for i in 0..<textFields.count {
+            if textFields.indices.contains(i), let thirdTextField = textFields[i] as? UIDeletableTextField {
+                thirdTextField.shakeAndChangeColor()
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            for i in 0..<self.textFields.count {
+                self.textFields[i].text = ""
+            }
+            if let firstTextField = self.textFields.first {
+                firstTextField.becomeFirstResponder()
+            }
         }
     }
     
@@ -89,9 +160,12 @@ final class VerifyViewController: UIViewController {
     private func configureUI() {
         configureChakChatStackView()
         configureInputHintLabel()
+        interactor.getPhone()
         configureInputDescriptionLabel()
         configureDigitsStackView()
-        configurateErrorLabel()
+        configureErrorLabel()
+        configureTimerLabel()
+        configureResendButton()
     }
     
     // MARK: - ChakChat Configuration
@@ -116,7 +190,7 @@ final class VerifyViewController: UIViewController {
         inputDescriptionLabel.textAlignment = .center
         inputDescriptionLabel.numberOfLines = Constants.inputDescriptionNumberOfLines
         inputDescriptionLabel.textColor = .gray
-        inputDescriptionLabel.text = Constants.inputDescriptionText
+        inputDescriptionLabel.text = inputDescriptionText
         inputDescriptionLabel.pinCenterX(view)
         inputDescriptionLabel.pinTop(inputHintLabel.bottomAnchor, Constants.inputDescriptionTop)
     }
@@ -129,9 +203,9 @@ final class VerifyViewController: UIViewController {
         digitsStackView.spacing = Constants.digitsStackViewSpacing
         
         for i in 0..<6 {
-            let textField = DeletableTextField()
+            let textField = UIDeletableTextField()
             textField.layer.borderWidth = Constants.textFieldBorderWidth
-            textField.layer.borderColor = Colors.orange.cgColor
+            textField.layer.borderColor = UIColor.gray.cgColor
             textField.layer.cornerRadius = Constants.textFieldCornerRadius
             textField.textAlignment = .center
             textField.font = UIFont.systemFont(ofSize: Constants.textFieldFont)
@@ -150,62 +224,38 @@ final class VerifyViewController: UIViewController {
     }
     
     // MARK: - Error Label Configuration
-    private func configurateErrorLabel() {
+    private func configureErrorLabel() {
         view.addSubview(errorLabel)
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
     }
-
-
-    // MARK: - TextField Delegate Methods
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // If there is already text in field, select it.
-        if let text = textField.text, !text.isEmpty {
-            textField.selectAll(nil)
-        }
+    
+    // MARK: - Timer Label Configuration
+    private func configureTimerLabel() {
+        view.addSubview(timerLabel)
+        timerLabel.pinCenterX(view)
+        timerLabel.pinBottom(view, Constants.timerLabelBottom)
+        timerLabel.textAlignment = .center
+        timerLabel.textColor = .lightGray
+        timerLabel.text = "Resend code in \(formatTime(Int(timerDuration)))"
+        remainingTime = timerDuration
+        startCountdown()
     }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // Check if entered data is number and it is a one character.
-        guard let _ = textField.text, string.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil || string.isEmpty else {
-            return false
-        }
-        
-        if !string.isEmpty {
-            textField.text = string  // If the entered text is not nil, write it.
-        }
-        
-        // If current value in the cell is not nil and next index not greater that amount of cells in array,
-        // go to next field.
-        let nextTag = textField.tag + 1
-        if !string.isEmpty, nextTag < textFields.count {
-            textFields[nextTag].becomeFirstResponder()
-        }
-        
-        // We make a defocus + request to the server when all fields are filled.
-        if areAllTextFieldsFilled() {
-            let code = getCodeFromTextFields()
-            interactor.sendVerificationRequest(code)
-        } else {
-            print("Fill all fields")
-        }
-        
-        // Deleting character.
-        if string.isEmpty {
-            if textField.tag > 0 { // If we not in last cell.
-                textFields[textField.tag].text = "" // Change the value in cell to "".
-                let prevTag = textField.tag - 1 // Find previous index.
-                textFields[prevTag].becomeFirstResponder() // Go to previous cell.
-            } else if textField.tag == 0 { // If we in last cell
-                textFields[textField.tag].text = "" // Change the value but don't go anywhere.
-            }
-        }
-        
-        return false
+    
+    // MARK: - Resend Button Configuration
+    private func configureResendButton() {
+        view.addSubview(resendButton)
+        resendButton.pinCenterX(view)
+        resendButton.pinBottom(view, Constants.timerLabelBottom)
+        resendButton.setHeight(Constants.resendButtonHeight)
+        resendButton.setWidth(Constants.resendButtonWidth)
+        resendButton.titleLabel?.font = Constants.resendButtonFont
+        resendButton.addTarget(self, action: #selector(resendButtonPressed), for: .touchUpInside)
+        resendButton.isHidden = true
     }
     
     // MARK: - Supporting Methods
-    func areAllTextFieldsFilled() -> Bool {
+    private func areAllTextFieldsFilled() -> Bool {
         for field in textFields {
             if field.text?.isEmpty == true {
                 return false
@@ -214,6 +264,7 @@ final class VerifyViewController: UIViewController {
         return true
     }
     
+    // MARK: - Get Code From Text Fields Method
     private func getCodeFromTextFields() -> String {
         var code: String = ""
         
@@ -228,6 +279,29 @@ final class VerifyViewController: UIViewController {
         return code
     }
     
+    // MARK: - Formatting Raw Number
+    private func formattingNumber(_ number: String) -> String? {
+        guard number.count == 11 else {
+            print("Incorrect number length")
+            return nil
+        }
+        let formattedNumber = "+7 (\(number.prefix(4).suffix(3))) \(number.prefix(7).suffix(3))-\(number.prefix(9).suffix(2))-\(number.suffix(2))"
+        
+        return formattedNumber
+    }
+    
+    // MARK: - Format Time
+    private func formatTime(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    // MARK: - Start Countdown
+    func startCountdown() {
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateLabel), userInfo: nil, repeats: true)
+    }
+    
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
@@ -238,26 +312,145 @@ final class VerifyViewController: UIViewController {
     private func dismissKeyboard() {
         view.endEditing(true)
     }
-}
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let keyboardHeight = keyboardFrame.height
 
-// MARK: - UITextFieldDelegate Extension
-extension VerifyViewController: UITextFieldDelegate {}
+        // Raise view's elements if the keyboard overlaps the error label.
+        // Check the overlap through digits stack view, because usually the error label is hidden.
+        if let digitsFrame = digitsStackView.superview?.convert(digitsStackView.frame, to: nil) {
+            let bottomY = digitsFrame.maxY
+            let screenHeight = UIScreen.main.bounds.height
+    
+            if bottomY > screenHeight - keyboardHeight {
+                let overlap = bottomY - (screenHeight - keyboardHeight)
+                self.view.frame.origin.y -= overlap + Constants.extraKeyboardIndent
+            }
+        }
+    }
 
-
-// MARK: - Custom UITextField
-// Special class so that when you press backspace the cursor moves to the cell to the left (if the cell is empty).
-class DeletableTextField: UITextField {
-    override public func deleteBackward() {
-        super.deleteBackward()
-        if let previousTextField = getPreviousTextField() {
-            previousTextField.becomeFirstResponder()
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
         }
     }
     
-    private func getPreviousTextField() -> UITextField? {
-        let currentTag = self.tag
-        let previousTag = currentTag - 1
-        return self.superview?.viewWithTag(previousTag) as? UITextField
+    @objc func updateLabel() {
+        remainingTime -= 1
+        if remainingTime > 0 {
+            timerLabel.text = "Resend code in \(formatTime(Int(remainingTime)))"
+        } else {
+            countdownTimer?.invalidate()
+            hideLabel()
+        }
+    }
+
+    @objc func hideLabel() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.timerLabel.alpha = 0.0
+        }) { _ in
+            self.timerLabel.isHidden = true
+        }
+        resendButton.isHidden = false
+    }
+    
+    @objc
+    private func resendButtonPressed() {
+        UIView.animate(withDuration: UIConstants.animationDuration, animations: {
+            self.resendButton.transform = CGAffineTransform(scaleX: UIConstants.buttonScale, y: UIConstants.buttonScale)
+            }, completion: { _ in
+            UIView.animate(withDuration: UIConstants.animationDuration) {
+                self.resendButton.transform = CGAffineTransform.identity
+            }
+        })
+        interactor.resendCodeRequest(
+            Verify.ResendCodeRequest(
+                phone: rawPhone)
+        )
+    }
+}
+
+// MARK: - UITextFieldDelegate Extension
+extension VerifyViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        
+        // If there are not only digits, don't paste it.
+        if !allowedCharacters.isSuperset(of: characterSet) {
+            return false
+        }
+        
+        // If the text is entering (from clipboard for example).
+        if string.count > 1 {
+            // Clear all fields.
+            for field in textFields {
+                field.text = ""
+            }
+            
+            // Put one character in one field.
+            for (index, char) in string.enumerated() {
+                if index < textFields.count {
+                    textFields[index].text = String(char)
+                }
+            }
+            
+            // If all characters are set, go to last field.
+            if string.count <= textFields.count {
+                textFields[string.count - 1].becomeFirstResponder()
+            } else {
+                textFields.last?.becomeFirstResponder()
+            }
+            
+            return false
+        }
+        
+        // If we set a single character.
+        guard let _ = textField.text, string.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil || string.isEmpty else {
+            return false
+        }
+        
+        if !string.isEmpty {
+            textField.text = string
+        }
+        
+        // Go to next field if there is a character in the current.
+        let nextTag = textField.tag + 1
+        if !string.isEmpty, nextTag < textFields.count {
+            textFields[nextTag].becomeFirstResponder()
+        }
+        
+        // Chack if all fields are full and send request to server.
+        if areAllTextFieldsFilled() {
+            let code = getCodeFromTextFields()
+            interactor.sendVerificationRequest(code)
+        } else {
+            print("Fill all fields")
+        }
+        
+        // Deleting character.
+        if string.isEmpty {
+            if textField.tag > 0 { // If it isn't first cell.
+                textFields[textField.tag].text = "" // Clear current cell.
+                let prevTag = textField.tag - 1 // Go to previous cell.
+                textFields[prevTag].becomeFirstResponder()
+            } else if textField.tag == 0 { // If we are in first cell.
+                textFields[textField.tag].text = "" // Clear the cell.
+            }
+        }
+        
+        return false
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.selectedTextRange = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
     }
 }
 

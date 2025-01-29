@@ -114,6 +114,7 @@
 		E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */; };
 		E11D35182D42799200A698EA /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35172D42799200A698EA /* MailHelper.swift */; };
 		E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */; };
+		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +238,7 @@
 		E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		E11D35172D42799200A698EA /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPhoneNumberTextField.swift; sourceTree = "<group>"; };
+		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,6 +387,7 @@
 				AA92EC622D382057007DEC76 /* UIGradientButton.swift */,
 				E11D350A2D40009F00A698EA /* UIErrorLabel.swift */,
 				E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */,
+				E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -816,6 +819,7 @@
 				AA1C0E492D43C99C008E47D8 /* ProfileSettingsWorker.swift in Sources */,
 				AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
+				E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */,
 				E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */,
 				AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */,
 				E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */,

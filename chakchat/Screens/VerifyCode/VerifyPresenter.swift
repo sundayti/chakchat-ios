@@ -18,6 +18,7 @@ final class VerifyPresenter: VerifyPresentationLogic {
     func showError(_ error: ErrorId) {
         switch error.type {
         case .Alert:
+            print(error)
             showAlert(error.message)
         case .DisappearingLabel:
             view?.showError(error.message)
@@ -29,5 +30,15 @@ final class VerifyPresenter: VerifyPresentationLogic {
     // MARK: - Alert Presentation
     func showAlert(_ message: String?) {
         view?.showAlert(message: message)
+    }
+    
+    // MARK: - Phone Presentation
+    func showPhone(_ phone: String) {
+        view?.showPhone(phone)
+    }
+    
+    // MARK: - Hide Resend Button 
+    func hideResendButton() {
+        view?.hideResendButton()
     }
 }

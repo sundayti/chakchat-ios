@@ -13,11 +13,15 @@ protocol VerifyBusinessLogic {
     func routeToSignupScreen(_ state: AppState)
     func routeToChatScreen(_ state: AppState)
     func routeToSendCodeScreen(_ state: AppState)
+    func resendCodeRequest(_ request: Verify.ResendCodeRequest)
+    func getPhone()
 }
 
 // MARK: - VerifyPresentationLogic
 protocol VerifyPresentationLogic {
     func showError(_ error: ErrorId)
+    func showPhone(_ phone: String)
+    func hideResendButton()
 }
 
 // MARK: - VerifyWorkerLogic
@@ -29,4 +33,11 @@ protocol VerifyWorkerLogic {
         completion: @escaping (Result<AppState, Error>) -> Void
     )
     func getVerifyCode(_ key: String) -> UUID?
+    func getPhone() -> String
+    
+    func resendInRequest(_ request: Verify.ResendCodeRequest,
+                     completion: @escaping (Result<AppState, Error>) -> Void)
+    
+    func resendUpRequest(_ request: Verify.ResendCodeRequest,
+                     completion: @escaping (Result<AppState, Error>) -> Void)
 }
