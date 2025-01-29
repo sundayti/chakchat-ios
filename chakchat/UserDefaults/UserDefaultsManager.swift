@@ -14,6 +14,9 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let nicknameKey = "userNickname"
     private let usernameKey = "userUsername"
     private let phoneKey = "userPhone"
+    private let confidentialityPhoneKey = "confidentialityPhone"
+    private let confidentialityBirthKey = "confidentialityBirth"
+    private let confidentialityOnlineKey = "confidentialityOnline"
     
     func saveAvatar(_ icon: UIImage) {
         print("Hello world")
@@ -29,6 +32,18 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func savePhone(_ phone: String) {
         UserDefaults.standard.set(phone, forKey: phoneKey)
+    }
+    
+    func saveConfidentialityPhoneStatus(_ phoneStatus: String) {
+        UserDefaults.standard.set(phoneStatus, forKey: confidentialityPhoneKey)
+    }
+    
+    func saveConfidentialityDateOfBirthStatus(_ birthStatus: String) {
+        UserDefaults.standard.set(birthStatus, forKey: confidentialityBirthKey)
+    }
+    
+    func saveConfidentialityOnlineStatus(_ onlineStatus: String) {
+        UserDefaults.standard.set(onlineStatus, forKey: confidentialityOnlineKey)
     }
     
     func loadAvatar() -> UIImage? {
@@ -54,6 +69,27 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
             return "Default"
         }
         return phone
+    }
+    
+    func loadConfidentialityPhoneStatus() -> String {
+        guard let phoneStatus = UserDefaults.standard.string(forKey: confidentialityPhoneKey) else {
+            return "All"
+        }
+        return phoneStatus
+    }
+    
+    func loadConfidentialityDateOfBirthStatus() -> String {
+        guard let dateOfBirthStatus = UserDefaults.standard.string(forKey: confidentialityBirthKey) else {
+            return "All"
+        }
+        return dateOfBirthStatus
+    }
+    
+    func loadConfidentialityOnlineStatus() -> String {
+        guard let onlineStatus = UserDefaults.standard.string(forKey: confidentialityOnlineKey) else {
+            return "All"
+        }
+        return onlineStatus
     }
 
     func deleteAvatar() {
