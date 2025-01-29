@@ -9,4 +9,8 @@ import Foundation
 final class ConfidentialityScreenPresenter: ConfidentialityScreenPresentationLogic {
     
     weak var view: ConfidentialityScreenViewController?
+    
+    func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        view?.configureSections(userData)
+    }
 }
