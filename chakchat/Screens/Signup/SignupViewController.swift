@@ -56,6 +56,9 @@ final class SignupViewController: UIViewController {
         static let errorMessageDuration: TimeInterval = 2
         static let maxWidth: CGFloat = 310
         static let numberOfLines: Int = 2
+        
+        static let colorDuration: CFTimeInterval = 1.5
+        static let extraKeyboardIndent: CGFloat = 16
     }
     
     // MARK: - Properties
@@ -90,6 +93,25 @@ final class SignupViewController: UIViewController {
         
         configureUI()
     }
+    
+    // MARK: - ViewWillAppear Overriding
+    // Subscribing to Keyboard Notifications
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    // MARK: - ViewWillDisappear Overriding
+    // Unubscribing to Keyboard Notifications
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
     
     // MARK: - Show Error as label
     func showError(_ message: String?) {
@@ -132,8 +154,7 @@ final class SignupViewController: UIViewController {
         nameTextField.borderStyle = .none
         nameTextField.layer.cornerRadius = Constants.borderCornerRadius
         nameTextField.layer.borderWidth = Constants.borderWidth
-        nameTextField.layer.borderColor = Colors.gray.cgColor
-        
+        nameTextField.layer.borderColor = UIColor.gray.cgColor
         nameTextField.leftView = paddingView
         nameTextField.leftViewMode = .always
         nameTextField.delegate = self
@@ -141,6 +162,10 @@ final class SignupViewController: UIViewController {
         nameTextField.pinCenterX(view)
         nameTextField.setHeight(Constants.nameTextFieldHeight)
         nameTextField.setWidth(Constants.nameTextFieldWidth)
+        
+        nameTextField.autocorrectionType = .no
+        nameTextField.spellCheckingType = .no
+        nameTextField.autocapitalizationType = .none
     }
     
     // MARK: - Username Text Field Configuration
@@ -160,7 +185,7 @@ final class SignupViewController: UIViewController {
         usernameTextField.borderStyle = .none
         usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
         usernameTextField.layer.borderWidth = Constants.borderWidth
-        usernameTextField.layer.borderColor = Colors.gray.cgColor
+        usernameTextField.layer.borderColor = UIColor.gray.cgColor
         
         usernameTextField.leftView = paddingView
         usernameTextField.leftViewMode = .always
@@ -169,6 +194,10 @@ final class SignupViewController: UIViewController {
         usernameTextField.pinCenterX(view)
         usernameTextField.setHeight(Constants.usernameTextFieldHeight)
         usernameTextField.setWidth(Constants.usernameTextFieldWidth)
+        
+        usernameTextField.autocorrectionType = .no
+        usernameTextField.spellCheckingType = .no
+        usernameTextField.autocapitalizationType = .none
     }
     
     // MARK: - Input Button Configuration
@@ -189,25 +218,53 @@ final class SignupViewController: UIViewController {
         errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
     }
     
-    // MARK: - TextField Delegate Methods
-    internal func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        
-        switch(textField) {
-        case nameTextField:
-            let validator = SignupDataValidator()
-            isNameInputValid = validator.validateName(text)
-        case usernameTextField:
-            let validator = SignupDataValidator()
-            isUsernameInputValid = validator.validateUsername(text)
-        default:
-            break
+    // MARK: - Check Name and Username Fields and Show Errors
+    private func checkFields() -> Bool {
+        guard let name = nameTextField.text, !name.isEmpty else {
+            changeColor(nameTextField)
+            showError("Enter your name")
+            return false
         }
-        updateAuthorizationButtonState()
+        
+        let validator = SignupDataValidator()
+        isNameInputValid = validator.validateName(name)
+        if (!isNameInputValid) {
+            changeColor(nameTextField)
+            showError("The name is too long")
+            return false
+        }
+        
+        guard let username = usernameTextField.text, !username.isEmpty else {
+            changeColor(usernameTextField)
+            showError("Enter the username")
+            return false
+        }
+        
+        isUsernameInputValid = validator.validateUsername(username)
+        if (!isUsernameInputValid) {
+            changeColor(usernameTextField)
+            if username.count < 2 {
+                showError("The nickname is too short")
+            } else if username.count > 19 {
+                showError("The nickname is too long")
+            } else {
+                showError("Use only latin letters, digits and _")
+            }
+            return false
+        }
+        return true
     }
     
-    private func updateAuthorizationButtonState() {
-        sendGradientButton.isEnabled = isNameInputValid && isUsernameInputValid
+    // MARK: - Text Field Changing color
+    func changeColor(_ field: UITextField) {
+        let originalColor = field.layer.borderColor
+        UIView.animate(withDuration: Constants.colorDuration, animations: {
+            field.layer.borderColor = Colors.orange.cgColor
+        }) { _ in
+            UIView.animate(withDuration: Constants.colorDuration) {
+                field.layer.borderColor = originalColor
+            }
+        }
     }
     
     // MARK: - Actions
@@ -226,13 +283,40 @@ final class SignupViewController: UIViewController {
             }
         })
         
-        guard let name = nameTextField.text, !name.isEmpty,
-              let username = usernameTextField.text, !username.isEmpty else {
-            showError("You need to enter name and username")
+        if checkFields() {
+            guard let name = nameTextField.text, !name.isEmpty,
+                  let username = usernameTextField.text, !username.isEmpty else {
+                return
+            }
+            interactor.sendSignupRequest(name, username)
+        }
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
+        let keyboardHeight = keyboardFrame.height
 
-        interactor.sendSignupRequest(name, username)
+        // Raise view's elements if the keyboard overlaps the create account button.
+        if let buttonFrame = sendGradientButton.superview?.convert(sendGradientButton.frame, to: nil) {
+            let bottomY = buttonFrame.maxY
+            let screenHeight = UIScreen.main.bounds.height
+    
+            if bottomY > screenHeight - keyboardHeight {
+                let overlap = bottomY - (screenHeight - keyboardHeight)
+                self.view.frame.origin.y -= overlap + Constants.extraKeyboardIndent
+            }
+        }
+    }
+
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 }
 
