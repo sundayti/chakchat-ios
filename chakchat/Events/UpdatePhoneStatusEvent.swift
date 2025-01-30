@@ -7,9 +7,9 @@
 
 import Foundation
 final class UpdatePhoneStatusEvent: Event {
-    var newPhoneStatus: String
+    var newPhoneStatus: ConfidentialityState
     
-    init(newPhoneStatus: String) {
+    init(newPhoneStatus: ConfidentialityState) {
         self.newPhoneStatus = newPhoneStatus
     }
 }

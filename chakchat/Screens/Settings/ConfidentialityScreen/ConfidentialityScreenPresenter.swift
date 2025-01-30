@@ -13,4 +13,8 @@ final class ConfidentialityScreenPresenter: ConfidentialityScreenPresentationLog
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         view?.configureSections(userData)
     }
+    
+    func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        view?.updateVisibilityStatus(userData)
+    }
 }

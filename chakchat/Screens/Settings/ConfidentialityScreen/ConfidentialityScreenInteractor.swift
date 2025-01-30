@@ -13,6 +13,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     var userData: ConfidentialitySettingsModels.ConfidentialityUserData
     let eventPublisher: EventPublisherProtocol
     var onRouteToSettingsMenu: (() -> Void)?
+    var onRouteToPhoneVisibilityScreen: (() -> Void)?
     
     init(presenter: ConfidentialityScreenPresentationLogic, worker: ConfidentialityScreenWorkerLogic, eventPublisher: EventPublisherProtocol, userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         self.presenter = presenter
@@ -25,8 +26,27 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         showUserData(userData)
     }
     
+    func updateUserData() {
+        showNewUserData(userData)
+    }
+    
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         presenter.showUserData(userData)
+    }
+    
+    func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        presenter.showNewUserData(userData)
+    }
+    
+    func handlePhoneVisibilityChangeEvent(_ event: UpdatePhoneStatusEvent) {
+        userData.phoneNumberState = event.newPhoneStatus
+        DispatchQueue.main.async {
+            self.updateUserData()
+        }
+    }
+    
+    func routeToPhoneVisibilityScreen() {
+        onRouteToPhoneVisibilityScreen?()
     }
     
     func backToSettingsMenu() {
