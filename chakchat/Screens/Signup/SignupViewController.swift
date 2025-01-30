@@ -56,6 +56,8 @@ final class SignupViewController: UIViewController {
         static let errorMessageDuration: TimeInterval = 2
         static let maxWidth: CGFloat = 310
         static let numberOfLines: Int = 2
+        
+        static let colorDuration: CFTimeInterval = 1.5
     }
     
     // MARK: - Properties
@@ -143,6 +145,7 @@ final class SignupViewController: UIViewController {
         
         nameTextField.autocorrectionType = .no
         nameTextField.spellCheckingType = .no
+        nameTextField.autocapitalizationType = .none
     }
     
     // MARK: - Username Text Field Configuration
@@ -198,6 +201,7 @@ final class SignupViewController: UIViewController {
     // MARK: - Check Name and Username Fields and Show Errors
     private func checkFields() -> Bool {
         guard let name = nameTextField.text, !name.isEmpty else {
+            changeColor(nameTextField)
             showError("Enter your name")
             return false
         }
@@ -205,17 +209,20 @@ final class SignupViewController: UIViewController {
         let validator = SignupDataValidator()
         isNameInputValid = validator.validateName(name)
         if (!isNameInputValid) {
+            changeColor(nameTextField)
             showError("The name is too long")
             return false
         }
         
         guard let username = usernameTextField.text, !username.isEmpty else {
+            changeColor(usernameTextField)
             showError("Enter the username")
             return false
         }
         
         isUsernameInputValid = validator.validateUsername(username)
         if (!isUsernameInputValid) {
+            changeColor(usernameTextField)
             if username.count < 2 {
                 showError("The nickname is too short")
             } else if username.count > 19 {
@@ -226,6 +233,18 @@ final class SignupViewController: UIViewController {
             return false
         }
         return true
+    }
+    
+    // MARK: - Text Field Changing color
+    func changeColor(_ field: UITextField) {
+        let originalColor = field.layer.borderColor
+        UIView.animate(withDuration: Constants.colorDuration, animations: {
+            field.layer.borderColor = Colors.orange.cgColor
+        }) { _ in
+            UIView.animate(withDuration: Constants.colorDuration) {
+                field.layer.borderColor = originalColor
+            }
+        }
     }
     
     // MARK: - Actions
