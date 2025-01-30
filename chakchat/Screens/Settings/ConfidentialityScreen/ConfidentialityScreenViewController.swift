@@ -102,8 +102,7 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
         case (0,0):
-            print("Route to phone status screen")
-            break
+            interactor.routeToPhoneVisibilityScreen()
         case (0,1):
             print("Route to birth status screen")
             break

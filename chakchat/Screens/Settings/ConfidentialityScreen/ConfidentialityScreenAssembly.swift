@@ -18,6 +18,10 @@ enum ConfidentialityScreenAssembly {
             coordinator?.popScreen()
         }
         
+        interactor.onRouteToPhoneVisibilityScreen = { [weak coordinator] in
+            coordinator?.showPhoneVisibilityScreen()
+        }
+        
         let view = ConfidentialityScreenViewController(interactor: interactor)
         presenter.view = view
         return view

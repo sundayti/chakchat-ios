@@ -10,6 +10,7 @@ protocol ConfidentialityScreenBusinessLogic {
     func loadUserData()
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
     func backToSettingsMenu()
+    func routeToPhoneVisibilityScreen()
 }
 protocol ConfidentialityScreenPresentationLogic {
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
