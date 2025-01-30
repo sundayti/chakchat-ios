@@ -1,5 +1,5 @@
 //
-//  PhoneVisibilityScreenViewController.swift
+//  BirthVisibilityScreenViewController.swift
 //  chakchat
 //
 //  Created by Кирилл Исаев on 30.01.2025.
@@ -7,14 +7,14 @@
 
 import Foundation
 import UIKit
-final class PhoneVisibilityScreenViewController: UIViewController {
+final class BirthVisibilityScreenViewController: UIViewController {
     
     private var selectedIndex: IndexPath?
-    private var phoneVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var phoneVisibilitySection = [("All"), ("Only contacts"), ("Nobody")]
-    let interactor: PhoneVisibilityScreenBusinessLogic
+    private var birthVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var birthVisibilitySection = [("All"), ("Only contacts"), ("Nobody")]
+    let interactor: BirthVisibilityScreenBusinessLogic
     
-    init(interactor: PhoneVisibilityScreenBusinessLogic) {
+    init(interactor: BirthVisibilityScreenBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,15 +33,15 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     }
     
     private func configurePhoneVisibilityTable() {
-        view.addSubview(phoneVisibilityTable)
-        phoneVisibilityTable.delegate = self
-        phoneVisibilityTable.dataSource = self
-        phoneVisibilityTable.separatorStyle = .singleLine
-        phoneVisibilityTable.pinHorizontal(view)
-        phoneVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 20)
-        phoneVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
-        phoneVisibilityTable.register(VisibilityCell.self, forCellReuseIdentifier: VisibilityCell.cellIdentifier)
-        phoneVisibilityTable.backgroundColor = view.backgroundColor
+        view.addSubview(birthVisibilityTable)
+        birthVisibilityTable.delegate = self
+        birthVisibilityTable.dataSource = self
+        birthVisibilityTable.separatorStyle = .singleLine
+        birthVisibilityTable.pinHorizontal(view)
+        birthVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 20)
+        birthVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
+        birthVisibilityTable.register(VisibilityCell.self, forCellReuseIdentifier: VisibilityCell.cellIdentifier)
+        birthVisibilityTable.backgroundColor = view.backgroundColor
     }
     
     @objc
@@ -54,11 +54,11 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     }
 }
 
-extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewDataSource {
+extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    public func markCurrentOption(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
+    public func markCurrentOption(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility) {
         var rowIndex: Int
-        switch phoneVisibility.phoneStatus {
+        switch birthVisibility.birthStatus {
         case .all:
             rowIndex = 0
         case .onlyContacts:
@@ -81,7 +81,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         guard let cell = tableView.dequeueReusableCell(withIdentifier: VisibilityCell.cellIdentifier, for: indexPath) as? VisibilityCell else {
             return UITableViewCell()
         }
-        let item = phoneVisibilitySection[indexPath.row]
+        let item = birthVisibilitySection[indexPath.row]
         let isSelected = (indexPath == selectedIndex)
         cell.configure(title: item, isSelected: isSelected)
         return cell
@@ -94,7 +94,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         label.frame = CGRect.init(x: 20, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = "Who can see my phone number"
+            label.text = "Who can see my birth data"
         default:
             label.text = nil
         }
@@ -116,14 +116,14 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         tableView.reloadData()
         switch indexPath.row {
         case 0:
-            let newPhoneVisibility = PhoneVisibilityScreenModels.PhoneVisibility(phoneStatus: .all)
-            interactor.saveNewData(newPhoneVisibility)
+            let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .all)
+            interactor.saveNewData(newBirthVisibility)
         case 1:
-            let newPhoneVisibility = PhoneVisibilityScreenModels.PhoneVisibility(phoneStatus: .onlyContacts)
-            interactor.saveNewData(newPhoneVisibility)
+            let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .onlyContacts)
+            interactor.saveNewData(newBirthVisibility)
         case 2:
-            let newPhoneVisibility = PhoneVisibilityScreenModels.PhoneVisibility(phoneStatus: .nobody)
-            interactor.saveNewData(newPhoneVisibility)
+            let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .nobody)
+            interactor.saveNewData(newBirthVisibility)
         default:
             break
         }

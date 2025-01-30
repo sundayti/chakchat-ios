@@ -88,4 +88,9 @@ final class AppCoordinator {
         let phoneVisibilityVC = PhoneVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
         navigationController.pushViewController(phoneVisibilityVC, animated: true)
     }
+    
+    func showBirthVisibilityScreen() {
+        let birthVisibilityVC = BirthVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
+        navigationController.pushViewController(birthVisibilityVC, animated: true)
+    }
 }

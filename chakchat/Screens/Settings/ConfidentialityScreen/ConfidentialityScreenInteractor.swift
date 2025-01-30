@@ -14,6 +14,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     let eventPublisher: EventPublisherProtocol
     var onRouteToSettingsMenu: (() -> Void)?
     var onRouteToPhoneVisibilityScreen: (() -> Void)?
+    var onRouteToBirthVisibilityScreen: (() -> Void)?
     
     init(presenter: ConfidentialityScreenPresentationLogic, worker: ConfidentialityScreenWorkerLogic, eventPublisher: EventPublisherProtocol, userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         self.presenter = presenter
@@ -45,8 +46,19 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         }
     }
     
+    func handleBirthVisibilityChangeEvent(_ event: UpdateBirthStatusEvent) {
+        userData.dateOfBirthState = event.newBirthStatus
+        DispatchQueue.main.async {
+            self.updateUserData()
+        }
+    }
+    
     func routeToPhoneVisibilityScreen() {
         onRouteToPhoneVisibilityScreen?()
+    }
+    
+    func routeToBirthVisibilityScreen() {
+        onRouteToBirthVisibilityScreen?()
     }
     
     func backToSettingsMenu() {

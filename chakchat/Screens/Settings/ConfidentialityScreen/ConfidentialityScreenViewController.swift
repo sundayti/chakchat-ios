@@ -111,7 +111,7 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
         case (0,0):
             interactor.routeToPhoneVisibilityScreen()
         case (0,1):
-            print("Route to birth status screen")
+            interactor.routeToBirthVisibilityScreen()
             break
         case (0,2):
             print("Route to online status screen")

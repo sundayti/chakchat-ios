@@ -22,7 +22,12 @@ enum ConfidentialityScreenAssembly {
             coordinator?.showPhoneVisibilityScreen()
         }
         
+        interactor.onRouteToBirthVisibilityScreen = { [weak coordinator] in
+            coordinator?.showBirthVisibilityScreen()
+        }
+        
         context.eventManager.register(eventType: UpdatePhoneStatusEvent.self, interactor.handlePhoneVisibilityChangeEvent)
+        context.eventManager.register(eventType: UpdateBirthStatusEvent.self, interactor.handleBirthVisibilityChangeEvent)
         
         let view = ConfidentialityScreenViewController(interactor: interactor)
         presenter.view = view

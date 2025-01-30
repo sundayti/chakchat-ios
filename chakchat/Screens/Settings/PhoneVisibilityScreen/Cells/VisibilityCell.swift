@@ -7,9 +7,9 @@
 
 import Foundation
 import UIKit
-final class PhoneVisibilityCell: UITableViewCell {
+final class VisibilityCell: UITableViewCell {
     
-    static let cellIdentifier = "PhoneVisibilityCell"
+    static let cellIdentifier = "VisibilityCell"
     
     private var visibilityOptionLabel: UILabel = UILabel()
     private var currentOptionImageView: UIImageView = UIImageView()
