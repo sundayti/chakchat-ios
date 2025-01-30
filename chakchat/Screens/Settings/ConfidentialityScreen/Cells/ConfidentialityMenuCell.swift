@@ -11,7 +11,6 @@ final class ConfidentialityMenuCell: UITableViewCell {
     
     static let cellIdentifier = "ConfidentialityCell"
     
-    private let settingIcon: UIImageView = UIImageView()
     private let settingLabel: UILabel = UILabel()
     private let settingStatus: UILabel = UILabel()
     
@@ -24,29 +23,14 @@ final class ConfidentialityMenuCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func configure(title: String, icon: UIImage?, status: String) {
+    public func configureSettings(title: String, status: String) {
         settingLabel.text = title
         settingStatus.text = status
-        if icon != nil {
-            settingIcon.image = icon
-        } else {
-            settingLabel.pinLeft(contentView.leadingAnchor, 10)
-        }
     }
     
     private func configureCell() {
-        configureSettingIcon()
         configureSettingLabel()
         configureSettingStatus()
-    }
-    
-    private func configureSettingIcon() {
-        contentView.addSubview(settingIcon)
-        settingIcon.contentMode = .scaleAspectFill
-        settingIcon.pinLeft(contentView.leadingAnchor, 10)
-        settingIcon.pinCenterY(contentView)
-        settingIcon.setWidth(24)
-        settingIcon.setHeight(24)
     }
     
     private func configureSettingLabel() {
@@ -54,7 +38,7 @@ final class ConfidentialityMenuCell: UITableViewCell {
         settingLabel.tintColor = .black
         settingLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         settingLabel.pinCenterY(contentView)
-        settingLabel.pinLeft(settingIcon.trailingAnchor, 10)
+        settingLabel.pinLeft(contentView.leadingAnchor, 10)
     }
     
     private func configureSettingStatus() {
