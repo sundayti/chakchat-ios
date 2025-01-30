@@ -141,6 +141,9 @@ final class SignupViewController: UIViewController {
         nameTextField.pinCenterX(view)
         nameTextField.setHeight(Constants.nameTextFieldHeight)
         nameTextField.setWidth(Constants.nameTextFieldWidth)
+        
+        nameTextField.autocorrectionType = .no
+        nameTextField.spellCheckingType = .no
     }
     
     // MARK: - Username Text Field Configuration
@@ -169,6 +172,10 @@ final class SignupViewController: UIViewController {
         usernameTextField.pinCenterX(view)
         usernameTextField.setHeight(Constants.usernameTextFieldHeight)
         usernameTextField.setWidth(Constants.usernameTextFieldWidth)
+        
+        usernameTextField.autocorrectionType = .no
+        usernameTextField.spellCheckingType = .no
+        usernameTextField.autocapitalizationType = .none
     }
     
     // MARK: - Input Button Configuration
