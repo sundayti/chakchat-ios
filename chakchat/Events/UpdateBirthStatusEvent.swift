@@ -7,9 +7,9 @@
 
 import Foundation
 final class UpdateBirthStatusEvent: Event {
-    var newBirthStatus: String
+    var newBirthStatus: ConfidentialityState
     
-    init(newBirthStatus: String) {
+    init(newBirthStatus: ConfidentialityState) {
         self.newBirthStatus = newBirthStatus
     }
 }
