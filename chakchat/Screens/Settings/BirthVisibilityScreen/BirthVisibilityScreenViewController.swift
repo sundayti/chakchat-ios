@@ -119,10 +119,10 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
             let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .all)
             interactor.saveNewData(newBirthVisibility)
         case 1:
-            let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .all)
+            let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .onlyContacts)
             interactor.saveNewData(newBirthVisibility)
         case 2:
-            let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .all)
+            let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .nobody)
             interactor.saveNewData(newBirthVisibility)
         default:
             break
