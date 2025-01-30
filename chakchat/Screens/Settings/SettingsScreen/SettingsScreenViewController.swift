@@ -192,12 +192,18 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         return settingsCell
     }
     
-
+    // Here we are detecting which settings button was pressed by user
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        switch (indexPath.section, indexPath.row) {
         // if pressed section is "My Profile"
-        if indexPath.section == 0 && indexPath.row == 0 {
+        case (0,0):
             interactor.profileSettingsRoute()
+        // if pressed section is "Confidentiality"
+        case (1,0):
+            interactor.confidentialitySettingsRoute()
+        default:
+            break
         }
     }
 }
