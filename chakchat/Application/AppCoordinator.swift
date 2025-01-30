@@ -83,4 +83,9 @@ final class AppCoordinator {
         let confVC = ConfidentialityScreenAssembly.build(with: signupContext, coordinator: self)
         navigationController.pushViewController(confVC, animated: true)
     }
+    
+    func showPhoneVisibilityScreen() {
+        let phoneVisibilityVC = PhoneVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
+        navigationController.pushViewController(phoneVisibilityVC, animated: true)
+    }
 }
