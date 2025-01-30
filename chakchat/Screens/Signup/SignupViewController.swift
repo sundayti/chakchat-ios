@@ -132,8 +132,7 @@ final class SignupViewController: UIViewController {
         nameTextField.borderStyle = .none
         nameTextField.layer.cornerRadius = Constants.borderCornerRadius
         nameTextField.layer.borderWidth = Constants.borderWidth
-        nameTextField.layer.borderColor = Colors.gray.cgColor
-        
+        nameTextField.layer.borderColor = UIColor.gray.cgColor
         nameTextField.leftView = paddingView
         nameTextField.leftViewMode = .always
         nameTextField.delegate = self
@@ -163,7 +162,7 @@ final class SignupViewController: UIViewController {
         usernameTextField.borderStyle = .none
         usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
         usernameTextField.layer.borderWidth = Constants.borderWidth
-        usernameTextField.layer.borderColor = Colors.gray.cgColor
+        usernameTextField.layer.borderColor = UIColor.gray.cgColor
         
         usernameTextField.leftView = paddingView
         usernameTextField.leftViewMode = .always
@@ -196,25 +195,37 @@ final class SignupViewController: UIViewController {
         errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
     }
     
-    // MARK: - TextField Delegate Methods
-    internal func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        
-        switch(textField) {
-        case nameTextField:
-            let validator = SignupDataValidator()
-            isNameInputValid = validator.validateName(text)
-        case usernameTextField:
-            let validator = SignupDataValidator()
-            isUsernameInputValid = validator.validateUsername(text)
-        default:
-            break
+    // MARK: - Check Name and Username Fields and Show Errors
+    private func checkFields() -> Bool {
+        guard let name = nameTextField.text, !name.isEmpty else {
+            showError("Enter your name")
+            return false
         }
-        updateAuthorizationButtonState()
-    }
-    
-    private func updateAuthorizationButtonState() {
-        sendGradientButton.isEnabled = isNameInputValid && isUsernameInputValid
+        
+        let validator = SignupDataValidator()
+        isNameInputValid = validator.validateName(name)
+        if (!isNameInputValid) {
+            showError("The name is too long")
+            return false
+        }
+        
+        guard let username = usernameTextField.text, !username.isEmpty else {
+            showError("Enter the username")
+            return false
+        }
+        
+        isUsernameInputValid = validator.validateUsername(username)
+        if (!isUsernameInputValid) {
+            if username.count < 2 {
+                showError("The nickname is too short")
+            } else if username.count > 19 {
+                showError("The nickname is too long")
+            } else {
+                showError("Use only latin letters, digits and _")
+            }
+            return false
+        }
+        return true
     }
     
     // MARK: - Actions
@@ -233,13 +244,13 @@ final class SignupViewController: UIViewController {
             }
         })
         
-        guard let name = nameTextField.text, !name.isEmpty,
-              let username = usernameTextField.text, !username.isEmpty else {
-            showError("You need to enter name and username")
-            return
+        if checkFields() {
+            guard let name = nameTextField.text, !name.isEmpty,
+                  let username = usernameTextField.text, !username.isEmpty else {
+                return
+            }
+            interactor.sendSignupRequest(name, username)
         }
-
-        interactor.sendSignupRequest(name, username)
     }
 }
 
