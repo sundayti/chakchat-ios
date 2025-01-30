@@ -13,9 +13,11 @@ protocol ConfidentialityScreenBusinessLogic {
     func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
     
     func handlePhoneVisibilityChangeEvent(_ event: UpdatePhoneStatusEvent)
+    func handleBirthVisibilityChangeEvent(_ event: UpdateBirthStatusEvent)
     
     func backToSettingsMenu()
     func routeToPhoneVisibilityScreen()
+    func routeToBirthVisibilityScreen()
 }
 protocol ConfidentialityScreenPresentationLogic {
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
