@@ -9,4 +9,8 @@ import Foundation
 final class PhoneVisibilityScreenPresenter: PhoneVisibilityScreenPresentationLogic {
     
     weak var view: PhoneVisibilityScreenViewController?
+    
+    func showUserData(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
+        view?.markCurrentOption(phoneVisibility)
+    }
 }

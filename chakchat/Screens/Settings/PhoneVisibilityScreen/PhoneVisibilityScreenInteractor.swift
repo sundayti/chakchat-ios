@@ -20,4 +20,22 @@ final class PhoneVisibilityScreenInteractor: PhoneVisibilityScreenBusinessLogic 
         self.eventManager = eventManager
         self.userData = userData
     }
+    
+    func loadUserData() {
+        showUserData(userData)
+    }
+    
+    func showUserData(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
+        presenter.showUserData(phoneVisibility)
+    }
+    
+    func saveNewData(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
+        worker.saveNewPhoneVisibilityOption(phoneVisibility)
+        let updatePhoneVisibilityEvent = UpdatePhoneStatusEvent(newPhoneStatus: phoneVisibility.phoneStatus)
+        eventManager.publish(event: updatePhoneVisibilityEvent)
+    }
+    
+    func backToConfidentialityScreen() {
+        onRouteToConfidentialityScreen?()
+    }
 }

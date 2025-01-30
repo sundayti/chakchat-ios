@@ -13,4 +13,8 @@ final class PhoneVisibilityScreenWorker: PhoneVisibilityScreenWorkerLogic {
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
+    
+    func saveNewPhoneVisibilityOption(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
+        userDefaultsManager.saveConfidentialityPhoneStatus(phoneVisibility.phoneStatus.rawValue)
+    }
 }
