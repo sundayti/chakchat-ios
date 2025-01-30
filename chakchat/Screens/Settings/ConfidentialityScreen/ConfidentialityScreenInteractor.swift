@@ -26,8 +26,23 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         showUserData(userData)
     }
     
+    func updateUserData() {
+        showNewUserData(userData)
+    }
+    
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         presenter.showUserData(userData)
+    }
+    
+    func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        presenter.showNewUserData(userData)
+    }
+    
+    func handlePhoneVisibilityChangeEvent(_ event: UpdatePhoneStatusEvent) {
+        userData.phoneNumberState = event.newPhoneStatus
+        DispatchQueue.main.async {
+            self.updateUserData()
+        }
     }
     
     func routeToPhoneVisibilityScreen() {

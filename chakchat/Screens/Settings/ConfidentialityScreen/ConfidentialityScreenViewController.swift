@@ -37,6 +37,13 @@ final class ConfidentialityScreenViewController: UIViewController {
         confidentilitySection[2].1 = userData.onlineStatus.rawValue
     }
     
+    public func updateVisibilityStatus(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        confidentilitySection[0].1 = userData.phoneNumberState.rawValue
+        confidentilitySection[1].1 = userData.dateOfBirthState.rawValue
+        confidentilitySection[2].1 = userData.onlineStatus.rawValue
+        confidentialitySettingsTable.reloadData()
+    }
+    
     private func configureUI() {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
