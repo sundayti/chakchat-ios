@@ -22,6 +22,8 @@ enum ConfidentialityScreenAssembly {
             coordinator?.showPhoneVisibilityScreen()
         }
         
+        context.eventManager.register(eventType: UpdatePhoneStatusEvent.self, interactor.handlePhoneVisibilityChangeEvent)
+        
         let view = ConfidentialityScreenViewController(interactor: interactor)
         presenter.view = view
         return view
