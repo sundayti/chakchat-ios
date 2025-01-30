@@ -29,10 +29,6 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         presenter.showUserData(userData)
     }
     
-    func saveNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        worker.saveNewData(userData)
-    }
-    
     func backToSettingsMenu() {
         onRouteToSettingsMenu?()
     }
