@@ -40,7 +40,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         phoneVisibilityTable.pinHorizontal(view)
         phoneVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 20)
         phoneVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
-        phoneVisibilityTable.register(PhoneVisibilityCell.self, forCellReuseIdentifier: PhoneVisibilityCell.cellIdentifier)
+        phoneVisibilityTable.register(VisibilityCell.self, forCellReuseIdentifier: VisibilityCell.cellIdentifier)
         phoneVisibilityTable.backgroundColor = view.backgroundColor
     }
     
@@ -78,7 +78,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PhoneVisibilityCell.cellIdentifier, for: indexPath) as? PhoneVisibilityCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: VisibilityCell.cellIdentifier, for: indexPath) as? VisibilityCell else {
             return UITableViewCell()
         }
         let item = phoneVisibilitySection[indexPath.row]
