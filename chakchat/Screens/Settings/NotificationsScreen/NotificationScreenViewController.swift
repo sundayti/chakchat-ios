@@ -86,7 +86,7 @@ extension NotificationScreenViewController: UITableViewDelegate, UITableViewData
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
         // вот эта штучка ответственна за то, где именно будет располагаться заголовок относительно секции
-        label.frame = CGRect.init(x: 20, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
+        label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
             label.text = "General"
