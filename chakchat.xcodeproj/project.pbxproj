@@ -76,6 +76,13 @@
 		AA84F0342D4BEF3000678ABA /* BirthVisibilityScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0332D4BEF3000678ABA /* BirthVisibilityScreenModels.swift */; };
 		AA84F0362D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0352D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift */; };
 		AA84F0382D4BEF4500678ABA /* BirthVisibilityScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0372D4BEF4500678ABA /* BirthVisibilityScreenProtocols.swift */; };
+		AA84F03B2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F03A2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift */; };
+		AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F03C2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift */; };
+		AA84F03F2D4CD87600678ABA /* OnlineVisibilityScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F03E2D4CD87600678ABA /* OnlineVisibilityScreenPresenter.swift */; };
+		AA84F0412D4CD87D00678ABA /* OnlineVisibilityScreenWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0402D4CD87D00678ABA /* OnlineVisibilityScreenWorker.swift */; };
+		AA84F0432D4CD88500678ABA /* OnlineVisibilityScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0422D4CD88500678ABA /* OnlineVisibilityScreenProtocols.swift */; };
+		AA84F0452D4CD88C00678ABA /* OnlineVisibilityScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0442D4CD88C00678ABA /* OnlineVisibilityScreenModels.swift */; };
+		AA84F0472D4CD89800678ABA /* OnlineVisibilityScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0462D4CD89800678ABA /* OnlineVisibilityScreenViewController.swift */; };
 		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
 		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
 		AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC622D382057007DEC76 /* UIGradientButton.swift */; };
@@ -225,6 +232,13 @@
 		AA84F0332D4BEF3000678ABA /* BirthVisibilityScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthVisibilityScreenModels.swift; sourceTree = "<group>"; };
 		AA84F0352D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthVisibilityScreenViewController.swift; sourceTree = "<group>"; };
 		AA84F0372D4BEF4500678ABA /* BirthVisibilityScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthVisibilityScreenProtocols.swift; sourceTree = "<group>"; };
+		AA84F03A2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVisibilityScreenAssembly.swift; sourceTree = "<group>"; };
+		AA84F03C2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVisibilityScreenInteractor.swift; sourceTree = "<group>"; };
+		AA84F03E2D4CD87600678ABA /* OnlineVisibilityScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVisibilityScreenPresenter.swift; sourceTree = "<group>"; };
+		AA84F0402D4CD87D00678ABA /* OnlineVisibilityScreenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVisibilityScreenWorker.swift; sourceTree = "<group>"; };
+		AA84F0422D4CD88500678ABA /* OnlineVisibilityScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVisibilityScreenProtocols.swift; sourceTree = "<group>"; };
+		AA84F0442D4CD88C00678ABA /* OnlineVisibilityScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVisibilityScreenModels.swift; sourceTree = "<group>"; };
+		AA84F0462D4CD89800678ABA /* OnlineVisibilityScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVisibilityScreenViewController.swift; sourceTree = "<group>"; };
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
@@ -377,6 +391,7 @@
 		AA7BADF02D3FC7CA0030AC82 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				AA84F0392D4CD85300678ABA /* OnlineVisibilityScreen */,
 				AA84F0272D4BEDD500678ABA /* BirthVisibilityScreen */,
 				AA84F0132D4BBE1300678ABA /* PhoneVisibilityScreen */,
 				AA84EFF92D49127000678ABA /* ConfidentialityScreen */,
@@ -502,6 +517,20 @@
 				AA84F0372D4BEF4500678ABA /* BirthVisibilityScreenProtocols.swift */,
 			);
 			path = BirthVisibilityScreen;
+			sourceTree = "<group>";
+		};
+		AA84F0392D4CD85300678ABA /* OnlineVisibilityScreen */ = {
+			isa = PBXGroup;
+			children = (
+				AA84F03A2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift */,
+				AA84F03C2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift */,
+				AA84F0402D4CD87D00678ABA /* OnlineVisibilityScreenWorker.swift */,
+				AA84F03E2D4CD87600678ABA /* OnlineVisibilityScreenPresenter.swift */,
+				AA84F0462D4CD89800678ABA /* OnlineVisibilityScreenViewController.swift */,
+				AA84F0442D4CD88C00678ABA /* OnlineVisibilityScreenModels.swift */,
+				AA84F0422D4CD88500678ABA /* OnlineVisibilityScreenProtocols.swift */,
+			);
+			path = OnlineVisibilityScreen;
 			sourceTree = "<group>";
 		};
 		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
@@ -940,17 +969,20 @@
 				AA84F0182D4BBE7C00678ABA /* PhoneVisibilityScreenInteractor.swift in Sources */,
 				AA84F00A2D491AB600678ABA /* ConfidentialityMenuCell.swift in Sources */,
 				AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */,
+				AA84F03F2D4CD87600678ABA /* OnlineVisibilityScreenPresenter.swift in Sources */,
 				AA84F0052D4912DB00678ABA /* ConfidentialityScreenModels.swift in Sources */,
 				AA9B622B2D2D6CA40064CB23 /* SendCodeViewController.swift in Sources */,
 				AA7BADF82D3FCA360030AC82 /* SettingsScreenPresenter.swift in Sources */,
 				AA7BAE032D3FD1900030AC82 /* SettingsMenuCell.swift in Sources */,
 				AA84F0102D4B952300678ABA /* UpdateOnlineStatusEvent.swift in Sources */,
+				AA84F0432D4CD88500678ABA /* OnlineVisibilityScreenProtocols.swift in Sources */,
 				AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */,
 				AA84F0072D4912E500678ABA /* ConfidentialityScreenProtocols.swift in Sources */,
 				AA7BADE92D3F9FDF0030AC82 /* ChatsScreenViewController.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
 				AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */,
 				AA7BADEB2D3FA0230030AC82 /* ChatsScreenModels.swift in Sources */,
+				AA84F03B2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift in Sources */,
 				AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */,
 				9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */,
 				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
@@ -966,6 +998,7 @@
 				AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */,
 				E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */,
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
+				AA84F0452D4CD88C00678ABA /* OnlineVisibilityScreenModels.swift in Sources */,
 				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
 				AA9B627D2D300DEE0064CB23 /* SignupDataValidator.swift in Sources */,
 				AA84EFFD2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift in Sources */,
@@ -975,6 +1008,7 @@
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
 				AA9B628B2D303FB50064CB23 /* SignupServiceProtocols.swift in Sources */,
+				AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */,
 				AA9B62A32D33D6B50064CB23 /* ErrorHandler.swift in Sources */,
 				AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */,
 				AA9B627B2D3004850064CB23 /* SignupWorker.swift in Sources */,
@@ -996,6 +1030,7 @@
 				AA9B622F2D2D6CB90064CB23 /* SendCodeProtocols.swift in Sources */,
 				AA9B62432D2EC4840064CB23 /* KeychainManagerProtocol.swift in Sources */,
 				AA9B62642D2FCA930064CB23 /* SignupEndpoints.swift in Sources */,
+				AA84F0412D4CD87D00678ABA /* OnlineVisibilityScreenWorker.swift in Sources */,
 				AA9B62982D3163CA0064CB23 /* SigninEndpoints.swift in Sources */,
 				AA9B626B2D2FD2470064CB23 /* SignupPresenter.swift in Sources */,
 				AA1C0E452D43C974008E47D8 /* ProfileSettingsPresenter.swift in Sources */,
@@ -1010,6 +1045,7 @@
 				E11D35182D42799200A698EA /* MailHelper.swift in Sources */,
 				E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */,
 				AA1C0E472D43C984008E47D8 /* ProfileSettingsModels.swift in Sources */,
+				AA84F0472D4CD89800678ABA /* OnlineVisibilityScreenViewController.swift in Sources */,
 				AA9B628D2D3149B60064CB23 /* ApiErrorTypes.swift in Sources */,
 				AA9B626D2D2FD25A0064CB23 /* SignupViewController.swift in Sources */,
 				AA7BADFA2D3FCA4C0030AC82 /* SettingsScreenModels.swift in Sources */,

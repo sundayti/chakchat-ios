@@ -93,4 +93,9 @@ final class AppCoordinator {
         let birthVisibilityVC = BirthVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
         navigationController.pushViewController(birthVisibilityVC, animated: true)
     }
+    
+    func showOnlineVisibilityScreen() {
+        let onlineVisibilityVC = OnlineVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
+        navigationController.pushViewController(onlineVisibilityVC, animated: true)
+    }
 }
