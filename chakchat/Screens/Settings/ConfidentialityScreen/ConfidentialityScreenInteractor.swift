@@ -12,9 +12,11 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     let worker: ConfidentialityScreenWorkerLogic
     var userData: ConfidentialitySettingsModels.ConfidentialityUserData
     let eventPublisher: EventPublisherProtocol
+    
     var onRouteToSettingsMenu: (() -> Void)?
     var onRouteToPhoneVisibilityScreen: (() -> Void)?
     var onRouteToBirthVisibilityScreen: (() -> Void)?
+    var onRouteToOnlineVisibilityScreen: (() -> Void)?
     
     init(presenter: ConfidentialityScreenPresentationLogic, worker: ConfidentialityScreenWorkerLogic, eventPublisher: EventPublisherProtocol, userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         self.presenter = presenter
@@ -53,12 +55,23 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         }
     }
     
+    func handleOnlineVisibilityChangeEvent(_ event: UpdateOnlineStatusEvent) {
+        userData.onlineStatus = event.newOnlineStatus
+        DispatchQueue.main.async {
+            self.updateUserData()
+        }
+    }
+    
     func routeToPhoneVisibilityScreen() {
         onRouteToPhoneVisibilityScreen?()
     }
     
     func routeToBirthVisibilityScreen() {
         onRouteToBirthVisibilityScreen?()
+    }
+    
+    func routeToOnlineVisibilityScreen() {
+        onRouteToOnlineVisibilityScreen?()
     }
     
     func backToSettingsMenu() {
