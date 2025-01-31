@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - ChatsScreenWorker
 final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     
 }

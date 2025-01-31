@@ -81,7 +81,7 @@ final class VerifyWorker: VerifyWorkerLogic {
     }
     
     // MARK: - SendIn Requests
-    func resendInRequest(_ request: Verify.ResendCodeRequest,
+    func resendInRequest(_ request: VerifyModels.ResendCodeRequest,
                      completion: @escaping (Result<AppState, Error>) -> Void) {
         print("Send request to service")
         sendCodeService.sendCodeRequest(request,
@@ -106,7 +106,7 @@ final class VerifyWorker: VerifyWorkerLogic {
     }
     
     // MARK: - Registration Requests
-    func resendUpRequest(_ request: Verify.ResendCodeRequest,
+    func resendUpRequest(_ request: VerifyModels.ResendCodeRequest,
                        completion: @escaping (Result<AppState, Error>) -> Void) {
         print("Send request to service")
         sendCodeService.sendCodeRequest(request,

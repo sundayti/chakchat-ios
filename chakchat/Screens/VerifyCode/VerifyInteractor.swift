@@ -41,7 +41,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 return
             }
 
-            worker.sendVerificationRequest(Verify.VerifySigninRequest(signinKey: key, code: code),                 SigninEndpoints.signinEndpoint.rawValue, SuccessModels.Tokens.self) { [weak self] result in
+            worker.sendVerificationRequest(VerifyModels.VerifySigninRequest(signinKey: key, code: code),                 SigninEndpoints.signinEndpoint.rawValue, SuccessModels.Tokens.self) { [weak self] result in
                 guard let self = self else {return}
                 switch result {
                 case .success(let state):
@@ -57,7 +57,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 return
             }
             
-            worker.sendVerificationRequest(Verify.VerifySignupRequest(signupKey: key, code: code), SignupEndpoints.verifyCodeEndpoint.rawValue, SuccessModels.VerifySignupData.self) { [weak self] result in
+            worker.sendVerificationRequest(VerifyModels.VerifySignupRequest(signupKey: key, code: code), SignupEndpoints.verifyCodeEndpoint.rawValue, SuccessModels.VerifySignupData.self) { [weak self] result in
                 guard let self = self else {return}
                 switch result {
                 case .success(let state):
@@ -91,7 +91,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
     }
     
     // MARK: - Resend Code Request
-    func resendCodeRequest(_ request: Verify.ResendCodeRequest) {
+    func resendCodeRequest(_ request: VerifyModels.ResendCodeRequest) {
         print("Send request to worker")
         if (state == AppState.signin) {
             worker.resendInRequest(request) { [weak self] result in

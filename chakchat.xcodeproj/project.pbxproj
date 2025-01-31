@@ -149,6 +149,7 @@
 		E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */; };
 		E11D35182D42799200A698EA /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35172D42799200A698EA /* MailHelper.swift */; };
 		E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */; };
+		E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED3D2D4CF59E006CE143 /* Fonts.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -308,6 +309,7 @@
 		E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		E11D35172D42799200A698EA /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPhoneNumberTextField.swift; sourceTree = "<group>"; };
+		E135ED3D2D4CF59E006CE143 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -439,6 +441,7 @@
 				AA92EC5D2D381B4A007DEC76 /* UIComponents */,
 				AA92EC602D381B8D007DEC76 /* Constants.swift */,
 				E11D350E2D40C3F400A698EA /* Colors.swift */,
+				E135ED3D2D4CF59E006CE143 /* Fonts.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1060,6 +1063,7 @@
 				AA9B622D2D2D6CAE0064CB23 /* SendCodeModels.swift in Sources */,
 				AA1C0E362D43A0D5008E47D8 /* EventPublisherProtocol.swift in Sources */,
 				AA9B62862D303E330064CB23 /* StartAssembly.swift in Sources */,
+				E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */,
 				AA9B62892D303FAA0064CB23 /* SignupService.swift in Sources */,
 				AA9B62802D3018CB0064CB23 /* AppContext.swift in Sources */,
 				AA9B62A12D32DFC60064CB23 /* StateMachine.swift in Sources */,
@@ -1254,7 +1258,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ5MGT6276;
+				DEVELOPMENT_TEAM = F46Y9QM766;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1267,7 +1271,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mrdr.chackchat-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "lzkgmr.chakchat-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1282,7 +1286,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ5MGT6276;
+				DEVELOPMENT_TEAM = F46Y9QM766;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1295,7 +1299,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mrdr.chackchat-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "lzkgmr.chakchat-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

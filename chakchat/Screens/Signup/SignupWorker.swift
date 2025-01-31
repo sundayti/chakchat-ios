@@ -22,7 +22,7 @@ final class SignupWorker: SignupWorkerLogic {
     }
     
     // MARK: - Request Sending
-    func sendRequest(_ request: Signup.SignupRequest, completion: @escaping (Result<AppState, Error>) -> Void) {
+    func sendRequest(_ request: SignupModels.SignupRequest, completion: @escaping (Result<AppState, Error>) -> Void) {
         print("Send request to service")
         
         signupService.sendSignupRequest(request) { [weak self] result in

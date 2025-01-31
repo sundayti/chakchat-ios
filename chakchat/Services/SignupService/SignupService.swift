@@ -10,7 +10,7 @@ import Foundation
 // MARK: - SignupService
 final class SignupService: SignupServiceLogic {
     
-    func sendSignupRequest(_ request: Signup.SignupRequest,
+    func sendSignupRequest(_ request: SignupModels.SignupRequest,
                            completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void) {
         Sender.send(
             requestBody: request,

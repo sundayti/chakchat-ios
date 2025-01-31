@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ChatAssembly
 enum ChatsAssembly {
+    
+    // MARK: - Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ChatsScreenPresenter()
         let worker = ChatsScreenWorker()
@@ -17,6 +21,7 @@ enum ChatsAssembly {
         }
         let view = ChatsScreenViewController(interactor: interactor)
         presenter.view = view
+        
         return view
     }
 }

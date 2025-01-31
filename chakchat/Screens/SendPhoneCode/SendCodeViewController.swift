@@ -37,14 +37,11 @@ final class SendCodeViewController: UIViewController {
         static let linkContentLocation: Int = 33
         static let linkContentLenght: Int = 16
         
-        static let policyLabelFont: UIFont = UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-        
         static let policyStackViewSpacing: CGFloat = 5
         static let policyStackViewTopAnchor: CGFloat = 5
         
         static let inputButtonHeight: CGFloat = 48
         static let inputButtonWidth: CGFloat = 205
-        static let inputButtonFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
         
         static let disclaimerLeading: CGFloat = 20
         static let disclaimerTrailing: CGFloat = 20
@@ -138,7 +135,7 @@ final class SendCodeViewController: UIViewController {
         sendGradientButton.pinTop(inputNumberTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
         sendGradientButton.setHeight(Constants.inputButtonHeight)
         sendGradientButton.setWidth(Constants.inputButtonWidth)
-        sendGradientButton.titleLabel?.font = Constants.inputButtonFont
+        sendGradientButton.titleLabel?.font = Fonts.inputButton
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
         

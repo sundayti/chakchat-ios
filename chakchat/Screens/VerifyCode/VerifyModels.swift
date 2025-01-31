@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Verify Models
-enum Verify {
+enum VerifyModels {
     
     // MARK: - Authorization Request Models
     struct VerifySigninRequest: Codable {

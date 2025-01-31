@@ -6,6 +6,6 @@
 //
 
 import Foundation
-enum ChatsModels {
-    
-}
+
+// MARK: - Chats Models
+enum ChatsModels { }

@@ -6,14 +6,18 @@
 //
 
 import Foundation
+
+// MARK: - ChatsScreenBusinessLogic
 protocol ChatsScreenBusinessLogic {
     func routeToSettingsScreen()
 }
 
+// MARK: - ChatsScreenPresentationLogic
 protocol ChatsScreenPresentationLogic {
     
 }
 
+// MARK: - ChatsScreenWorkerLogic
 protocol ChatsScreenWorkerLogic {
     
 }

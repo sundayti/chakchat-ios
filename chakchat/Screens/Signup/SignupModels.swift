@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Signup Models
-enum Signup {
+enum SignupModels {
     
     // MARK: - Request Models
     struct SignupRequest: Codable {

@@ -15,7 +15,7 @@ protocol SignupBusinessLogic {
 
 // MARK: - SignupWorkerLogic
 protocol SignupWorkerLogic {
-    func sendRequest(_ request: Signup.SignupRequest,
+    func sendRequest(_ request: SignupModels.SignupRequest,
                      completion: @escaping (Result<AppState, Error>) -> Void)
     
     func getSignupCode() -> UUID?
