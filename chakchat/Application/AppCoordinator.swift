@@ -32,7 +32,7 @@ final class AppCoordinator {
     
     // MARK: - Start Screen Creation
     private func CreateStartScreen() -> UIViewController {
-        return StartAssembly.build(with: signupContext, coordinator: self)
+        return SettingsScreenAssembly.build(with: signupContext, coordinator: self)
     }
     
     // MARK: - Registration Screen Showing
@@ -97,5 +97,10 @@ final class AppCoordinator {
     func showOnlineVisibilityScreen() {
         let onlineVisibilityVC = OnlineVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
         navigationController.pushViewController(onlineVisibilityVC, animated: true)
+    }
+    
+    func showNotificationScreen() {
+        let notificationVC = NotificationScreenAssembly.build(with: signupContext, coordinator: self)
+        navigationController.pushViewController(notificationVC, animated: true)
     }
 }
