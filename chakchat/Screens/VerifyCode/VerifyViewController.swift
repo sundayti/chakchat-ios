@@ -13,9 +13,7 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let inputPhoneFont: UIFont = UIFont.loadCustomFont(name: "RobotoMono-Regular", size: 28)
         static let inputHintLabelText: String = "Enter the code"
-        static let inputHintLabelFont: UIFont = UIFont.systemFont(ofSize: 30, weight: .bold)
         static let inputHintLabelTopAnchor: CGFloat = 10
         static let backButtonName: String = "arrow.left"
         
@@ -46,7 +44,6 @@ final class VerifyViewController: UIViewController {
         
         static let resendButtonHeight: CGFloat = 48
         static let resendButtonWidth: CGFloat = 230
-        static let resendButtonFont: UIFont = UIFont.systemFont(ofSize: 25, weight: .bold)
     }
     
     // MARK: - Fields
@@ -179,7 +176,7 @@ final class VerifyViewController: UIViewController {
     private func configureInputHintLabel() {
         view.addSubview(inputHintLabel)
         inputHintLabel.text = Constants.inputHintLabelText
-        inputHintLabel.font = Constants.inputHintLabelFont
+        inputHintLabel.font = Fonts.inputHintLabel
         inputHintLabel.pinCenterX(view)
         inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)
     }
@@ -249,7 +246,7 @@ final class VerifyViewController: UIViewController {
         resendButton.pinBottom(view, Constants.timerLabelBottom)
         resendButton.setHeight(Constants.resendButtonHeight)
         resendButton.setWidth(Constants.resendButtonWidth)
-        resendButton.titleLabel?.font = Constants.resendButtonFont
+        resendButton.titleLabel?.font = Fonts.resendButton
         resendButton.addTarget(self, action: #selector(resendButtonPressed), for: .touchUpInside)
         resendButton.isHidden = true
     }

@@ -13,8 +13,6 @@ final class StartViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let chakchatFont: UIFont = UIFont.loadCustomFont(name: "RammettoOne-Regular", size: 100)
-        static let tapFont: UIFont = UIFont.loadCustomFont(name: "Montserrat-Bold", size: 25)
         static let chakchatStackViewSpacing: CGFloat = -60
         static let tapLabelButtom: CGFloat = 50
         static let tapLabelText: String = "Tap"
@@ -75,12 +73,12 @@ final class StartViewController: UIViewController {
         view.addSubview(chatLabel)
         chakLabel.text = Constants.chakLabelText
         chakLabel.textAlignment = .center
-        chakLabel.font = Constants.chakchatFont
+        chakLabel.font = Fonts.chakchat
         chakLabel.textColor = .black
         
         chatLabel.text = Constants.chatLabelText
         chatLabel.textAlignment = .center
-        chatLabel.font = Constants.chakchatFont
+        chatLabel.font = Fonts.chakchat
         chatLabel.textColor = .black
         
         view.addSubview(chakchatStackView)
@@ -95,7 +93,7 @@ final class StartViewController: UIViewController {
         view.addSubview(tapLabel)
         tapLabel.text = Constants.tapLabelText
         tapLabel.textAlignment = .center
-        tapLabel.font = Constants.tapFont
+        tapLabel.font = Fonts.tap
         tapLabel.textColor = .black
         tapLabel.pinCenterX(view)
         tapLabel.pinBottom(view, Constants.tapLabelButtom)

@@ -11,6 +11,8 @@ import UIKit
 // MARK: - ChatsScreenViewController
 final class ChatsScreenViewController: UIViewController {
     
+    
+    
     // MARK: - Properties
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var settingButton: UIButton = UIButton(type: .system)

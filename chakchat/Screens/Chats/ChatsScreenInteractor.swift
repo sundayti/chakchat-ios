@@ -22,7 +22,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         self.worker = worker
     }
     
-    // MARK: - Routing 
+    // MARK: - Routing
     func routeToSettingsScreen() {
         onRouteToSettings?()
     }

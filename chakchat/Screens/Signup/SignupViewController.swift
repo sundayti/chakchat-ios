@@ -13,11 +13,8 @@ final class SignupViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let nameFont: UIFont = UIFont.loadCustomFont(name: "Inter-Regular", size: 20)
-        
         static let inputButtonHeight: CGFloat = 50
         static let inputButtonWidth: CGFloat = 200
-        static let inputButtonFont: UIFont = UIFont.systemFont(ofSize: 26, weight: .bold)
         static let inputButtonTopAnchor: CGFloat = 40
         static let inputButtonGradientColor: [CGColor] = [UIColor.yellow.cgColor, UIColor.orange.cgColor]
         
@@ -46,7 +43,6 @@ final class SignupViewController: UIViewController {
         
         static let createButtonHeight: CGFloat = 38
         static let createButtonWidth: CGFloat = 228
-        static let createButtonFont: UIFont = UIFont.systemFont(ofSize: 20, weight: .bold)
         
         static let alphaStart: CGFloat = 0
         static let alphaEnd: CGFloat = 1
@@ -150,7 +146,7 @@ final class SignupViewController: UIViewController {
                 height: nameTextField.frame.height
             )
         )
-        nameTextField.font = Constants.nameFont
+        nameTextField.font = Fonts.name
         nameTextField.borderStyle = .none
         nameTextField.layer.cornerRadius = Constants.borderCornerRadius
         nameTextField.layer.borderWidth = Constants.borderWidth
@@ -181,7 +177,7 @@ final class SignupViewController: UIViewController {
                 height: usernameTextField.frame.height
             )
         )
-        usernameTextField.font = Constants.nameFont
+        usernameTextField.font = Fonts.name
         usernameTextField.borderStyle = .none
         usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
         usernameTextField.layer.borderWidth = Constants.borderWidth
@@ -207,7 +203,7 @@ final class SignupViewController: UIViewController {
         sendGradientButton.pinTop(usernameTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
         sendGradientButton.setHeight(Constants.createButtonHeight)
         sendGradientButton.setWidth(Constants.createButtonWidth)
-        sendGradientButton.titleLabel?.font = Constants.createButtonFont
+        sendGradientButton.titleLabel?.font = Fonts.createButton
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
