@@ -17,6 +17,9 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let confidentialityPhoneKey = "confidentialityPhone"
     private let confidentialityBirthKey = "confidentialityBirth"
     private let confidentialityOnlineKey = "confidentialityOnline"
+    private let generalNotificationKey = "generalNotification"
+    private let audioNotificationKey = "audioNotification"
+    private let vibrationNotificationKey = "vibrationNotification"
     
     func saveAvatar(_ icon: UIImage) {
         print("Hello world")
@@ -44,6 +47,18 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func saveConfidentialityOnlineStatus(_ onlineStatus: String) {
         UserDefaults.standard.set(onlineStatus, forKey: confidentialityOnlineKey)
+    }
+    
+    func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool) {
+        UserDefaults.standard.set(generalNotificationStatus, forKey: generalNotificationKey)
+    }
+    
+    func saveAudioNotificationStatus(_ audioNotificationStatus: Bool) {
+        UserDefaults.standard.set(audioNotificationStatus, forKey: audioNotificationKey)
+    }
+    
+    func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool) {
+        UserDefaults.standard.set(visualNotificationStatus, forKey: vibrationNotificationKey)
     }
     
     func loadAvatar() -> UIImage? {
@@ -90,6 +105,21 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
             return "All"
         }
         return onlineStatus
+    }
+    
+    func loadGeneralNotificationStatus() -> Bool {
+        let generalNotificationStatus = UserDefaults.standard.bool(forKey: generalNotificationKey)
+        return generalNotificationStatus
+    }
+    
+    func loadAudioNotificationStatus() -> Bool {
+        let audioNotificationStatus = UserDefaults.standard.bool(forKey: audioNotificationKey)
+        return audioNotificationStatus
+    }
+    
+    func loadVibrationNotificationStatus() -> Bool {
+        let visualNotificationStatus = UserDefaults.standard.bool(forKey: vibrationNotificationKey)
+        return visualNotificationStatus
     }
 
     func deleteAvatar() {

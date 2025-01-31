@@ -19,6 +19,9 @@ enum SettingsScreenAssembly {
         interactor.onRouteToConfidentialitySettings = { [weak coordinator] in
             coordinator?.showConfidentialityScreen()
         }
+        interactor.onRouteToNotificationsSettings = { [weak coordinator] in
+            coordinator?.showNotificationScreen()
+        }
         context.eventManager.register(eventType: UpdateProfileDataEvent.self,
                                       interactor.handleUserDataChangedEvent)
         

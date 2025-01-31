@@ -196,12 +196,15 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
-        // if pressed section is "My Profile"
+        // if pressed cell is "My Profile"
         case (0,0):
             interactor.profileSettingsRoute()
-        // if pressed section is "Confidentiality"
+        // if pressed cell is "Confidentiality"
         case (1,0):
             interactor.confidentialitySettingsRoute()
+        // if pressed cell is "Notification"
+        case (1,1):
+            interactor.notificationSettingsRoute()
         default:
             break
         }
