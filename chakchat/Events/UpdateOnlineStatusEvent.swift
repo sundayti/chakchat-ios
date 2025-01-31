@@ -7,9 +7,9 @@
 
 import Foundation
 final class UpdateOnlineStatusEvent: Event {
-    var newOnlineStatus: String
+    var newOnlineStatus: ConfidentialityState
     
-    init(newOnlineStatus: String) {
+    init(newOnlineStatus: ConfidentialityState) {
         self.newOnlineStatus = newOnlineStatus
     }
 }
