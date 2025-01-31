@@ -9,6 +9,7 @@ import Foundation
 protocol SettingsScreenBusinessLogic {
     func profileSettingsRoute()
     func confidentialitySettingsRoute()
+    func notificationSettingsRoute()
     
     func showUserData(_ data: SettingsScreenModels.UserData)
     func loadUserData()
