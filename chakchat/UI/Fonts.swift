@@ -23,4 +23,6 @@ enum Fonts {
     static let chakchat: UIFont = UIFont.loadCustomFont(name: "RammettoOne-Regular", size: 100)
     // Used: Tap label text in StartVC
     static let tap: UIFont = UIFont.loadCustomFont(name: "Montserrat-Bold", size: 25)
+    // Used: ChatsVc, SettingsVC, NotificationsVC ...... as a header
+    static let header: UIFont = UIFont.systemFont(ofSize: 24, weight: .bold)
 }
