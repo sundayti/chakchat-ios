@@ -409,6 +409,11 @@ extension VerifyViewController: UITextFieldDelegate {
                 textFields.last?.becomeFirstResponder()
             }
             
+            if areAllTextFieldsFilled() {
+                let code = getCodeFromTextFields()
+                interactor.sendVerificationRequest(code)
+            }
+            
             return false
         }
         
