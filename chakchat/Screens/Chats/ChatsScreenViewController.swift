@@ -7,13 +7,17 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ChatsScreenViewController
 final class ChatsScreenViewController: UIViewController {
     
+    // MARK: - Properties
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var settingButton: UIButton = UIButton(type: .system)
     private lazy var newChatButton: UIButton = UIButton(type: .system)
     var interactor: ChatsScreenBusinessLogic
     
+    // MARK: - Lifecycle
     init(interactor: ChatsScreenBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -28,6 +32,7 @@ final class ChatsScreenViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         configureTitleLabel()
@@ -38,12 +43,14 @@ final class ChatsScreenViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newChatButton)
     }
     
+    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = UIFont.systemFont(ofSize: 24)
         titleLabel.text = "Chats"
     }
     
+    // MARK: - Settings Button Configuration
     private func configureSettingsButton() {
         view.addSubview(settingButton)
         settingButton.setImage(UIImage(systemName: "gearshape"), for: .normal)
@@ -54,6 +61,7 @@ final class ChatsScreenViewController: UIViewController {
         settingButton.addTarget(self, action: #selector(settingButtonPressed), for: .touchUpInside)
     }
     
+    // MARK: - New Chat Button Configuration
     private func configureNewChatButton() {
         view.addSubview(newChatButton)
         newChatButton.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -63,6 +71,7 @@ final class ChatsScreenViewController: UIViewController {
         newChatButton.setWidth(40)
     }
     
+    // MARK: - Actions
     @objc
     private func settingButtonPressed() {
         interactor.routeToSettingsScreen()

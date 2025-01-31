@@ -39,7 +39,7 @@ final class SignupInteractor: SignupBusinessLogic {
             return
         }
         
-        worker.sendRequest(Signup.SignupRequest(signupKey: signupKey, name: name, username: username)) { [weak self] result in
+        worker.sendRequest(SignupModels.SignupRequest(signupKey: signupKey, name: name, username: username)) { [weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let state):

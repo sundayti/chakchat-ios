@@ -370,7 +370,7 @@ final class VerifyViewController: UIViewController {
             }
         })
         interactor.resendCodeRequest(
-            Verify.ResendCodeRequest(
+            VerifyModels.ResendCodeRequest(
                 phone: rawPhone)
         )
     }

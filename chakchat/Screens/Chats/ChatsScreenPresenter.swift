@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - ChatsScreenPresenter
 final class ChatsScreenPresenter: ChatsScreenPresentationLogic {
     
     weak var view: ChatsScreenViewController?
