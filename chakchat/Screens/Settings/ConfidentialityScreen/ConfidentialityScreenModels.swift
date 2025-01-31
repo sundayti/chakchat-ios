@@ -16,6 +16,6 @@ enum ConfidentialitySettingsModels {
 
 enum ConfidentialityState: String {
     case all = "All"
-    case onlyContacts = "Only contacts"
+    case custom = "Custom"
     case nobody = "Nobody"
 }
