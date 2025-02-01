@@ -150,6 +150,7 @@
 		E11D35182D42799200A698EA /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35172D42799200A698EA /* MailHelper.swift */; };
 		E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */; };
 		E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED3D2D4CF59E006CE143 /* Fonts.swift */; };
+		E135ED402D4D373F006CE143 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED3F2D4D373F006CE143 /* Format.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -310,6 +311,7 @@
 		E11D35172D42799200A698EA /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPhoneNumberTextField.swift; sourceTree = "<group>"; };
 		E135ED3D2D4CF59E006CE143 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		E135ED3F2D4D373F006CE143 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -442,6 +444,7 @@
 				AA92EC602D381B8D007DEC76 /* Constants.swift */,
 				E11D350E2D40C3F400A698EA /* Colors.swift */,
 				E135ED3D2D4CF59E006CE143 /* Fonts.swift */,
+				E135ED3F2D4D373F006CE143 /* Format.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -967,6 +970,7 @@
 				AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */,
 				AA9B62292D2D6C970064CB23 /* SendCodePresenter.swift in Sources */,
 				AA9B626F2D2FD2660064CB23 /* SignupModels.swift in Sources */,
+				E135ED402D4D373F006CE143 /* Format.swift in Sources */,
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
 				AA84F0182D4BBE7C00678ABA /* PhoneVisibilityScreenInteractor.swift in Sources */,
@@ -1265,7 +1269,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1293,7 +1297,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

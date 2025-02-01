@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - SettingsScreenAssembly
 enum SettingsScreenAssembly {
+    
+    // MARK: - Setting Screen Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SettingsScreenPresenter()
         let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultManager)
@@ -28,6 +32,7 @@ enum SettingsScreenAssembly {
     }
 }
 
+// MARK: - User Data Getting
 private func getUserData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> SettingsScreenModels.UserData {
     let nickname = userDefaultsManager.loadNickname()
     let username = userDefaultsManager.loadUsername()
