@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ConfidentialityScreenAssembly
 enum ConfidentialityScreenAssembly {
+    
+    // MARK: - Confidentiality Screen Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ConfidentialityScreenPresenter()
         let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultManager)
@@ -40,6 +44,7 @@ enum ConfidentialityScreenAssembly {
     }
 }
 
+// MARK: - User Configantiality Data Getting 
 func getUserConfData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> ConfidentialitySettingsModels.ConfidentialityUserData {
     let phoneStatus = userDefaultsManager.loadConfidentialityPhoneStatus()
     let birthStatus = userDefaultsManager.loadConfidentialityDateOfBirthStatus()

@@ -25,4 +25,12 @@ enum Fonts {
     static let tap: UIFont = UIFont.loadCustomFont(name: "Montserrat-Bold", size: 25)
     // Used: ChatsVc, SettingsVC, NotificationsVC ...... as a header
     static let header: UIFont = UIFont.systemFont(ofSize: 24, weight: .bold)
+    // Used: SettingsVC - nicknameLabel
+    static let nicknameLabel: UIFont =  UIFont.systemFont(ofSize: 20, weight: .semibold)
+    // Used: SettingsVC - phone and username
+    static let userData: UIFont = UIFont.systemFont(ofSize: 14, weight: .light)
+    // Used: SettingsVC - dot between phone and username
+    static let systemB16: UIFont = UIFont.systemFont(ofSize: 16, weight: .bold)
+    // Used: SettingsVC - cell label
+    static let system16: UIFont = UIFont.systemFont(ofSize: 16)
 }

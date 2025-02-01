@@ -7,7 +7,10 @@
 
 import Foundation
 import UIKit
+
+// MARK: - OnlineVisibilityScreenAssembly
 enum OnlineVisibilityScreenAssembly {
+    // MARK: - Online Visibility Screen Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = OnlineVisibilityScreenPresenter()
         let worker = OnlineVisibilityScreenWorker(userDeafultsManager: context.userDefaultManager)
@@ -22,6 +25,7 @@ enum OnlineVisibilityScreenAssembly {
     }
 }
 
+// MARK: - Online Visibility Data Getting
 private func getOnlineVisibilityData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> OnlineVisibilityScreenModels.OnlineVisibility {
     let onlineVisibility = userDefaultsManager.loadConfidentialityOnlineStatus()
     guard let onlineVisibility = ConfidentialityState(rawValue: onlineVisibility) else {

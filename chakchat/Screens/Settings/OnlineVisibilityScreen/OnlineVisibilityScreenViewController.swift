@@ -7,8 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - OnlineVisibilityScreenViewController
 final class OnlineVisibilityScreenViewController: UIViewController {
     
+    // MARK: - Properties
     private var selectedIndex: IndexPath?
     private var onlineVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var onlineVisibilityData = [
@@ -17,9 +20,14 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     ]
     let interactor: OnlineVisibilityScreenBusinessLogic
     
+    // MARK: - Initialization
     init(interactor: OnlineVisibilityScreenBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -27,6 +35,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
@@ -35,6 +44,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         configurePhoneVisibilityTable()
     }
     
+    // MARK: - Phone Visibility Table Configuration
     private func configurePhoneVisibilityTable() {
         view.addSubview(onlineVisibilityTable)
         onlineVisibilityTable.delegate = self
@@ -48,7 +58,8 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         onlineVisibilityTable.backgroundColor = view.backgroundColor
     }
     
-    // она редактирует вторую секцию в зависимости от того что в первой выбрано
+    // MARK: - Exceptions Section Updating
+    // Edits the second section depending on what is selected in the first.
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
         case 0:
@@ -62,18 +73,18 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
     @objc
     private func backButtonPressed() {
         interactor.backToConfidentialityScreen()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableViewDataSource {
-    // это вызывается при конфигурации экрана чтобы галочку поставить в зависимости от данных в user defaults хранилище
+    
+    // MARK: - Mark Current Option
+    // Called during screen configuration to check the box depending on the data in the user defaults storage
     public func markCurrentOption(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
         var rowIndex: Int
         switch onlineVisibility.onlineStatus {
@@ -87,14 +98,17 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
         selectedIndex = IndexPath(row: rowIndex, section: 0)
     }
     
+    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return onlineVisibilityData.count
     }
     
+    // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return onlineVisibilityData[section].count
     }
     
+    // MARK: - Configuration and returning the cell for the specified index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: VisibilityCell.cellIdentifier, for: indexPath) as? VisibilityCell else {
@@ -113,11 +127,12 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
             return cell
         }
     }
-    // Тут мы настраиваем заголовок к каждой секции
+    
+    // MARK: - Setting Header to each Section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
-        // вот эта штучка ответственна за то, где именно будет располагаться заголовок относительно секции
+        // where exactly the title will be located relative to the section
         label.frame = CGRect.init(x: 20, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
@@ -132,11 +147,13 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
         headerView.addSubview(label)
         return headerView
     }
-    // отвечает за расстояние между хедерами в разных секциях
+    
+    // MARK: - Setting space between different section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     
+    // MARK: - Defining the behavior when a cell is clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
@@ -159,7 +176,7 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
                 break
             }
         } else {
-            // логика второй секции пока не придумана
+            // the logic of the second section has not yet been invented
         }
     }
 }

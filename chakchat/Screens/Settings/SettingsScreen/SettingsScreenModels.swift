@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - SettingsScreenModels
 enum SettingsScreenModels {
     struct UserData {
         var nickname: String

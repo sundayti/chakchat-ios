@@ -18,4 +18,6 @@ enum Colors {
     static let darkYellow: UIColor = UIColor(hex: "#FFAE00") ?? UIColor.systemYellow
     // Used as fields border color.
     static let gray: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
+    // Used in settings.
+    static let lightOrange: UIColor = UIColor(hex: "FF9D00") ?? UIColor.orange
 }

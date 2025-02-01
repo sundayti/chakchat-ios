@@ -6,10 +6,14 @@
 //
 
 import Foundation
+
+// MARK: - PhoneVisibilityScreenPresenter
 final class PhoneVisibilityScreenPresenter: PhoneVisibilityScreenPresentationLogic {
     
+    // MARK: - Properties
     weak var view: PhoneVisibilityScreenViewController?
     
+    // MARK: - User Data Showing
     func showUserData(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
         view?.markCurrentOption(phoneVisibility)
     }

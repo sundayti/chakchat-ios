@@ -6,8 +6,11 @@
 //
 
 import Foundation
+
+// MARK: - ConfidentialityScreenInteractor
 final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic {
     
+    // MARK: - Properties
     let presenter: ConfidentialityScreenPresentationLogic
     let worker: ConfidentialityScreenWorkerLogic
     var userData: ConfidentialitySettingsModels.ConfidentialityUserData
@@ -18,6 +21,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     var onRouteToBirthVisibilityScreen: (() -> Void)?
     var onRouteToOnlineVisibilityScreen: (() -> Void)?
     
+    // MARK: - Initialization
     init(presenter: ConfidentialityScreenPresentationLogic, worker: ConfidentialityScreenWorkerLogic, eventPublisher: EventPublisherProtocol, userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         self.presenter = presenter
         self.worker = worker
@@ -25,22 +29,27 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         self.userData = userData
     }
     
+    // MARK: - User Data
     func loadUserData() {
         showUserData(userData)
     }
     
+    // MARK: - User Data Updating
     func updateUserData() {
         showNewUserData(userData)
     }
     
+    // MARK: - User Data Showing
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         presenter.showUserData(userData)
     }
     
+    // MARK: - New User Data Showing
     func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         presenter.showNewUserData(userData)
     }
     
+    // MARK: - Phone Visibility Change Event Handling
     func handlePhoneVisibilityChangeEvent(_ event: UpdatePhoneStatusEvent) {
         userData.phoneNumberState = event.newPhoneStatus
         DispatchQueue.main.async {
@@ -48,6 +57,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         }
     }
     
+    // MARK: - Birth Visibility Change Event Handling
     func handleBirthVisibilityChangeEvent(_ event: UpdateBirthStatusEvent) {
         userData.dateOfBirthState = event.newBirthStatus
         DispatchQueue.main.async {
@@ -55,6 +65,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         }
     }
     
+    // MARK: - Online Visibility Change Event Handling
     func handleOnlineVisibilityChangeEvent(_ event: UpdateOnlineStatusEvent) {
         userData.onlineStatus = event.newOnlineStatus
         DispatchQueue.main.async {
@@ -62,6 +73,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         }
     }
     
+    // MARK: - Routing
     func routeToPhoneVisibilityScreen() {
         onRouteToPhoneVisibilityScreen?()
     }

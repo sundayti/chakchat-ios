@@ -6,9 +6,14 @@
 //
 
 import Foundation
+
+// MARK: - UpdatePhoneStatusEvent
 final class UpdatePhoneStatusEvent: Event {
+    
+    // MARK: - Properties
     var newPhoneStatus: ConfidentialityState
     
+    // MARK: - Initialization
     init(newPhoneStatus: ConfidentialityState) {
         self.newPhoneStatus = newPhoneStatus
     }

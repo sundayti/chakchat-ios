@@ -6,6 +6,9 @@
 //
 
 import Foundation
+
+// MARK: - EventRegistererProtocol
 protocol EventRegistererProtocol {
+    
     func register<T: Event>(eventType: T.Type, _ eventHandler: @escaping (T) -> Void)
 }

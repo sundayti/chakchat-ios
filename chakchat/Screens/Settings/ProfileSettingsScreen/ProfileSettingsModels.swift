@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ProfileSettingsModels
 enum ProfileSettingsModels {
     struct ProfileUserData {
         var nickname: String

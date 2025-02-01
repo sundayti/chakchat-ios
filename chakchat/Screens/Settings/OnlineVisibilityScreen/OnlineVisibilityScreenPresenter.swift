@@ -7,10 +7,14 @@
 
 import Foundation
 import UIKit
+
+// MARK: - OnlineVisibilityScreenPresenter
 final class OnlineVisibilityScreenPresenter: OnlineVisibilityScreenPresentationLogic {
     
+    // MARK: - Properties
     weak var view: OnlineVisibilityScreenViewController?
     
+    // MARK: - User Data Showing
     func showUserData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
         view?.markCurrentOption(onlineVisibility)
     }

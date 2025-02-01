@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - ConfidentialityScreenBusinessLogic
 protocol ConfidentialityScreenBusinessLogic {
     func loadUserData()
     func updateUserData()
@@ -21,9 +23,13 @@ protocol ConfidentialityScreenBusinessLogic {
     func routeToBirthVisibilityScreen()
     func routeToOnlineVisibilityScreen()
 }
+
+// MARK: - ConfidentialityScreenPresentationLogic
 protocol ConfidentialityScreenPresentationLogic {
     func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
     func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
 }
+
+// MARK: - ConfidentialityScreenWorkerLogic
 protocol ConfidentialityScreenWorkerLogic {
 }
