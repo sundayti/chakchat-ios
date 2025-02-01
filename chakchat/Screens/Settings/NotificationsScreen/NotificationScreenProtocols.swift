@@ -6,17 +6,22 @@
 //
 
 import Foundation
+
+// MARK: - NotificationScreenBusinessLogic
 protocol NotificationScreenBusinessLogic {
     func backToSettingsMenu()
     
     func loadUserData()
     func showUserData(_ userData: NotificationScreenModels.NotificationStatus)
     func saveNewData(_ userData: NotificationScreenModels.NotificationStatus)
-    
 }
+
+// MARK: - NotificationScreenPresentationLogic
 protocol NotificationScreenPresentationLogic {
     func showUserData(_ userData: NotificationScreenModels.NotificationStatus)
 }
+
+// MARK: - NotificationScreenWorkerLogic
 protocol NotificationScreenWorkerLogic {
     func saveNewData(_ userData: NotificationScreenModels.NotificationStatus)
 }

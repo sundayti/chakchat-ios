@@ -8,10 +8,13 @@
 import Foundation
 import UIKit
 
+// MARK: - NotificationScreenPresenter
 final class NotificationScreenPresenter: NotificationScreenPresentationLogic {
     
+    // MARK: - Properties
     weak var view: NotificationScreenViewController?
     
+    // MARK: - User Data Showing
     func showUserData(_ userData: NotificationScreenModels.NotificationStatus) {
         view?.configureUserData(userData)
     }

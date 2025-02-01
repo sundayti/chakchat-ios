@@ -59,6 +59,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         onRouteToNotificationsSettings?()
     } 
     
+    // MARK: - User Data Changed Event Handling
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         userData.nickname = event.newNickname
         userData.username = event.newUsername

@@ -58,19 +58,22 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         UserDefaults.standard.set(onlineStatus, forKey: confidentialityOnlineKey)
     }
     
-
+    // MARK: - General Notification Status Saving
     func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool) {
         UserDefaults.standard.set(generalNotificationStatus, forKey: generalNotificationKey)
     }
     
+    // MARK: - General Audio Notification Status Saving
     func saveAudioNotificationStatus(_ audioNotificationStatus: Bool) {
         UserDefaults.standard.set(audioNotificationStatus, forKey: audioNotificationKey)
     }
     
+    // MARK: - General Vibration Notification Status Saving
     func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool) {
         UserDefaults.standard.set(visualNotificationStatus, forKey: vibrationNotificationKey)
     }
     
+    // MARK: - Avatar Loading
     func loadAvatar() -> UIImage? {
         return nil
     }
@@ -123,16 +126,19 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         return onlineStatus
     }
     
+    // MARK: - General Notification Status Loading
     func loadGeneralNotificationStatus() -> Bool {
         let generalNotificationStatus = UserDefaults.standard.bool(forKey: generalNotificationKey)
         return generalNotificationStatus
     }
     
+    // MARK: - Audio Notification Status Loading
     func loadAudioNotificationStatus() -> Bool {
         let audioNotificationStatus = UserDefaults.standard.bool(forKey: audioNotificationKey)
         return audioNotificationStatus
     }
     
+    // MARK: - Vibration Notification Status Loading
     func loadVibrationNotificationStatus() -> Bool {
         let visualNotificationStatus = UserDefaults.standard.bool(forKey: vibrationNotificationKey)
         return visualNotificationStatus

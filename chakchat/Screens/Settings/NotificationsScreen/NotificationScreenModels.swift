@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - NotificationScreenModels
 enum NotificationScreenModels {
+    
     struct NotificationStatus {
         var generalNotification: Bool
         var audioNotification: Bool

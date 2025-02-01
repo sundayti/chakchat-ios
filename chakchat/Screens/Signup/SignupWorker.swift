@@ -15,6 +15,7 @@ final class SignupWorker: SignupWorkerLogic {
     private let userDefautlsManager: UserDefaultsManagerProtocol
     private let signupService: SignupServiceLogic
     
+    // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic, userDefautlsManager: UserDefaultsManagerProtocol, signupService: SignupServiceLogic) {
         self.keychainManager = keychainManager
         self.userDefautlsManager = userDefautlsManager
