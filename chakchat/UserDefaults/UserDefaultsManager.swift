@@ -19,6 +19,9 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let confidentialityPhoneKey = "confidentialityPhone"
     private let confidentialityBirthKey = "confidentialityBirth"
     private let confidentialityOnlineKey = "confidentialityOnline"
+    private let generalNotificationKey = "generalNotification"
+    private let audioNotificationKey = "audioNotification"
+    private let vibrationNotificationKey = "vibrationNotification"
     
     // MARK: - Avatar Saving
     func saveAvatar(_ icon: UIImage) {
@@ -55,7 +58,19 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         UserDefaults.standard.set(onlineStatus, forKey: confidentialityOnlineKey)
     }
     
-    // MARK: - Avatar Loading
+
+    func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool) {
+        UserDefaults.standard.set(generalNotificationStatus, forKey: generalNotificationKey)
+    }
+    
+    func saveAudioNotificationStatus(_ audioNotificationStatus: Bool) {
+        UserDefaults.standard.set(audioNotificationStatus, forKey: audioNotificationKey)
+    }
+    
+    func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool) {
+        UserDefaults.standard.set(visualNotificationStatus, forKey: vibrationNotificationKey)
+    }
+    
     func loadAvatar() -> UIImage? {
         return nil
     }
@@ -106,6 +121,21 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
             return "All"
         }
         return onlineStatus
+    }
+    
+    func loadGeneralNotificationStatus() -> Bool {
+        let generalNotificationStatus = UserDefaults.standard.bool(forKey: generalNotificationKey)
+        return generalNotificationStatus
+    }
+    
+    func loadAudioNotificationStatus() -> Bool {
+        let audioNotificationStatus = UserDefaults.standard.bool(forKey: audioNotificationKey)
+        return audioNotificationStatus
+    }
+    
+    func loadVibrationNotificationStatus() -> Bool {
+        let visualNotificationStatus = UserDefaults.standard.bool(forKey: vibrationNotificationKey)
+        return visualNotificationStatus
     }
 
     // MARK: - Avatar Deleting

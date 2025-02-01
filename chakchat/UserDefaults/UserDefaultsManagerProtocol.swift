@@ -17,6 +17,9 @@ protocol UserDefaultsManagerProtocol {
     func saveConfidentialityPhoneStatus(_ phoneStatus: String)
     func saveConfidentialityDateOfBirthStatus(_ birthStatus: String)
     func saveConfidentialityOnlineStatus(_ onlineStatus: String)
+    func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool)
+    func saveAudioNotificationStatus(_ audioNotificationStatus: Bool)
+    func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool)
     
     func loadAvatar() -> UIImage?
     func loadNickname() -> String
@@ -25,6 +28,9 @@ protocol UserDefaultsManagerProtocol {
     func loadConfidentialityPhoneStatus() -> String
     func loadConfidentialityDateOfBirthStatus() -> String
     func loadConfidentialityOnlineStatus() -> String
+    func loadGeneralNotificationStatus() -> Bool
+    func loadAudioNotificationStatus() -> Bool
+    func loadVibrationNotificationStatus() -> Bool
     
     func deleteAvatar()
 }
