@@ -15,7 +15,7 @@ enum NotificationScreenAssembly {
         let userData = getNotififcationData(context.userDefaultManager)
         let interactor = NotificationScreenInteractor(presenter: presenter, worker: worker, eventManager: context.eventManager, userData: userData)
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
-            coordinator?.showNotificationScreen()
+            coordinator?.popScreen()
         }
         let view = NotificationScreenViewController(interactor: interactor)
         presenter.view = view

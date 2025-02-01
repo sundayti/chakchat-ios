@@ -77,6 +77,7 @@ extension NotificationScreenViewController: UITableViewDelegate, UITableViewData
             return UITableViewCell()
         }
         let item = notificationData[indexPath.section][indexPath.row]
+        cell.notificationDelegate = self
         cell.configure(title: item)
         return cell
     }
@@ -103,5 +104,22 @@ extension NotificationScreenViewController: UITableViewDelegate, UITableViewData
     // отвечает за расстояние между хедерами в разных секциях
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+}
+
+extension NotificationScreenViewController: NotificationCellDelegate {
+    func switchDidToggle(cell: NotificationCell, isOn: Bool) {
+        if let indexPath = notificationTableView.indexPath(for: cell) {
+            // if toggle general notification
+            if indexPath.section == 0 {
+            } else {
+                // if toggle audio notification
+                if indexPath.row == 0 {
+                    // if toggle vibration notification
+                } else {
+                    
+                }
+            }
+        }
     }
 }
