@@ -8,9 +8,15 @@
 import Foundation
 import UIKit
 
+protocol NotificationCellDelegate: AnyObject {
+    func switchDidToggle(cell: NotificationCell, isOn: Bool)
+}
+
 final class NotificationCell: UITableViewCell {
     
     static let cellIndetifier = "NotificationCell"
+    
+    weak var notificationDelegate: NotificationCellDelegate?
     
     private var notificationLabel: UILabel = UILabel()
     private var switchButton: UISwitch = UISwitch()
@@ -47,6 +53,12 @@ final class NotificationCell: UITableViewCell {
         contentView.addSubview(switchButton)
         switchButton.pinCenterY(contentView)
         switchButton.pinRight(contentView.trailingAnchor, 10)
+        switchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+    }
+    
+    @objc
+    private func switchValueChanged(_ sender: UISwitch) {
+        notificationDelegate?.switchDidToggle(cell: self, isOn: sender.isOn)
     }
     
     required init?(coder: NSCoder) {
