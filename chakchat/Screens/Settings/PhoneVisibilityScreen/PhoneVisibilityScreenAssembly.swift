@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - PhoneVisibilityScreenAssembly
 enum PhoneVisibilityScreenAssembly {
+    
+    // MARK: - Phone Visibility Screen Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = PhoneVisibilityScreenPresenter()
         let worker = PhoneVisibilityScreenWorker(userDefaultsManager: context.userDefaultManager)
@@ -22,6 +26,7 @@ enum PhoneVisibilityScreenAssembly {
     }
 }
 
+// MARK: - Phone Visibility Data Getting
 private func getPhoneVisibilityData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> PhoneVisibilityScreenModels.PhoneVisibility {
     let phoneVisibility = userDefaultsManager.loadConfidentialityPhoneStatus()
     guard let phoneVisibility = ConfidentialityState(rawValue: phoneVisibility) else {

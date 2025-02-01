@@ -7,14 +7,18 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ProfileSettingsViewController
 final class ProfileSettingsViewController: UIViewController {
     
+    // MARK: - Properties
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var iconImageView: UIImageView = UIImageView()
     private var nicknameTextField: UITextField = UITextField()
     private var usernameTextField: UITextField = UITextField()
     let interactor: ProfileSettingsBusinessLogic
     
+    // MARK: - Initialization
     init(interactor: ProfileSettingsBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -29,11 +33,13 @@ final class ProfileSettingsViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - User Data Configuration
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         configureNicknameLabel(userData.nickname)
         configureUsernameLabel(userData.username)
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -49,6 +55,7 @@ final class ProfileSettingsViewController: UIViewController {
         interactor.loadUserData()
     }
     
+    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -57,6 +64,7 @@ final class ProfileSettingsViewController: UIViewController {
         titleLabel.numberOfLines = 2
     }
     
+    // MARK: - Icon ImageView Configuration
     private func configureIconImageView() {
         view.addSubview(iconImageView)
         iconImageView.setHeight(90)
@@ -69,6 +77,7 @@ final class ProfileSettingsViewController: UIViewController {
         iconImageView.image = UIImage(systemName: "person.circle")
     }
     
+    // MARK: - Nickname Label Configuration
     private func configureNicknameLabel(_ nickname: String) {
         view.addSubview(nicknameTextField)
         nicknameTextField.text = nickname
@@ -81,6 +90,7 @@ final class ProfileSettingsViewController: UIViewController {
         nicknameTextField.pinCenterX(view)
     }
     
+    // MARK: - Username Label Configuration
     private func configureUsernameLabel(_ username: String) {
         view.addSubview(usernameTextField)
         usernameTextField.text = username
@@ -93,6 +103,7 @@ final class ProfileSettingsViewController: UIViewController {
         usernameTextField.pinCenterX(view)
     }
     
+    // MARK: - User Profile Data Transfering
     private func transferUserProfileData() -> ProfileSettingsModels.ProfileUserData {
         // if text == nil, disable apply button(in future :) )
         let newNickname = nicknameTextField.text ?? "default"
@@ -100,6 +111,7 @@ final class ProfileSettingsViewController: UIViewController {
         return ProfileSettingsModels.ProfileUserData(nickname: newNickname, username: newUsername)
     }
     
+    // MARK: - Actions
     @objc
     private func cancelButtonPressed() {
         interactor.backToSettingsMenu()

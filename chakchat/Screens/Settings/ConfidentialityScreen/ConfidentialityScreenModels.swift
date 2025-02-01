@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - ConfidentialitySettingsModels
 enum ConfidentialitySettingsModels {
     struct ConfidentialityUserData {
         var phoneNumberState: ConfidentialityState
@@ -14,6 +16,7 @@ enum ConfidentialitySettingsModels {
     }
 }
 
+// MARK: - ConfidentialityState
 enum ConfidentialityState: String {
     case all = "All"
     case custom = "Custom"

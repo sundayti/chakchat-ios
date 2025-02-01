@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+
+// MARK: - UserDefaultsManagerProtocol
 protocol UserDefaultsManagerProtocol {
     func saveAvatar(_ icon: UIImage)
     func saveNickname(_ nickname: String)

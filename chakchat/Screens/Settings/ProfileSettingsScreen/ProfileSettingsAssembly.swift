@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ProfileSettingsAssembly
 enum ProfileSettingsAssembly {
+    
+    // MARK: - Profile Setting Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ProfileSettingsPresenter()
         let worker = ProfileSettingsWorker(userDefaultsManager: context.userDefaultManager)
@@ -25,6 +29,7 @@ enum ProfileSettingsAssembly {
     }
 }
 
+// MARK: - User Profile Data Getting
 private func getUserProfileData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> ProfileSettingsModels.ProfileUserData {
     let nickname = userDefaultsManager.loadNickname()
     let username = userDefaultsManager.loadUsername()

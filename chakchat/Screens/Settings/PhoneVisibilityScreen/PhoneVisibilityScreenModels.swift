@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - PhoneVisibilityScreenModels
 enum PhoneVisibilityScreenModels {
     struct PhoneVisibility {
         var phoneStatus: ConfidentialityState

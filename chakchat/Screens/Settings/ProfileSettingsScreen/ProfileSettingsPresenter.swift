@@ -7,10 +7,14 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ProfileSettingsPresenter
 final class ProfileSettingsPresenter: ProfileSettingsPresentationLogic {
     
+    // MARK: - Properties
     weak var view: ProfileSettingsViewController?
     
+    // MARK: - User Data Showing
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         view?.configureUserData(userData)
     }

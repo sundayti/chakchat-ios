@@ -6,14 +6,19 @@
 //
 
 import Foundation
+
+// MARK: - ProfileSettingsWorker
 final class ProfileSettingsWorker: ProfileSettingsWorkerLogic {
     
+    // MARK: - Properties
     let userDefaultsManager: UserDefaultsManagerProtocol
     
+    // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
     
+    // MARK: - New Data Saving
     func saveNewData(_ userData: ProfileSettingsModels.ProfileUserData) {
         userDefaultsManager.saveNickname(userData.nickname)
         userDefaultsManager.saveUsername(userData.username)

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - BirthVisibilityScreenModels
 enum BirthVisibilityScreenModels {
     struct BirthVisibility {
         var birthStatus: ConfidentialityState

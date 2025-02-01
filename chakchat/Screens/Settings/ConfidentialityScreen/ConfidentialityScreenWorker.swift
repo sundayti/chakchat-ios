@@ -6,10 +6,14 @@
 //
 
 import Foundation
+
+// MARK: - ConfidentialityScreenWorker
 final class ConfidentialityScreenWorker: ConfidentialityScreenWorkerLogic {
     
+    // MARK: - Properties
     let userDefaultsManager: UserDefaultsManagerProtocol
     
+    // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }

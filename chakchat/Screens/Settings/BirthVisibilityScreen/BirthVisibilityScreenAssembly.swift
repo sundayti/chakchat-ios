@@ -7,7 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - BirthVisibilityScreenAssembly
 enum BirthVisibilityScreenAssembly {
+    
+    // MARK: - Birth Visibility Screen Assembly Method
     static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
         let presenter = BirthVisibilityScreenPresenter()
         let worker = BirthVisibilityScreenWorker(userDeafultsManager: context.userDefaultManager)
@@ -22,6 +26,7 @@ enum BirthVisibilityScreenAssembly {
     }
 }
 
+// MARK: - Birth Visibility Data Getting
 private func getBirthVisibilityData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> BirthVisibilityScreenModels.BirthVisibility {
     let birtVisibility = userDefaultsManager.loadConfidentialityDateOfBirthStatus()
     guard let birtVisibility = ConfidentialityState(rawValue: birtVisibility) else {

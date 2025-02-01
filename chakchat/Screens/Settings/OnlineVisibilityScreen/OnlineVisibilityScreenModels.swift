@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - OnlineVisibilityScreenModels
 enum OnlineVisibilityScreenModels {
     struct OnlineVisibility {
         var onlineStatus: ConfidentialityState

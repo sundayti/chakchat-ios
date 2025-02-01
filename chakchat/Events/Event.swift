@@ -6,5 +6,7 @@
 //
 
 import Foundation
+
+// MARK: - Event
 protocol Event: AnyObject {}
 
