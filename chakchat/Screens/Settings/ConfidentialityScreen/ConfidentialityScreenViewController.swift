@@ -7,8 +7,11 @@
 
 import Foundation
 import UIKit
+
+// MARK: - ConfidentialityScreenViewController
 final class ConfidentialityScreenViewController: UIViewController {
     
+    // MARK: - Properties
     private lazy var confidentialitySettingsTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var confidentilitySection = [
         ("Phone number", "All"),
@@ -21,22 +24,29 @@ final class ConfidentialityScreenViewController: UIViewController {
     
     let interactor: ConfidentialityScreenBusinessLogic
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureUI()
-    }
-    
+    // MARK: - Initialization
     init(interactor: ConfidentialityScreenBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
+    }
+    
+    // MARK: - Sections Configurations
     public func configureSections(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         confidentilitySection[0].1 = userData.phoneNumberState.rawValue
         confidentilitySection[1].1 = userData.dateOfBirthState.rawValue
         confidentilitySection[2].1 = userData.onlineStatus.rawValue
     }
     
+    // MARK: - Visibility Status Updating
     public func updateVisibilityStatus(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         confidentilitySection[0].1 = userData.phoneNumberState.rawValue
         confidentilitySection[1].1 = userData.dateOfBirthState.rawValue
@@ -44,6 +54,7 @@ final class ConfidentialityScreenViewController: UIViewController {
         confidentialitySettingsTable.reloadData()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
@@ -53,6 +64,7 @@ final class ConfidentialityScreenViewController: UIViewController {
   
     }
     
+    // MARK: - Setting Table Configuration
     private func configureSettingsTable() {
         view.addSubview(confidentialitySettingsTable)
         confidentialitySettingsTable.delegate = self
@@ -67,26 +79,27 @@ final class ConfidentialityScreenViewController: UIViewController {
         
     }
     
+    // MARK: - Actions
     @objc
     private func backButtonPressed() {
         interactor.backToSettingsMenu()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
+    // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 3 : 1
     }
     
+    // MARK: - Configuration and returning the cell for the specified index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ConfidentialityMenuCell.cellIdentifier, for: indexPath) as? ConfidentialityMenuCell else {
@@ -105,6 +118,7 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
         }
     }
     
+    // MARK: - Defining the behavior when a cell is clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {

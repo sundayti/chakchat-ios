@@ -8,8 +8,10 @@
 import Foundation
 import UIKit
 
-class UserDefaultsManager: UserDefaultsManagerProtocol {
+// MARK: - UserDefaultsManager
+final class UserDefaultsManager: UserDefaultsManagerProtocol {
 
+    // MARK: - Constants
     private let avatarKey = "userAvatar"
     private let nicknameKey = "userNickname"
     private let usernameKey = "userUsername"
@@ -21,34 +23,42 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let audioNotificationKey = "audioNotification"
     private let vibrationNotificationKey = "vibrationNotification"
     
+    // MARK: - Avatar Saving
     func saveAvatar(_ icon: UIImage) {
         print("Hello world")
     }
     
+    // MARK: - Nickname Saving
     func saveNickname(_ nickname: String) {
         UserDefaults.standard.set(nickname, forKey: nicknameKey)
     }
     
+    // MARK: - Username Saving
     func saveUsername(_ username: String) {
         UserDefaults.standard.set(username, forKey: usernameKey)
     }
     
+    // MARK: - Phone Saving
     func savePhone(_ phone: String) {
         UserDefaults.standard.set(phone, forKey: phoneKey)
     }
     
+    // MARK: - Confidentiality Phone Status Saving
     func saveConfidentialityPhoneStatus(_ phoneStatus: String) {
         UserDefaults.standard.set(phoneStatus, forKey: confidentialityPhoneKey)
     }
     
+    // MARK: - Confidentiality Date Of Birth Status Saving
     func saveConfidentialityDateOfBirthStatus(_ birthStatus: String) {
         UserDefaults.standard.set(birthStatus, forKey: confidentialityBirthKey)
     }
     
+    // MARK: - Confidentiality Online Status Saving
     func saveConfidentialityOnlineStatus(_ onlineStatus: String) {
         UserDefaults.standard.set(onlineStatus, forKey: confidentialityOnlineKey)
     }
     
+
     func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool) {
         UserDefaults.standard.set(generalNotificationStatus, forKey: generalNotificationKey)
     }
@@ -65,6 +75,7 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
         return nil
     }
     
+    // MARK: - Nickname Loading
     func loadNickname() -> String {
         guard let nickname = UserDefaults.standard.string(forKey: nicknameKey) else {
             return "Default"
@@ -72,6 +83,7 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
         return nickname
     }
     
+    // MARK: - Username Loading
     func loadUsername() -> String {
         guard let username = UserDefaults.standard.string(forKey: usernameKey) else {
             return "Default"
@@ -79,6 +91,7 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
         return username
     }
     
+    // MARK: - Phone Loading
     func loadPhone() -> String {
         guard let phone = UserDefaults.standard.string(forKey: phoneKey) else {
             return "Default"
@@ -86,6 +99,7 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
         return phone
     }
     
+    // MARK: - Confidentiality Phone Status Loading
     func loadConfidentialityPhoneStatus() -> String {
         guard let phoneStatus = UserDefaults.standard.string(forKey: confidentialityPhoneKey) else {
             return "All"
@@ -93,6 +107,7 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
         return phoneStatus
     }
     
+    // MARK: - Confidentiality Date Of Birth Status Loading
     func loadConfidentialityDateOfBirthStatus() -> String {
         guard let dateOfBirthStatus = UserDefaults.standard.string(forKey: confidentialityBirthKey) else {
             return "All"
@@ -100,6 +115,7 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
         return dateOfBirthStatus
     }
     
+    // MARK: - Confidentiality Online Status Loading
     func loadConfidentialityOnlineStatus() -> String {
         guard let onlineStatus = UserDefaults.standard.string(forKey: confidentialityOnlineKey) else {
             return "All"
@@ -122,11 +138,13 @@ class UserDefaultsManager: UserDefaultsManagerProtocol {
         return visualNotificationStatus
     }
 
+    // MARK: - Avatar Deleting
     func deleteAvatar() {
         UserDefaults.standard.removeObject(forKey: avatarKey)
     }
 }
 
+// MARK: - UserDefaultsError
 enum UserDefaultsError: Error {
     case loadError
 }

@@ -109,7 +109,7 @@ final class VerifyViewController: UIViewController {
 
     // MARK: - Show Phone
     func showPhone(_ phone: String) {
-        guard let prettyPhone = formattingNumber(phone) else {
+        guard let prettyPhone = Format.number(phone) else {
             return
         }
         inputDescriptionText += prettyPhone
@@ -274,17 +274,6 @@ final class VerifyViewController: UIViewController {
         }
         print(code)
         return code
-    }
-    
-    // MARK: - Formatting Raw Number
-    private func formattingNumber(_ number: String) -> String? {
-        guard number.count == 11 else {
-            print("Incorrect number length")
-            return nil
-        }
-        let formattedNumber = "+7 (\(number.prefix(4).suffix(3))) \(number.prefix(7).suffix(3))-\(number.prefix(9).suffix(2))-\(number.suffix(2))"
-        
-        return formattedNumber
     }
     
     // MARK: - Format Time

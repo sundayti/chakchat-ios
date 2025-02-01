@@ -50,6 +50,9 @@ final class ChatsScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - UI Configuration
@@ -112,6 +115,11 @@ final class ChatsScreenViewController: UIViewController {
     @objc
     private func settingButtonPressed() {
         interactor.routeToSettingsScreen()
+    }
+    
+    @objc
+    private func dismissKeyboard() {
+        searchBar.resignFirstResponder()
     }
 }
 

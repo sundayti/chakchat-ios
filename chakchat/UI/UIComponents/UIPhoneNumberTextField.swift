@@ -137,8 +137,10 @@ final class UIPhoneNumberTextField: UITextField, UITextFieldDelegate {
                     return
                 }
 
-                let newStartPosition = self.position(from: self.beginningOfDocument, offset: 4)!
-                let newEndPosition = self.position(from: newStartPosition, offset: endOffset - startOffset - (4 - startOffset))!
+                guard let newStartPosition = self.position(from: self.beginningOfDocument, offset: 4),
+                      let newEndPosition = self.position(from: newStartPosition, offset: endOffset - startOffset - (4 - startOffset)) else {
+                    return
+                }
                 self.selectedTextRange = self.textRange(from: newStartPosition, to: newEndPosition)
                 
                 super.deleteBackward()

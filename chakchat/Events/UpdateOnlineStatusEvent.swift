@@ -6,9 +6,14 @@
 //
 
 import Foundation
+
+// MARK: - UpdateOnlineStatusEvent
 final class UpdateOnlineStatusEvent: Event {
+    
+    // MARK: - Properties
     var newOnlineStatus: ConfidentialityState
     
+    // MARK: - Initialization
     init(newOnlineStatus: ConfidentialityState) {
         self.newOnlineStatus = newOnlineStatus
     }

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - OnlineVisibilityScreenBusinessLogic
 protocol OnlineVisibilityScreenBusinessLogic {
     func backToConfidentialityScreen()
     
@@ -13,9 +15,13 @@ protocol OnlineVisibilityScreenBusinessLogic {
     func showUserData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility)
     func saveNewData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility)
 }
+
+// MARK: - OnlineVisibilityScreenPresentationLogic
 protocol OnlineVisibilityScreenPresentationLogic {
     func showUserData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility)
 }
+
+// MARK: - OnlineVisibilityScreenWorkerLogic
 protocol OnlineVisibilityScreenWorkerLogic {
     func saveNewOnlineVisibilityOption(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility)
 }
