@@ -13,6 +13,8 @@ protocol NotificationScreenBusinessLogic {
     func showUserData(_ userData: NotificationScreenModels.NotificationStatus)
     func saveNewData(_ userData: NotificationScreenModels.NotificationStatus)
     
+    func updateNotififcationSettings(at indexPath: IndexPath, isOn: Bool)
+    
 }
 protocol NotificationScreenPresentationLogic {
     func showUserData(_ userData: NotificationScreenModels.NotificationStatus)

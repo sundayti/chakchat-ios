@@ -61,14 +61,17 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
 
     func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool) {
         UserDefaults.standard.set(generalNotificationStatus, forKey: generalNotificationKey)
+        print("General notification status = \(generalNotificationStatus)")
     }
     
     func saveAudioNotificationStatus(_ audioNotificationStatus: Bool) {
         UserDefaults.standard.set(audioNotificationStatus, forKey: audioNotificationKey)
+        print("Audio notification status = \(audioNotificationStatus)")
     }
     
-    func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool) {
-        UserDefaults.standard.set(visualNotificationStatus, forKey: vibrationNotificationKey)
+    func saveVibrationNotificationStatus(_ vibrationNotificationStatus: Bool) {
+        UserDefaults.standard.set(vibrationNotificationStatus, forKey: vibrationNotificationKey)
+        print("Vibration notification status = \(vibrationNotificationStatus)")
     }
     
     func loadAvatar() -> UIImage? {
@@ -125,17 +128,20 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func loadGeneralNotificationStatus() -> Bool {
         let generalNotificationStatus = UserDefaults.standard.bool(forKey: generalNotificationKey)
+        print("General notification status is \(generalNotificationStatus)")
         return generalNotificationStatus
     }
     
     func loadAudioNotificationStatus() -> Bool {
         let audioNotificationStatus = UserDefaults.standard.bool(forKey: audioNotificationKey)
+        print("Audio notification status is \(audioNotificationStatus)")
         return audioNotificationStatus
     }
     
     func loadVibrationNotificationStatus() -> Bool {
-        let visualNotificationStatus = UserDefaults.standard.bool(forKey: vibrationNotificationKey)
-        return visualNotificationStatus
+        let vibrationNotificationStatus = UserDefaults.standard.bool(forKey: vibrationNotificationKey)
+        print("Vibration notification status is \(vibrationNotificationStatus)")
+        return vibrationNotificationStatus
     }
 
     // MARK: - Avatar Deleting

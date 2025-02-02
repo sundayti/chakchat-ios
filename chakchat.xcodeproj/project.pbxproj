@@ -91,6 +91,9 @@
 		AA84F0552D4D0C6900678ABA /* NotificationScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0542D4D0C6900678ABA /* NotificationScreenViewController.swift */; };
 		AA84F0572D4D0C7100678ABA /* NotificationScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0562D4D0C7100678ABA /* NotificationScreenModels.swift */; };
 		AA84F0592D4D0C8300678ABA /* NotificationScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F0582D4D0C8300678ABA /* NotificationScreenProtocols.swift */; };
+		AA84F05B2D4E2F1D00678ABA /* UpdateGeneralNotififcationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F05A2D4E2F1D00678ABA /* UpdateGeneralNotififcationEvent.swift */; };
+		AA84F05D2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F05C2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift */; };
+		AA84F05F2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA84F05E2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift */; };
 		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
 		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
 		AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC622D382057007DEC76 /* UIGradientButton.swift */; };
@@ -257,6 +260,9 @@
 		AA84F0542D4D0C6900678ABA /* NotificationScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreenViewController.swift; sourceTree = "<group>"; };
 		AA84F0562D4D0C7100678ABA /* NotificationScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreenModels.swift; sourceTree = "<group>"; };
 		AA84F0582D4D0C8300678ABA /* NotificationScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreenProtocols.swift; sourceTree = "<group>"; };
+		AA84F05A2D4E2F1D00678ABA /* UpdateGeneralNotififcationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGeneralNotififcationEvent.swift; sourceTree = "<group>"; };
+		AA84F05C2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAudioNotificationEvent.swift; sourceTree = "<group>"; };
+		AA84F05E2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateVibrationNotificationEvent.swift; sourceTree = "<group>"; };
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
@@ -353,10 +359,9 @@
 			isa = PBXGroup;
 			children = (
 				AA1C0E322D43A081008E47D8 /* Event.swift */,
-				AA1C0E3B2D43ACED008E47D8 /* UpdateProfileDataEvent.swift */,
-				AA84F00B2D4B94F600678ABA /* UpdatePhoneStatusEvent.swift */,
-				AA84F00D2D4B951800678ABA /* UpdateBirthStatusEvent.swift */,
-				AA84F00F2D4B952300678ABA /* UpdateOnlineStatusEvent.swift */,
+				AA84F0622D4E307000678ABA /* ProfileEvent */,
+				AA84F0602D4E304300678ABA /* ConfidentialityEvent */,
+				AA84F0612D4E305300678ABA /* NotificationEvent */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -577,6 +582,34 @@
 				AA84F04A2D4D0C0A00678ABA /* NotificationCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		AA84F0602D4E304300678ABA /* ConfidentialityEvent */ = {
+			isa = PBXGroup;
+			children = (
+				AA84F00F2D4B952300678ABA /* UpdateOnlineStatusEvent.swift */,
+				AA84F00B2D4B94F600678ABA /* UpdatePhoneStatusEvent.swift */,
+				AA84F00D2D4B951800678ABA /* UpdateBirthStatusEvent.swift */,
+			);
+			path = ConfidentialityEvent;
+			sourceTree = "<group>";
+		};
+		AA84F0612D4E305300678ABA /* NotificationEvent */ = {
+			isa = PBXGroup;
+			children = (
+				AA84F05A2D4E2F1D00678ABA /* UpdateGeneralNotififcationEvent.swift */,
+				AA84F05C2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift */,
+				AA84F05E2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift */,
+			);
+			path = NotificationEvent;
+			sourceTree = "<group>";
+		};
+		AA84F0622D4E307000678ABA /* ProfileEvent */ = {
+			isa = PBXGroup;
+			children = (
+				AA1C0E3B2D43ACED008E47D8 /* UpdateProfileDataEvent.swift */,
+			);
+			path = ProfileEvent;
 			sourceTree = "<group>";
 		};
 		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
@@ -1014,6 +1047,7 @@
 				E135ED402D4D373F006CE143 /* Format.swift in Sources */,
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
+				AA84F05F2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift in Sources */,
 				AA84F0182D4BBE7C00678ABA /* PhoneVisibilityScreenInteractor.swift in Sources */,
 				AA84F00A2D491AB600678ABA /* ConfidentialityMenuCell.swift in Sources */,
 				AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */,
@@ -1025,6 +1059,7 @@
 				AA84F0102D4B952300678ABA /* UpdateOnlineStatusEvent.swift in Sources */,
 				AA84F0432D4CD88500678ABA /* OnlineVisibilityScreenProtocols.swift in Sources */,
 				AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */,
+				AA84F05B2D4E2F1D00678ABA /* UpdateGeneralNotififcationEvent.swift in Sources */,
 				AA84F0072D4912E500678ABA /* ConfidentialityScreenProtocols.swift in Sources */,
 				AA7BADE92D3F9FDF0030AC82 /* ChatsScreenViewController.swift in Sources */,
 				AA84F0572D4D0C7100678ABA /* NotificationScreenModels.swift in Sources */,
@@ -1033,6 +1068,7 @@
 				AA7BADEB2D3FA0230030AC82 /* ChatsScreenModels.swift in Sources */,
 				AA84F03B2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift in Sources */,
 				AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */,
+				AA84F05D2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift in Sources */,
 				9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */,
 				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
 				AA1C0E492D43C99C008E47D8 /* ProfileSettingsWorker.swift in Sources */,
