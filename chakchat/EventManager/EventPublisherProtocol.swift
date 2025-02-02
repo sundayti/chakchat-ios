@@ -10,5 +10,6 @@ import Foundation
 // MARK: - EventPublisherProtocol
 protocol EventPublisherProtocol {
     
-    func publish(event: any Event)
+    func publish<T: Event>(event: T)
+    
 }
