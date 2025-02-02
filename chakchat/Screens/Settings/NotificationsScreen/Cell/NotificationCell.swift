@@ -36,6 +36,10 @@ final class NotificationCell: UITableViewCell {
         notificationLabel.text = title
     }
     
+    public func configureSwitch(isOn: Bool) {
+        switchButton.isOn = isOn
+    }
+    
     private func configureCell() {
         configureNotificationLabel()
         configureSwitchButton()

@@ -27,16 +27,12 @@ final class NotificationScreenViewController: UIViewController {
         configureUI()
     }
     
-    public func configureUserData(_ userData: NotificationScreenModels.NotificationStatus) {
-        // configure notifications data
-    }
-    
     private func configureUI() {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = .black
-        interactor.loadUserData()
         configureNotificationTable()
+        interactor.loadUserData()
     }
     
     private func configureNotificationTable() {
@@ -63,6 +59,24 @@ final class NotificationScreenViewController: UIViewController {
 }
 
 extension NotificationScreenViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    public func configureUserData(_ userData: NotificationScreenModels.NotificationStatus) {
+        
+        notificationTableView.layoutIfNeeded()
+        
+        let generalIndexPath = IndexPath(row: 0, section: 0)
+        let audioIndexPath = IndexPath(row: 0, section: 1)
+        let vibrationIndexPath = IndexPath(row: 1, section: 1)
+        if let generalCell = notificationTableView.cellForRow(at: generalIndexPath) as? NotificationCell {
+            generalCell.configureSwitch(isOn: userData.generalNotification)
+        }
+        if let audioCell = notificationTableView.cellForRow(at: audioIndexPath) as? NotificationCell {
+            audioCell.configureSwitch(isOn: userData.audioNotification)
+        }
+        if let vibrationCell = notificationTableView.cellForRow(at: vibrationIndexPath) as? NotificationCell {
+            vibrationCell.configureSwitch(isOn: userData.vibrationNotification)
+        }
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -110,16 +124,7 @@ extension NotificationScreenViewController: UITableViewDelegate, UITableViewData
 extension NotificationScreenViewController: NotificationCellDelegate {
     func switchDidToggle(cell: NotificationCell, isOn: Bool) {
         if let indexPath = notificationTableView.indexPath(for: cell) {
-            // if toggle general notification
-            if indexPath.section == 0 {
-            } else {
-                // if toggle audio notification
-                if indexPath.row == 0 {
-                    // if toggle vibration notification
-                } else {
-                    
-                }
-            }
+            interactor.updateNotififcationSettings(at: indexPath, isOn: isOn)
         }
     }
 }
