@@ -32,7 +32,7 @@ final class AppCoordinator {
     
     // MARK: - Start Screen Creation
     private func CreateStartScreen() -> UIViewController {
-        return ProfileSettingsAssembly.build(with: signupContext, coordinator: self)
+        return StartAssembly.build(with: signupContext, coordinator: self)
 
     }
     

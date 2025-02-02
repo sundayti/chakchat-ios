@@ -12,13 +12,18 @@ final class EventManager: EventPublisherProtocol, EventRegistererProtocol {
     
     // MARK: - Properties
     var handlerDict: [AnyHashable : [(any Event) -> Void]] = [:]
+    private let lock = NSLock()
     
     // MARK: - Publish
     func publish(event: any Event) {
         let key = ObjectIdentifier(type(of: event))
-        if let handlers = handlerDict[key] {
+        lock.lock()
+        let handlers = handlerDict[key]
+        lock.unlock()
+        
+        if let handlers = handlers {
             for handler in handlers {
-                DispatchQueue.global(qos: .userInitiated).async {
+                Task.detached(priority: .userInitiated) {
                     handler(event)
                 }
             }
@@ -33,6 +38,8 @@ final class EventManager: EventPublisherProtocol, EventRegistererProtocol {
                 eventHandler(typedEvent)
             }
         }
+        lock.lock()
+        defer { lock.unlock() }
         if handlerDict[key] != nil {
             handlerDict[key]?.append(handler)
         } else {
