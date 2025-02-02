@@ -38,12 +38,14 @@ final class BirthVisibilityScreenInteractor: BirthVisibilityScreenBusinessLogic 
     // MARK: - New Data Saving
     func saveNewData(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility) {
         worker.saveNewBirthVisibilityOption(birthVisibility)
-        let updateBirthStatusEvent = UpdateBirthStatusEvent(newBirthStatus: birthVisibility.birthStatus)
-        eventManager.publish(event: updateBirthStatusEvent)
+        userData.birthStatus = birthVisibility.birthStatus
+
     }
     
     // MARK: - Rounting
     func backToConfidentialityScreen() {
+        let updateBirthStatusEvent = UpdateBirthStatusEvent(newBirthStatus: userData.birthStatus)
+        eventManager.publish(event: updateBirthStatusEvent)
         onRouteToConfidentialityScreen?()
     }
 }

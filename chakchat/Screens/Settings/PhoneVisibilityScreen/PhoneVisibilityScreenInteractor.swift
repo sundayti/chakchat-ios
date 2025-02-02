@@ -38,12 +38,13 @@ final class PhoneVisibilityScreenInteractor: PhoneVisibilityScreenBusinessLogic 
     // MARK: - New Data Saving
     func saveNewData(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
         worker.saveNewPhoneVisibilityOption(phoneVisibility)
-        let updatePhoneVisibilityEvent = UpdatePhoneStatusEvent(newPhoneStatus: phoneVisibility.phoneStatus)
-        eventManager.publish(event: updatePhoneVisibilityEvent)
+        userData.phoneStatus = phoneVisibility.phoneStatus
     }
     
     // MARK: - Routing
     func backToConfidentialityScreen() {
+        let updatePhoneVisibilityEvent = UpdatePhoneStatusEvent(newPhoneStatus: userData.phoneStatus)
+        eventManager.publish(event: updatePhoneVisibilityEvent)
         onRouteToConfidentialityScreen?()
     }
 }
