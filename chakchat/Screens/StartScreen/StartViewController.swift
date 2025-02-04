@@ -73,12 +73,12 @@ final class StartViewController: UIViewController {
         view.addSubview(chatLabel)
         chakLabel.text = Constants.chakLabelText
         chakLabel.textAlignment = .center
-        chakLabel.font = Fonts.chakchat
+        chakLabel.font = Fonts.rammettoOneR100
         chakLabel.textColor = .black
         
         chatLabel.text = Constants.chatLabelText
         chatLabel.textAlignment = .center
-        chatLabel.font = Fonts.chakchat
+        chatLabel.font = Fonts.rammettoOneR100
         chatLabel.textColor = .black
         
         view.addSubview(chakchatStackView)
@@ -93,7 +93,7 @@ final class StartViewController: UIViewController {
         view.addSubview(tapLabel)
         tapLabel.text = Constants.tapLabelText
         tapLabel.textAlignment = .center
-        tapLabel.font = Fonts.tap
+        tapLabel.font = Fonts.montserratB25
         tapLabel.textColor = .black
         tapLabel.pinCenterX(view)
         tapLabel.pinBottom(view, Constants.tapLabelButtom)

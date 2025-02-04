@@ -13,6 +13,7 @@ enum ProfileSettingsModels {
     struct ProfileUserData {
         var nickname: String
         var username: String
+        var phone: String
         var icon: UIImage?
     }
 }

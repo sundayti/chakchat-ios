@@ -176,7 +176,7 @@ final class VerifyViewController: UIViewController {
     private func configureInputHintLabel() {
         view.addSubview(inputHintLabel)
         inputHintLabel.text = Constants.inputHintLabelText
-        inputHintLabel.font = Fonts.inputHintLabel
+        inputHintLabel.font = Fonts.systemB30
         inputHintLabel.pinCenterX(view)
         inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)
     }
@@ -246,7 +246,7 @@ final class VerifyViewController: UIViewController {
         resendButton.pinBottom(view, Constants.timerLabelBottom)
         resendButton.setHeight(Constants.resendButtonHeight)
         resendButton.setWidth(Constants.resendButtonWidth)
-        resendButton.titleLabel?.font = Fonts.resendButton
+        resendButton.titleLabel?.font = Fonts.systemB25
         resendButton.addTarget(self, action: #selector(resendButtonPressed), for: .touchUpInside)
         resendButton.isHidden = true
     }

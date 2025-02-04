@@ -70,7 +70,7 @@ final class ChatsScreenViewController: UIViewController {
     // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
-        titleLabel.font = Fonts.header
+        titleLabel.font = Fonts.systemB24
         titleLabel.text = Constants.headerText
     }
     

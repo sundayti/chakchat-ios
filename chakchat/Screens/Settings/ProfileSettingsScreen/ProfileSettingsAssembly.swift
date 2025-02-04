@@ -33,5 +33,6 @@ enum ProfileSettingsAssembly {
 private func getUserProfileData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> ProfileSettingsModels.ProfileUserData {
     let nickname = userDefaultsManager.loadNickname()
     let username = userDefaultsManager.loadUsername()
-    return ProfileSettingsModels.ProfileUserData(nickname: nickname, username: username)
+    let phone = userDefaultsManager.loadPhone()
+    return ProfileSettingsModels.ProfileUserData(nickname: nickname, username: username, phone: phone)
 }

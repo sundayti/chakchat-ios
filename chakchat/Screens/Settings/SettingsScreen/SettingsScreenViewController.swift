@@ -108,7 +108,7 @@ final class SettingsScreenViewController: UIViewController {
     // MARK: - Settings Label Configuration
     private func configureSettingsLabel() {
         view.addSubview(settingsLabel)
-        settingsLabel.font = Fonts.header
+        settingsLabel.font = Fonts.systemB24
         settingsLabel.text = Constants.headerText
     }
     
@@ -154,7 +154,7 @@ final class SettingsScreenViewController: UIViewController {
         view.addSubview(nicknameLabel)
         nicknameLabel.pinCenterX(view)
         nicknameLabel.pinTop(iconImageView.bottomAnchor, Constants.nicknameLabelTop)
-        nicknameLabel.font = Fonts.nicknameLabel
+        nicknameLabel.font = Fonts.systemSB20
         nicknameLabel.text = nickname
     }
     
@@ -163,7 +163,7 @@ final class SettingsScreenViewController: UIViewController {
         view.addSubview(phoneLabel)
         view.addSubview(usernameLabel)
         view.addSubview(dotLabel)
-        phoneLabel.font = Fonts.userData
+        phoneLabel.font = Fonts.systemL14
         phoneLabel.text = Format.number(phone)
         phoneLabel.textColor = .gray
         phoneLabel.textAlignment = .center
@@ -173,7 +173,7 @@ final class SettingsScreenViewController: UIViewController {
         dotLabel.textColor = .gray
         dotLabel.textAlignment = .center
         
-        usernameLabel.font = Fonts.userData
+        usernameLabel.font = Fonts.systemL14
         usernameLabel.text = Constants.atText + username
         usernameLabel.textColor = .gray
         usernameLabel.textAlignment = .center
