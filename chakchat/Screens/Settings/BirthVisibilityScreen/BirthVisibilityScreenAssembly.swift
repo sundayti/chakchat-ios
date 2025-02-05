@@ -12,10 +12,10 @@ import UIKit
 enum BirthVisibilityScreenAssembly {
     
     // MARK: - Birth Visibility Screen Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = BirthVisibilityScreenPresenter()
-        let worker = BirthVisibilityScreenWorker(userDeafultsManager: context.userDefaultManager)
-        let userData = getBirthVisibilityData(context.userDefaultManager)
+        let worker = BirthVisibilityScreenWorker(userDeafultsManager: context.userDefaultsManager)
+        let userData = getBirthVisibilityData(context.userDefaultsManager)
         let interactor = BirthVisibilityScreenInteractor(presenter: presenter, worker: worker, eventManager: context.eventManager, userData: userData)
         interactor.onRouteToConfidentialityScreen = { [weak coordinator] in
             coordinator?.popScreen()

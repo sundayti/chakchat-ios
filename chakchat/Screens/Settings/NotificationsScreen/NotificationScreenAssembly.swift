@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 enum NotificationScreenAssembly {
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = NotificationScreenPresenter()
-        let worker = NotificationScreenWorker(userDefaultsManager: context.userDefaultManager)
-        let userData = getNotififcationData(context.userDefaultManager)
+        let worker = NotificationScreenWorker(userDefaultsManager: context.userDefaultsManager)
+        let userData = getNotififcationData(context.userDefaultsManager)
         let interactor = NotificationScreenInteractor(presenter: presenter, worker: worker, eventManager: context.eventManager, userData: userData)
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
             coordinator?.popScreen()

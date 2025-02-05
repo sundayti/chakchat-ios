@@ -23,7 +23,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
     
     // MARK: - Authentication Requests
     func sendInRequest(_ request: SendCodeModels.SendCodeRequest,
-                     completion: @escaping (Result<AppState, Error>) -> Void) {
+                     completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
         sendCodeService.sendCodeRequest(request,
                                         SigninEndpoints.sendPhoneCodeEndpoint.rawValue,
@@ -36,7 +36,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
                                                        value: successResponse.signinKey)
                     if isSaved {
                         self.userDefaultsManager.savePhone(request.phone)
-                        completion(.success(AppState.signin))
+                        completion(.success(SignupState.signin))
                     } else {
                         completion(.failure(Keychain.KeychainError.saveError))
                     }
@@ -58,7 +58,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
     
     // MARK: - Registration Requests
     func sendUpRequest(_ request: SendCodeModels.SendCodeRequest,
-                       completion: @escaping (Result<AppState, Error>) -> Void) {
+                       completion: @escaping (Result<SignupState, Error>) -> Void) {
         sendCodeService.sendCodeRequest(request,
                                         SignupEndpoints.sendPhoneCodeEndpoint.rawValue,
                                         SuccessModels.SendCodeSignupData.self) { [weak self]result in
@@ -70,7 +70,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
                                                        value: successResponse.signupKey)
                     if isSaved {
                         self.userDefaultsManager.savePhone(request.phone)
-                        completion(.success(AppState.signupVerifyCode))
+                        completion(.success(SignupState.signupVerifyCode))
                     } else {
                         completion(.failure(Keychain.KeychainError.saveError))
                     }

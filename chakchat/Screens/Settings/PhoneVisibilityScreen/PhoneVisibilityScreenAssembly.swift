@@ -12,10 +12,10 @@ import UIKit
 enum PhoneVisibilityScreenAssembly {
     
     // MARK: - Phone Visibility Screen Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = PhoneVisibilityScreenPresenter()
-        let worker = PhoneVisibilityScreenWorker(userDefaultsManager: context.userDefaultManager)
-        let userData = getPhoneVisibilityData(context.userDefaultManager)
+        let worker = PhoneVisibilityScreenWorker(userDefaultsManager: context.userDefaultsManager)
+        let userData = getPhoneVisibilityData(context.userDefaultsManager)
         let interactor = PhoneVisibilityScreenInteractor(presenter: presenter, worker: worker, eventManager: context.eventManager, userData: userData)
         interactor.onRouteToConfidentialityScreen = { [weak coordinator] in
             coordinator?.popScreen()

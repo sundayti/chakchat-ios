@@ -10,9 +10,9 @@ import Foundation
 // MARK: - VerifyBusinessLogic
 protocol VerifyBusinessLogic {
     func sendVerificationRequest(_ code: String)
-    func routeToSignupScreen(_ state: AppState)
-    func routeToChatScreen(_ state: AppState)
-    func routeToSendCodeScreen(_ state: AppState)
+    func routeToSignupScreen(_ state: SignupState)
+    func routeToChatScreen(_ state: SignupState)
+    func routeToSendCodeScreen(_ state: SignupState)
     func resendCodeRequest(_ request: VerifyModels.ResendCodeRequest)
     func getPhone()
 }
@@ -30,14 +30,14 @@ protocol VerifyWorkerLogic {
         _ request: Request,
         _ endpoint: String,
         _ responseType: Response.Type,
-        completion: @escaping (Result<AppState, Error>) -> Void
+        completion: @escaping (Result<SignupState, Error>) -> Void
     )
     func getVerifyCode(_ key: String) -> UUID?
     func getPhone() -> String
     
     func resendInRequest(_ request: VerifyModels.ResendCodeRequest,
-                     completion: @escaping (Result<AppState, Error>) -> Void)
+                     completion: @escaping (Result<SignupState, Error>) -> Void)
     
     func resendUpRequest(_ request: VerifyModels.ResendCodeRequest,
-                     completion: @escaping (Result<AppState, Error>) -> Void)
+                     completion: @escaping (Result<SignupState, Error>) -> Void)
 }

@@ -291,7 +291,7 @@ final class VerifyViewController: UIViewController {
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
-        interactor.routeToSendCodeScreen(AppState.sendPhoneCode)
+        interactor.routeToSendCodeScreen(SignupState.sendPhoneCode)
     }
     
     @objc
