@@ -16,7 +16,12 @@ enum PhoneVisibilityScreenAssembly {
         let presenter = PhoneVisibilityScreenPresenter()
         let worker = PhoneVisibilityScreenWorker(userDefaultsManager: context.userDefaultsManager)
         let userData = getPhoneVisibilityData(context.userDefaultsManager)
-        let interactor = PhoneVisibilityScreenInteractor(presenter: presenter, worker: worker, eventManager: context.eventManager, userData: userData)
+        let interactor = PhoneVisibilityScreenInteractor(presenter: presenter, 
+                                                         worker: worker,
+                                                         eventManager: context.eventManager,
+                                                         userData: userData,
+                                                         logger: context.logger
+        )
         interactor.onRouteToConfidentialityScreen = { [weak coordinator] in
             coordinator?.popScreen()
         }
