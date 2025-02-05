@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 final class MainAppContext: MainAppContextProtocol {
 
@@ -14,12 +15,14 @@ final class MainAppContext: MainAppContextProtocol {
     var userDefaultsManager: UserDefaultsManagerProtocol
     var eventManager: (EventPublisherProtocol & EventSubscriberProtocol)
     var state: AppState
+    var logger: OSLog
     
-    init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultsManager: UserDefaultsManagerProtocol, eventManager: EventPublisherProtocol & EventSubscriberProtocol, state: AppState) {
+    init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultsManager: UserDefaultsManagerProtocol, eventManager: EventPublisherProtocol & EventSubscriberProtocol, state: AppState, logger: OSLog) {
         self.keychainManager = keychainManager
         self.errorHandler = errorHandler
         self.userDefaultsManager = userDefaultsManager
         self.eventManager = eventManager
         self.state = state
+        self.logger = logger
     }
 }
