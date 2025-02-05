@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 // MARK: - SignupInteractor
 final class SignupInteractor: SignupBusinessLogic {
@@ -15,6 +16,7 @@ final class SignupInteractor: SignupBusinessLogic {
     private let worker: SignupWorkerLogic
     private let errorHandler: ErrorHandlerLogic
     private let state: SignupState
+    private let logger: OSLog
     
     var onRouteToChatScreen: ((SignupState) -> Void)?
     
@@ -22,20 +24,21 @@ final class SignupInteractor: SignupBusinessLogic {
     init(presenter: SignupPresentationLogic,
          worker: SignupWorkerLogic,
          state: SignupState,
-         errorHandler: ErrorHandlerLogic) {
-        
+         errorHandler: ErrorHandlerLogic,
+         logger: OSLog
+    ) {
         self.presenter = presenter
         self.worker = worker
         self.state = state
         self.errorHandler = errorHandler
+        self.logger = logger
     }
     
     // MARK: - Signup Request
     func sendSignupRequest(_ name: String, _ username: String) {
-        print("Send request to worker")
-        
+        os_log("Send signup request to server", log: logger, type: .info)
         guard let signupKey = worker.getSignupCode() else {
-            print("Can't find signup key in keychain storage.")
+            os_log("Can't find signup key in keychain storage", log: logger, type: .error)
             return
         }
         
@@ -43,6 +46,7 @@ final class SignupInteractor: SignupBusinessLogic {
             guard let self = self else {return}
             switch result {
             case .success(let state):
+                os_log("User registered, saved data", log: logger, type: .info)
                 self.successTransition(state)
             case .failure(let error):
                 let errorId = self.errorHandler.handleError(error)
@@ -54,6 +58,7 @@ final class SignupInteractor: SignupBusinessLogic {
     
     // MARK: - Routing
     func successTransition(_ state: SignupState) {
+        os_log("Routed to chat menu screen", log: logger, type: .default)
         onRouteToChatScreen?(state)
     }
 }

@@ -15,7 +15,12 @@ enum OnlineVisibilityScreenAssembly {
         let presenter = OnlineVisibilityScreenPresenter()
         let worker = OnlineVisibilityScreenWorker(userDeafultsManager: context.userDefaultsManager)
         let userData = getOnlineVisibilityData(context.userDefaultsManager)
-        let interactor = OnlineVisibilityScreenInteractor(presenter: presenter, worker: worker, eventManager: context.eventManager, userData: userData)
+        let interactor = OnlineVisibilityScreenInteractor(presenter: presenter, 
+                                                          worker: worker,
+                                                          eventManager: context.eventManager,
+                                                          userData: userData,
+                                                          logger: context.logger
+        )
         interactor.onRouteToConfidentialityScreen = { [weak coordinator] in
             coordinator?.popScreen()
         }

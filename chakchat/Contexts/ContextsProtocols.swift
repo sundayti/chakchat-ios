@@ -6,29 +6,21 @@
 //
 
 import Foundation
+import OSLog
 
 protocol CommonContextProtocol: AnyObject {
     var keychainManager: KeychainManagerBusinessLogic { get }
     var errorHandler: ErrorHandlerLogic { get }
     var userDefaultsManager: UserDefaultsManagerProtocol { get }
+    var logger: OSLog { get }
 }
 
-protocol SignupContextProtocol: AnyObject {
-    var keychainManager: KeychainManagerBusinessLogic { get }
-    var errorHandler: ErrorHandlerLogic { get }
-    var userDefaultsManager: UserDefaultsManagerProtocol { get }
+protocol SignupContextProtocol: AnyObject, CommonContextProtocol {
     var state: SignupState { get set }
 }
 
-protocol MainAppContextProtocol: AnyObject {
-    var keychainManager: KeychainManagerBusinessLogic { get }
-    var errorHandler: ErrorHandlerLogic { get }
-    var userDefaultsManager: UserDefaultsManagerProtocol { get }
+protocol MainAppContextProtocol: AnyObject, CommonContextProtocol {
     var eventManager: (EventPublisherProtocol & EventSubscriberProtocol) { get }
     var state: AppState { get set }
 }
-
-extension SignupContext: CommonContextProtocol {}
-
-extension MainAppContext: CommonContextProtocol {}
 

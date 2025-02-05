@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import OSLog
  
 // MARK: - VerifyInteractor
 final class VerifyInteractor: VerifyBusinessLogic {
     
     // MARK: - Properties
-    private var presentor: VerifyPresentationLogic
-    private var worker: VerifyWorkerLogic
-    private var errorHandler: ErrorHandlerLogic
-    var state: SignupState
+    private let presentor: VerifyPresentationLogic
+    private let worker: VerifyWorkerLogic
+    private let errorHandler: ErrorHandlerLogic
+    private let state: SignupState
+    private let logger: OSLog
     
     var onRouteToSignupScreen: ((SignupState) -> Void)?
     var onRouteToChatScreen: ((SignupState) -> Void)?
@@ -24,20 +26,23 @@ final class VerifyInteractor: VerifyBusinessLogic {
     init(presentor: VerifyPresentationLogic,
          worker: VerifyWorkerLogic,
          errorHandler: ErrorHandlerLogic,
-         state: SignupState) {
+         state: SignupState,
+         logger: OSLog
+    ) {
         self.presentor = presentor
         self.worker = worker
         self.errorHandler = errorHandler
         self.state = state
+        self.logger = logger
     }
     
     // MARK: - Verification Request
     func sendVerificationRequest(_ code: String) {
-        print("Send request to worker")
+        os_log("Sent code to server", log: logger, type: .info)
         
         if (state == SignupState.signin) {
             guard let key = worker.getVerifyCode(KeychainManager.keyForSaveSigninCode) else {
-                print("Can't find verify key in keychain storage.")
+                os_log("Can't find verify key in keychain storage", log: logger, type: .error)
                 return
             }
 
@@ -45,6 +50,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 guard let self = self else {return}
                 switch result {
                 case .success(let state):
+                    os_log("Code verified", log: logger, type: .info)
                     self.routeToChatScreen(state)
                 case .failure(let error):
                     let errorId = self.errorHandler.handleError(error)
@@ -53,7 +59,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
             }
         } else if (state == SignupState.signupVerifyCode) {
             guard let key = worker.getVerifyCode(KeychainManager.keyForSaveSignupCode) else {
-                print("Can't find verify key in keychain storage.")
+                os_log("Can't find verify key in keychain storage", log: logger, type: .error)
                 return
             }
             
@@ -61,6 +67,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 guard let self = self else {return}
                 switch result {
                 case .success(let state):
+                    os_log("Code verified", log: logger, type: .info)
                     self.routeToSignupScreen(state)
                 case .failure(let error):
                     let errorId = self.errorHandler.handleError(error)
@@ -73,14 +80,17 @@ final class VerifyInteractor: VerifyBusinessLogic {
     
     // MARK: - Routing
     func routeToSignupScreen(_ state: SignupState) {
+        os_log("Routed to signup screen", log: logger, type: .default)
         onRouteToSignupScreen?(state)
     }
     
     func routeToChatScreen(_ state: SignupState) {
+        os_log("Routed to chat menu screen", log: logger, type: .default)
         onRouteToChatScreen?(state)
     }
     
     func routeToSendCodeScreen(_ state: SignupState) {
+        os_log("Routed to send code screen", log: logger, type: .default)
         onRouteToSendCodeScreen?(state)
     }
     
@@ -92,13 +102,14 @@ final class VerifyInteractor: VerifyBusinessLogic {
     
     // MARK: - Resend Code Request
     func resendCodeRequest(_ request: VerifyModels.ResendCodeRequest) {
-        print("Send request to worker")
+        os_log("Sent resend code request to server", log: logger, type: .info)
         if (state == SignupState.signin) {
             worker.resendInRequest(request) { [weak self] result in
                 guard let self = self else {return}
                 switch result {
                 case .success(_):
                     self.successTransition()
+                    os_log("Resent code to user", log: logger, type: .info)
                 case .failure(let error):
                     let errorId = self.errorHandler.handleError(error)
                     self.presentor.showError(errorId)
@@ -110,6 +121,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 switch result {
                 case .success(_):
                     self.successTransition()
+                    os_log("Resent code to user", log: logger, type: .info)
                 case .failure(let error):
                     let errorId = self.errorHandler.handleError(error)
                     self.presentor.showError(errorId)

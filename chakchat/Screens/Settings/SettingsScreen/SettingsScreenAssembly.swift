@@ -16,7 +16,12 @@ enum SettingsScreenAssembly {
         let presenter = SettingsScreenPresenter()
         let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultsManager)
         let userData = getUserData(context.userDefaultsManager)
-        let interactor = SettingsScreenInteractor(presenter: presenter, worker: worker, userData: userData, eventSubscriber: context.eventManager)
+        let interactor = SettingsScreenInteractor(presenter: presenter, 
+                                                  worker: worker, 
+                                                  userData: userData,
+                                                  eventSubscriber: context.eventManager,
+                                                  logger: context.logger
+        )
         interactor.onRouteToProfileSettings = { [weak coordinator] in
             coordinator?.showProfileSettingsScreen()
         }

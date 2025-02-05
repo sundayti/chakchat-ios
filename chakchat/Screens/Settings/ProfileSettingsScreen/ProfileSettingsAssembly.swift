@@ -18,7 +18,9 @@ enum ProfileSettingsAssembly {
         let userData = getUserProfileData(context.userDefaultsManager)
         let interactor = ProfileSettingsInteractor(presenter: presenter, 
                                                    worker: worker, userData: userData,
-                                                   eventPublisher: context.eventManager)
+                                                   eventPublisher: context.eventManager,
+                                                   logger: context.logger
+        )
         
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
             coordinator?.popScreen()
