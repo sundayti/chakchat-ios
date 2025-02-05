@@ -57,7 +57,7 @@ final class SendCodeIntegrationTests: XCTestCase {
         let uuid = UUID()
         mockSender?.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
         mockSendCodeService?.result = .success(SuccessModels.SendCodeSignupData(signupKey: uuid))
-        mockSendCodeWorker?.result = .success(AppState.signin)
+        mockSendCodeWorker?.result = .success(SignupState.signin)
         
         let expectation = self.expectation(description: "Test success called")
         
