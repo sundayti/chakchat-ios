@@ -61,7 +61,7 @@ final class SettingsMenuCell: UITableViewCell {
     // MARK: - Setting Name Label Configuration
     private func configureSettingNameLabel() {
         contentView.addSubview(settingTitle)
-        settingTitle.font = Fonts.system16
+        settingTitle.font = Fonts.systemR16
         settingTitle.pinCenterY(contentView.centerYAnchor)
         settingTitle.pinLeft(settingImageView.trailingAnchor, Constants.settingsLabelLeading)
     }

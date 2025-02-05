@@ -7,14 +7,18 @@
 
 import Foundation
 
+// MARK: - NotificationScreenWorker
 final class NotificationScreenWorker: NotificationScreenWorkerLogic {
         
+    // MARK: - Properties
     let userDefaultsManager: UserDefaultsManagerProtocol
     
+    // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
     
+    // MARK: - New Data Saving
     func saveNewData(_ userData: NotificationScreenModels.NotificationStatus) {
         userDefaultsManager.saveGeneralNotificationStatus(userData.generalNotification)
         userDefaultsManager.saveAudioNotificationStatus(userData.audioNotification)

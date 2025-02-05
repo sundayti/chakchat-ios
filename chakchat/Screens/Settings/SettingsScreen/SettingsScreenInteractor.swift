@@ -80,7 +80,8 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         os_log("Routed to notification settings screen", log: logger, type: .default)
         onRouteToNotificationsSettings?()
     } 
-    
+
+    // MARK: - User Data Changed Event Handling
     func subscribeToEvents() {
         eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
             self?.handleUserDataChangedEvent(event)

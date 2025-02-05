@@ -146,7 +146,7 @@ final class SignupViewController: UIViewController {
                 height: nameTextField.frame.height
             )
         )
-        nameTextField.font = Fonts.name
+        nameTextField.font = Fonts.interR20
         nameTextField.borderStyle = .none
         nameTextField.layer.cornerRadius = Constants.borderCornerRadius
         nameTextField.layer.borderWidth = Constants.borderWidth
@@ -177,7 +177,7 @@ final class SignupViewController: UIViewController {
                 height: usernameTextField.frame.height
             )
         )
-        usernameTextField.font = Fonts.name
+        usernameTextField.font = Fonts.interR20
         usernameTextField.borderStyle = .none
         usernameTextField.layer.cornerRadius = Constants.borderCornerRadius
         usernameTextField.layer.borderWidth = Constants.borderWidth
@@ -203,7 +203,7 @@ final class SignupViewController: UIViewController {
         sendGradientButton.pinTop(usernameTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
         sendGradientButton.setHeight(Constants.createButtonHeight)
         sendGradientButton.setWidth(Constants.createButtonWidth)
-        sendGradientButton.titleLabel?.font = Fonts.createButton
+        sendGradientButton.titleLabel?.font = Fonts.systemB20
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     

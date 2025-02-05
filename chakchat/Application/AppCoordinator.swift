@@ -36,6 +36,7 @@ final class AppCoordinator {
                                              logger: signupContext.logger)
     }
 
+    // MARK: - Start
     func start() {
         let startVC = CreateStartScreen()
         navigationController.setViewControllers([startVC], animated: false)
@@ -82,36 +83,43 @@ final class AppCoordinator {
         return ChatsAssembly.build(with: mainAppContext, coordinator: self)
     }
     
+    // MARK: - Settings Screen Showing
     func showSettingsScreen() {
         let settingsVC = SettingsScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(settingsVC, animated: true)
     }
     
+    // MARK: - Profile Settings Screen Showing
     func showProfileSettingsScreen() {
         let profileSettingsVC = ProfileSettingsAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(profileSettingsVC, animated: true)
     }
     
+    // MARK: - Confidentiality Screen Showing
     func showConfidentialityScreen() {
         let confVC = ConfidentialityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(confVC, animated: true)
     }
     
+    // MARK: - Phone Visibility Screen Showing
     func showPhoneVisibilityScreen() {
         let phoneVisibilityVC = PhoneVisibilityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(phoneVisibilityVC, animated: true)
     }
     
+    // MARK: - Birth Visibility Screen Showing
     func showBirthVisibilityScreen() {
         let birthVisibilityVC = BirthVisibilityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(birthVisibilityVC, animated: true)
     }
     
+    // MARK: - Online Visibility Screen Showing
     func showOnlineVisibilityScreen() {
         let onlineVisibilityVC = OnlineVisibilityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(onlineVisibilityVC, animated: true)
     }
     
+    // MARK: - Notofocation Screen Showing
     func showNotificationScreen() {
         let notificationVC = NotificationScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(notificationVC, animated: true)

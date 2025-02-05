@@ -17,6 +17,7 @@ final class UIErrorLabel: UILabel {
         commonInit()
     }
     
+    // MARK: - Initialization
     init(width: CGFloat, numberOfLines: Int) {
         super.init(frame: .zero)
         self.setWidth(width)

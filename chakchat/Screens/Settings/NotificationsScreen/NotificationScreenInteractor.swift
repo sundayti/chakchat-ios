@@ -19,7 +19,7 @@ final class NotificationScreenInteractor: NotificationScreenBusinessLogic {
     
     var onRouteToSettingsMenu: (() -> Void)?
     
-    init(presenter: NotificationScreenPresentationLogic, 
+    init(presenter: NotificationScreenPresentationLogic,
          worker: NotificationScreenWorkerLogic,
          eventManager: EventPublisherProtocol,
          userData: NotificationScreenModels.NotificationStatus,

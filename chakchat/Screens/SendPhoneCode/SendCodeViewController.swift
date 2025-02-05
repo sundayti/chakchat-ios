@@ -135,7 +135,7 @@ final class SendCodeViewController: UIViewController {
         sendGradientButton.pinTop(inputNumberTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
         sendGradientButton.setHeight(Constants.inputButtonHeight)
         sendGradientButton.setWidth(Constants.inputButtonWidth)
-        sendGradientButton.titleLabel?.font = Fonts.inputButton
+        sendGradientButton.titleLabel?.font = Fonts.systemB30
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
         
