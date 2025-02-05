@@ -66,6 +66,7 @@ final class ProfileSettingsViewController: UIViewController {
         configureNameTextField(userData.nickname)
         configureUsernameTextField(userData.username)
         configurePhoneTextField(userData.phone)
+        configureIconImageView(userData.icon)
     }
     
     // MARK: - UI Configuration
@@ -107,7 +108,7 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     // MARK: - Icon ImageView Configuration
-    private func configureIconImageView() {
+    private func configureIconImageView(_ image: UIImage? = nil) {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconImageSize)
         iconImageView.setWidth(Constants.iconImageSize)
@@ -121,7 +122,11 @@ final class ProfileSettingsViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: Constants.iconImageSize, weight: .light, scale: .default)
         let gearImage = UIImage(systemName: Constants.defaultProfileImageSymbol, withConfiguration: config)
         iconImageView.tintColor = Colors.lightOrange
-        iconImageView.image = gearImage
+        iconImageView.image = image ?? gearImage
+        
+        iconImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
+        iconImageView.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - Name Text Field Configuration
@@ -174,7 +179,9 @@ final class ProfileSettingsViewController: UIViewController {
         // TODO: if text == nil, disable apply button(in future :) )
         let newNickname = nameTextField.getText() ?? Constants.defaultText
         let newUsername = usernameTextField.getText() ?? Constants.defaultText
-        return ProfileSettingsModels.ProfileUserData(nickname: newNickname, username: newUsername, phone: phone)
+        let newIcon = iconImageView.image ?? nil
+        // TODO: add icon saving
+        return ProfileSettingsModels.ProfileUserData(nickname: newNickname, username: newUsername, phone: phone, icon: newIcon)
     }
     
     // MARK: - Actions
@@ -204,5 +211,29 @@ final class ProfileSettingsViewController: UIViewController {
                 self.logOutButton.transform = CGAffineTransform.identity
             }
         })
+    }
+    
+    @objc
+    private func iconImageViewTapped() {
+        // TODO: added screen with setting image
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage {
+            iconImageView.image = pickedImage
+            iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
