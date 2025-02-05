@@ -27,6 +27,13 @@ final class ProfileSettingsViewController: UIViewController {
         static let fieldsLeading: CGFloat = 0
         static let fieldsTrailing: CGFloat = 0
         static let defaultText: String = "default"
+        
+        static let logOutButtonRadious: CGFloat = 18
+        static let logOutButtonTitle: String = "Log out"
+        static let logOutButtonTop: CGFloat = 25
+        static let logOutButtonHeight: CGFloat = 38
+        static let logOutButtonWidth: CGFloat = 100
+        static let logOutBorderWidth: CGFloat = 1
     }
     
     // MARK: - Properties
@@ -36,6 +43,7 @@ final class ProfileSettingsViewController: UIViewController {
     private var nameTextField: UIProfileTextField = UIProfileTextField(title: "Name", placeholder: "Name", isEditable: true)
     private var usernameTextField: UIProfileTextField = UIProfileTextField(title: "Username", placeholder: "Username", isEditable: true)
     private var phoneTextField: UIProfileTextField = UIProfileTextField(title: "Phone", placeholder: "Phone", isEditable: false)
+    private var logOutButton: UIButton = UIButton()
     let interactor: ProfileSettingsBusinessLogic
     
     // MARK: - Initialization
@@ -74,6 +82,7 @@ final class ProfileSettingsViewController: UIViewController {
         configureApplyButton()
         configureIconImageView()
         interactor.loadUserData()
+        configureLogOutButton()
     }
     
     // MARK: - Cancel Button Configuration
@@ -142,9 +151,27 @@ final class ProfileSettingsViewController: UIViewController {
         phoneTextField.setText(Format.number(phone) ?? Constants.defaultText)
     }
     
+    // MARK: - Log Out Button Configuration
+    private func configureLogOutButton() {
+        logOutButton.setTitle(Constants.logOutButtonTitle, for: .normal)
+        logOutButton.setTitleColor(.systemRed, for: .normal)
+        logOutButton.titleLabel?.font = Fonts.systemB20
+        logOutButton.backgroundColor = .clear
+        logOutButton.layer.cornerRadius = Constants.logOutButtonRadious
+        logOutButton.layer.borderWidth = Constants.logOutBorderWidth
+        logOutButton.layer.borderColor = UIColor.systemRed.cgColor
+        logOutButton.addTarget(self, action: #selector(logOutButtonPressed), for: .touchUpInside)
+        logOutButton.setHeight(Constants.logOutButtonHeight)
+        logOutButton.setWidth(Constants.logOutButtonWidth)
+        
+        view.addSubview(logOutButton)
+        logOutButton.pinCenterX(view)
+        logOutButton.pinTop(phoneTextField.bottomAnchor, Constants.logOutButtonTop)
+    }
+    
     // MARK: - User Profile Data Transfering
     private func transferUserProfileData() -> ProfileSettingsModels.ProfileUserData {
-        // if text == nil, disable apply button(in future :) )
+        // TODO: if text == nil, disable apply button(in future :) )
         let newNickname = nameTextField.getText() ?? Constants.defaultText
         let newUsername = usernameTextField.getText() ?? Constants.defaultText
         return ProfileSettingsModels.ProfileUserData(nickname: newNickname, username: newUsername, phone: phone)
@@ -165,5 +192,17 @@ final class ProfileSettingsViewController: UIViewController {
     @objc
     private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc
+    private func logOutButtonPressed() {
+        // TODO: show alert "Are u sure?" and log out of from account.
+        UIView.animate(withDuration: UIConstants.animationDuration, animations: {
+            self.logOutButton.transform = CGAffineTransform(scaleX: UIConstants.buttonScale, y: UIConstants.buttonScale)
+            }, completion: { _ in
+            UIView.animate(withDuration: UIConstants.animationDuration) {
+                self.logOutButton.transform = CGAffineTransform.identity
+            }
+        })
     }
 }
