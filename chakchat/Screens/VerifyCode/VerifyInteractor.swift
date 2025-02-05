@@ -14,17 +14,17 @@ final class VerifyInteractor: VerifyBusinessLogic {
     private var presentor: VerifyPresentationLogic
     private var worker: VerifyWorkerLogic
     private var errorHandler: ErrorHandlerLogic
-    var state: AppState
+    var state: SignupState
     
-    var onRouteToSignupScreen: ((AppState) -> Void)?
-    var onRouteToChatScreen: ((AppState) -> Void)?
-    var onRouteToSendCodeScreen: ((AppState) -> Void)?
+    var onRouteToSignupScreen: ((SignupState) -> Void)?
+    var onRouteToChatScreen: ((SignupState) -> Void)?
+    var onRouteToSendCodeScreen: ((SignupState) -> Void)?
     
     // MARK: - Initialization
     init(presentor: VerifyPresentationLogic,
          worker: VerifyWorkerLogic,
          errorHandler: ErrorHandlerLogic,
-         state: AppState) {
+         state: SignupState) {
         self.presentor = presentor
         self.worker = worker
         self.errorHandler = errorHandler
@@ -35,7 +35,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
     func sendVerificationRequest(_ code: String) {
         print("Send request to worker")
         
-        if (state == AppState.signin) {
+        if (state == SignupState.signin) {
             guard let key = worker.getVerifyCode(KeychainManager.keyForSaveSigninCode) else {
                 print("Can't find verify key in keychain storage.")
                 return
@@ -51,7 +51,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                     self.presentor.showError(errorId)
                 }
             }
-        } else if (state == AppState.signupVerifyCode) {
+        } else if (state == SignupState.signupVerifyCode) {
             guard let key = worker.getVerifyCode(KeychainManager.keyForSaveSignupCode) else {
                 print("Can't find verify key in keychain storage.")
                 return
@@ -68,19 +68,19 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 }
             }
         }
-        // routeToSignupScreen(AppState.signup)
+        // routeToSignupScreen(SignupState.signup)
     }
     
     // MARK: - Routing
-    func routeToSignupScreen(_ state: AppState) {
+    func routeToSignupScreen(_ state: SignupState) {
         onRouteToSignupScreen?(state)
     }
     
-    func routeToChatScreen(_ state: AppState) {
+    func routeToChatScreen(_ state: SignupState) {
         onRouteToChatScreen?(state)
     }
     
-    func routeToSendCodeScreen(_ state: AppState) {
+    func routeToSendCodeScreen(_ state: SignupState) {
         onRouteToSendCodeScreen?(state)
     }
     
@@ -93,7 +93,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
     // MARK: - Resend Code Request
     func resendCodeRequest(_ request: VerifyModels.ResendCodeRequest) {
         print("Send request to worker")
-        if (state == AppState.signin) {
+        if (state == SignupState.signin) {
             worker.resendInRequest(request) { [weak self] result in
                 guard let self = self else {return}
                 switch result {
@@ -104,7 +104,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
                     self.presentor.showError(errorId)
                 }
             }
-        } else if (state == AppState.signupVerifyCode) {
+        } else if (state == SignupState.signupVerifyCode) {
             worker.resendUpRequest(request) { [weak self] result in
                 guard let self = self else {return}
                 switch result {

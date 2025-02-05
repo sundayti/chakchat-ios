@@ -38,12 +38,13 @@ final class OnlineVisibilityScreenInteractor: OnlineVisibilityScreenBusinessLogi
     // MARK: - New data Saving
     func saveNewData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
         worker.saveNewOnlineVisibilityOption(onlineVisibility)
-        let updateOnlineStatusEvent = UpdateOnlineStatusEvent(newOnlineStatus: onlineVisibility.onlineStatus)
-        eventManager.publish(event: updateOnlineStatusEvent)
+        userData.onlineStatus = onlineVisibility.onlineStatus
     }
     
     // MARK: - Routing
     func backToConfidentialityScreen() {
+        let updateOnlineStatusEvent = UpdateOnlineStatusEvent(newOnlineStatus: userData.onlineStatus)
+        eventManager.publish(event: updateOnlineStatusEvent)
         onRouteToConfidentialityScreen?()
     }
 }

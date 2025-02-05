@@ -25,7 +25,7 @@ final class VerifyWorker: VerifyWorkerLogic {
     }
     
     // MARK: - Verification Request
-    func sendVerificationRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<AppState, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
+    func sendVerificationRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<SignupState, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
         print("Send request to service")
         verificationService.sendVerificationRequest(request,
                                                     endpoint,
@@ -35,11 +35,10 @@ final class VerifyWorker: VerifyWorkerLogic {
                 switch result {
                 case .success(let successResponse):
                     guard let successResponse = successResponse as? SuccessModels.Tokens else {
-                        completion(.success(AppState.signup))
+                        completion(.success(SignupState.signup))
                         return
                     }
                     self.saveToken(successResponse, completion: completion)
-                    completion(.success(AppState.onChats))
                 case .failure(let apiError):
                     completion(.failure(apiError))
                 }
@@ -57,7 +56,7 @@ final class VerifyWorker: VerifyWorkerLogic {
     
     // MARK: - Token Saving
     func saveToken(_ response: SuccessModels.Tokens,
-                   completion: @escaping (Result<AppState, Error>) -> Void) {
+                   completion: @escaping (Result<SignupState, Error>) -> Void) {
         var isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken,
                                            value: response.accessToken)
         if !isSaved {
@@ -68,7 +67,7 @@ final class VerifyWorker: VerifyWorkerLogic {
                                             value: response.refreshToken)
         if isSaved {
             print("Saved tokens: \nAccess:\(response.accessToken)\nRefresh:\(response.refreshToken)")
-            completion(.success(AppState._default))
+            completion(.success(SignupState.onChatsMenu))
         } else {
             completion(.failure(Keychain.KeychainError.saveError))
         }
@@ -82,7 +81,7 @@ final class VerifyWorker: VerifyWorkerLogic {
     
     // MARK: - SendIn Requests
     func resendInRequest(_ request: VerifyModels.ResendCodeRequest,
-                     completion: @escaping (Result<AppState, Error>) -> Void) {
+                     completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
         sendCodeService.sendCodeRequest(request,
                                         SigninEndpoints.sendPhoneCodeEndpoint.rawValue,
@@ -94,7 +93,7 @@ final class VerifyWorker: VerifyWorkerLogic {
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSigninCode,
                                                        value: successResponse.signinKey)
                     if isSaved {
-                        completion(.success(AppState.signin))
+                        completion(.success(SignupState.signin))
                     } else {
                         completion(.failure(Keychain.KeychainError.saveError))
                     }
@@ -107,7 +106,7 @@ final class VerifyWorker: VerifyWorkerLogic {
     
     // MARK: - Registration Requests
     func resendUpRequest(_ request: VerifyModels.ResendCodeRequest,
-                       completion: @escaping (Result<AppState, Error>) -> Void) {
+                       completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
         sendCodeService.sendCodeRequest(request,
                                         SignupEndpoints.sendPhoneCodeEndpoint.rawValue,
@@ -119,7 +118,7 @@ final class VerifyWorker: VerifyWorkerLogic {
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSignupCode,
                                                        value: successResponse.signupKey)
                     if isSaved {
-                        completion(.success(AppState.signupVerifyCode))
+                        completion(.success(SignupState.signupVerifyCode))
                     } else {
                         completion(.failure(Keychain.KeychainError.saveError))
                     }

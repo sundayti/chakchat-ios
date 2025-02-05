@@ -6,37 +6,29 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - EventManager
-final class EventManager: EventPublisherProtocol, EventRegistererProtocol {
+final class EventManager: EventPublisherProtocol, EventSubscriberProtocol {
+        
+    private var cancellables = Set<AnyCancellable>()
+    private var subjects: [ObjectIdentifier: Any] = [:]
     
-    // MARK: - Properties
-    var handlerDict: [AnyHashable : [(any Event) -> Void]] = [:]
-    
-    // MARK: - Publish
-    func publish(event: any Event) {
-        let key = ObjectIdentifier(type(of: event))
-        if let handlers = handlerDict[key] {
-            for handler in handlers {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    handler(event)
-                }
-            }
+    func publish<T>(event: T) where T : Event {
+        let key = ObjectIdentifier(T.self)
+        if let subject = subjects[key] as? PassthroughSubject<T, Never> {
+            subject.send(event)
         }
     }
     
-    // MARK: - Register
-    func register<T: Event>(eventType: T.Type, _ eventHandler: @escaping (T) -> Void) {
+    func subscribe<T>(_ eventType: T.Type, eventHandler: @escaping (T) -> Void) -> AnyCancellable where T : Event {
         let key = ObjectIdentifier(eventType)
-        let handler: (any Event) -> Void = { event in
-            if let typedEvent = event as? T {
-                eventHandler(typedEvent)
-            }
+        if subjects[key] == nil {
+            subjects[key] = PassthroughSubject<T, Never>()
         }
-        if handlerDict[key] != nil {
-            handlerDict[key]?.append(handler)
-        } else {
-            handlerDict[key] = [handler]
+        guard let subject = subjects[key] as? PassthroughSubject<T, Never> else {
+            fatalError("Failed to cast subject")
         }
+        return subject.sink(receiveValue: eventHandler)
     }
 }

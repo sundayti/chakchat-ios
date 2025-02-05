@@ -31,12 +31,12 @@ final class SendCodeIntegrationTests: XCTestCase {
             guard let presenter = mockSendCodePresenter,
                   let worker = mockSendCodeWorker,
                   let errorHandler = mockErrorHandler else {
-                return nil
+                fatalError("Dependencies are not set")
             }
             return SendCodeInteractor(
                 presenter: presenter,
                 worker: worker,
-                state: AppState.sendPhoneCode,
+                state: SignupState.sendPhoneCode,
                 errorHandler: errorHandler
             )
         }()
@@ -57,7 +57,7 @@ final class SendCodeIntegrationTests: XCTestCase {
         let uuid = UUID()
         mockSender?.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
         mockSendCodeService?.result = .success(SuccessModels.SendCodeSignupData(signupKey: uuid))
-        mockSendCodeWorker?.result = .success(AppState.signin)
+        mockSendCodeWorker?.result = .success(SignupState.signin)
         
         let expectation = self.expectation(description: "Test success called")
         

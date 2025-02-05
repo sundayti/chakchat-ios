@@ -12,12 +12,12 @@ import UIKit
 enum SendCodeAssembly {
     
     // MARK: - Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         
         let presenter = SendCodePresenter()
         let sendCodeService = SendCodeService()
         
-        let worker = SendCodeWorker(sendCodeService: sendCodeService, keychainManager: context.keychainManager, userDefaultsManager: context.userDefaultManager)
+        let worker = SendCodeWorker(sendCodeService: sendCodeService, keychainManager: context.keychainManager, userDefaultsManager: context.userDefaultsManager)
         
         let interactor = SendCodeInteractor(presenter: presenter, 
                                             worker: worker, 

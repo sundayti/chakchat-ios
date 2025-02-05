@@ -8,45 +8,43 @@
 import Foundation
 import UIKit
 
-// MARK: - NotificationCell
+protocol NotificationCellDelegate: AnyObject {
+    func switchDidToggle(cell: NotificationCell, isOn: Bool)
+}
+
 final class NotificationCell: UITableViewCell {
     
-    // MARK: - Constants
     static let cellIndetifier = "NotificationCell"
     
-    // MARK: - Properties
+    weak var notificationDelegate: NotificationCellDelegate?
+    
     private var notificationLabel: UILabel = UILabel()
     private var switchButton: UISwitch = UISwitch()
     
-    // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureCell()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Point
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let switchButtonCoordinate = switchButton.coordinateSpace
         let newPoint = convert(point, to: switchButtonCoordinate)
         return switchButton.point(inside: newPoint, with: event)
     }
     
-    // MARK: - Configuration
     public func configure(title: String) {
         notificationLabel.text = title
     }
     
-    // MARK: - Cell Configuration
+    public func configureSwitch(isOn: Bool) {
+        switchButton.isOn = isOn
+    }
+    
     private func configureCell() {
         configureNotificationLabel()
         configureSwitchButton()
     }
     
-    // MARK: - Notification Label Configuration
     private func configureNotificationLabel() {
         contentView.addSubview(notificationLabel)
         notificationLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -55,10 +53,19 @@ final class NotificationCell: UITableViewCell {
         notificationLabel.pinLeft(contentView.leadingAnchor, 10)
     }
     
-    // MARK: - Switch Button Configuration
     private func configureSwitchButton() {
         contentView.addSubview(switchButton)
         switchButton.pinCenterY(contentView)
         switchButton.pinRight(contentView.trailingAnchor, 10)
+        switchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+    }
+    
+    @objc
+    private func switchValueChanged(_ sender: UISwitch) {
+        notificationDelegate?.switchDidToggle(cell: self, isOn: sender.isOn)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

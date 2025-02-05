@@ -12,10 +12,10 @@ import UIKit
 enum ProfileSettingsAssembly {
     
     // MARK: - Profile Setting Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ProfileSettingsPresenter()
-        let worker = ProfileSettingsWorker(userDefaultsManager: context.userDefaultManager)
-        let userData = getUserProfileData(context.userDefaultManager)
+        let worker = ProfileSettingsWorker(userDefaultsManager: context.userDefaultsManager)
+        let userData = getUserProfileData(context.userDefaultsManager)
         let interactor = ProfileSettingsInteractor(presenter: presenter, 
                                                    worker: worker, userData: userData,
                                                    eventPublisher: context.eventManager)

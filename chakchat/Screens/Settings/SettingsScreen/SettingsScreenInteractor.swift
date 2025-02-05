@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - SettingsScreenInteractor
 final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
@@ -14,16 +15,22 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     var presenter: SettingsScreenPresentationLogic
     var worker: SettingsScreenWorkerLogic
     var userData: SettingsScreenModels.UserData
+    var eventSubscriber: EventSubscriberProtocol
     
     var onRouteToProfileSettings: (() -> Void)?
     var onRouteToConfidentialitySettings: (() -> Void)?
     var onRouteToNotificationsSettings: (() -> Void)?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     // MARK: - Initialization
-    init(presenter: SettingsScreenPresentationLogic, worker: SettingsScreenWorkerLogic, userData: SettingsScreenModels.UserData) {
+    init(presenter: SettingsScreenPresentationLogic, worker: SettingsScreenWorkerLogic, userData: SettingsScreenModels.UserData, eventSubscriber: EventSubscriberProtocol) {
         self.presenter = presenter
         self.worker = worker
         self.userData = userData
+        self.eventSubscriber = eventSubscriber
+        
+        subscribeToEvents()
     }
     
     // MARK: - User Data Loading
@@ -58,8 +65,14 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     func notificationSettingsRoute() {
         onRouteToNotificationsSettings?()
     } 
-    
+
     // MARK: - User Data Changed Event Handling
+    func subscribeToEvents() {
+        eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
+            self?.handleUserDataChangedEvent(event)
+        }.store(in: &cancellables)
+    }
+    
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         userData.nickname = event.newNickname
         userData.username = event.newUsername

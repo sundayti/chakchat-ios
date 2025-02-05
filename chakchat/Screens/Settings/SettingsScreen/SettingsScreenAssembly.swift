@@ -12,11 +12,11 @@ import UIKit
 enum SettingsScreenAssembly {
     
     // MARK: - Setting Screen Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SettingsScreenPresenter()
-        let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultManager)
-        let userData = getUserData(context.userDefaultManager)
-        let interactor = SettingsScreenInteractor(presenter: presenter, worker: worker, userData: userData)
+        let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultsManager)
+        let userData = getUserData(context.userDefaultsManager)
+        let interactor = SettingsScreenInteractor(presenter: presenter, worker: worker, userData: userData, eventSubscriber: context.eventManager)
         interactor.onRouteToProfileSettings = { [weak coordinator] in
             coordinator?.showProfileSettingsScreen()
         }
@@ -26,8 +26,6 @@ enum SettingsScreenAssembly {
         interactor.onRouteToNotificationsSettings = { [weak coordinator] in
             coordinator?.showNotificationScreen()
         }
-        context.eventManager.register(eventType: UpdateProfileDataEvent.self,
-                                      interactor.handleUserDataChangedEvent)
         
         let view = SettingsScreenViewController(interactor: interactor)
         presenter.view = view

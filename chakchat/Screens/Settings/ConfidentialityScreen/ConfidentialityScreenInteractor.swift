@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - ConfidentialityScreenInteractor
 final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic {
@@ -14,7 +15,9 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     let presenter: ConfidentialityScreenPresentationLogic
     let worker: ConfidentialityScreenWorkerLogic
     var userData: ConfidentialitySettingsModels.ConfidentialityUserData
-    let eventPublisher: EventPublisherProtocol
+    let eventSubscriber: EventSubscriberProtocol
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var onRouteToSettingsMenu: (() -> Void)?
     var onRouteToPhoneVisibilityScreen: (() -> Void)?
@@ -22,11 +25,13 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     var onRouteToOnlineVisibilityScreen: (() -> Void)?
     
     // MARK: - Initialization
-    init(presenter: ConfidentialityScreenPresentationLogic, worker: ConfidentialityScreenWorkerLogic, eventPublisher: EventPublisherProtocol, userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+    init(presenter: ConfidentialityScreenPresentationLogic, worker: ConfidentialityScreenWorkerLogic, eventSubscriber: EventSubscriberProtocol, userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         self.presenter = presenter
         self.worker = worker
-        self.eventPublisher = eventPublisher
+        self.eventSubscriber = eventSubscriber
         self.userData = userData
+        
+        subscribeToEvents()
     }
     
     // MARK: - User Data
@@ -47,6 +52,20 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     // MARK: - New User Data Showing
     func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
         presenter.showNewUserData(userData)
+    }
+    
+    private func subscribeToEvents() {
+        eventSubscriber.subscribe(UpdatePhoneStatusEvent.self) { [weak self] event in
+            self?.handlePhoneVisibilityChangeEvent(event)
+        }.store(in: &cancellables)
+        
+        eventSubscriber.subscribe(UpdateBirthStatusEvent.self) { [weak self] event in
+            self?.handleBirthVisibilityChangeEvent(event)
+        }.store(in: &cancellables)
+        
+        eventSubscriber.subscribe(UpdateOnlineStatusEvent.self) { [weak self] event in
+            self?.handleOnlineVisibilityChangeEvent(event)
+        }.store(in: &cancellables)
     }
     
     // MARK: - Phone Visibility Change Event Handling

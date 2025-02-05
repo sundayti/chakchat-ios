@@ -23,7 +23,7 @@ final class SignupWorker: SignupWorkerLogic {
     }
     
     // MARK: - Request Sending
-    func sendRequest(_ request: SignupModels.SignupRequest, completion: @escaping (Result<AppState, Error>) -> Void) {
+    func sendRequest(_ request: SignupModels.SignupRequest, completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
         
         signupService.sendSignupRequest(request) { [weak self] result in
@@ -31,10 +31,9 @@ final class SignupWorker: SignupWorkerLogic {
                 guard let self = self else {return}
                 switch result {
                 case .success(let successResponse):
-                    self.saveToken(successResponse, completion: completion)
                     self.userDefautlsManager.saveNickname(request.name)
                     self.userDefautlsManager.saveUsername(request.username)
-                    completion(.success(AppState.onChats))
+                    self.saveToken(successResponse, completion: completion)
                 case .failure(let apiError):
                     completion(.failure(apiError))
                 }
@@ -52,7 +51,7 @@ final class SignupWorker: SignupWorkerLogic {
     
     // MARK: - Token Saving
     func saveToken(_ successResponse: SuccessModels.Tokens,
-                   completion: @escaping (Result<AppState, Error>) -> Void) {
+                   completion: @escaping (Result<SignupState, Error>) -> Void) {
         var isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken,
                                            value: successResponse.accessToken)
         if !isSaved {
@@ -63,7 +62,7 @@ final class SignupWorker: SignupWorkerLogic {
                                             value: successResponse.refreshToken)
         
         if isSaved {
-            completion(.success(AppState._default))
+            completion(.success(SignupState.onChatsMenu))
             print("Saved tokens: \nAccess:\(successResponse.accessToken)\nRefresh:\(successResponse.refreshToken)")
         } else {
             completion(.failure(Keychain.KeychainError.saveError))

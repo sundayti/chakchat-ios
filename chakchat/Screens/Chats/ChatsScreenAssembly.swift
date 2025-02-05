@@ -12,7 +12,7 @@ import UIKit
 enum ChatsAssembly {
     
     // MARK: - Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ChatsScreenPresenter()
         let worker = ChatsScreenWorker()
         let interactor = ChatsScreenInteractor(presenter: presenter, worker: worker)

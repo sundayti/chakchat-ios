@@ -58,22 +58,22 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         UserDefaults.standard.set(onlineStatus, forKey: confidentialityOnlineKey)
     }
     
-    // MARK: - General Notification Status Saving
+
     func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool) {
         UserDefaults.standard.set(generalNotificationStatus, forKey: generalNotificationKey)
+        print("General notification status = \(generalNotificationStatus)")
     }
     
-    // MARK: - General Audio Notification Status Saving
     func saveAudioNotificationStatus(_ audioNotificationStatus: Bool) {
         UserDefaults.standard.set(audioNotificationStatus, forKey: audioNotificationKey)
+        print("Audio notification status = \(audioNotificationStatus)")
     }
     
-    // MARK: - General Vibration Notification Status Saving
-    func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool) {
-        UserDefaults.standard.set(visualNotificationStatus, forKey: vibrationNotificationKey)
+    func saveVibrationNotificationStatus(_ vibrationNotificationStatus: Bool) {
+        UserDefaults.standard.set(vibrationNotificationStatus, forKey: vibrationNotificationKey)
+        print("Vibration notification status = \(vibrationNotificationStatus)")
     }
     
-    // MARK: - Avatar Loading
     func loadAvatar() -> UIImage? {
         return nil
     }
@@ -126,22 +126,22 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         return onlineStatus
     }
     
-    // MARK: - General Notification Status Loading
     func loadGeneralNotificationStatus() -> Bool {
         let generalNotificationStatus = UserDefaults.standard.bool(forKey: generalNotificationKey)
+        print("General notification status is \(generalNotificationStatus)")
         return generalNotificationStatus
     }
     
-    // MARK: - Audio Notification Status Loading
     func loadAudioNotificationStatus() -> Bool {
         let audioNotificationStatus = UserDefaults.standard.bool(forKey: audioNotificationKey)
+        print("Audio notification status is \(audioNotificationStatus)")
         return audioNotificationStatus
     }
     
-    // MARK: - Vibration Notification Status Loading
     func loadVibrationNotificationStatus() -> Bool {
-        let visualNotificationStatus = UserDefaults.standard.bool(forKey: vibrationNotificationKey)
-        return visualNotificationStatus
+        let vibrationNotificationStatus = UserDefaults.standard.bool(forKey: vibrationNotificationKey)
+        print("Vibration notification status is \(vibrationNotificationStatus)")
+        return vibrationNotificationStatus
     }
 
     // MARK: - Avatar Deleting

@@ -12,11 +12,11 @@ import UIKit
 enum ConfidentialityScreenAssembly {
     
     // MARK: - Confidentiality Screen Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ConfidentialityScreenPresenter()
-        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultManager)
-        let userData = getUserConfData(context.userDefaultManager)
-        let interactor = ConfidentialityScreenInteractor(presenter: presenter, worker: worker, eventPublisher: context.eventManager, userData: userData)
+        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultsManager)
+        let userData = getUserConfData(context.userDefaultsManager)
+        let interactor = ConfidentialityScreenInteractor(presenter: presenter, worker: worker, eventSubscriber: context.eventManager, userData: userData)
         
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
             coordinator?.popScreen()
@@ -33,10 +33,6 @@ enum ConfidentialityScreenAssembly {
         interactor.onRouteToOnlineVisibilityScreen = { [weak coordinator] in
             coordinator?.showOnlineVisibilityScreen()
         }
-        
-        context.eventManager.register(eventType: UpdatePhoneStatusEvent.self, interactor.handlePhoneVisibilityChangeEvent)
-        context.eventManager.register(eventType: UpdateBirthStatusEvent.self, interactor.handleBirthVisibilityChangeEvent)
-        context.eventManager.register(eventType: UpdateOnlineStatusEvent.self, interactor.handleOnlineVisibilityChangeEvent)
         
         let view = ConfidentialityScreenViewController(interactor: interactor)
         presenter.view = view
