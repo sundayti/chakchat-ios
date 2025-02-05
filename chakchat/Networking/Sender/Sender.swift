@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Sender
-final class Sender {
+final class Sender: SenderLogic {
     
     // MARK: - Sender Method
     static func send<T: Codable, U: Codable>(
