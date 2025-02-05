@@ -14,14 +14,14 @@ class SendCodeInteractor: SendCodeBusinessLogic {
     private var presenter: SendCodePresentationLogic
     private var worker: SendCodeWorkerLogic
     private var errorHandler: ErrorHandlerLogic
-    private var state: AppState
+    private var state: SignupState
     
-    var onRouteToVerifyScreen: ((AppState) -> Void)?
+    var onRouteToVerifyScreen: ((SignupState) -> Void)?
     
     // MARK: - Initialization
     init(presenter: SendCodePresentationLogic,
          worker: SendCodeWorkerLogic,
-         state: AppState,
+         state: SignupState,
          errorHandler: ErrorHandlerLogic) {
         
         self.presenter = presenter
@@ -43,11 +43,11 @@ class SendCodeInteractor: SendCodeBusinessLogic {
                 self.presenter.showError(errorId)
             }
         }
-        // successTransition(AppState.signupVerifyCode)
+        // successTransition(SignupState.signupVerifyCode)
     }
     
     // MARK: - Routing
-    func successTransition(_ state: AppState) {
+    func successTransition(_ state: SignupState) {
         onRouteToVerifyScreen?(state)
     }
 }

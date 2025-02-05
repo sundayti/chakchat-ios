@@ -14,14 +14,14 @@ final class SignupInteractor: SignupBusinessLogic {
     private let presenter: SignupPresentationLogic
     private let worker: SignupWorkerLogic
     private let errorHandler: ErrorHandlerLogic
-    private let state: AppState
+    private let state: SignupState
     
-    var onRouteToChatScreen: ((AppState) -> Void)?
+    var onRouteToChatScreen: ((SignupState) -> Void)?
     
     // MARK: - Initialization
     init(presenter: SignupPresentationLogic,
          worker: SignupWorkerLogic,
-         state: AppState,
+         state: SignupState,
          errorHandler: ErrorHandlerLogic) {
         
         self.presenter = presenter
@@ -49,11 +49,11 @@ final class SignupInteractor: SignupBusinessLogic {
                 self.presenter.showError(errorId)
             }
         }
-       // successTransition(AppState.onChats)
+       // successTransition(SignupState.onChatsMenu)
     }
     
     // MARK: - Routing
-    func successTransition(_ state: AppState) {
+    func successTransition(_ state: SignupState) {
         onRouteToChatScreen?(state)
     }
 }

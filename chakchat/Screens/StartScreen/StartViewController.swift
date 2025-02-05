@@ -31,7 +31,7 @@ final class StartViewController: UIViewController {
     private lazy var tapLabel: UILabel = UILabel()
     private lazy var chakchatStackView = UIStackView(arrangedSubviews: [chakLabel, chatLabel])
     private lazy var gradientBackgroundLayer: CAGradientLayer = CAGradientLayer()
-    var onRouteToSendCodeScreen: ((AppState) -> Void)?
+    var onRouteToSendCodeScreen: ((SignupState) -> Void)?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -103,6 +103,6 @@ final class StartViewController: UIViewController {
     @objc
     private func dismissKeyboard() {
         view.endEditing(true)
-        onRouteToSendCodeScreen?(AppState.sendPhoneCode)
+        onRouteToSendCodeScreen?(SignupState.sendPhoneCode)
     }
 }

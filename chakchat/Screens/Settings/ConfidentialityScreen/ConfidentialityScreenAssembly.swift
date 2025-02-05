@@ -12,10 +12,10 @@ import UIKit
 enum ConfidentialityScreenAssembly {
     
     // MARK: - Confidentiality Screen Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ConfidentialityScreenPresenter()
-        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultManager)
-        let userData = getUserConfData(context.userDefaultManager)
+        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultsManager)
+        let userData = getUserConfData(context.userDefaultsManager)
         let interactor = ConfidentialityScreenInteractor(presenter: presenter, worker: worker, eventSubscriber: context.eventManager, userData: userData)
         
         interactor.onRouteToSettingsMenu = { [weak coordinator] in

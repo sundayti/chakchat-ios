@@ -12,7 +12,7 @@ import UIKit
 enum StartAssembly {
     
     // MARK: - Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController{
+    static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController{
         let view = StartViewController()
         
         view.onRouteToSendCodeScreen = { [weak context, weak coordinator] state in

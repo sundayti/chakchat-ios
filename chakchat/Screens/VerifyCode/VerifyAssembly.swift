@@ -12,13 +12,13 @@ import UIKit
 enum VerifyAssembly {
     
     // MARK: - Assembly Method
-    static func build(with context: SignupContext, coordinator: AppCoordinator) -> UIViewController {
+    static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         
         let presenter = VerifyPresenter()
         let verificationService = VerificationService()
         let sendCodeService = SendCodeService()
         
-        let worker = VerifyWorker(verificationService: verificationService, keychainManager: context.keychainManager, userDefaultsManager: context.userDefaultManager, sendCodeService: sendCodeService)
+        let worker = VerifyWorker(verificationService: verificationService, keychainManager: context.keychainManager, userDefaultsManager: context.userDefaultsManager, sendCodeService: sendCodeService)
         
         let interactor = VerifyInteractor(presentor: presenter,
                                           worker: worker,

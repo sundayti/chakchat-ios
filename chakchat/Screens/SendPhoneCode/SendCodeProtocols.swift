@@ -10,7 +10,7 @@ import Foundation
 // MARK: - SendCodeBusinessLogic
 protocol SendCodeBusinessLogic {
     func sendCodeRequest(_ request: SendCodeModels.SendCodeRequest)
-    func successTransition(_ state: AppState)
+    func successTransition(_ state: SignupState)
 }
 
 // MARK: - SendCodePresentationLogic
@@ -21,8 +21,8 @@ protocol SendCodePresentationLogic {
 // MARK: - SendCodeWorkerLogic
 protocol SendCodeWorkerLogic {
     func sendInRequest(_ request: SendCodeModels.SendCodeRequest,
-                     completion: @escaping (Result<AppState, Error>) -> Void)
+                     completion: @escaping (Result<SignupState, Error>) -> Void)
     
     func sendUpRequest(_ request: SendCodeModels.SendCodeRequest,
-                     completion: @escaping (Result<AppState, Error>) -> Void)
+                     completion: @escaping (Result<SignupState, Error>) -> Void)
 }
