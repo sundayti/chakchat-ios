@@ -14,6 +14,13 @@ final class BlackListCell: UITableViewCell {
     // MARK: - Constants
     static let cellIdentifier = "BlackListCell"
     
+    private enum Constants {
+        static let iconLeading: CGFloat = 10
+        static let iconSize: CGFloat = 24
+        static let blackListLabelLeading: CGFloat = 10
+        static let blockedAmountLeading: CGFloat = 10
+    }
+    
     // MARK: - Properties
     private let blackListIcon: UIImageView = UIImageView()
     private let blackListLabel: UILabel = UILabel()
@@ -49,26 +56,26 @@ final class BlackListCell: UITableViewCell {
         blackListIcon.contentMode = .scaleAspectFill
         blackListIcon.tintColor = .orange
         blackListIcon.pinCenterY(contentView)
-        blackListIcon.pinLeft(contentView.leadingAnchor, 10)
-        blackListIcon.setHeight(24)
-        blackListIcon.setWidth(24)
+        blackListIcon.pinLeft(contentView.leadingAnchor, Constants.iconLeading)
+        blackListIcon.setHeight(Constants.iconSize)
+        blackListIcon.setWidth(Constants.iconSize)
     }
     
     // MARK: - Black List Label Configuration
     private func configureBlackListLabel() {
         contentView.addSubview(blackListLabel)
-        blackListLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        blackListLabel.font = Fonts.systemR16
         blackListLabel.textColor = .black
         blackListLabel.pinCenterY(contentView)
-        blackListLabel.pinLeft(blackListIcon.trailingAnchor, 10)
+        blackListLabel.pinLeft(blackListIcon.trailingAnchor, Constants.blackListLabelLeading)
     }
     
     // MARK: - Blocked Amount Label Configuration
     private func configureBlockedAmountLabel() {
         contentView.addSubview(blockedAmountLabel)
-        blockedAmountLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        blockedAmountLabel.font = Fonts.systemR16
         blockedAmountLabel.textColor = .black
         blockedAmountLabel.pinCenterY(contentView)
-        blockedAmountLabel.pinRight(contentView.trailingAnchor, 10)
+        blockedAmountLabel.pinRight(contentView.trailingAnchor, Constants.blockedAmountLeading)
     }
 }

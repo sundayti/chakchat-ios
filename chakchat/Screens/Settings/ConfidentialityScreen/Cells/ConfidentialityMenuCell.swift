@@ -14,6 +14,11 @@ final class ConfidentialityMenuCell: UITableViewCell {
     // MARK: - Constants
     static let cellIdentifier = "ConfidentialityCell"
     
+    private enum Constants {
+        static let settingsLabelLeading: CGFloat = 10
+        static let settingStatusTrailing: CGFloat = 10
+    }
+    
     // MARK: - Properties
     private let settingLabel: UILabel = UILabel()
     private let settingStatus: UILabel = UILabel()
@@ -44,17 +49,17 @@ final class ConfidentialityMenuCell: UITableViewCell {
     private func configureSettingLabel() {
         contentView.addSubview(settingLabel)
         settingLabel.tintColor = .black
-        settingLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        settingLabel.font = Fonts.systemR16
         settingLabel.pinCenterY(contentView)
-        settingLabel.pinLeft(contentView.leadingAnchor, 10)
+        settingLabel.pinLeft(contentView.leadingAnchor, Constants.settingsLabelLeading)
     }
     
     // MARK: - Setting Status Configuration
     private func configureSettingStatus() {
         contentView.addSubview(settingStatus)
         settingStatus.textColor = .gray
-        settingStatus.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        settingStatus.font = Fonts.systemR16
         settingStatus.pinCenterY(contentView)
-        settingStatus.pinRight(contentView.trailingAnchor, 10)
+        settingStatus.pinRight(contentView.trailingAnchor, Constants.settingStatusTrailing)
     }
 }

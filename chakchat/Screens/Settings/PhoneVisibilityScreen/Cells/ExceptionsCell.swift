@@ -14,6 +14,15 @@ final class ExceptionsCell: UITableViewCell {
     // MARK: - Constants
     static let cellIdentifier = "ExceptionCell"
     
+    private enum Constants {
+        static let optionLabelLeading: CGFloat = 10
+        static let chevronName: String = "chevron.right"
+        static let chevronTrailing: CGFloat = 10
+        static let chevronSize: CGFloat = 12
+        static let addLabelText: String = "Add"
+        static let addLabelTrailing: CGFloat = 10
+    }
+    
     // MARK: - Properties
     private let optionLabel: UILabel = UILabel()
     private let chevronImageView: UIImageView = UIImageView()
@@ -44,10 +53,10 @@ final class ExceptionsCell: UITableViewCell {
     // MARK: - Option Label Configuration
     private func configureOptionLabel() {
         contentView.addSubview(optionLabel)
-        optionLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        optionLabel.font = Fonts.systemR16
         optionLabel.textColor = .black
         optionLabel.pinCenterY(contentView)
-        optionLabel.pinLeft(contentView.leadingAnchor, 10)
+        optionLabel.pinLeft(contentView.leadingAnchor, Constants.optionLabelLeading)
     }
     
     // MARK: Chevron ImageView Configuration
@@ -55,20 +64,20 @@ final class ExceptionsCell: UITableViewCell {
         contentView.addSubview(chevronImageView)
         chevronImageView.contentMode = .scaleAspectFill
         chevronImageView.tintColor = .gray
-        chevronImageView.image = UIImage(systemName: "chevron.right")
+        chevronImageView.image = UIImage(systemName: Constants.chevronName)
         chevronImageView.pinCenterY(contentView)
-        chevronImageView.pinRight(contentView.trailingAnchor, 10)
-        chevronImageView.setWidth(12)
-        chevronImageView.setHeight(12)
+        chevronImageView.pinRight(contentView.trailingAnchor, Constants.chevronTrailing)
+        chevronImageView.setWidth(Constants.chevronSize)
+        chevronImageView.setHeight(Constants.chevronSize)
     }
     
     // MARK: - Add Label Configuration
     private func configureAddLabel() {
         contentView.addSubview(addLabel)
-        addLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        addLabel.font = Fonts.systemR16
         addLabel.textColor = .gray
-        addLabel.text = "Add"
-        addLabel.pinRight(chevronImageView.leadingAnchor, 10)
+        addLabel.text = Constants.addLabelText
+        addLabel.pinRight(chevronImageView.leadingAnchor, Constants.addLabelTrailing)
         addLabel.pinCenterY(contentView)
     }
 }
