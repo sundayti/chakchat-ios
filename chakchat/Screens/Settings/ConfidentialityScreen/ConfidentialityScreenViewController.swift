@@ -11,15 +11,19 @@ import UIKit
 // MARK: - ConfidentialityScreenViewController
 final class ConfidentialityScreenViewController: UIViewController {
     
+    // MARK: - Constants
+    private enum Constants {
+        static let headerText: String = "Confidentiality"
+    }
+    
     // MARK: - Properties
+    private var titleLabel: UILabel = UILabel()
     private lazy var confidentialitySettingsTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var confidentilitySection = [
         ("Phone number", "All"),
         ("Date of Birth", "All"),
-        ("Online status", "All")
-    ]
-    private var blackListSection = [
-        (UIImage(systemName: "person.crop.circle.badge.xmark"), "Black list", "10")
+        ("Online status", "All"),
+        ("Black list", "10")
     ]
     
     let interactor: ConfidentialityScreenBusinessLogic
@@ -57,11 +61,18 @@ final class ConfidentialityScreenViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        configureBackArrow()
         interactor.loadUserData()
         configureSettingsTable()
-  
+        configureTitleLabel()
+        navigationItem.titleView = titleLabel
+    }
+    // MARK: - Title Label Configuration
+    private func configureTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.font = Fonts.systemB24
+        titleLabel.text = Constants.headerText
+        titleLabel.textAlignment = .center
     }
     
     // MARK: - Setting Table Configuration
@@ -70,13 +81,19 @@ final class ConfidentialityScreenViewController: UIViewController {
         confidentialitySettingsTable.delegate = self
         confidentialitySettingsTable.dataSource = self
         confidentialitySettingsTable.separatorStyle = .singleLine
+        confidentialitySettingsTable.separatorInset = .zero
         confidentialitySettingsTable.pinHorizontal(view)
-        confidentialitySettingsTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 40)
+        confidentialitySettingsTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
         confidentialitySettingsTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
         confidentialitySettingsTable.register(ConfidentialityMenuCell.self, forCellReuseIdentifier: ConfidentialityMenuCell.cellIdentifier)
         confidentialitySettingsTable.register(BlackListCell.self, forCellReuseIdentifier: BlackListCell.cellIdentifier)
         confidentialitySettingsTable.backgroundColor = view.backgroundColor
-        
+    }
+    
+    // MARK: - Back Arrow Configuration
+    private func configureBackArrow() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = .black
     }
     
     // MARK: - Actions
@@ -91,31 +108,22 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
     
     // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 3 : 1
+        return 4
     }
     
     // MARK: - Configuration and returning the cell for the specified index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ConfidentialityMenuCell.cellIdentifier, for: indexPath) as? ConfidentialityMenuCell else {
-                return UITableViewCell()
-            }
-            let item = confidentilitySection[indexPath.row]
-            cell.configureSettings(title: item.0, status: item.1)
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: BlackListCell.cellIdentifier, for: indexPath) as? BlackListCell else {
-                return UITableViewCell()
-            }
-            let item = blackListSection[indexPath.row]
-            cell.configure(icon: item.0, title: item.1, amount: item.2)
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ConfidentialityMenuCell.cellIdentifier, for: indexPath) as? ConfidentialityMenuCell else {
+            return UITableViewCell()
         }
+        let item = confidentilitySection[indexPath.row]
+        cell.configureSettings(title: item.0, status: item.1)
+        return cell
     }
     
     // MARK: - Defining the behavior when a cell is clicked
@@ -130,7 +138,7 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
         case (0,2):
             interactor.routeToOnlineVisibilityScreen()
             break
-        case (1,0):
+        case (0,3):
             print("Route to black list")
             break
         default:
