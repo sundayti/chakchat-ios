@@ -14,6 +14,13 @@ final class VisibilityCell: UITableViewCell {
     // MARK: - Constants
     static let cellIdentifier = "VisibilityCell"
     
+    private enum Constants {
+        static let currentOptionName: String = "checkmark"
+        static let currentOptionSize: CGFloat = 20
+        static let currentOptionTrailing: CGFloat = 10
+        static let visibilityOptionLeading: CGFloat = 10
+    }
+    
     // MARK: - Properties
     private var visibilityOptionLabel: UILabel = UILabel()
     private var currentOptionImageView: UIImageView = UIImageView()
@@ -45,19 +52,19 @@ final class VisibilityCell: UITableViewCell {
         contentView.addSubview(currentOptionImageView)
         currentOptionImageView.contentMode = .scaleAspectFill
         currentOptionImageView.tintColor = .orange
-        currentOptionImageView.image = UIImage(systemName: "checkmark")
-        currentOptionImageView.setHeight(20)
-        currentOptionImageView.setWidth(20)
+        currentOptionImageView.image = UIImage(systemName: Constants.currentOptionName)
+        currentOptionImageView.setHeight(Constants.currentOptionSize)
+        currentOptionImageView.setWidth(Constants.currentOptionSize)
         currentOptionImageView.pinCenterY(contentView)
-        currentOptionImageView.pinLeft(contentView, 24)
+        currentOptionImageView.pinRight(contentView, Constants.currentOptionTrailing)
     }
     
     // MARK: - Visibility Option Label Configuration
     private func configureVisibilityOptionLabel() {
         contentView.addSubview(visibilityOptionLabel)
-        visibilityOptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        visibilityOptionLabel.font = Fonts.systemR16
         visibilityOptionLabel.textColor = .black
         visibilityOptionLabel.pinCenterY(contentView)
-        visibilityOptionLabel.pinLeft(currentOptionImageView.trailingAnchor, 16)
+        visibilityOptionLabel.pinLeft(contentView, Constants.visibilityOptionLeading)
     }
 }

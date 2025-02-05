@@ -11,8 +11,21 @@ import UIKit
 // MARK: - PhoneVisibilityScreenViewController
 final class PhoneVisibilityScreenViewController: UIViewController {
     
+    // MARK: - Constants
+    private enum Constants {
+        static let headerText: String = "Phone number"
+        static let arrowName: String = "arrow.left"
+        static let tableTop: CGFloat = 20
+        static let tableBottom: CGFloat = 40
+        static let neverText: String = "Never show"
+        static let alwaysText: String = "Always show"
+        static let whoCanSeeLabelText: String = "Who can see my phone number"
+        static let exceptionsLabelText: String = "Exceptions"
+    }
+    
     // MARK: - Properties
-    private var selectedIndex: IndexPath? // Переменная нужна для красивой галочки при нажатии на ряд в секции
+    private var selectedIndex: IndexPath?
+    private var titleLabel: UILabel = UILabel()
     private var phoneVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var phoneVisibilityData = [
         [("All"), ("Custom"), ("Nobody")],
@@ -38,10 +51,25 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
         interactor.loadUserData()
+        configureBackArrow()
         configurePhoneVisibilityTable()
+        configureTitleLabel()
+        navigationItem.titleView = titleLabel
+    }
+    
+    // MARK: - Title Label Configuration
+    private func configureTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.font = Fonts.systemB24
+        titleLabel.text = Constants.headerText
+        titleLabel.textAlignment = .center
+    }
+    
+    // MARK: - Back Arrow Configuration
+    private func configureBackArrow() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = .black
     }
     
     // MARK: - Phone Visibility Table Configuration
@@ -50,9 +78,10 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         phoneVisibilityTable.delegate = self
         phoneVisibilityTable.dataSource = self
         phoneVisibilityTable.separatorStyle = .singleLine
+        phoneVisibilityTable.separatorInset = .zero
         phoneVisibilityTable.pinHorizontal(view)
-        phoneVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 20)
-        phoneVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 40)
+        phoneVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.tableTop)
+        phoneVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.tableBottom)
         phoneVisibilityTable.register(VisibilityCell.self, forCellReuseIdentifier: VisibilityCell.cellIdentifier)
         phoneVisibilityTable.register(ExceptionsCell.self, forCellReuseIdentifier: ExceptionsCell.cellIdentifier)
         phoneVisibilityTable.backgroundColor = view.backgroundColor
@@ -63,11 +92,11 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
         case 0:
-            phoneVisibilityData[1] = [("Never show")]
+            phoneVisibilityData[1] = [(Constants.neverText)]
         case 1:
-            phoneVisibilityData[1] = [("Never show"), ("Always show")]
+            phoneVisibilityData[1] = [(Constants.neverText), (Constants.alwaysText)]
         case 2:
-            phoneVisibilityData[1] = [("Always show")]
+            phoneVisibilityData[1] = [(Constants.alwaysText)]
         default:
             break
         }
@@ -133,12 +162,12 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
         // where exactly the title will be located relative to the section
-        label.frame = CGRect.init(x: 20, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
+        label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = "Who can see my phone number"
+            label.text = Constants.whoCanSeeLabelText
         case 1:
-            label.text = "Exceptions"
+            label.text = Constants.exceptionsLabelText
         default:
             label.text = nil
         }

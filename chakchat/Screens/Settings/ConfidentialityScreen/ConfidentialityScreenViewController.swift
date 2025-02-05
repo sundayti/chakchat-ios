@@ -14,6 +14,9 @@ final class ConfidentialityScreenViewController: UIViewController {
     // MARK: - Constants
     private enum Constants {
         static let headerText: String = "Confidentiality"
+        static let tableTop: CGFloat = 0
+        static let tableBottom: CGFloat = 20
+        static let arrowName: String = "arrow.left"
     }
     
     // MARK: - Properties
@@ -67,6 +70,7 @@ final class ConfidentialityScreenViewController: UIViewController {
         configureTitleLabel()
         navigationItem.titleView = titleLabel
     }
+    
     // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
@@ -83,8 +87,8 @@ final class ConfidentialityScreenViewController: UIViewController {
         confidentialitySettingsTable.separatorStyle = .singleLine
         confidentialitySettingsTable.separatorInset = .zero
         confidentialitySettingsTable.pinHorizontal(view)
-        confidentialitySettingsTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
-        confidentialitySettingsTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
+        confidentialitySettingsTable.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.tableTop)
+        confidentialitySettingsTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.tableBottom)
         confidentialitySettingsTable.register(ConfidentialityMenuCell.self, forCellReuseIdentifier: ConfidentialityMenuCell.cellIdentifier)
         confidentialitySettingsTable.register(BlackListCell.self, forCellReuseIdentifier: BlackListCell.cellIdentifier)
         confidentialitySettingsTable.backgroundColor = view.backgroundColor
@@ -92,7 +96,7 @@ final class ConfidentialityScreenViewController: UIViewController {
     
     // MARK: - Back Arrow Configuration
     private func configureBackArrow() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = .black
     }
     
