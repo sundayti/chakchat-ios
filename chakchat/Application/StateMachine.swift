@@ -7,13 +7,17 @@
 
 import Foundation
 
-// MARK: - AppState
-enum AppState {
+enum SignupState {
     case sendPhoneCode
     case signupVerifyCode
     case signup
     case signin
-    case onChats
+    case onChatsMenu
+    case _default
+}
+// MARK: - AppState
+enum AppState {
+    // implemented soon
     case _default
 }
 
