@@ -10,6 +10,17 @@ import UIKit
 // MARK: - UIProfileTextField
 final class UIProfileTextField : UIView {
     
+    // MARK: - Constants
+    private enum Constants {
+        static let titleTop: CGFloat = 7
+        static let textTop: CGFloat = 2
+        static let leading: CGFloat = 20
+        static let trailing: CGFloat = 20
+        static let lineBottom: CGFloat = 0
+        static let lineTop: CGFloat = 9
+        static let lineHeight: CGFloat = 0.5
+    }
+    
     // MARK: - Properties
     private let titleLabel: UILabel = UILabel()
     internal let textField: UITextField = UITextField()
@@ -47,17 +58,17 @@ final class UIProfileTextField : UIView {
         addSubview(titleLabel)
         titleLabel.text = title
         titleLabel.font = Fonts.systemL14
-        titleLabel.pinTop(self.topAnchor, 7)
-        titleLabel.pinLeft(self.leadingAnchor, 20)
+        titleLabel.pinTop(self.topAnchor, Constants.titleTop)
+        titleLabel.pinLeft(self.leadingAnchor, Constants.leading)
         titleLabel.textColor = UIColor.lightGray
     }
     
     // MARK: - Text Field Configuration
     private func configureTextField(placeholder: String, isEditable: Bool) {
         addSubview(textField)
-        textField.pinTop(titleLabel.bottomAnchor, 2)
-        textField.pinLeft(self.leadingAnchor, 20)
-        textField.pinRight(self.trailingAnchor, 20)
+        textField.pinTop(titleLabel.bottomAnchor, Constants.textTop)
+        textField.pinLeft(self.leadingAnchor, Constants.leading)
+        textField.pinRight(self.trailingAnchor, Constants.trailing)
         textField.placeholder = placeholder
         textField.font = Fonts.systemM17
         textField.isUserInteractionEnabled = isEditable
@@ -66,12 +77,12 @@ final class UIProfileTextField : UIView {
     // MARK: - Bottom Line Configuration
     private func configureBottomLine() {
         addSubview(bottomLine)
-        bottomLine.pinLeft(self.leadingAnchor, 20)
-        bottomLine.pinRight(self.trailingAnchor, 20)
-        bottomLine.pinTop(textField.bottomAnchor, 9)
-        bottomLine.pinBottom(self.bottomAnchor, 0)
+        bottomLine.pinLeft(self.leadingAnchor, Constants.leading)
+        bottomLine.pinRight(self.trailingAnchor, Constants.trailing)
+        bottomLine.pinTop(textField.bottomAnchor, Constants.lineTop)
+        bottomLine.pinBottom(self.bottomAnchor, Constants.lineBottom)
         
-        bottomLine.setHeight(0.5)
+        bottomLine.setHeight(Constants.lineHeight)
         bottomLine.backgroundColor = UIColor.lightGray
     }
 }
