@@ -14,13 +14,15 @@ final class AppCoordinator {
     // MARK: - Properties
     private let window: UIWindow
     private let navigationController: UINavigationController
-    private let signupContext: SignupContext
+    private let signupContext: SignupContextProtocol
+    private let mainAppContext: MainAppContextProtocol
 
     // MARK: - Initialization
     init(window: UIWindow) {
         self.window = window
         self.navigationController = UINavigationController()
-        self.signupContext = SignupContext(keychainManager: KeychainManager(), errorHandler: ErrorHandler(), userDefaultManager: UserDefaultsManager(), eventManager: EventManager(), state: AppState._default)
+        self.signupContext = SignupContext(keychainManager: KeychainManager(), errorHandler: ErrorHandler(), userDefaultsManager: UserDefaultsManager(), state: SignupState._default)
+        self.mainAppContext = MainAppContext(keychainManager: signupContext.keychainManager, errorHandler: signupContext.errorHandler, userDefaultsManager: signupContext.userDefaultsManager, eventManager: EventManager(), state: AppState._default)
     }
 
     func start() {
@@ -33,7 +35,6 @@ final class AppCoordinator {
     // MARK: - Start Screen Creation
     private func CreateStartScreen() -> UIViewController {
         return StartAssembly.build(with: signupContext, coordinator: self)
-
     }
     
     // MARK: - Registration Screen Showing
@@ -67,41 +68,41 @@ final class AppCoordinator {
 
     // MARK: - Chat Screen Creation
     private func CreateChatScreen() -> UIViewController {
-        return ChatsAssembly.build(with: signupContext, coordinator: self)
+        return ChatsAssembly.build(with: mainAppContext, coordinator: self)
     }
     
     func showSettingsScreen() {
-        let settingsVC = SettingsScreenAssembly.build(with: signupContext, coordinator: self)
+        let settingsVC = SettingsScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(settingsVC, animated: true)
     }
     
     func showProfileSettingsScreen() {
-        let profileSettingsVC = ProfileSettingsAssembly.build(with: signupContext, coordinator: self)
+        let profileSettingsVC = ProfileSettingsAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(profileSettingsVC, animated: true)
     }
     
     func showConfidentialityScreen() {
-        let confVC = ConfidentialityScreenAssembly.build(with: signupContext, coordinator: self)
+        let confVC = ConfidentialityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(confVC, animated: true)
     }
     
     func showPhoneVisibilityScreen() {
-        let phoneVisibilityVC = PhoneVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
+        let phoneVisibilityVC = PhoneVisibilityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(phoneVisibilityVC, animated: true)
     }
     
     func showBirthVisibilityScreen() {
-        let birthVisibilityVC = BirthVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
+        let birthVisibilityVC = BirthVisibilityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(birthVisibilityVC, animated: true)
     }
     
     func showOnlineVisibilityScreen() {
-        let onlineVisibilityVC = OnlineVisibilityScreenAssembly.build(with: signupContext, coordinator: self)
+        let onlineVisibilityVC = OnlineVisibilityScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(onlineVisibilityVC, animated: true)
     }
     
     func showNotificationScreen() {
-        let notificationVC = NotificationScreenAssembly.build(with: signupContext, coordinator: self)
+        let notificationVC = NotificationScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(notificationVC, animated: true)
     }
 }
