@@ -7,12 +7,26 @@
 
 import Foundation
 import Combine
+import OSLog
+
+struct OSLogOutputStream: TextOutputStream {
+    let log: OSLog
+    let level: OSLogType
+
+    func write(_ string: String) {
+        if !string.isEmpty && string != "\n" {
+            os_log("%{public}@", log: log, type: level, string)
+        }
+    }
+}
 
 // MARK: - EventManager
 final class EventManager: EventPublisherProtocol, EventSubscriberProtocol {
         
     private var cancellables = Set<AnyCancellable>()
     private var subjects: [ObjectIdentifier: Any] = [:]
+    private let logger: OSLog = OSLog(subsystem: "com.chakchat.combinelogger", category: "DataStreamLog")
+    private lazy var logStream: OSLogOutputStream = OSLogOutputStream(log: logger, level: .debug)
     
     func publish<T>(event: T) where T : Event {
         let key = ObjectIdentifier(T.self)
@@ -29,6 +43,9 @@ final class EventManager: EventPublisherProtocol, EventSubscriberProtocol {
         guard let subject = subjects[key] as? PassthroughSubject<T, Never> else {
             fatalError("Failed to cast subject")
         }
-        return subject.sink(receiveValue: eventHandler)
+        
+        return subject
+            .print("Datastream", to: logStream)
+            .sink(receiveValue: eventHandler)
     }
 }

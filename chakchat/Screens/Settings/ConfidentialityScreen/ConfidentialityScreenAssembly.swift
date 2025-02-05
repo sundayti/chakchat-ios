@@ -16,7 +16,12 @@ enum ConfidentialityScreenAssembly {
         let presenter = ConfidentialityScreenPresenter()
         let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultsManager)
         let userData = getUserConfData(context.userDefaultsManager)
-        let interactor = ConfidentialityScreenInteractor(presenter: presenter, worker: worker, eventSubscriber: context.eventManager, userData: userData)
+        let interactor = ConfidentialityScreenInteractor(presenter: presenter, 
+                                                         worker: worker,
+                                                         eventSubscriber: context.eventManager,
+                                                         userData: userData,
+                                                         logger: context.logger
+        )
         
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
             coordinator?.popScreen()

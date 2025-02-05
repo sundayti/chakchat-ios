@@ -21,7 +21,9 @@ enum SignupAssembly {
         let interactor = SignupInteractor(presenter: presenter, 
                                           worker: worker,
                                           state: context.state,
-                                          errorHandler: context.errorHandler)
+                                          errorHandler: context.errorHandler,
+                                          logger: context.logger
+        )
         
         let view = SignupViewController(interactor: interactor)
         presenter.view = view

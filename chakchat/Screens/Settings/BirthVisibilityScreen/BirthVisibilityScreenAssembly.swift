@@ -16,7 +16,12 @@ enum BirthVisibilityScreenAssembly {
         let presenter = BirthVisibilityScreenPresenter()
         let worker = BirthVisibilityScreenWorker(userDeafultsManager: context.userDefaultsManager)
         let userData = getBirthVisibilityData(context.userDefaultsManager)
-        let interactor = BirthVisibilityScreenInteractor(presenter: presenter, worker: worker, eventManager: context.eventManager, userData: userData)
+        let interactor = BirthVisibilityScreenInteractor(presenter: presenter, 
+                                                         worker: worker,
+                                                         eventManager: context.eventManager,
+                                                         userData: userData,
+                                                         logger: context.logger
+        )
         interactor.onRouteToConfidentialityScreen = { [weak coordinator] in
             coordinator?.popScreen()
         }

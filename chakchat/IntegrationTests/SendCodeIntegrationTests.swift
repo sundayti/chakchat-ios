@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import OSLog
 
 // MARK: - SendCodeIntegrationTests
 @testable import chakchat
@@ -37,7 +38,8 @@ final class SendCodeIntegrationTests: XCTestCase {
                 presenter: presenter,
                 worker: worker,
                 state: SignupState.sendPhoneCode,
-                errorHandler: errorHandler
+                errorHandler: errorHandler, 
+                logger: OSLog(subsystem: "con.chakchat.tests", category: "TestsLog")
             )
         }()
         interactor = sendCodeInteractor

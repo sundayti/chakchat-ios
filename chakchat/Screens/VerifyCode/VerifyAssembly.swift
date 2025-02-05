@@ -23,7 +23,9 @@ enum VerifyAssembly {
         let interactor = VerifyInteractor(presentor: presenter,
                                           worker: worker,
                                           errorHandler: context.errorHandler, 
-                                          state: context.state)
+                                          state: context.state,
+                                          logger: context.logger
+        )
         let view = VerifyViewController(interactor: interactor)
         presenter.view = view
         
