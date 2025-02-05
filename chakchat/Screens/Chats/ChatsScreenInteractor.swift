@@ -6,24 +6,31 @@
 //
 
 import Foundation
+import OSLog
 
 // MARK: - ChatsScreenInteractor
 final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     
     // MARK: - Properties
-    var presenter: ChatsScreenPresentationLogic
-    var worker: ChatsScreenWorkerLogic
+    private let presenter: ChatsScreenPresentationLogic
+    private let worker: ChatsScreenWorkerLogic
+    private let logger: OSLog
     
     var onRouteToSettings: (() -> Void)?
     
     // MARK: - Initialization
-    init(presenter: ChatsScreenPresentationLogic, worker: ChatsScreenWorkerLogic) {
+    init(presenter: ChatsScreenPresentationLogic, 
+         worker: ChatsScreenWorkerLogic,
+         logger: OSLog
+    ) {
         self.presenter = presenter
         self.worker = worker
+        self.logger = logger
     }
     
     // MARK: - Routing
     func routeToSettingsScreen() {
+        os_log("Routed to settings screen", log: logger, type: .default)
         onRouteToSettings?()
     }
     
