@@ -10,6 +10,9 @@ import Foundation
 // MARK: - Sender
 final class Sender: SenderLogic {
     
+    enum Keys {
+        static let baseURL = "SERVER_BASE_URL"
+    }
     // MARK: - Sender Method
     static func send<T: Codable, U: Codable>(
         requestBody: T,
@@ -17,7 +20,11 @@ final class Sender: SenderLogic {
         endpoint: String,
         completion: @escaping (Result<U, Error>) -> Void
     ) {
-        guard let url = URL(string: endpoint) else {
+        guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) as? String else {
+            fatalError("miss base url")
+        }
+        print("\(baseURL)\(endpoint)")
+        guard let url = URL(string: "\(baseURL)\(endpoint)") else {
             completion(.failure(APIError.invalidURL))
             return
         }
