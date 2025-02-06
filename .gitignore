@@ -44,6 +44,7 @@ xcuserdata/
 *.moved-aside
 DerivedData/
 *.xcuserstate
+*.xcconfig
 
 # Swift Package Manager
 .build/
