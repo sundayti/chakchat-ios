@@ -267,6 +267,7 @@
 		AA84F05E2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateVibrationNotificationEvent.swift; sourceTree = "<group>"; };
 		AA84F0642D53672B00678ABA /* ContextsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextsProtocols.swift; sourceTree = "<group>"; };
 		AA84F0662D53680E00678ABA /* MainAppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppContext.swift; sourceTree = "<group>"; };
+		AA87FC682D54E68700E8D066 /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
@@ -616,6 +617,14 @@
 			path = ProfileEvent;
 			sourceTree = "<group>";
 		};
+		AA87FC662D54DE6300E8D066 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				AA87FC682D54E68700E8D066 /* config.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,6 +669,7 @@
 		AA9B61FB2D2D47CB0064CB23 = {
 			isa = PBXGroup;
 			children = (
+				AA87FC662D54DE6300E8D066 /* Config */,
 				AA9B62062D2D47CB0064CB23 /* chakchat */,
 				AA9B62052D2D47CB0064CB23 /* Products */,
 			);
@@ -1230,6 +1240,7 @@
 		};
 		AA9B62162D2D47CE0064CB23 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA87FC682D54E68700E8D066 /* config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1293,6 +1304,7 @@
 		};
 		AA9B62172D2D47CE0064CB23 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA87FC682D54E68700E8D066 /* config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1354,7 +1366,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F46Y9QM766;
+				DEVELOPMENT_TEAM = XQ5MGT6276;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1367,7 +1379,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "lzkgmr.chakchat-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = mrdr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1382,7 +1394,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F46Y9QM766;
+				DEVELOPMENT_TEAM = XQ5MGT6276;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1395,7 +1407,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "lzkgmr.chakchat-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = mrdr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
