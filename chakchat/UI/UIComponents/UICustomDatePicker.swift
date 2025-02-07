@@ -31,6 +31,7 @@ final class UICustomDatePicker : UIView {
     private var datePicker: UIDatePicker = UIDatePicker()
     private var okButton: UIButton = UIButton()
     private var resetButton: UIButton = UIButton()
+    
     var delegate: (_ date: Date?) -> Void = { _ in }
     var settedDate: Date {
         get { datePicker.date }
@@ -63,10 +64,11 @@ final class UICustomDatePicker : UIView {
     
     // MARK: - Frame Configuration
     private func configureFrame() {
+        addSubview(frameView)
         frameView.layer.cornerRadius = Constants.frameCornerRadius
         frameView.layer.masksToBounds = true
         frameView.backgroundColor = .white
-        addSubview(frameView)
+        
         frameView.pinLeft(self, Constants.frameX)
         frameView.pinRight(self, Constants.frameX)
         frameView.pinCenterY(self)
@@ -76,31 +78,34 @@ final class UICustomDatePicker : UIView {
     
     // MARK: - Title Configuration
     private func configurateTitle() {
+        frameView.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB16
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
-        frameView.addSubview(titleLabel)
+        
         titleLabel.pinTop(frameView, Constants.titleTop)
         titleLabel.pinCenterX(frameView)
     }
     
     // MARK: - DatePicker Configuration
     private func configureDatePicker() {
+        frameView.addSubview(datePicker)
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
         datePicker.date = settedDate
         datePicker.maximumDate = Date()
-        frameView.addSubview(datePicker)
+        
         datePicker.pinTop(titleLabel.bottomAnchor, Constants.datePickerTop)
         datePicker.pinCenterX(frameView)
     }
     
     // MARK: - Reset Button Configuration
     private func configureResetButton() {
+        frameView.addSubview(resetButton)
         resetButton.setTitle(Constants.resetTitle, for: .normal)
         resetButton.setTitleColor(UIColor.systemBlue, for: .normal)
         resetButton.addTarget(self, action: #selector(resetPressed), for: .touchUpInside)
-        frameView.addSubview(resetButton)
+        
         resetButton.pinTop(datePicker.bottomAnchor, Constants.buttonTop)
         resetButton.pinLeft(frameView, Constants.buttonX)
         resetButton.setHeight(Constants.buttonHeight)
@@ -108,17 +113,18 @@ final class UICustomDatePicker : UIView {
     
     // MARK: - OK Button Configuration
     private func configureOKButton() {
+        frameView.addSubview(okButton)
         okButton.setTitle(Constants.okTitle, for: .normal)
         okButton.setTitleColor(UIColor.systemBlue, for: .normal)
         okButton.addTarget(self, action: #selector(okPressed), for: .touchUpInside)
-        frameView.addSubview(okButton)
+        
         okButton.pinTop(datePicker.bottomAnchor, Constants.buttonTop)
         okButton.pinRight(frameView, Constants.buttonX)
         okButton.setHeight(Constants.buttonHeight)
     }
     
     // MARK: - Disappering if buttons were pressed
-    private func disappearAndReturn(date: Date?) {
+    private func disappear(date: Date?) {
         self.alpha = 0.0
         self.removeFromSuperview()
         self.delegate(date)
@@ -127,12 +133,12 @@ final class UICustomDatePicker : UIView {
     // MARK: - Actions
     @objc
     func resetPressed() {
-        disappearAndReturn(date: nil)
+        disappear(date: nil)
     }
       
     @objc
     func okPressed() {
-        disappearAndReturn(date: datePicker.date)
+        disappear(date: datePicker.date)
     }
       
     // MARK: - Create Picker and Show

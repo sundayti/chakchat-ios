@@ -57,20 +57,22 @@ final class UIDateButton : UIView {
         addSubview(titleLabel)
         titleLabel.text = Constants.titleText
         titleLabel.font = Fonts.systemL14
+        titleLabel.textColor = UIColor.lightGray
+        
         titleLabel.pinTop(self.topAnchor, Constants.titleTop)
         titleLabel.pinLeft(self.leadingAnchor, Constants.leading)
-        titleLabel.textColor = UIColor.lightGray
     }
     
     // MARK: - Button Configuration
     private func configureButton() {
         addSubview(button)
+        button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(showDatePicker), for: .touchUpInside)
+        
         button.pinTop(titleLabel.bottomAnchor, Constants.buttonTop)
         button.pinLeft(self.leadingAnchor, Constants.leading)
         button.pinRight(self.trailingAnchor, Constants.buttonTrailing)
-        button.contentHorizontalAlignment = .left
         button.pinBottom(self.bottomAnchor, Constants.buttonBottom)
-        button.addTarget(self, action: #selector(showDatePicker), for: .touchUpInside)
     }
     
     // MARK: - Actions
