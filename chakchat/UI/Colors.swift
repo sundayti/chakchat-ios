@@ -20,4 +20,6 @@ enum Colors {
     static let gray: UIColor = UIColor(hex: "#383838") ?? UIColor.gray
     // Used in settings.
     static let lightOrange: UIColor = UIColor(hex: "FF9D00") ?? UIColor.orange
+    // Used when alerts showing
+    static let blackout: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
 }

@@ -34,6 +34,10 @@ final class ProfileSettingsViewController: UIViewController {
         static let logOutButtonHeight: CGFloat = 38
         static let logOutButtonWidth: CGFloat = 100
         static let logOutBorderWidth: CGFloat = 1
+        
+        static let dateButtonTop: CGFloat = 2.5
+        static let dateButtonX: CGFloat = 20
+        static let dateButtonHeight: CGFloat = 50
     }
     
     // MARK: - Properties
@@ -44,6 +48,7 @@ final class ProfileSettingsViewController: UIViewController {
     private var usernameTextField: UIProfileTextField = UIProfileTextField(title: "Username", placeholder: "Username", isEditable: true)
     private var phoneTextField: UIProfileTextField = UIProfileTextField(title: "Phone", placeholder: "Phone", isEditable: false)
     private var logOutButton: UIButton = UIButton()
+    private var dateButton = UIDateButton()
     let interactor: ProfileSettingsBusinessLogic
     
     // MARK: - Initialization
@@ -76,13 +81,13 @@ final class ProfileSettingsViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
-        
         configureTitleLabel()
         navigationItem.titleView = titleLabel
         configureCancelButton()
         configureApplyButton()
         configureIconImageView()
         interactor.loadUserData()
+        configureDateButton()
         configureLogOutButton()
     }
     
@@ -171,7 +176,16 @@ final class ProfileSettingsViewController: UIViewController {
         
         view.addSubview(logOutButton)
         logOutButton.pinCenterX(view)
-        logOutButton.pinTop(phoneTextField.bottomAnchor, Constants.logOutButtonTop)
+        logOutButton.pinTop(dateButton.bottomAnchor, Constants.logOutButtonTop)
+    }
+    
+    // MARK: - Date Button Configuration
+    private func configureDateButton() {
+        view.addSubview(dateButton)
+        dateButton.pinTop(phoneTextField.bottomAnchor, Constants.dateButtonTop)
+        dateButton.pinLeft(view.leadingAnchor, Constants.dateButtonX)
+        dateButton.pinRight(view.trailingAnchor, Constants.dateButtonX)
+        dateButton.setHeight(Constants.dateButtonHeight)
     }
     
     // MARK: - User Profile Data Transfering
@@ -235,5 +249,11 @@ extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINav
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension UIViewController {
+    func askDate(title: String, settedDate: Date, delegate: @escaping (_ date: Date?) -> Void) {
+        _ = UICustomDatePicker.createAndShow(in: self, title: title, settedDate: settedDate, delegate: delegate)
     }
 }

@@ -23,7 +23,7 @@ final class UIProfileTextField : UIView {
     
     // MARK: - Properties
     private let titleLabel: UILabel = UILabel()
-    internal let textField: UITextField = UITextField()
+    private let textField: UITextField = UITextField()
     private let bottomLine: UIView = UIView()
     
     // MARK: - Initialization
