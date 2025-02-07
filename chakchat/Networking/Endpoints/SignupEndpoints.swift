@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - SignupEndpoints
 enum SignupEndpoints: String {
-    case sendPhoneCodeEndpoint = "http://localhost:80/api/identity/v1.0/signup/send-phone-code"
-    case verifyCodeEndpoint = "http://localhost:80/api/identity/v1.0/signup/verify-code"
-    case signupEndpoint = "http://localhost:80/api/identity/v1.0/signup"
+    case sendPhoneCodeEndpoint = "/api/identity/v1.0/signup/send-phone-code"
+    case verifyCodeEndpoint = "/api/identity/v1.0/signup/verify-code"
+    case signupEndpoint = "/api/identity/v1.0/signup"
 }
