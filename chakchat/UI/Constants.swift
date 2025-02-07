@@ -42,4 +42,7 @@ enum UIConstants {
     static let errorMessageDuration: TimeInterval = 2
     static let alphaStart: CGFloat = 0
     static let alphaEnd: CGFloat = 1
+    
+    // MARK: - Common
+    static let dateFormat: String = "dd.MM.yyyy"
 }

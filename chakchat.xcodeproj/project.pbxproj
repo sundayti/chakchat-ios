@@ -165,6 +165,8 @@
 		E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED3D2D4CF59E006CE143 /* Fonts.swift */; };
 		E135ED402D4D373F006CE143 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED3F2D4D373F006CE143 /* Format.swift */; };
 		E135ED422D4E7D06006CE143 /* UIProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED412D4E7D06006CE143 /* UIProfileTextField.swift */; };
+		E135ED482D54C273006CE143 /* UIDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED472D54C273006CE143 /* UIDateButton.swift */; };
+		E135ED4A2D54EB33006CE143 /* UICustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -341,6 +343,8 @@
 		E135ED3D2D4CF59E006CE143 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		E135ED3F2D4D373F006CE143 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		E135ED412D4E7D06006CE143 /* UIProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProfileTextField.swift; sourceTree = "<group>"; };
+		E135ED472D54C273006CE143 /* UIDateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDateButton.swift; sourceTree = "<group>"; };
+		E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomDatePicker.swift; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -636,6 +640,8 @@
 				E11D35192D439F3300A698EA /* UIPhoneNumberTextField.swift */,
 				E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */,
 				E135ED412D4E7D06006CE143 /* UIProfileTextField.swift */,
+				E135ED472D54C273006CE143 /* UIDateButton.swift */,
+				E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1097,6 +1103,7 @@
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				AA84F0202D4BBEB800678ABA /* PhoneVisibilityScreenProtocols.swift in Sources */,
 				AA84F0532D4D0C5D00678ABA /* NotificationScreenPresenter.swift in Sources */,
+				E135ED482D54C273006CE143 /* UIDateButton.swift in Sources */,
 				AA84F0322D4BEF2700678ABA /* BirthVisibilityScreenWorker.swift in Sources */,
 				AA84F01C2D4BBEA800678ABA /* PhoneVisibilityScreenWorker.swift in Sources */,
 				E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */,
@@ -1128,6 +1135,7 @@
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
 				AA84F0512D4D0C4600678ABA /* NotificationScreenWorker.swift in Sources */,
+				E135ED4A2D54EB33006CE143 /* UICustomDatePicker.swift in Sources */,
 				AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */,
 				E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */,
 				AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */,
