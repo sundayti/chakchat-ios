@@ -55,13 +55,13 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     
     // MARK: - User Data Showing
     func showUserData(_ data: SettingsScreenModels.UserData) {
-        os_log("Passed user data in settigns screen to presenter", log: logger, type: .default)
+        os_log("Passed user data in settings screen to presenter", log: logger, type: .default)
         presenter.showUserData(data)
     }
     
     // MARK: - New User Data Showing
     func showNewUserData(_ data: SettingsScreenModels.UserData) {
-        os_log("Passed new user data in settigns screen to presenter", log: logger, type: .default)
+        os_log("Passed new user data in settings screen to presenter", log: logger, type: .default)
         presenter.showNewUserData(data)
     }
     
@@ -82,7 +82,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     } 
 
     // MARK: - User Data Changed Event Handling
-    func subscribeToEvents() {
+    private func subscribeToEvents() {
         eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
             self?.handleUserDataChangedEvent(event)
         }.store(in: &cancellables)
