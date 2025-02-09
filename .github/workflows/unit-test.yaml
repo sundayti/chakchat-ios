@@ -32,8 +32,7 @@ jobs:
         run: |
           xcodebuild test \
           -scheme chakchat \
-          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.4'
-       	IPHONEOS_DEPLOYMENT_TARGET=14.0          
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.4' 
 
       - name: Upload test result logs (optional)
         uses: actions/upload-artifact@v4
