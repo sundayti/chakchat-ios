@@ -102,6 +102,7 @@
 		AA87FC712D5503A300E8D066 /* UserProfileScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87FC702D5503A300E8D066 /* UserProfileScreenPresenter.swift */; };
 		AA87FC752D5503B400E8D066 /* UserProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87FC742D5503B400E8D066 /* UserProfileScreenViewController.swift */; };
 		AA87FC772D5503BD00E8D066 /* UserProfileScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87FC762D5503BD00E8D066 /* UserProfileScreenProtocols.swift */; };
+		AA87FCBC2D56312600E8D066 /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87FCBB2D56312600E8D066 /* UserProfileCell.swift */; };
 		AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */; };
 		AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC602D381B8D007DEC76 /* Constants.swift */; };
 		AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92EC622D382057007DEC76 /* UIGradientButton.swift */; };
@@ -283,6 +284,7 @@
 		AA87FC702D5503A300E8D066 /* UserProfileScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreenPresenter.swift; sourceTree = "<group>"; };
 		AA87FC742D5503B400E8D066 /* UserProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreenViewController.swift; sourceTree = "<group>"; };
 		AA87FC762D5503BD00E8D066 /* UserProfileScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreenProtocols.swift; sourceTree = "<group>"; };
+		AA87FCBB2D56312600E8D066 /* UserProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
 		AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIChakChatStackView.swift; sourceTree = "<group>"; };
 		AA92EC602D381B8D007DEC76 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AA92EC622D382057007DEC76 /* UIGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradientButton.swift; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 		AA87FC692D54FFAD00E8D066 /* UserProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
+				AA87FCBA2D56311A00E8D066 /* Cells */,
 				AA87FC6A2D55037E00E8D066 /* UserProfileScreenAssembly.swift */,
 				AA87FC6C2D55038900E8D066 /* UserProfileScreenInteractor.swift */,
 				AA87FC6E2D55039B00E8D066 /* UserProfileScreenWorker.swift */,
@@ -655,6 +658,14 @@
 				AA87FC762D5503BD00E8D066 /* UserProfileScreenProtocols.swift */,
 			);
 			path = UserProfileScreen;
+			sourceTree = "<group>";
+		};
+		AA87FCBA2D56311A00E8D066 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AA87FCBB2D56312600E8D066 /* UserProfileCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
@@ -1200,6 +1211,7 @@
 				AA9B626D2D2FD25A0064CB23 /* SignupViewController.swift in Sources */,
 				AA7BADFA2D3FCA4C0030AC82 /* SettingsScreenModels.swift in Sources */,
 				AA84F0122D4BB6A200678ABA /* BlackListCell.swift in Sources */,
+				AA87FCBC2D56312600E8D066 /* UserProfileCell.swift in Sources */,
 				AA84F0382D4BEF4500678ABA /* BirthVisibilityScreenProtocols.swift in Sources */,
 				AA9B624E2D2EC7C50064CB23 /* VerifyViewController.swift in Sources */,
 				AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */,
