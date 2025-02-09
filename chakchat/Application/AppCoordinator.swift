@@ -89,6 +89,11 @@ final class AppCoordinator {
         navigationController.pushViewController(settingsVC, animated: true)
     }
     
+    func showUserSettingsScreen() {
+        let userSettingsVC = UserProfileScreenAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(userSettingsVC, animated: true)
+    }
+    
     // MARK: - Profile Settings Screen Showing
     func showProfileSettingsScreen() {
         let profileSettingsVC = ProfileSettingsAssembly.build(with: mainAppContext, coordinator: self)

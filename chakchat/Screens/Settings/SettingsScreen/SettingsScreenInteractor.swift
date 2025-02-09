@@ -19,7 +19,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     private let eventSubscriber: EventSubscriberProtocol
     private let logger: OSLog
     
-    var onRouteToProfileSettings: (() -> Void)?
+    var onRouteToUserProfileSettings: (() -> Void)?
     var onRouteToConfidentialitySettings: (() -> Void)?
     var onRouteToNotificationsSettings: (() -> Void)?
     
@@ -68,7 +68,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     // MARK: - Routing
     func profileSettingsRoute() {
         os_log("Routed to profile settings screen", log: logger, type: .default)
-        onRouteToProfileSettings?()
+        onRouteToUserProfileSettings?()
     }
     
     func confidentialitySettingsRoute() {

@@ -26,5 +26,4 @@ protocol SettingsScreenPresentationLogic {
 
 // MARK: - SettingsScreenWorkerLogic
 protocol SettingsScreenWorkerLogic {
-    func loadUserProfileData() -> ProfileSettingsModels.ProfileUserData
 }

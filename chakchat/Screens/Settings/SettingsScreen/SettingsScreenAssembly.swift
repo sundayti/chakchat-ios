@@ -22,8 +22,8 @@ enum SettingsScreenAssembly {
                                                   eventSubscriber: context.eventManager,
                                                   logger: context.logger
         )
-        interactor.onRouteToProfileSettings = { [weak coordinator] in
-            coordinator?.showProfileSettingsScreen()
+        interactor.onRouteToUserProfileSettings = { [weak coordinator] in
+            coordinator?.showUserSettingsScreen()
         }
         interactor.onRouteToConfidentialitySettings = { [weak coordinator] in
             coordinator?.showConfidentialityScreen()
