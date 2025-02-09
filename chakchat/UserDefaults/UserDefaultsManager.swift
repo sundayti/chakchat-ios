@@ -16,6 +16,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let nicknameKey = "userNickname"
     private let usernameKey = "userUsername"
     private let phoneKey = "userPhone"
+    private let birthKey = "birthKey"
     private let confidentialityPhoneKey = "confidentialityPhone"
     private let confidentialityBirthKey = "confidentialityBirth"
     private let confidentialityOnlineKey = "confidentialityOnline"
@@ -24,8 +25,10 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let vibrationNotificationKey = "vibrationNotification"
     
     // MARK: - Avatar Saving
-    func saveAvatar(_ icon: UIImage) {
-        print("Hello world")
+    func saveAvatar(_ icon: UIImage?) {
+        if let icon = icon?.pngData() {
+            UserDefaults.standard.set(icon, forKey: avatarKey)
+        }
     }
     
     // MARK: - Nickname Saving
@@ -41,6 +44,10 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     // MARK: - Phone Saving
     func savePhone(_ phone: String) {
         UserDefaults.standard.set(phone, forKey: phoneKey)
+    }
+    
+    func saveBirth(_ birth: String?) {
+        UserDefaults.standard.set(birth, forKey: birthKey)
     }
     
     // MARK: - Confidentiality Phone Status Saving
@@ -75,6 +82,10 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     }
     
     func loadAvatar() -> UIImage? {
+        if let data = UserDefaults.standard.data(forKey: avatarKey) {
+            let image = UIImage(data: data)
+            return image
+        }
         return nil
     }
     
@@ -100,6 +111,13 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
             return "Default"
         }
         return phone
+    }
+    
+    func loadBirth() -> String? {
+        if let birth = UserDefaults.standard.string(forKey: birthKey) {
+            return birth
+        }
+        return nil
     }
     
     // MARK: - Confidentiality Phone Status Loading
@@ -147,6 +165,10 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     // MARK: - Avatar Deleting
     func deleteAvatar() {
         UserDefaults.standard.removeObject(forKey: avatarKey)
+    }
+    
+    func deleteBirth() {
+        UserDefaults.standard.removeObject(forKey: birthKey)
     }
 }
 
