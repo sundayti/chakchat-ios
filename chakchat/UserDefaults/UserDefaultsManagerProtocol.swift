@@ -10,10 +10,11 @@ import UIKit
 
 // MARK: - UserDefaultsManagerProtocol
 protocol UserDefaultsManagerProtocol {
-    func saveAvatar(_ icon: UIImage)
+    func saveAvatar(_ icon: UIImage?)
     func saveNickname(_ nickname: String)
     func saveUsername(_ username: String)
     func savePhone(_ phone: String)
+    func saveBirth(_ birth: String?)
     func saveConfidentialityPhoneStatus(_ phoneStatus: String)
     func saveConfidentialityDateOfBirthStatus(_ birthStatus: String)
     func saveConfidentialityOnlineStatus(_ onlineStatus: String)
@@ -25,6 +26,7 @@ protocol UserDefaultsManagerProtocol {
     func loadNickname() -> String
     func loadUsername() -> String
     func loadPhone() -> String
+    func loadBirth() -> String?
     func loadConfidentialityPhoneStatus() -> String
     func loadConfidentialityDateOfBirthStatus() -> String
     func loadConfidentialityOnlineStatus() -> String
@@ -33,4 +35,5 @@ protocol UserDefaultsManagerProtocol {
     func loadVibrationNotificationStatus() -> Bool
     
     func deleteAvatar()
+    func deleteBirth()
 }

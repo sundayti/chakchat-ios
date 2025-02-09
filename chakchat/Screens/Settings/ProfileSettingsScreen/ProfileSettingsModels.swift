@@ -11,9 +11,11 @@ import UIKit
 // MARK: - ProfileSettingsModels
 enum ProfileSettingsModels {
     struct ProfileUserData {
+        var id: UUID
         var nickname: String
         var username: String
-        var phone: String
-        var icon: UIImage?
+        let phone: String
+        var photo: UIImage?
+        var dateOfBirth: String?
     }
 }

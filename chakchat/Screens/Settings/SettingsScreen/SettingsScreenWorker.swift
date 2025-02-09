@@ -17,12 +17,4 @@ final class SettingsScreenWorker: SettingsScreenWorkerLogic {
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
-    
-    // MARK: - User Profile Data Loading
-    func loadUserProfileData() -> ProfileSettingsModels.ProfileUserData {
-        let nickname =  userDefaultsManager.loadNickname()
-        let username = userDefaultsManager.loadUsername()
-        let phone = userDefaultsManager.loadPhone()
-        return ProfileSettingsModels.ProfileUserData(nickname: nickname, username: username, phone: phone)
-    }
 }

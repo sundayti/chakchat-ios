@@ -36,5 +36,6 @@ private func getUserProfileData(_ userDefaultsManager: UserDefaultsManagerProtoc
     let nickname = userDefaultsManager.loadNickname()
     let username = userDefaultsManager.loadUsername()
     let phone = userDefaultsManager.loadPhone()
-    return ProfileSettingsModels.ProfileUserData(nickname: nickname, username: username, phone: phone)
+    let birth = userDefaultsManager.loadBirth()
+    return ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: nickname, username: username, phone: phone, dateOfBirth: birth)
 }

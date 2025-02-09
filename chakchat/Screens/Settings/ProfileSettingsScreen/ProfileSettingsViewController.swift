@@ -28,7 +28,7 @@ final class ProfileSettingsViewController: UIViewController {
         static let fieldsTrailing: CGFloat = 0
         static let defaultText: String = "default"
         
-        static let logOutButtonRadious: CGFloat = 18
+        static let logOutButtonRadius: CGFloat = 18
         static let logOutButtonTitle: String = "Log out"
         static let logOutButtonTop: CGFloat = 25
         static let logOutButtonHeight: CGFloat = 38
@@ -43,13 +43,15 @@ final class ProfileSettingsViewController: UIViewController {
     // MARK: - Properties
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var iconImageView: UIImageView = UIImageView()
-    private lazy var phone: String = String()
     private var nameTextField: UIProfileTextField = UIProfileTextField(title: "Name", placeholder: "Name", isEditable: true)
     private var usernameTextField: UIProfileTextField = UIProfileTextField(title: "Username", placeholder: "Username", isEditable: true)
     private var phoneTextField: UIProfileTextField = UIProfileTextField(title: "Phone", placeholder: "Phone", isEditable: false)
-    private var logOutButton: UIButton = UIButton()
-    private var dateButton = UIDateButton()
+    private var birthTextField: UIProfileTextField = UIProfileTextField(title: "Date of Birth", placeholder: "Choose", isEditable: false)
+    private var logOutButton: UIButton = UIButton(type: .system)
+    private var dateButton: UIButton = UIButton(type: .system)
+    private let dateFormatter: DateFormatter = DateFormatter()
     let interactor: ProfileSettingsBusinessLogic
+    private var selectedDate: Date?
     
     // MARK: - Initialization
     init(interactor: ProfileSettingsBusinessLogic) {
@@ -64,14 +66,22 @@ final class ProfileSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        interactor.loadUserData()
     }
     
     // MARK: - User Data Configuration
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        configureNameTextField(userData.nickname)
-        configureUsernameTextField(userData.username)
-        configurePhoneTextField(userData.phone)
-        configureIconImageView(userData.icon)
+        nameTextField.setText(userData.nickname)
+        usernameTextField.setText(userData.username)
+        phoneTextField.setText(userData.phone)
+        if let photo = userData.photo {
+            iconImageView.image = photo
+        }
+        if let birth = userData.dateOfBirth {
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            selectedDate = dateFormatter.date(from: birth)
+            birthTextField.setText(birth)
+        }
     }
     
     // MARK: - UI Configuration
@@ -83,11 +93,16 @@ final class ProfileSettingsViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         configureTitleLabel()
         navigationItem.titleView = titleLabel
+        
+        configureIconImageView()
+        configureNameTextField()
+        configureUsernameTextField()
+        configurePhoneTextField()
+        configureBirthTextField()
+        configureDateButton()
+        
         configureCancelButton()
         configureApplyButton()
-        configureIconImageView()
-        interactor.loadUserData()
-        configureDateButton()
         configureLogOutButton()
     }
     
@@ -113,7 +128,7 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     // MARK: - Icon ImageView Configuration
-    private func configureIconImageView(_ image: UIImage? = nil) {
+    private func configureIconImageView() {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconImageSize)
         iconImageView.setWidth(Constants.iconImageSize)
@@ -127,7 +142,7 @@ final class ProfileSettingsViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: Constants.iconImageSize, weight: .light, scale: .default)
         let gearImage = UIImage(systemName: Constants.defaultProfileImageSymbol, withConfiguration: config)
         iconImageView.tintColor = Colors.lightOrange
-        iconImageView.image = image ?? gearImage
+        iconImageView.image = gearImage
         
         iconImageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
@@ -135,30 +150,37 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     // MARK: - Name Text Field Configuration
-    private func configureNameTextField(_ name: String) {
+    private func configureNameTextField() {
         view.addSubview(nameTextField)
         nameTextField.pinTop(iconImageView.bottomAnchor, Constants.nameTop)
         nameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         nameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        nameTextField.setText(name)
+        nameTextField.setText("error")
     }
     
     // MARK: - Username Text Field Configuration
-    private func configureUsernameTextField(_ username: String) {
+    private func configureUsernameTextField() {
         view.addSubview(usernameTextField)
         usernameTextField.pinTop(nameTextField.bottomAnchor, Constants.usernameTop)
         usernameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         usernameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        usernameTextField.setText(username)
+        usernameTextField.setText("error")
     }
     
     // MARK: - Phone Text Field Configuration
-    private func configurePhoneTextField(_ phone: String) {
+    private func configurePhoneTextField() {
         view.addSubview(phoneTextField)
         phoneTextField.pinTop(usernameTextField.bottomAnchor, Constants.phoneTop)
         phoneTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         phoneTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        phoneTextField.setText(Format.number(phone) ?? Constants.defaultText)
+        phoneTextField.setText("error")
+    }
+    
+    private func configureBirthTextField() {
+        view.addSubview(birthTextField)
+        birthTextField.pinTop(phoneTextField.bottomAnchor, 2.5)
+        birthTextField.pinLeft(view.leadingAnchor, 0)
+        birthTextField.pinRight(view.trailingAnchor, 0)
     }
     
     // MARK: - Log Out Button Configuration
@@ -167,7 +189,7 @@ final class ProfileSettingsViewController: UIViewController {
         logOutButton.setTitleColor(.systemRed, for: .normal)
         logOutButton.titleLabel?.font = Fonts.systemB20
         logOutButton.backgroundColor = .clear
-        logOutButton.layer.cornerRadius = Constants.logOutButtonRadious
+        logOutButton.layer.cornerRadius = Constants.logOutButtonRadius
         logOutButton.layer.borderWidth = Constants.logOutBorderWidth
         logOutButton.layer.borderColor = UIColor.systemRed.cgColor
         logOutButton.addTarget(self, action: #selector(logOutButtonPressed), for: .touchUpInside)
@@ -186,16 +208,18 @@ final class ProfileSettingsViewController: UIViewController {
         dateButton.pinLeft(view.leadingAnchor, Constants.dateButtonX)
         dateButton.pinRight(view.trailingAnchor, Constants.dateButtonX)
         dateButton.setHeight(Constants.dateButtonHeight)
+        dateButton.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
     }
     
     // MARK: - User Profile Data Transfering
     private func transferUserProfileData() -> ProfileSettingsModels.ProfileUserData {
-        // TODO: if text == nil, disable apply button(in future :) )
-        let newNickname = nameTextField.getText() ?? Constants.defaultText
-        let newUsername = usernameTextField.getText() ?? Constants.defaultText
-        let newIcon = iconImageView.image ?? nil
-        // TODO: add icon saving
-        return ProfileSettingsModels.ProfileUserData(nickname: newNickname, username: newUsername, phone: phone, icon: newIcon)
+        // Все кроме newBirth = nil, невозможно. В днем рождения все в порядке
+        // если пользователь решил нажать на кнопку reset.
+        let newNickname = nameTextField.getText() ?? "Cry"
+        let newUsername = usernameTextField.getText() ?? "Cry"
+        let newBirth = birthTextField.getText() ?? nil
+        let phone = phoneTextField.getText() ?? "IT IS NOT POSSIBLE"
+        return ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: newNickname, username: newUsername, phone: phone, dateOfBirth: newBirth)
     }
     
     // MARK: - Actions
@@ -235,6 +259,34 @@ final class ProfileSettingsViewController: UIViewController {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    @objc
+    private func dateButtonPressed() {
+        let datePicker: UICustomDatePicker = UICustomDatePicker()
+        view.addSubview(datePicker)
+        view.bringSubviewToFront(datePicker)
+        datePicker.settedDate = selectedDate ?? Date()
+        datePicker.title = "Select your birthday date"
+        datePicker.pinSuperView(view)
+        datePicker.delegate = { [weak self] date in
+            self?.handleDateSelection(date)
+        }
+    }
+    
+    //TODO: - Probably it is interactor logic
+    private func handleDateSelection(_ date: Date?) {
+        if let date = date {
+            print("Selected Date: \(date)")
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            let formattedDate = dateFormatter.string(from: date)
+            selectedDate = date
+            birthTextField.setText(formattedDate)
+        } else {
+            print("Date selection was reset")
+            selectedDate = nil
+            birthTextField.setText(nil)
+        }
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -249,11 +301,5 @@ extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINav
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension UIViewController {
-    func askDate(title: String, settedDate: Date, delegate: @escaping (_ date: Date?) -> Void) {
-        _ = UICustomDatePicker.createAndShow(in: self, title: title, settedDate: settedDate, delegate: delegate)
     }
 }

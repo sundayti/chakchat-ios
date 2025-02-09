@@ -22,5 +22,10 @@ final class ProfileSettingsWorker: ProfileSettingsWorkerLogic {
     func saveNewData(_ userData: ProfileSettingsModels.ProfileUserData) {
         userDefaultsManager.saveNickname(userData.nickname)
         userDefaultsManager.saveUsername(userData.username)
+        if let data = userData.dateOfBirth {
+            userDefaultsManager.saveBirth(data)
+        } else {
+            userDefaultsManager.saveBirth(nil)
+        }
     }
 }

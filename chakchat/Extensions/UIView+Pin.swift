@@ -118,5 +118,15 @@ extension UIView {
         pinHorizontal(otherView, const)
         pinVertical(otherView, const)
     }
+    
+    func pinSuperView(_ otherView: UIView, _ const: Double = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: otherView.topAnchor),
+            bottomAnchor.constraint(equalTo: otherView.bottomAnchor),
+            leadingAnchor.constraint(equalTo: otherView.leadingAnchor),
+            topAnchor.constraint(equalTo: otherView.topAnchor)
+        ])
+    }
 }
     
