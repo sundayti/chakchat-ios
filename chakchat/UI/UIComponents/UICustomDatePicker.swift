@@ -32,10 +32,10 @@ final class UICustomDatePicker : UIView {
     private var okButton: UIButton = UIButton()
     private var resetButton: UIButton = UIButton()
     
-    var delegate: (_ date: Date?) -> Void = { _ in }
-    var settedDate: Date {
+    var delegate: ((_ date: Date?) -> Void)?
+    var settedDate: Date? {
         get { datePicker.date }
-        set { datePicker.date = newValue }
+        set { datePicker.date = newValue ?? Date() }
     }
     var title: String {
         get { titleLabel.text ?? "" }
@@ -92,7 +92,7 @@ final class UICustomDatePicker : UIView {
         frameView.addSubview(datePicker)
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
-        datePicker.date = settedDate
+        datePicker.date = settedDate ?? Date()
         datePicker.maximumDate = Date()
         
         datePicker.pinTop(titleLabel.bottomAnchor, Constants.datePickerTop)
@@ -117,7 +117,6 @@ final class UICustomDatePicker : UIView {
         okButton.setTitle(Constants.okTitle, for: .normal)
         okButton.setTitleColor(UIColor.systemBlue, for: .normal)
         okButton.addTarget(self, action: #selector(okPressed), for: .touchUpInside)
-        
         okButton.pinTop(datePicker.bottomAnchor, Constants.buttonTop)
         okButton.pinRight(frameView, Constants.buttonX)
         okButton.setHeight(Constants.buttonHeight)
@@ -127,7 +126,7 @@ final class UICustomDatePicker : UIView {
     private func disappear(date: Date?) {
         self.alpha = 0.0
         self.removeFromSuperview()
-        self.delegate(date)
+        self.delegate?(date)
     }
     
     // MARK: - Actions
@@ -139,16 +138,5 @@ final class UICustomDatePicker : UIView {
     @objc
     func okPressed() {
         disappear(date: datePicker.date)
-    }
-      
-    // MARK: - Create Picker and Show
-    static func createAndShow(in viewController: UIViewController, title: String, settedDate: Date, delegate: @escaping (_ date: Date?) -> Void) -> UICustomDatePicker {
-        let picker = UICustomDatePicker(frame: viewController.view.bounds)
-        picker.title = title
-        picker.delegate = delegate
-        picker.settedDate = settedDate
-        viewController.view.addSubview(picker)
-        
-        return picker
     }
 }

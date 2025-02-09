@@ -37,7 +37,7 @@ final class UIProfileTextField : UIView {
     }
     
     // MARK: - Setting Text
-    func setText(_ text: String) {
+    func setText(_ text: String?) {
         textField.text = text
     }
     
