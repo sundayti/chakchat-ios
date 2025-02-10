@@ -15,7 +15,8 @@ final class UserProfileScreenViewController: UIViewController {
     private var userTableViewData = [
         [("NamePlaceholder")],
         [("UsernamePlaceholder")],
-        [("PhonePlaceholder")]
+        [("PhonePlaceholder")],
+        [("BirthPlaceholder")]
     ]
     
     let interactor: UserProfileScreenBusinessLogic
@@ -41,6 +42,9 @@ final class UserProfileScreenViewController: UIViewController {
         userTableViewData[2][0] = userData.phone
         if let icon = userData.photo {
             iconImageView.image = icon
+        }
+        if let birth = userData.dateOfBirth {
+            userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
         }
     }
     
@@ -107,9 +111,9 @@ final class UserProfileScreenViewController: UIViewController {
 }
 
 extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataSource {
-    
+    // if user dont pick his date of birth he/she will see only 3 sections in current screen
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return userTableViewData[3][0] == "" ? 3 : 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,13 +126,14 @@ extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataS
         }
         let item = userTableViewData[indexPath.section][indexPath.row]
         // если номер телефона
-        if indexPath.section == 2 {
+        switch indexPath.section {
+        case 2:
             if let formatedPhone = Format.number(item) {
                 cell.configure(with: formatedPhone)
             } else {
                 cell.configure(with: item)
             }
-        } else {
+        default:
             cell.configure(with: item)
         }
         return cell
@@ -148,6 +153,8 @@ extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataS
             label.text = "Username"
         case 2:
             label.text = "Phone"
+        case 3:
+            label.text = "Date of birth"
         default:
             label.text = nil
         }

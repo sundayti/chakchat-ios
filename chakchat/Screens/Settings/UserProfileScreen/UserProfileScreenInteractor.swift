@@ -10,7 +10,7 @@ import OSLog
 
 final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     
-    private let preseter: UserProfileScreenPresentationLogic
+    private let presenter: UserProfileScreenPresentationLogic
     private let worker: UserProfileScreenWorkerLogic
     private var userData: ProfileSettingsModels.ProfileUserData
     private let logger: OSLog
@@ -23,7 +23,7 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
          userData: ProfileSettingsModels.ProfileUserData,
          logger: OSLog
     ) {
-        self.preseter = preseter
+        self.presenter = preseter
         self.worker = worker
         self.userData = userData
         self.logger = logger
@@ -36,7 +36,7 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         os_log("Passed user data in user settings screen to presenter", log: logger, type: .default)
-        preseter.showUserData(userData)
+        presenter.showUserData(userData)
     }
     
     func updateUserData() {
@@ -46,7 +46,7 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     
     func showNewUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         os_log("Passed new user data in user settings screen to presenter", log: logger, type: .default)
-        preseter.showNewUserData(userData)
+        presenter.showNewUserData(userData)
     }
     
     internal func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
