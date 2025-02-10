@@ -73,7 +73,8 @@ final class ProfileSettingsViewController: UIViewController {
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         nameTextField.setText(userData.nickname)
         usernameTextField.setText(userData.username)
-        phoneTextField.setText(userData.phone)
+        let formattedPhone = Format.number(userData.phone);
+        phoneTextField.setText(formattedPhone);
         if let photo = userData.photo {
             iconImageView.image = photo
         }
@@ -217,7 +218,10 @@ final class ProfileSettingsViewController: UIViewController {
         // если пользователь решил нажать на кнопку reset.
         let newNickname = nameTextField.getText() ?? "Cry"
         let newUsername = usernameTextField.getText() ?? "Cry"
-        let newBirth = birthTextField.getText() ?? nil
+        var newBirth = birthTextField.getText();
+        if (newBirth != nil) {
+            newBirth = newBirth?.replacingOccurrences(of: ".", with: "-");
+        }
         let phone = phoneTextField.getText() ?? "IT IS NOT POSSIBLE"
         return ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: newNickname, username: newUsername, phone: phone, dateOfBirth: newBirth)
     }

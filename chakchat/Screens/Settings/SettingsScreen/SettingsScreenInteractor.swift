@@ -92,8 +92,9 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         os_log("Handled user data changes in settings screen", log: logger, type: .default)
         userData.nickname = event.newNickname
         userData.username = event.newUsername
-        DispatchQueue.main.async {
-            self.updateUserData()
+        if let newIcon = event.newIcon {
+            userData.icon = newIcon
         }
+        updateUserData()
     }
 }

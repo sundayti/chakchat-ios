@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - SettingsScreenModels
 enum SettingsScreenModels {
@@ -13,5 +14,6 @@ enum SettingsScreenModels {
         var nickname: String
         var username: String
         var phone: String
+        var icon: UIImage?
     }
 }

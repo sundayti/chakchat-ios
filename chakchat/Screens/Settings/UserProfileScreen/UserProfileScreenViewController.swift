@@ -15,7 +15,8 @@ final class UserProfileScreenViewController: UIViewController {
     private var userTableViewData = [
         [("NamePlaceholder")],
         [("UsernamePlaceholder")],
-        [("PhonePlaceholder")]
+        [("PhonePlaceholder")],
+        [("BirthPlaceholder")]
     ]
     
     let interactor: UserProfileScreenBusinessLogic
@@ -42,10 +43,22 @@ final class UserProfileScreenViewController: UIViewController {
         if let icon = userData.photo {
             iconImageView.image = icon
         }
+        if let birth = userData.dateOfBirth {
+            userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
+        }
     }
     
     public func updateUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        
+        userTableViewData[0][0] = userData.nickname
+        userTableViewData[1][0] = userData.username
+        userTableViewData[2][0] = userData.phone
+        if let icon = userData.photo {
+            iconImageView.image = icon
+        }
+        if let birth = userData.dateOfBirth {
+            userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
+        }
+        userTableView.reloadData()
     }
     
     private func configureUI() {
@@ -88,6 +101,7 @@ final class UserProfileScreenViewController: UIViewController {
         userTableView.dataSource = self
         userTableView.separatorStyle = .singleLine
         userTableView.separatorInset = .zero
+        userTableView.isUserInteractionEnabled = false
         userTableView.pinHorizontal(view, -15)
         userTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
         userTableView.pinTop(iconImageView.bottomAnchor, 20)
@@ -107,9 +121,9 @@ final class UserProfileScreenViewController: UIViewController {
 }
 
 extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataSource {
-    
+    // if user dont pick his date of birth he/she will see only 3 sections in current screen
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return userTableViewData[3][0] == "" ? 3 : 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,13 +136,14 @@ extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataS
         }
         let item = userTableViewData[indexPath.section][indexPath.row]
         // если номер телефона
-        if indexPath.section == 2 {
+        switch indexPath.section {
+        case 2:
             if let formatedPhone = Format.number(item) {
                 cell.configure(with: formatedPhone)
             } else {
                 cell.configure(with: item)
             }
-        } else {
+        default:
             cell.configure(with: item)
         }
         return cell
@@ -148,6 +163,8 @@ extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataS
             label.text = "Username"
         case 2:
             label.text = "Phone"
+        case 3:
+            label.text = "Date of birth"
         default:
             label.text = nil
         }

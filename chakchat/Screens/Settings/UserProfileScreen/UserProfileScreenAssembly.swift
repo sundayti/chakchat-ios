@@ -15,7 +15,8 @@ enum UserProfileScreenAssembly {
         let userData = getUserProfileData(context.userDefaultsManager)
         let interactor = UserProfileScreenInteractor(preseter: presenter,
                                                      worker: worker,
-                                                     userData: userData,
+                                                     userData: userData, 
+                                                     eventSubscriber: context.eventManager,
                                                      logger: context.logger)
         interactor.onRouteToSettingsScreen = { [weak coordinator] in
             coordinator?.popScreen()
