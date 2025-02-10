@@ -12,11 +12,12 @@ final class SignupService: SignupServiceLogic {
     
     func sendSignupRequest(_ request: SignupModels.SignupRequest,
                            completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void) {
-        Sender.send(
+        Sender.Post(
             requestBody: request,
             responseType: SuccessModels.Tokens.self,
             endpoint: SignupEndpoints.signupEndpoint.rawValue,
-            completion: completion)
+            completion: completion
+        )
     }
     
 }
