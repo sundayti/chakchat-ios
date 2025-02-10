@@ -45,7 +45,10 @@ final class ProfileSettingsInteractor: ProfileSettingsBusinessLogic {
         os_log("Saved new data in profile settings screen", log: logger, type: .default)
         worker.saveNewData(newUserData)
         let updateProfileDataEvent = UpdateProfileDataEvent(newNickname: newUserData.nickname,
-                                                                newUsername: newUserData.username)
+                                                            newUsername: newUserData.username,
+                                                            newIcon: newUserData.photo,
+                                                            newBirth: newUserData.dateOfBirth
+        )
         os_log("Published event in profile settings screen", log: logger, type: .default)
         eventPublisher.publish(event: updateProfileDataEvent)
         os_log("Routed to settings menu screen", log: logger, type: .default)
