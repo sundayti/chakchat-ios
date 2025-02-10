@@ -49,7 +49,16 @@ final class UserProfileScreenViewController: UIViewController {
     }
     
     public func updateUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        
+        userTableViewData[0][0] = userData.nickname
+        userTableViewData[1][0] = userData.username
+        userTableViewData[2][0] = userData.phone
+        if let icon = userData.photo {
+            iconImageView.image = icon
+        }
+        if let birth = userData.dateOfBirth {
+            userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
+        }
+        userTableView.reloadData()
     }
     
     private func configureUI() {
@@ -92,6 +101,7 @@ final class UserProfileScreenViewController: UIViewController {
         userTableView.dataSource = self
         userTableView.separatorStyle = .singleLine
         userTableView.separatorInset = .zero
+        userTableView.isUserInteractionEnabled = false
         userTableView.pinHorizontal(view, -15)
         userTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
         userTableView.pinTop(iconImageView.bottomAnchor, 20)
