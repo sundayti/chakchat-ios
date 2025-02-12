@@ -14,4 +14,8 @@ final class UserProfileScreenWorker: UserProfileScreenWorkerLogic {
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
+    
+    func getUserData() -> ProfileSettingsModels.ProfileUserData {
+        return userDefaultsManager.loadUserData()
+    }
 }
