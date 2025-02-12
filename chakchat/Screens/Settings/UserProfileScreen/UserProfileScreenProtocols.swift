@@ -12,14 +12,14 @@ protocol UserProfileScreenBusinessLogic {
     
     func loadUserData()
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
-    func updateUserData()
-    func showNewUserData(_ userData: ProfileSettingsModels.ProfileUserData)
+    func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData)
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent)
 }
 protocol UserProfileScreenPresentationLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
-    func showNewUserData(_ userData: ProfileSettingsModels.ProfileUserData)
+    func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData)
 }
 protocol UserProfileScreenWorkerLogic {
+    func getUserData() -> ProfileSettingsModels.ProfileUserData
 }

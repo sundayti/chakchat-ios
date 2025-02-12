@@ -40,21 +40,14 @@ final class UserProfileScreenViewController: UIViewController {
         userTableViewData[0][0] = userData.nickname
         userTableViewData[1][0] = userData.username
         userTableViewData[2][0] = userData.phone
-        if let icon = userData.photo {
-            iconImageView.image = icon
-        }
         if let birth = userData.dateOfBirth {
             userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
         }
     }
     
-    public func updateUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    public func updateUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
         userTableViewData[0][0] = userData.nickname
         userTableViewData[1][0] = userData.username
-        userTableViewData[2][0] = userData.phone
-        if let icon = userData.photo {
-            iconImageView.image = icon
-        }
         if let birth = userData.dateOfBirth {
             userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
         }
@@ -123,7 +116,11 @@ final class UserProfileScreenViewController: UIViewController {
 extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataSource {
     // if user dont pick his date of birth he/she will see only 3 sections in current screen
     func numberOfSections(in tableView: UITableView) -> Int {
-        return userTableViewData[3][0] == "" ? 3 : 4
+        if userTableViewData[3][0] == "" || userTableViewData[3][0] == "BirthPlaceholder" {
+            return 3
+        } else {
+            return 4
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

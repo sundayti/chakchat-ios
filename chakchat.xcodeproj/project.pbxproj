@@ -16,6 +16,10 @@
 		9B1EC0862D39669F00E01E00 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0852D39669F00E01E00 /* Poppins-Regular.ttf */; };
 		9B1EC0882D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1EC0872D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf */; };
 		9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1EC08C2D3A828D00E01E00 /* ErrorId.swift */; };
+		AA07A6712D5C898200CFE124 /* MeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07A6702D5C898200CFE124 /* MeService.swift */; };
+		AA07A6732D5C898B00CFE124 /* MeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07A6722D5C898B00CFE124 /* MeServiceProtocol.swift */; };
+		AA07A6752D5CA17B00CFE124 /* UserServiceEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07A6742D5CA17B00CFE124 /* UserServiceEndpoints.swift */; };
+		AA07A6772D5D4F9300CFE124 /* ProfileSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07A6762D5D4F9300CFE124 /* ProfileSettingsWorker.swift */; };
 		AA1C0E332D43A081008E47D8 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E322D43A081008E47D8 /* Event.swift */; };
 		AA1C0E362D43A0D5008E47D8 /* EventPublisherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E352D43A0D5008E47D8 /* EventPublisherProtocol.swift */; };
 		AA1C0E382D43A232008E47D8 /* UserDefaultsManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E372D43A232008E47D8 /* UserDefaultsManagerProtocol.swift */; };
@@ -26,7 +30,6 @@
 		AA1C0E432D43C968008E47D8 /* ProfileSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E422D43C968008E47D8 /* ProfileSettingsInteractor.swift */; };
 		AA1C0E452D43C974008E47D8 /* ProfileSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E442D43C974008E47D8 /* ProfileSettingsPresenter.swift */; };
 		AA1C0E472D43C984008E47D8 /* ProfileSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E462D43C984008E47D8 /* ProfileSettingsModels.swift */; };
-		AA1C0E492D43C99C008E47D8 /* ProfileSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E482D43C99C008E47D8 /* ProfileSettingsWorker.swift */; };
 		AA1C0E4B2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */; };
 		AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */; };
 		AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */; };
@@ -41,7 +44,6 @@
 		AA7BADF42D3FC9F40030AC82 /* SettingsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADF32D3FC9F40030AC82 /* SettingsScreenAssembly.swift */; };
 		AA7BADF62D3FCA2A0030AC82 /* SettingsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADF52D3FCA2A0030AC82 /* SettingsScreenInteractor.swift */; };
 		AA7BADF82D3FCA360030AC82 /* SettingsScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADF72D3FCA360030AC82 /* SettingsScreenPresenter.swift */; };
-		AA7BADFA2D3FCA4C0030AC82 /* SettingsScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADF92D3FCA4C0030AC82 /* SettingsScreenModels.swift */; };
 		AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADFB2D3FCA560030AC82 /* SettingsScreenWorker.swift */; };
 		AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADFD2D3FCA610030AC82 /* SettingsScreenProtocols.swift */; };
 		AA7BAE002D3FCA740030AC82 /* SettingsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADFF2D3FCA740030AC82 /* SettingsScreenViewController.swift */; };
@@ -197,6 +199,10 @@
 		9B1EC0852D39669F00E01E00 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		9B1EC0872D3968C500E01E00 /* OpenSans-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
 		9B1EC08C2D3A828D00E01E00 /* ErrorId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorId.swift; sourceTree = "<group>"; };
+		AA07A6702D5C898200CFE124 /* MeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeService.swift; sourceTree = "<group>"; };
+		AA07A6722D5C898B00CFE124 /* MeServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeServiceProtocol.swift; sourceTree = "<group>"; };
+		AA07A6742D5CA17B00CFE124 /* UserServiceEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceEndpoints.swift; sourceTree = "<group>"; };
+		AA07A6762D5D4F9300CFE124 /* ProfileSettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsWorker.swift; sourceTree = "<group>"; };
 		AA1C0E322D43A081008E47D8 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		AA1C0E352D43A0D5008E47D8 /* EventPublisherProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPublisherProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E372D43A232008E47D8 /* UserDefaultsManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManagerProtocol.swift; sourceTree = "<group>"; };
@@ -207,7 +213,6 @@
 		AA1C0E422D43C968008E47D8 /* ProfileSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsInteractor.swift; sourceTree = "<group>"; };
 		AA1C0E442D43C974008E47D8 /* ProfileSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsPresenter.swift; sourceTree = "<group>"; };
 		AA1C0E462D43C984008E47D8 /* ProfileSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsModels.swift; sourceTree = "<group>"; };
-		AA1C0E482D43C99C008E47D8 /* ProfileSettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsWorker.swift; sourceTree = "<group>"; };
 		AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensService.swift; sourceTree = "<group>"; };
@@ -222,7 +227,6 @@
 		AA7BADF32D3FC9F40030AC82 /* SettingsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADF52D3FCA2A0030AC82 /* SettingsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADF72D3FCA360030AC82 /* SettingsScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenPresenter.swift; sourceTree = "<group>"; };
-		AA7BADF92D3FCA4C0030AC82 /* SettingsScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenModels.swift; sourceTree = "<group>"; };
 		AA7BADFB2D3FCA560030AC82 /* SettingsScreenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenWorker.swift; sourceTree = "<group>"; };
 		AA7BADFD2D3FCA610030AC82 /* SettingsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenProtocols.swift; sourceTree = "<group>"; };
 		AA7BADFF2D3FCA740030AC82 /* SettingsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenViewController.swift; sourceTree = "<group>"; };
@@ -380,6 +384,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA07A66F2D5C897300CFE124 /* MeService */ = {
+			isa = PBXGroup;
+			children = (
+				AA07A6702D5C898200CFE124 /* MeService.swift */,
+				AA07A6722D5C898B00CFE124 /* MeServiceProtocol.swift */,
+			);
+			path = MeService;
+			sourceTree = "<group>";
+		};
 		AA1C0E312D43A055008E47D8 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,7 +419,7 @@
 			children = (
 				AA1C0E402D43C927008E47D8 /* ProfileSettingsAssembly.swift */,
 				AA1C0E422D43C968008E47D8 /* ProfileSettingsInteractor.swift */,
-				AA1C0E482D43C99C008E47D8 /* ProfileSettingsWorker.swift */,
+				AA07A6762D5D4F9300CFE124 /* ProfileSettingsWorker.swift */,
 				AA1C0E442D43C974008E47D8 /* ProfileSettingsPresenter.swift */,
 				AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */,
 				AA1C0E462D43C984008E47D8 /* ProfileSettingsModels.swift */,
@@ -462,7 +475,6 @@
 				AA7BADFB2D3FCA560030AC82 /* SettingsScreenWorker.swift */,
 				AA7BADF72D3FCA360030AC82 /* SettingsScreenPresenter.swift */,
 				AA7BADFF2D3FCA740030AC82 /* SettingsScreenViewController.swift */,
-				AA7BADF92D3FCA4C0030AC82 /* SettingsScreenModels.swift */,
 				AA7BADFD2D3FCA610030AC82 /* SettingsScreenProtocols.swift */,
 			);
 			path = SettingsScreen;
@@ -808,6 +820,7 @@
 		AA9B62372D2D75050064CB23 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AA07A66F2D5C897300CFE124 /* MeService */,
 				AA626E8E2D36BB4C006EAFD1 /* RefreshTokensService */,
 				AA9B62872D303F9C0064CB23 /* SignupService */,
 				AA9B625D2D2FC6E70064CB23 /* VerificationService */,
@@ -893,6 +906,7 @@
 			children = (
 				AA9B62632D2FCA930064CB23 /* SignupEndpoints.swift */,
 				AA9B62972D3163CA0064CB23 /* SigninEndpoints.swift */,
+				AA07A6742D5CA17B00CFE124 /* UserServiceEndpoints.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -1096,6 +1110,7 @@
 				AA9B62692D2FD2390064CB23 /* SignupInteractor.swift in Sources */,
 				AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */,
 				AA84F04B2D4D0C0B00678ABA /* NotificationCell.swift in Sources */,
+				AA07A6752D5CA17B00CFE124 /* UserServiceEndpoints.swift in Sources */,
 				AA84EFFF2D4912B600678ABA /* ConfidentialityScreenPresenter.swift in Sources */,
 				AA92EC6F2D3932D6007DEC76 /* SenderProtocols.swift in Sources */,
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
@@ -1128,6 +1143,7 @@
 				AA84F0072D4912E500678ABA /* ConfidentialityScreenProtocols.swift in Sources */,
 				AA7BADE92D3F9FDF0030AC82 /* ChatsScreenViewController.swift in Sources */,
 				AA84F0572D4D0C7100678ABA /* NotificationScreenModels.swift in Sources */,
+				AA07A6732D5C898B00CFE124 /* MeServiceProtocol.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
 				AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */,
 				AA7BADEB2D3FA0230030AC82 /* ChatsScreenModels.swift in Sources */,
@@ -1137,7 +1153,6 @@
 				9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */,
 				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
 				AA87FC752D5503B400E8D066 /* UserProfileScreenViewController.swift in Sources */,
-				AA1C0E492D43C99C008E47D8 /* ProfileSettingsWorker.swift in Sources */,
 				AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				AA84F0202D4BBEB800678ABA /* PhoneVisibilityScreenProtocols.swift in Sources */,
@@ -1198,6 +1213,7 @@
 				AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */,
 				AA9B62572D2EDF900064CB23 /* SuccessModels.swift in Sources */,
 				AA9B62322D2D71670064CB23 /* ValidatorsProtocols.swift in Sources */,
+				AA07A6712D5C898200CFE124 /* MeService.swift in Sources */,
 				AA7BADE72D3F9FB80030AC82 /* ChatsScreenPresenter.swift in Sources */,
 				E135ED422D4E7D06006CE143 /* UIProfileTextField.swift in Sources */,
 				AA9B62202D2D5F790064CB23 /* StartViewController.swift in Sources */,
@@ -1209,7 +1225,6 @@
 				AA87FC772D5503BD00E8D066 /* UserProfileScreenProtocols.swift in Sources */,
 				AA9B628D2D3149B60064CB23 /* ApiErrorTypes.swift in Sources */,
 				AA9B626D2D2FD25A0064CB23 /* SignupViewController.swift in Sources */,
-				AA7BADFA2D3FCA4C0030AC82 /* SettingsScreenModels.swift in Sources */,
 				AA84F0122D4BB6A200678ABA /* BlackListCell.swift in Sources */,
 				AA87FCBC2D56312600E8D066 /* UserProfileCell.swift in Sources */,
 				AA84F0382D4BEF4500678ABA /* BirthVisibilityScreenProtocols.swift in Sources */,
@@ -1218,6 +1233,7 @@
 				AA84F0592D4D0C8300678ABA /* NotificationScreenProtocols.swift in Sources */,
 				AA1C0E412D43C927008E47D8 /* ProfileSettingsAssembly.swift in Sources */,
 				AA9B62672D2FD22B0064CB23 /* SignupAssembly.swift in Sources */,
+				AA07A6772D5D4F9300CFE124 /* ProfileSettingsWorker.swift in Sources */,
 				AA9B624C2D2EC7B40064CB23 /* VerifyWorker.swift in Sources */,
 				AA84F0262D4BC57C00678ABA /* ExceptionsCell.swift in Sources */,
 				AA9B622D2D2D6CAE0064CB23 /* SendCodeModels.swift in Sources */,

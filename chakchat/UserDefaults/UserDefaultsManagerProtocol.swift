@@ -10,7 +10,8 @@ import UIKit
 
 // MARK: - UserDefaultsManagerProtocol
 protocol UserDefaultsManagerProtocol {
-    func saveAvatar(_ icon: UIImage?)
+    
+    func saveUserData(_ userData: ProfileSettingsModels.ProfileUserData)
     func saveNickname(_ nickname: String)
     func saveUsername(_ username: String)
     func savePhone(_ phone: String)
@@ -22,7 +23,7 @@ protocol UserDefaultsManagerProtocol {
     func saveAudioNotificationStatus(_ audioNotificationStatus: Bool)
     func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool)
     
-    func loadAvatar() -> UIImage?
+    func loadUserData() -> ProfileSettingsModels.ProfileUserData
     func loadNickname() -> String
     func loadUsername() -> String
     func loadPhone() -> String
@@ -34,6 +35,5 @@ protocol UserDefaultsManagerProtocol {
     func loadAudioNotificationStatus() -> Bool
     func loadVibrationNotificationStatus() -> Bool
     
-    func deleteAvatar()
     func deleteBirth()
 }

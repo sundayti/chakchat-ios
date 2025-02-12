@@ -13,26 +13,80 @@ final class Sender: SenderLogic {
     enum Keys {
         static let baseURL = "SERVER_BASE_URL"
     }
+    
+    static func Get<T, U>(requestBody: T? = nil, 
+                          responseType: U.Type,
+                          endpoint: String, 
+                          completion: @escaping (Result<U, any Error>) -> Void
+    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
+        send(requestBody: requestBody,
+             responseType: responseType,
+             endpoint: endpoint,
+             httpMethod: "GET",
+             completion: completion)
+    }
+    
+    static func Put<T, U>(requestBody: T, 
+                          responseType: U.Type,
+                          endpoint: String,
+                          completion: @escaping (Result<U, any Error>) -> Void
+    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
+        send(requestBody: requestBody,
+             responseType: responseType,
+             endpoint: endpoint,
+             httpMethod: "PUT",
+             completion: completion)
+    }
+    
+    static func Post<T, U>(requestBody: T, 
+                           responseType: U.Type,
+                           endpoint: String,
+                           completion: @escaping (Result<U, any Error>) -> Void
+    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
+        send(requestBody: requestBody,
+             responseType: responseType,
+             endpoint: endpoint,
+             httpMethod: "POST",
+             completion: completion)
+    }
+    
+    static func Delete<T, U>(requestBody: T, 
+                             responseType: U.Type,
+                             endpoint: String,
+                             completion: @escaping (Result<U, any Error>) -> Void
+    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
+        send(requestBody: requestBody, 
+             responseType: responseType,
+             endpoint: endpoint,
+             httpMethod: "DELETE",
+             completion: completion)
+    }
+    
     // MARK: - Sender Method
-    static func send<T: Codable, U: Codable>(
-        requestBody: T,
+    private static func send<T: Codable, U: Codable>(
+        requestBody: T? = nil,
         responseType: U.Type,
         endpoint: String,
+        httpMethod: String,
         completion: @escaping (Result<U, Error>) -> Void
     ) {
         guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) as? String else {
             fatalError("miss base url")
         }
-        print("\(baseURL)\(endpoint)")
+        
         guard let url = URL(string: "\(baseURL)\(endpoint)") else {
             completion(.failure(APIError.invalidURL))
             return
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = httpMethod
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(UUID().uuidString, forHTTPHeaderField: "Idempotency-Key")
+        //TODO: Разобраться с ключами
+        if (httpMethod == "POST") {
+            request.addValue(UUID().uuidString, forHTTPHeaderField: "Idempotency-Key")
+        }
+        
         
         guard let httpBody = try? JSONEncoder().encode(requestBody) else {
             completion(.failure(APIError.invalidRequest))

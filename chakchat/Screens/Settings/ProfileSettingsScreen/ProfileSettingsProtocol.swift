@@ -8,19 +8,19 @@
 import Foundation
 
 // MARK: - ProfileSettingsBusinessLogic
-protocol ProfileSettingsBusinessLogic {
+protocol ProfileSettingsScreenBusinessLogic {
     func backToSettingsMenu()
-    func saveNewData(_ newUserData: ProfileSettingsModels.ProfileUserData)
+    func saveNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData)
     func loadUserData()
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
 }
 
 // MARK: - ProfileSettingsPresentationLogic
-protocol ProfileSettingsPresentationLogic {
+protocol ProfileSettingsScreenPresentationLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
 }
 
-// MARK: - ProfileSettingsWorkerLogic
-protocol ProfileSettingsWorkerLogic {
-    func saveNewData(_ userData: ProfileSettingsModels.ProfileUserData)
+protocol ProfileSettingsScreenWorkerLogic {
+    func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func getUserData() -> ProfileSettingsModels.ProfileUserData
 }

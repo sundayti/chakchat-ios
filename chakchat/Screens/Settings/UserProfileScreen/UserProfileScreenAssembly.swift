@@ -12,12 +12,12 @@ enum UserProfileScreenAssembly {
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = UserProfileScreenPresenter()
         let worker = UserProfileScreenWorker(userDefaultsManager: context.userDefaultsManager)
-        let userData = getUserProfileData(context.userDefaultsManager)
         let interactor = UserProfileScreenInteractor(preseter: presenter,
                                                      worker: worker,
-                                                     userData: userData, 
                                                      eventSubscriber: context.eventManager,
+                                                     errorHandler: context.errorHandler,
                                                      logger: context.logger)
+        
         interactor.onRouteToSettingsScreen = { [weak coordinator] in
             coordinator?.popScreen()
         }
@@ -28,12 +28,4 @@ enum UserProfileScreenAssembly {
         presenter.view = view
         return view
     }
-}
-
-private func getUserProfileData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> ProfileSettingsModels.ProfileUserData {
-    let nickname = userDefaultsManager.loadNickname()
-    let username = userDefaultsManager.loadUsername()
-    let phone = userDefaultsManager.loadPhone()
-    let birth = userDefaultsManager.loadBirth()
-    return ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: nickname, username: username, phone: phone, dateOfBirth: birth)
 }

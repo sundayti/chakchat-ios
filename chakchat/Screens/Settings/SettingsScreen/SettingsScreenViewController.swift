@@ -82,14 +82,14 @@ final class SettingsScreenViewController: UIViewController {
     }
     
     // MARK: - UserData Configuration
-    public func configureUserData(_ data: SettingsScreenModels.UserData) {
+    public func configureUserData(_ data: ProfileSettingsModels.ProfileUserData) {
         // if user already loaded his data
         configureNicknameLabel(data.nickname)
         configureDataStackView(data.username, data.phone)
     }
     
     // MARK: - UserData Update
-    public func updateUserData(_ data: SettingsScreenModels.UserData) {
+    public func updateUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData) {
         nicknameLabel.text = data.nickname
         usernameLabel.text = data.username
     }
@@ -159,12 +159,12 @@ final class SettingsScreenViewController: UIViewController {
     }
     
     // MARK: - Data StackView Configuration
-    private func configureDataStackView(_ username: String, _ phone: String) {
+    private func configureDataStackView(_ username: String?, _ phone: String?) {
         view.addSubview(phoneLabel)
         view.addSubview(usernameLabel)
         view.addSubview(dotLabel)
         phoneLabel.font = Fonts.systemL14
-        phoneLabel.text = Format.number(phone)
+        phoneLabel.text = Format.number(phone ?? "Загрузка...")
         phoneLabel.textColor = .gray
         phoneLabel.textAlignment = .center
         
@@ -174,7 +174,7 @@ final class SettingsScreenViewController: UIViewController {
         dotLabel.textAlignment = .center
         
         usernameLabel.font = Fonts.systemL14
-        usernameLabel.text = Constants.atText + username
+        usernameLabel.text = Constants.atText + (username ?? "Загрузка...")
         usernameLabel.textColor = .gray
         usernameLabel.textAlignment = .center
         

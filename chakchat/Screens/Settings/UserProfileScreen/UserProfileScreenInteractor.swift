@@ -13,8 +13,8 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     
     private let presenter: UserProfileScreenPresentationLogic
     private let worker: UserProfileScreenWorkerLogic
-    private var userData: ProfileSettingsModels.ProfileUserData
     private let eventSubscriber: EventSubscriberProtocol
+    private let errorHandler: ErrorHandlerLogic
     private let logger: OSLog
     
     private var cancellables = Set<AnyCancellable>()
@@ -24,21 +24,22 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     
     init(preseter: UserProfileScreenPresentationLogic, 
          worker: UserProfileScreenWorkerLogic,
-         userData: ProfileSettingsModels.ProfileUserData,
          eventSubscriber: EventSubscriberProtocol,
+         errorHandler: ErrorHandlerLogic,
          logger: OSLog
     ) {
         self.presenter = preseter
         self.worker = worker
-        self.userData = userData
         self.eventSubscriber = eventSubscriber
+        self.errorHandler = errorHandler
         self.logger = logger
         
         subscribeToEvents()
     }
-    
+    // on this screen we are downloading data only from UserDefaults, because we have you already sent a get request to the server
     func loadUserData() {
         os_log("Loaded user data in user profile scree", log: logger, type: .default)
+        let userData = worker.getUserData()
         showUserData(userData)
     }
     
@@ -47,12 +48,7 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
         presenter.showUserData(userData)
     }
     
-    func updateUserData() {
-        os_log("Updated user data in user settings screen", log: logger, type: .default)
-        showNewUserData(userData)
-    }
-    
-    func showNewUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
         os_log("Passed new user data in user settings screen to presenter", log: logger, type: .default)
         presenter.showNewUserData(userData)
     }
@@ -65,15 +61,11 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     
     internal func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         os_log("Handled user data changes in user profile screen", log: logger, type: .default)
-        userData.nickname = event.newNickname
-        userData.username = event.newUsername
-        if let newIcon = event.newIcon {
-            userData.photo = newIcon
-        }
-        if let newBirth = event.newBirth {
-            userData.dateOfBirth = newBirth
-        }
-        updateUserData()
+        let newUserData = ProfileSettingsModels.ChangeableProfileUserData(nickname: event.newNickname,
+                                                                          username: event.newUsername,
+                                                                          photo: event.newPhoto,
+                                                                          dateOfBirth: event.newBirth)
+        showNewUserData(newUserData)
     }
     
     func backToSettingsMenu() {

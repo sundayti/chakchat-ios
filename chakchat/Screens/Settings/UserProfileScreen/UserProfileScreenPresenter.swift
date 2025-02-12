@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 final class UserProfileScreenPresenter: UserProfileScreenPresentationLogic {
-    
+        
     weak var view: UserProfileScreenViewController?
     
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         view?.configureUserData(userData)
     }
     
-    func showNewUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
         view?.updateUserData(userData)
     }
 }

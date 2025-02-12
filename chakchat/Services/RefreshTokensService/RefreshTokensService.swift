@@ -13,7 +13,7 @@ final class RefreshTokensService: RefreshTokensServiceLogic {
     func sendRefreshTokensRequest(_ request: Refresh.RefreshRequest, 
                                   completion: @escaping (Result<SuccessModels.Tokens, any Error>) -> Void) {
         
-        Sender.send(requestBody: request,
+        Sender.Post(requestBody: request,
                     responseType: SuccessModels.Tokens.self,
                     endpoint: SigninEndpoints.refreshEndpoint.rawValue,
                     completion: completion)
