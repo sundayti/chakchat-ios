@@ -14,14 +14,14 @@ final class UpdateProfileDataEvent: Event {
     // MARK: - Properties
     var newNickname: String
     var newUsername: String
-    var newIcon: UIImage?
+    var newPhoto: UUID?
     var newBirth: String?
     
     // MARK: - Initialization
-    init(newNickname: String, newUsername: String, newIcon: UIImage? = nil, newBirth: String? = nil) {
+    init(newNickname: String, newUsername: String, newPhoto: UUID? = nil, newBirth: String? = nil) {
         self.newNickname = newNickname
         self.newUsername = newUsername
-        self.newIcon = newIcon
+        self.newPhoto = newPhoto
         self.newBirth = newBirth
     }
 }

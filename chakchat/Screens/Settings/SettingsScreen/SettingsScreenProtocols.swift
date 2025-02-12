@@ -13,17 +13,19 @@ protocol SettingsScreenBusinessLogic {
     func confidentialitySettingsRoute()
     func notificationSettingsRoute()
     
-    func showUserData(_ data: SettingsScreenModels.UserData)
+    func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
+    func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)
     func loadUserData()
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent)
 }
 
 // MARK: - SettingsScreenPresentationLogic
 protocol SettingsScreenPresentationLogic {
-    func showUserData(_ data: SettingsScreenModels.UserData)
-    func showNewUserData(_ data: SettingsScreenModels.UserData)
+    func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
+    func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)
 }
 
 // MARK: - SettingsScreenWorkerLogic
 protocol SettingsScreenWorkerLogic {
+    func getUserData(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }

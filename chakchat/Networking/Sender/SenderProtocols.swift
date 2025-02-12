@@ -10,7 +10,7 @@ import Foundation
 // MARK: - SenderLogic
 protocol SenderLogic {
     static func Get<T: Codable, U: Codable>(
-        requestBody: T,
+        requestBody: T?,
         responseType: U.Type,
         endpoint: String,
         completion: @escaping (Result<U, Error>) -> Void

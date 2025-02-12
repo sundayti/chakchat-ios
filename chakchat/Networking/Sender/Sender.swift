@@ -14,9 +14,9 @@ final class Sender: SenderLogic {
         static let baseURL = "SERVER_BASE_URL"
     }
     
-    static func Get<T, U>(requestBody: T, 
+    static func Get<T, U>(requestBody: T? = nil, 
                           responseType: U.Type,
-                          endpoint: String,
+                          endpoint: String, 
                           completion: @escaping (Result<U, any Error>) -> Void
     ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
         send(requestBody: requestBody,
@@ -64,7 +64,7 @@ final class Sender: SenderLogic {
     
     // MARK: - Sender Method
     private static func send<T: Codable, U: Codable>(
-        requestBody: T,
+        requestBody: T? = nil,
         responseType: U.Type,
         endpoint: String,
         httpMethod: String,
@@ -73,7 +73,7 @@ final class Sender: SenderLogic {
         guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) as? String else {
             fatalError("miss base url")
         }
-        print("\(baseURL)\(endpoint)")
+        
         guard let url = URL(string: "\(baseURL)\(endpoint)") else {
             completion(.failure(APIError.invalidURL))
             return
