@@ -21,6 +21,7 @@ final class Format {
         return formattedNumber
     }
     
+    // MARK: - Formatting Date to dd.
     static func birth(_ birth: String) -> String {
         let formattedBirth = "\(birth.prefix(4)).\(birth.prefix(6).suffix(2)).\(birth.prefix(8).suffix(2))"
         return formattedBirth

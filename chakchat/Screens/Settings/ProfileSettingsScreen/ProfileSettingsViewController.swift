@@ -218,10 +218,7 @@ final class ProfileSettingsViewController: UIViewController {
         // если пользователь решил нажать на кнопку reset.
         let newNickname = nameTextField.getText() ?? "Cry"
         let newUsername = usernameTextField.getText() ?? "Cry"
-        var newBirth = birthTextField.getText();
-        if (newBirth != nil) {
-            newBirth = newBirth?.replacingOccurrences(of: ".", with: "-");
-        }
+        let newBirth = birthTextField.getText();
         let phone = phoneTextField.getText() ?? "IT IS NOT POSSIBLE"
         return ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: newNickname, username: newUsername, phone: phone, dateOfBirth: newBirth)
     }
@@ -277,11 +274,11 @@ final class ProfileSettingsViewController: UIViewController {
         }
     }
     
-    //TODO: - Probably it is interactor logic
+    // TODO: - Probably it is interactor logic
     private func handleDateSelection(_ date: Date?) {
         if let date = date {
             print("Selected Date: \(date)")
-            dateFormatter.dateFormat = "yyyy.MM.dd"
+            dateFormatter.dateFormat = "dd.MM.yyyy"
             let formattedDate = dateFormatter.string(from: date)
             selectedDate = date
             birthTextField.setText(formattedDate)
