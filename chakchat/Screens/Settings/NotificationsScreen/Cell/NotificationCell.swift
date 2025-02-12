@@ -47,7 +47,7 @@ final class NotificationCell: UITableViewCell {
     
     private func configureNotificationLabel() {
         contentView.addSubview(notificationLabel)
-        notificationLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        notificationLabel.font = Fonts.systemR16
         notificationLabel.textColor = .black
         notificationLabel.pinCenterY(contentView)
         notificationLabel.pinLeft(contentView.leadingAnchor, 10)
@@ -58,6 +58,7 @@ final class NotificationCell: UITableViewCell {
         switchButton.pinCenterY(contentView)
         switchButton.pinRight(contentView.trailingAnchor, 10)
         switchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+        switchButton.onTintColor = Colors.lightOrange
     }
     
     @objc

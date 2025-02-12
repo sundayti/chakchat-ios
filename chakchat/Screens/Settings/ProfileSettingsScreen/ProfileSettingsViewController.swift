@@ -38,6 +38,13 @@ final class ProfileSettingsViewController: UIViewController {
         static let dateButtonTop: CGFloat = 2.5
         static let dateButtonX: CGFloat = 20
         static let dateButtonHeight: CGFloat = 50
+        
+        static let datePickerTitle: String = "Select your birthday date"
+        static let errorText: String = "error"
+        
+        static let birthTextFieldTop: CGFloat = 2.5
+        static let birthTextFieldLeading: CGFloat = 0
+        static let birthTextFieldTrailing: CGFloat = 0
     }
     
     // MARK: - Properties
@@ -79,7 +86,7 @@ final class ProfileSettingsViewController: UIViewController {
             iconImageView.image = photo
         }
         if let birth = userData.dateOfBirth {
-            dateFormatter.dateFormat = "yyyy.MM.dd"
+            dateFormatter.dateFormat = UIConstants.dateFormat
             selectedDate = dateFormatter.date(from: birth)
             birthTextField.setText(birth)
         }
@@ -156,7 +163,7 @@ final class ProfileSettingsViewController: UIViewController {
         nameTextField.pinTop(iconImageView.bottomAnchor, Constants.nameTop)
         nameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         nameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        nameTextField.setText("error")
+        nameTextField.setText(Constants.errorText)
     }
     
     // MARK: - Username Text Field Configuration
@@ -165,7 +172,7 @@ final class ProfileSettingsViewController: UIViewController {
         usernameTextField.pinTop(nameTextField.bottomAnchor, Constants.usernameTop)
         usernameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         usernameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        usernameTextField.setText("error")
+        usernameTextField.setText(Constants.errorText)
     }
     
     // MARK: - Phone Text Field Configuration
@@ -174,14 +181,14 @@ final class ProfileSettingsViewController: UIViewController {
         phoneTextField.pinTop(usernameTextField.bottomAnchor, Constants.phoneTop)
         phoneTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         phoneTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        phoneTextField.setText("error")
+        phoneTextField.setText(Constants.errorText)
     }
     
     private func configureBirthTextField() {
         view.addSubview(birthTextField)
-        birthTextField.pinTop(phoneTextField.bottomAnchor, 2.5)
-        birthTextField.pinLeft(view.leadingAnchor, 0)
-        birthTextField.pinRight(view.trailingAnchor, 0)
+        birthTextField.pinTop(phoneTextField.bottomAnchor, Constants.birthTextFieldTop)
+        birthTextField.pinLeft(view.leadingAnchor, Constants.birthTextFieldLeading)
+        birthTextField.pinRight(view.trailingAnchor, Constants.birthTextFieldTrailing)
     }
     
     // MARK: - Log Out Button Configuration
@@ -214,8 +221,6 @@ final class ProfileSettingsViewController: UIViewController {
     
     // MARK: - User Profile Data Transfering
     private func transferUserProfileData() -> ProfileSettingsModels.ProfileUserData {
-        // Все кроме newBirth = nil, невозможно. В днем рождения все в порядке
-        // если пользователь решил нажать на кнопку reset.
         let newNickname = nameTextField.getText() ?? "Cry"
         let newUsername = usernameTextField.getText() ?? "Cry"
         let newBirth = birthTextField.getText();
@@ -267,7 +272,7 @@ final class ProfileSettingsViewController: UIViewController {
         view.addSubview(datePicker)
         view.bringSubviewToFront(datePicker)
         datePicker.settedDate = selectedDate ?? Date()
-        datePicker.title = "Select your birthday date"
+        datePicker.title = Constants.datePickerTitle
         datePicker.pinSuperView(view)
         datePicker.delegate = { [weak self] date in
             self?.handleDateSelection(date)
@@ -278,7 +283,7 @@ final class ProfileSettingsViewController: UIViewController {
     private func handleDateSelection(_ date: Date?) {
         if let date = date {
             print("Selected Date: \(date)")
-            dateFormatter.dateFormat = "dd.MM.yyyy"
+            dateFormatter.dateFormat = UIConstants.dateFormat
             let formattedDate = dateFormatter.string(from: date)
             selectedDate = date
             birthTextField.setText(formattedDate)

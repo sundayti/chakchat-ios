@@ -11,8 +11,19 @@ import UIKit
 // MARK: - OnlineVisibilityScreenViewController
 final class OnlineVisibilityScreenViewController: UIViewController {
     
+    // MARK: - Constants
+    private enum Constants {
+        static let headerText: String = "Online Status"
+        static let arrowName: String = "arrow.left"
+        static let tableTop: CGFloat = 0
+        static let tableBottom: CGFloat = 20
+        static let label0Text: String = "Who can see my online status"
+        static let label1Text: String = "Exceptions"
+    }
+    
     // MARK: - Properties
     private var selectedIndex: IndexPath?
+    private var titleLabel: UILabel = UILabel()
     private var onlineVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var onlineVisibilityData = [
         [("All"), ("Custom"), ("Nobody")],
@@ -38,10 +49,25 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        configureBackArrow()
+        configureTitleLabel()
+        navigationItem.titleView = titleLabel
         interactor.loadUserData()
         configurePhoneVisibilityTable()
+    }
+    
+    // MARK: - Title Label Configuration
+    private func configureTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.font = Fonts.systemB24
+        titleLabel.text = Constants.headerText
+        titleLabel.textAlignment = .center
+    }
+    
+    // MARK: - Back Arrow Configuration
+    private func configureBackArrow() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = .black
     }
     
     // MARK: - Phone Visibility Table Configuration
@@ -51,8 +77,8 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         onlineVisibilityTable.dataSource = self
         onlineVisibilityTable.separatorStyle = .singleLine
         onlineVisibilityTable.pinHorizontal(view)
-        onlineVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 20)
-        onlineVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
+        onlineVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.tableTop)
+        onlineVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.tableBottom)
         onlineVisibilityTable.register(VisibilityCell.self, forCellReuseIdentifier: VisibilityCell.cellIdentifier)
         onlineVisibilityTable.register(ExceptionsCell.self, forCellReuseIdentifier: ExceptionsCell.cellIdentifier)
         onlineVisibilityTable.backgroundColor = view.backgroundColor
@@ -133,16 +159,16 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
         // where exactly the title will be located relative to the section
-        label.frame = CGRect.init(x: 20, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
+        label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = "Who can see my online status"
+            label.text = Constants.label0Text
         case 1:
-            label.text = "Exceptions"
+            label.text = Constants.label1Text
         default:
             label.text = nil
         }
-        label.font = .systemFont(ofSize: 16)
+        label.font = Fonts.systemR16
         label.textColor = .gray
         headerView.addSubview(label)
         return headerView
@@ -150,7 +176,7 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
     
     // MARK: - Setting space between different section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return UIConstants.ConfidentialitySpaceBetweenSections
     }
     
     // MARK: - Defining the behavior when a cell is clicked

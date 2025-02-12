@@ -11,8 +11,15 @@ import UIKit
 // MARK: - BirthVisibilityScreenViewController
 final class BirthVisibilityScreenViewController: UIViewController {
     
+    // MARK: - Constants
+    private enum Constants {
+        static let headerText: String = "Date of Birth"
+        static let arrowName: String = "arrow.left"
+    }
+    
     // MARK: - Properties
     private var selectedIndex: IndexPath?
+    private var titleLabel: UILabel = UILabel()
     private var birthVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var birthVisibilityData = [
         [("All"), ("Custom"), ("Nobody")],
@@ -38,10 +45,25 @@ final class BirthVisibilityScreenViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        configureBackArrow()
+        configureTitleLabel()
+        navigationItem.titleView = titleLabel
         interactor.loadUserData()
         configurePhoneVisibilityTable()
+    }
+    
+    // MARK: - Back Arrow Configuration
+    private func configureBackArrow() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = .black
+    }
+    
+    // MARK: - Title Label Configuration
+    private func configureTitleLabel() {
+        view.addSubview(titleLabel)
+        titleLabel.font = Fonts.systemB24
+        titleLabel.text = Constants.headerText
+        titleLabel.textAlignment = .center
     }
     
     // MARK: - Phone Visibility Table Configuration
@@ -51,7 +73,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
         birthVisibilityTable.dataSource = self
         birthVisibilityTable.separatorStyle = .singleLine
         birthVisibilityTable.pinHorizontal(view)
-        birthVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 20)
+        birthVisibilityTable.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
         birthVisibilityTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
         birthVisibilityTable.register(VisibilityCell.self, forCellReuseIdentifier: VisibilityCell.cellIdentifier)
         birthVisibilityTable.register(ExceptionsCell.self, forCellReuseIdentifier: ExceptionsCell.cellIdentifier)
@@ -133,16 +155,16 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
         // вот эта штучка ответственна за то, где именно будет располагаться заголовок относительно секции
-        label.frame = CGRect.init(x: 20, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
+        label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = "Who can see my birth data"
+            label.text = "Who can see my date of Birth"
         case 1:
             label.text = "Exceptions"
         default:
             label.text = nil
         }
-        label.font = .systemFont(ofSize: 16)
+        label.font = Fonts.systemR16
         label.textColor = .gray
         headerView.addSubview(label)
         return headerView
@@ -150,7 +172,7 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     
     // MARK: - Setting space between different section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return UIConstants.ConfidentialitySpaceBetweenSections
     }
     
     // MARK: - Defining the behavior when a cell is clicked
