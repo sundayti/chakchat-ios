@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // MARK: - ProfileSettingsPresenter
-final class ProfileSettingsPresenter: ProfileSettingsPresentationLogic {
+final class ProfileSettingsPresenter: ProfileSettingsScreenPresentationLogic {
     
     // MARK: - Properties
     weak var view: ProfileSettingsViewController?
