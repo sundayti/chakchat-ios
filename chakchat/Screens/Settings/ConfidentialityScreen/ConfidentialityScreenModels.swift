@@ -9,16 +9,19 @@ import Foundation
 
 // MARK: - ConfidentialitySettingsModels
 enum ConfidentialitySettingsModels {
-    struct ConfidentialityUserData {
-        var phoneNumberState: ConfidentialityState
-        var dateOfBirthState: ConfidentialityState
-        var onlineStatus: ConfidentialityState
+    struct ConfidentialityUserData: Codable {
+        var phone: ConfidentialityDetails
+        var dateOfBirth: ConfidentialityDetails
     }
 }
 
 // MARK: - ConfidentialityState
-enum ConfidentialityState: String {
-    case all = "All"
-    case custom = "Custom"
-    case nobody = "Nobody"
+struct ConfidentialityDetails: Codable {
+    var openTo: String // everyone, only_me, specified
+    var specifiedUsers: [UUID]?
+    
+    enum CodingKeys: String, CodingKey {
+        case openTo = "open_to"
+        case specifiedUsers = "specified_users"
+    }
 }

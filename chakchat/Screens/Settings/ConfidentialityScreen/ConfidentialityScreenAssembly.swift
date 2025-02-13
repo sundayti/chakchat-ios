@@ -14,14 +14,14 @@ enum ConfidentialityScreenAssembly {
     // MARK: - Confidentiality Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ConfidentialityScreenPresenter()
-        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultsManager)
-        let userData = getUserConfData(context.userDefaultsManager)
-        let interactor = ConfidentialityScreenInteractor(presenter: presenter, 
+        let meService = MeService()
+        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultsManager,
+                                                 meService: meService)
+        let interactor = ConfidentialityScreenInteractor(presenter: presenter,
                                                          worker: worker,
+                                                         errorHandler: context.errorHandler,
                                                          eventSubscriber: context.eventManager,
-                                                         userData: userData,
-                                                         logger: context.logger
-        )
+                                                         logger: context.logger)
         
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
             coordinator?.popScreen()
@@ -45,22 +45,3 @@ enum ConfidentialityScreenAssembly {
     }
 }
 
-// MARK: - User Configantiality Data Getting 
-func getUserConfData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> ConfidentialitySettingsModels.ConfidentialityUserData {
-    let phoneStatus = userDefaultsManager.loadConfidentialityPhoneStatus()
-    let birthStatus = userDefaultsManager.loadConfidentialityDateOfBirthStatus()
-    let onlineStatus = userDefaultsManager.loadConfidentialityOnlineStatus()
-    
-    guard let phoneStatus = ConfidentialityState(rawValue: phoneStatus),
-          let birthStatus = ConfidentialityState(rawValue: birthStatus),
-          let onlineStatus = ConfidentialityState(rawValue: onlineStatus) else {
-        return ConfidentialitySettingsModels.ConfidentialityUserData(
-            phoneNumberState: .all,
-            dateOfBirthState: .all,
-            onlineStatus: .all)
-    }
-    return ConfidentialitySettingsModels.ConfidentialityUserData(
-        phoneNumberState: phoneStatus,
-        dateOfBirthState: birthStatus,
-        onlineStatus: onlineStatus)
-}
