@@ -17,9 +17,8 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let usernameKey = "userUsername"
     private let phoneKey = "userPhone"
     private let birthKey = "birthKey"
-    private let confidentialityPhoneKey = "confidentialityPhone"
-    private let confidentialityBirthKey = "confidentialityBirth"
-    private let confidentialityOnlineKey = "confidentialityOnline"
+    private let onlineKey = "onlineKey"
+    private let restrictionsKey = "restrictionsKey"
     private let generalNotificationKey = "generalNotification"
     private let audioNotificationKey = "audioNotification"
     private let vibrationNotificationKey = "vibrationNotification"
@@ -51,22 +50,17 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         UserDefaults.standard.set(birth, forKey: birthKey)
     }
     
-    // MARK: - Confidentiality Phone Status Saving
-    func saveConfidentialityPhoneStatus(_ phoneStatus: String) {
-        UserDefaults.standard.set(phoneStatus, forKey: confidentialityPhoneKey)
+    func saveOnlineStatus(_ online: String) {
+        UserDefaults.standard.set(online, forKey: onlineKey)
     }
     
-    // MARK: - Confidentiality Date Of Birth Status Saving
-    func saveConfidentialityDateOfBirthStatus(_ birthStatus: String) {
-        UserDefaults.standard.set(birthStatus, forKey: confidentialityBirthKey)
+    func saveRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(userRestrictions) {
+            UserDefaults.standard.set(encoded, forKey: restrictionsKey)
+        }
     }
     
-    // MARK: - Confidentiality Online Status Saving
-    func saveConfidentialityOnlineStatus(_ onlineStatus: String) {
-        UserDefaults.standard.set(onlineStatus, forKey: confidentialityOnlineKey)
-    }
-    
-
     func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool) {
         UserDefaults.standard.set(generalNotificationStatus, forKey: generalNotificationKey)
         print("General notification status = \(generalNotificationStatus)")
@@ -127,28 +121,22 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         return nil
     }
     
-    // MARK: - Confidentiality Phone Status Loading
-    func loadConfidentialityPhoneStatus() -> String {
-        guard let phoneStatus = UserDefaults.standard.string(forKey: confidentialityPhoneKey) else {
-            return "All"
+    func loadOnlineStatus() -> String {
+        if let online = UserDefaults.standard.string(forKey: onlineKey) {
+            return online
         }
-        return phoneStatus
+        return "everyone"
     }
     
-    // MARK: - Confidentiality Date Of Birth Status Loading
-    func loadConfidentialityDateOfBirthStatus() -> String {
-        guard let dateOfBirthStatus = UserDefaults.standard.string(forKey: confidentialityBirthKey) else {
-            return "All"
+    func loadRestrictions() -> ConfidentialitySettingsModels.ConfidentialityUserData {
+        if let savedData = UserDefaults.standard.data(forKey: restrictionsKey) {
+            let decoder = JSONDecoder()
+            if let savedRestrictions = try? decoder.decode(ConfidentialitySettingsModels.ConfidentialityUserData.self, 
+                                                           from: savedData) {
+                return savedRestrictions
+            }
         }
-        return dateOfBirthStatus
-    }
-    
-    // MARK: - Confidentiality Online Status Loading
-    func loadConfidentialityOnlineStatus() -> String {
-        guard let onlineStatus = UserDefaults.standard.string(forKey: confidentialityOnlineKey) else {
-            return "All"
-        }
-        return onlineStatus
+        return ConfidentialitySettingsModels.ConfidentialityUserData(phone: ConfidentialityDetails(openTo: "everyone", specifiedUsers: nil), dateOfBirth: ConfidentialityDetails(openTo: "everyone", specifiedUsers: nil))
     }
     
     func loadGeneralNotificationStatus() -> Bool {
