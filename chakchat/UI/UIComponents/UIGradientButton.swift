@@ -25,7 +25,7 @@ final class UIGradientButton: UIButton {
     init(title: String) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
-        setTitleColor(.white, for: .normal)
+        setTitleColor(Colors.background, for: .normal)
         layer.cornerRadius = UIConstants.gradientButtonGradientCornerRadius
         
         if let gradientLayer = buttonGradientLayer {

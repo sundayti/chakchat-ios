@@ -10,13 +10,13 @@ import UIKit
 final class UserProfileScreenViewController: UIViewController {
     
     private var titleLabel: UILabel = UILabel()
+    private var nameLabel: UILabel = UILabel()
     private var iconImageView: UIImageView = UIImageView()
     private var userTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var userTableViewData = [
-        [("Name")],
-        [("Username")],
-        [("Phone")],
-        [("Date of Birth")]
+    private var userTableViewData: [(title: String, value: String)] = [
+        ("Username", ""),
+        ("Phone", ""),
+        ("Date of Birth", "")
     ]
     
     let interactor: UserProfileScreenBusinessLogic
@@ -37,32 +37,42 @@ final class UserProfileScreenViewController: UIViewController {
     }
     
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        userTableViewData[0][0] = userData.nickname
-        userTableViewData[1][0] = userData.username
-        userTableViewData[2][0] = userData.phone
+        nameLabel.text = userData.nickname
+        userTableViewData[0].value = userData.username
+        userTableViewData[1].value = userData.phone
         if let birth = userData.dateOfBirth {
-            userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
+            userTableViewData[2].value = birth
         }
     }
     
     public func updateUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
-        userTableViewData[0][0] = userData.nickname
-        userTableViewData[1][0] = userData.username
+        nameLabel.text = userData.nickname
+        userTableViewData[0].value = userData.username
         if let birth = userData.dateOfBirth {
-            userTableViewData[3][0] = birth.replacingOccurrences(of: "-", with: ".");
+            userTableViewData[2].value = birth
         }
         userTableView.reloadData()
     }
     
     private func configureUI() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
-        view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
+        configureBackButton()
+        view.backgroundColor = Colors.background
+        configureEditButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
         configureIcon()
+        configureNameLabel()
         configureProfileTableView()
+    }
+    
+    private func configureBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+    }
+    
+    private func configureEditButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
+        navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
     private func configureTitleLabel() {
@@ -70,7 +80,7 @@ final class UserProfileScreenViewController: UIViewController {
         titleLabel.font = Fonts.systemB18
         titleLabel.text = "My profile"
         titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 1
     }
     
     private func configureIcon() {
@@ -88,6 +98,15 @@ final class UserProfileScreenViewController: UIViewController {
         iconImageView.image = gearImage
     }
     
+    private func configureNameLabel() {
+        view.addSubview(nameLabel)
+        nameLabel.font = Fonts.systemB20
+        nameLabel.textAlignment = .center
+        nameLabel.numberOfLines = 2
+        nameLabel.pinTop(iconImageView.bottomAnchor, 10)
+        nameLabel.pinCenterX(view)
+    }
+    
     private func configureProfileTableView() {
         view.addSubview(userTableView)
         userTableView.delegate = self
@@ -97,9 +116,11 @@ final class UserProfileScreenViewController: UIViewController {
         userTableView.isUserInteractionEnabled = false
         userTableView.pinHorizontal(view, -15)
         userTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
-        userTableView.pinTop(iconImageView.bottomAnchor, 20)
+        userTableView.pinTop(nameLabel.bottomAnchor, 0)
         userTableView.register(UserProfileCell.self, forCellReuseIdentifier: UserProfileCell.cellIdentifier)
         userTableView.backgroundColor = view.backgroundColor
+        userTableView.rowHeight = UITableView.automaticDimension
+        userTableView.estimatedRowHeight = 60
     }
     
     @objc
@@ -116,70 +137,27 @@ final class UserProfileScreenViewController: UIViewController {
 extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataSource {
     // if user dont pick his date of birth he/she will see only 3 sections in current screen
     func numberOfSections(in tableView: UITableView) -> Int {
-        if userTableViewData[3][0] == "" || userTableViewData[3][0] == "BirthPlaceholder" {
-            return 3
-        } else {
-            return 4
-        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return userTableViewData[2].value == "" ? 2 : 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserProfileCell.cellIdentifier, for: indexPath) as? UserProfileCell else {
             return UITableViewCell()
         }
-        let item = userTableViewData[indexPath.section][indexPath.row]
-        // если номер телефона
-        switch indexPath.section {
-        case 2:
-            if let formatedPhone = Format.number(item) {
-                cell.configure(with: formatedPhone)
-            } else {
-                cell.configure(with: item)
-            }
-        default:
-            cell.configure(with: item)
+        let item = userTableViewData[indexPath.row]
+            
+        // if it's phone number -> formatting
+        if item.title == "Phone", let formattedPhone = Format.number(item.value) {
+            cell.configure(with: item.title, value: formattedPhone)
+        } else {
+            cell.configure(with: item.title, value: item.value)
         }
+        
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        let label = UILabel()
-        // вот эта штучка ответственна за то, где именно будет располагаться заголовок относительно секции
-        label.frame = CGRect.init(x: 10, y: 0, width: headerView.frame.width-10, height: headerView.frame.height-10)
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        // тут выбираем header для конкретной секции
-        switch section {
-        case 0:
-            label.text = "Name"
-        case 1:
-            label.text = "Username"
-        case 2:
-            label.text = "Phone"
-        case 3:
-            if !userTableViewData[3][0].isEmpty {
-                label.text = "Date of birth"
-            }
-        default:
-            label.text = nil
-        }
-        label.textColor = .systemGray2
-        headerView.addSubview(label)
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 140))
-        footerView.backgroundColor = .systemGray5
-        return footerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1
     }
 }
 

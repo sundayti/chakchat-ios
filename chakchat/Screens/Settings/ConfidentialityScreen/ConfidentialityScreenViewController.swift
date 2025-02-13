@@ -63,7 +63,7 @@ final class ConfidentialityScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         configureBackArrow()
         interactor.loadUserData()
         configureSettingsTable()
@@ -97,7 +97,7 @@ final class ConfidentialityScreenViewController: UIViewController {
     // MARK: - Back Arrow Configuration
     private func configureBackArrow() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
     }
     
     // MARK: - Actions

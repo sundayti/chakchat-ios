@@ -96,13 +96,11 @@ final class SendCodeViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         
-        // I can tap everywhere for didEndEditing
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
-        overrideUserInterfaceStyle = .light
         
         self.navigationItem.hidesBackButton = true
         
@@ -145,7 +143,7 @@ final class SendCodeViewController: UIViewController {
         disclaimerView.addSubview(descriptionLabel)
         
         descriptionLabel.text = Constants.descriptionLabelText
-        descriptionLabel.textColor = .black
+        descriptionLabel.textColor = Colors.text
         descriptionLabel.font = UIFont.systemFont(ofSize: Constants.descriptionLabelFontSize)
 
         linksTextView.isEditable = false

@@ -48,7 +48,7 @@ final class NotificationCell: UITableViewCell {
     private func configureNotificationLabel() {
         contentView.addSubview(notificationLabel)
         notificationLabel.font = Fonts.systemR16
-        notificationLabel.textColor = .black
+        notificationLabel.textColor = Colors.text
         notificationLabel.pinCenterY(contentView)
         notificationLabel.pinLeft(contentView.leadingAnchor, 10)
     }
