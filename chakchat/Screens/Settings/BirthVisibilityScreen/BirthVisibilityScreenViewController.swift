@@ -44,7 +44,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         configureBackArrow()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
@@ -55,7 +55,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
     // MARK: - Back Arrow Configuration
     private func configureBackArrow() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
     }
     
     // MARK: - Title Label Configuration

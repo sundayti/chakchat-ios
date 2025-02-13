@@ -35,4 +35,6 @@ enum Fonts {
     static let systemR16: UIFont = UIFont.systemFont(ofSize: 16, weight: .regular)
     // Used: SettingsVC - text in textFields
     static let systemM17: UIFont = UIFont.systemFont(ofSize: 17, weight: .regular)
+    // Used: UserProfileVC
+    static let systemR18: UIFont = UIFont.systemFont(ofSize: 18, weight: .regular)
 }

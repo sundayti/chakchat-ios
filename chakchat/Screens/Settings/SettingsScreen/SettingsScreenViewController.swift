@@ -29,8 +29,8 @@ final class SettingsScreenViewController: UIViewController {
         static let tableHeaderHeight: CGFloat = 50
         static let tableHeaderX: CGFloat = 0
         static let tableHeaderY: CGFloat = 0
-        static let tableLabelX: CGFloat = 15
-        static let tableLabelY: CGFloat = 5
+        static let tableLabelX: CGFloat = 10
+        static let tableLabelY: CGFloat = 0
         static let tableLabelDifferenceToHeader: CGFloat = -10
         static let labelCase0: String = "User"
         static let labelCase1: String = "General"
@@ -96,7 +96,7 @@ final class SettingsScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         configureSettingsLabel()
         navigationItem.titleView = settingsLabel
         configureBackButton()
@@ -115,7 +115,7 @@ final class SettingsScreenViewController: UIViewController {
     // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.backArrowSymbol), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
     }
     
     // MARK: - Icon ImageView Configuration

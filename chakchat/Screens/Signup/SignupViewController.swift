@@ -84,7 +84,6 @@ final class SignupViewController: UIViewController {
         self.navigationItem.hidesBackButton = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
-        overrideUserInterfaceStyle = .light
         view.addGestureRecognizer(tapGesture)
         
         configureUI()
@@ -118,7 +117,7 @@ final class SignupViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         configureChakChatStackView()
         configureNameTextField()
         configureUsernameTextField()

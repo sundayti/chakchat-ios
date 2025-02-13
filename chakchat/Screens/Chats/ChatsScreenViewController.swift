@@ -57,7 +57,7 @@ final class ChatsScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         configureTitleLabel()
         navigationItem.title = titleLabel.text
         configureSettingsButton()

@@ -10,6 +10,7 @@ import UIKit
 // MARK: - UICustomDatePicker
 final class UICustomDatePicker : UIView {
     
+    // TODO: - Фрейм криво отображается... надо поправить....
     // MARK: - Constants
     private enum Constants {
         static let frameCornerRadius: CGFloat = 10
@@ -67,7 +68,7 @@ final class UICustomDatePicker : UIView {
         addSubview(frameView)
         frameView.layer.cornerRadius = Constants.frameCornerRadius
         frameView.layer.masksToBounds = true
-        frameView.backgroundColor = .white
+        frameView.backgroundColor = Colors.picker
         
         frameView.pinLeft(self, Constants.frameX)
         frameView.pinRight(self, Constants.frameX)
@@ -80,7 +81,7 @@ final class UICustomDatePicker : UIView {
     private func configurateTitle() {
         frameView.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB16
-        titleLabel.textColor = .black
+        titleLabel.textColor = Colors.text
         titleLabel.textAlignment = .center
         
         titleLabel.pinTop(frameView, Constants.titleTop)

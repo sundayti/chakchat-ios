@@ -16,7 +16,7 @@ final class UIChakChatStackView: UIStackView {
         let label = UILabel()
         label.text = UIConstants.chakLabelText
         label.font = UIConstants.chakchatFont
-        label.textColor = .black
+        label.textColor = Colors.chakchat
         label.textAlignment = .center
         return label
     }()
@@ -25,7 +25,7 @@ final class UIChakChatStackView: UIStackView {
         let label = UILabel()
         label.text = UIConstants.chatLabelText
         label.font = UIConstants.chakchatFont
-        label.textColor = .black
+        label.textColor = Colors.chakchat
         label.textAlignment = .center
         return label
     }()

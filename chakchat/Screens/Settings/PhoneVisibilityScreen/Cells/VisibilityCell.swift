@@ -63,7 +63,7 @@ final class VisibilityCell: UITableViewCell {
     private func configureVisibilityOptionLabel() {
         contentView.addSubview(visibilityOptionLabel)
         visibilityOptionLabel.font = Fonts.systemR16
-        visibilityOptionLabel.textColor = .black
+        visibilityOptionLabel.textColor = Colors.text
         visibilityOptionLabel.pinCenterY(contentView)
         visibilityOptionLabel.pinLeft(contentView, Constants.visibilityOptionLeading)
     }

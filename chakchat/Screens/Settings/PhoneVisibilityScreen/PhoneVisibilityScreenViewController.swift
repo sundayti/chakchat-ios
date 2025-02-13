@@ -50,7 +50,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         interactor.loadUserRestrictions()
         configureBackArrow()
         configurePhoneVisibilityTable()
@@ -69,7 +69,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     // MARK: - Back Arrow Configuration
     private func configureBackArrow() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
     }
     
     // MARK: - Phone Visibility Table Configuration
