@@ -12,14 +12,28 @@ final class BirthVisibilityScreenWorker: BirthVisibilityScreenWorkerLogic {
     
     // MARK: - Properties
     let userDeafultsManager: UserDefaultsManagerProtocol
+    let meService: MeServiceRestrictionProtocol
     
     // MARK: - Initialization
-    init(userDeafultsManager: UserDefaultsManagerProtocol) {
+    init(userDeafultsManager: UserDefaultsManagerProtocol, meService: MeServiceRestrictionProtocol) {
         self.userDeafultsManager = userDeafultsManager
+        self.meService = meService
     }
     
-    // MARK: - New Birth Visibility Option Saving
-    func saveNewBirthVisibilityOption(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility) {
-        userDeafultsManager.saveConfidentialityDateOfBirthStatus(birthVisibility.birthStatus.rawValue)
+    func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData, completion: @escaping (Result<Void, any Error>) -> Void) {
+        meService.sendPutRestrictionRequest(request) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                self.userDeafultsManager.saveRestrictions(request)
+                completion(.success(()))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func saveNewRestrictions(_ newUserRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        userDeafultsManager.saveRestrictions(newUserRestrictions)
     }
 }

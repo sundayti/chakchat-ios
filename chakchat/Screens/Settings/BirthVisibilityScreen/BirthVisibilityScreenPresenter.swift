@@ -15,7 +15,7 @@ final class BirthVisibilityScreenPresenter: BirthVisibilityScreenPresentationLog
     weak var view: BirthVisibilityScreenViewController?
     
     // MARK: - User Data Showing
-    func showUserData(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility) {
-        view?.markCurrentOption(birthVisibility)
+    func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        view?.markCurrentOption(userRestrictions)
     }
 }
