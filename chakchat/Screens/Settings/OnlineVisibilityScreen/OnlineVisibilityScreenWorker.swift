@@ -18,8 +18,7 @@ final class OnlineVisibilityScreenWorker: OnlineVisibilityScreenWorkerLogic {
         self.userDeafultsManager = userDeafultsManager
     }
     
-    // MARK: - New Online Visibility Option Saving
-    func saveNewOnlineVisibilityOption(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
-        userDeafultsManager.saveConfidentialityOnlineStatus(onlineVisibility.onlineStatus.rawValue)
+    func saveNewRestrictions(_ newOnlineRestriction: OnlineVisibilityStatus) {
+        userDeafultsManager.saveOnlineStatus(newOnlineRestriction.status)
     }
 }

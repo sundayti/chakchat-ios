@@ -14,12 +14,20 @@ final class ConfidentialityScreenPresenter: ConfidentialityScreenPresentationLog
     weak var view: ConfidentialityScreenViewController?
     
     // MARK: - User Data Showing
-    func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        view?.configureSections(userData)
+    func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        view?.configureSections(userRestrictions)
+    }
+    
+    func showOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus) {
+        view?.configureOnlineStatus(onlineRestriction)
     }
     
     // MARK: - New User Data Showing
-    func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        view?.updateVisibilityStatus(userData)
+    func showNewUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        view?.updateVisibilityStatus(userRestrictions)
+    }
+    
+    func showNewOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus) {
+        view?.updateOnlineStatus(onlineRestriction)
     }
 }

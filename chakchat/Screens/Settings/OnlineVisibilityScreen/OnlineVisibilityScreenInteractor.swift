@@ -15,7 +15,7 @@ final class OnlineVisibilityScreenInteractor: OnlineVisibilityScreenBusinessLogi
     private let presenter: OnlineVisibilityScreenPresentationLogic
     private let worker: OnlineVisibilityScreenWorkerLogic
     private let eventManager: EventPublisherProtocol
-    private var userData: OnlineVisibilityScreenModels.OnlineVisibility
+    private let onlineRestrictionSnap: OnlineVisibilityStatus
     private let logger: OSLog
     
     var onRouteToConfidentialityScreen: (() -> Void)?
@@ -24,41 +24,39 @@ final class OnlineVisibilityScreenInteractor: OnlineVisibilityScreenBusinessLogi
     init(presenter: OnlineVisibilityScreenPresentationLogic, 
          worker: OnlineVisibilityScreenWorkerLogic,
          eventManager: EventPublisherProtocol,
-         userData: OnlineVisibilityScreenModels.OnlineVisibility,
+         onlineRestrictionSnap: OnlineVisibilityStatus,
          logger: OSLog
     ) {
         self.presenter = presenter
         self.worker = worker
         self.eventManager = eventManager
-        self.userData = userData
+        self.onlineRestrictionSnap = onlineRestrictionSnap
         self.logger = logger
     }
     
-    // MARK: - User Data Loading
-    func loadUserData() {
-        os_log("Loaded user data in online status visibility screen", log: logger, type: .default)
-        showUserData(userData)
+    func loadUserRestrictions() {
+        os_log("Loaded user data in online visibility screen", log: logger, type: .default)
+        showUserRestrictions(onlineRestrictionSnap)
     }
     
-    // MARK: - User Data Showing
-    func showUserData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
-        os_log("Passed user data in online status visibility screen to presenter", log: logger, type: .default)
-        presenter.showUserData(onlineVisibility)
+    func showUserRestrictions(_ onlineRestriction: OnlineVisibilityStatus) {
+        os_log("passed online restriction to online visibility vc", log: logger, type: .default)
+        presenter.showUserRestrictions(onlineRestriction)
     }
     
-    // MARK: - New data Saving
-    func saveNewData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
-        os_log("Saved new data in online status visibility screen", log: logger, type: .default)
-        worker.saveNewOnlineVisibilityOption(onlineVisibility)
-        userData.onlineStatus = onlineVisibility.onlineStatus
+    func saveNewRestrictions(_ onlineRestriction: OnlineVisibilityStatus) {
+        os_log("Saved new online restriction", log: logger, type: .default)
+        worker.saveNewRestrictions(onlineRestriction)
     }
     
-    // MARK: - Routing
-    func backToConfidentialityScreen() {
-        let updateOnlineStatusEvent = UpdateOnlineStatusEvent(newOnlineStatus: userData.onlineStatus)
-        os_log("Event published in online status visibility screen", log: logger, type: .default)
-        eventManager.publish(event: updateOnlineStatusEvent)
+    func backToConfidentialityScreen(_ onlineRestriction: String) {
+        let newOnlineRestriction = OnlineVisibilityStatus(status: onlineRestriction)
+        saveNewRestrictions(newOnlineRestriction)
+        let updateOnlineRestrictionEvent = UpdateOnlineRestrictionEvent(newOnline: newOnlineRestriction.status)
+        os_log("Event published in phone visibility screen", log: logger, type: .default)
+        eventManager.publish(event: updateOnlineRestrictionEvent)
         os_log("Routed to confidentiality settings screen", log: logger, type: .default)
         onRouteToConfidentialityScreen?()
     }
+    
 }

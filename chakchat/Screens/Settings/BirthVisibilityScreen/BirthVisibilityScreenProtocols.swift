@@ -9,19 +9,22 @@ import Foundation
 
 // MARK: - BirthVisibilityScreenBusinessLogic
 protocol BirthVisibilityScreenBusinessLogic {
-    func backToConfidentialityScreen()
+    /// тут все аналогично экрану PhoneVisibility
+    func backToConfidentialityScreen(_ birthRestriction: String)
     
-    func loadUserData()
-    func showUserData(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility)
-    func saveNewData(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility)
+    func loadUserRestrictions()
+    func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
+    func saveNewRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
 }
 
 // MARK: - BirthVisibilityScreenPresentationLogic
 protocol BirthVisibilityScreenPresentationLogic {
-    func showUserData(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility)
+    func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
 }
 
 // MARK: - BirthVisibilityScreenWorkerLogic
 protocol BirthVisibilityScreenWorkerLogic {
-    func saveNewBirthVisibilityOption(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility)
+    func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData,
+                               completion: @escaping (Result<Void, Error>) -> Void)
+    func saveNewRestrictions(_ newUserRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
 }

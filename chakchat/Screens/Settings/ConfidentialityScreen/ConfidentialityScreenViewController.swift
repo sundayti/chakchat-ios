@@ -23,9 +23,9 @@ final class ConfidentialityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private lazy var confidentialitySettingsTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var confidentilitySection = [
-        ("Phone number", "All"),
-        ("Date of Birth", "All"),
-        ("Online status", "All"),
+        ("Phone number", "everyone"),
+        ("Date of Birth", "everyone"),
+        ("Online status", "everyone"),
         ("Black list", "10")
     ]
     
@@ -47,18 +47,28 @@ final class ConfidentialityScreenViewController: UIViewController {
     }
     
     // MARK: - Sections Configurations
-    public func configureSections(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        confidentilitySection[0].1 = userData.phoneNumberState.rawValue
-        confidentilitySection[1].1 = userData.dateOfBirthState.rawValue
-        confidentilitySection[2].1 = userData.onlineStatus.rawValue
+    public func configureSections(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        confidentilitySection[0].1 = userRestrictions.phone.openTo
+        confidentilitySection[1].1 = userRestrictions.dateOfBirth.openTo
     }
     
     // MARK: - Visibility Status Updating
-    public func updateVisibilityStatus(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        confidentilitySection[0].1 = userData.phoneNumberState.rawValue
-        confidentilitySection[1].1 = userData.dateOfBirthState.rawValue
-        confidentilitySection[2].1 = userData.onlineStatus.rawValue
+    public func updateVisibilityStatus(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        confidentilitySection[0].1 = userRestrictions.phone.openTo
+        confidentilitySection[1].1 = userRestrictions.dateOfBirth.openTo
         confidentialitySettingsTable.reloadData()
+    }
+    // TODO: подумать, что делать с этим всем. Нужно конфигурировать вместе.
+    /// проблема в том что Булат пока сам не знает, будем ли мы изменять видимость онлайн статуса или не будем
+    /// пока сделаю такой костыль
+    public func configureOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
+        confidentilitySection[2].1 = onlineRestriction.status
+    }
+    
+    public func updateOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
+        print(confidentilitySection[2].1)
+        confidentilitySection[2].1 = onlineRestriction.status
+        print(confidentilitySection[2].1)
     }
     
     // MARK: - UI Configuration

@@ -26,7 +26,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var onlineVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var onlineVisibilityData = [
-        [("All"), ("Custom"), ("Nobody")],
+        [("Everyone"), ("Only me"), ("Specified")],
         [("Never show"), ("Always show")]
     ]
     let interactor: OnlineVisibilityScreenBusinessLogic
@@ -52,7 +52,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         configureBackArrow()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
-        interactor.loadUserData()
+        interactor.loadUserRestrictions()
         configurePhoneVisibilityTable()
     }
     
@@ -99,10 +99,26 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         }
     }
     
+    private func transferRestriction() -> String {
+        if let selectedIndex {
+            switch selectedIndex.row {
+            case 0:
+                return "everyone"
+            case 1:
+                return "only_me"
+            case 2:
+                return "specified"
+            default:
+                break
+            }
+        }
+        return "everyone"
+    }
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
-        interactor.backToConfidentialityScreen()
+        let onlineStatus = transferRestriction()
+        interactor.backToConfidentialityScreen(onlineStatus)
     }
 }
 
@@ -111,15 +127,18 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
     
     // MARK: - Mark Current Option
     // Called during screen configuration to check the box depending on the data in the user defaults storage
-    public func markCurrentOption(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
+    public func markCurrentOption(_ onlineRestriction: OnlineVisibilityStatus) {
         var rowIndex: Int
-        switch onlineVisibility.onlineStatus {
-        case .all:
+        switch onlineRestriction.status{
+        case "everyone":
             rowIndex = 0
-        case .custom:
+        case "only_me":
             rowIndex = 1
-        case .nobody:
+        case "specified":
             rowIndex = 2
+        default:
+            rowIndex = 0
+            break
         }
         selectedIndex = IndexPath(row: rowIndex, section: 0)
     }
@@ -188,19 +207,6 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
             }
             updateExceptionsSection()
             tableView.reloadData()
-            switch indexPath.row {
-            case 0:
-                let newOnlineVisibility = OnlineVisibilityScreenModels.OnlineVisibility(onlineStatus: .all)
-                interactor.saveNewData(newOnlineVisibility)
-            case 1:
-                let newOnlineVisibility = OnlineVisibilityScreenModels.OnlineVisibility(onlineStatus: .custom)
-                interactor.saveNewData(newOnlineVisibility)
-            case 2:
-                let newOnlineVisibility = OnlineVisibilityScreenModels.OnlineVisibility(onlineStatus: .nobody)
-                interactor.saveNewData(newOnlineVisibility)
-            default:
-                break
-            }
         } else {
             // the logic of the second section has not yet been invented
         }

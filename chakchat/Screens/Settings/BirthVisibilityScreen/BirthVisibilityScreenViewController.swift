@@ -22,7 +22,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var birthVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var birthVisibilityData = [
-        [("All"), ("Custom"), ("Nobody")],
+        [("Everyone"), ("Only me"), ("Specified")],
         [("Never show"), ("Always show")]
     ]
     let interactor: BirthVisibilityScreenBusinessLogic
@@ -48,7 +48,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
         configureBackArrow()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
-        interactor.loadUserData()
+        interactor.loadUserRestrictions()
         configurePhoneVisibilityTable()
     }
     
@@ -94,11 +94,26 @@ final class BirthVisibilityScreenViewController: UIViewController {
             break
         }
     }
-    
+    private func transferRestriction() -> String {
+        if let selectedIndex {
+            switch selectedIndex.row {
+            case 0:
+                return "everyone"
+            case 1:
+                return "only_me"
+            case 2:
+                return "specified"
+            default:
+                break
+            }
+        }
+        return "everyone"
+    }
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
-        interactor.backToConfidentialityScreen()
+        let birthRestriction = transferRestriction()
+        interactor.backToConfidentialityScreen(birthRestriction)
     }
 }
 
@@ -107,15 +122,18 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     
     // MARK: - Mark Current Option
     // Called during screen configuration to check the box depending on the data in the user defaults storage
-    public func markCurrentOption(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility) {
+    public func markCurrentOption(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         var rowIndex: Int
-        switch birthVisibility.birthStatus {
-        case .all:
+        switch userRestrictions.dateOfBirth.openTo {
+        case "everyone":
             rowIndex = 0
-        case .custom:
+        case "only_me":
             rowIndex = 1
-        case .nobody:
+        case "specified":
             rowIndex = 2
+        default:
+            rowIndex = 0
+            break
         }
         selectedIndex = IndexPath(row: rowIndex, section: 0)
     }
@@ -184,19 +202,6 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
             }
             updateExceptionsSection()
             tableView.reloadData()
-            switch indexPath.row {
-            case 0:
-                let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .all)
-                interactor.saveNewData(newBirthVisibility)
-            case 1:
-                let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .custom)
-                interactor.saveNewData(newBirthVisibility)
-            case 2:
-                let newBirthVisibility = BirthVisibilityScreenModels.BirthVisibility(birthStatus: .nobody)
-                interactor.saveNewData(newBirthVisibility)
-            default:
-                break
-            }
         } else {
             // the logic of the second section has not yet been invented
         }

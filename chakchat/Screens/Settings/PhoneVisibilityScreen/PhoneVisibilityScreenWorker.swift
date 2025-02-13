@@ -12,14 +12,30 @@ final class PhoneVisibilityScreenWorker: PhoneVisibilityScreenWorkerLogic {
     
     // MARK: - Properties
     let userDefaultsManager: UserDefaultsManagerProtocol
+    let meService: MeServiceRestrictionProtocol
     
     // MARK: - Initialization
-    init(userDefaultsManager: UserDefaultsManagerProtocol) {
+    init(userDefaultsManager: UserDefaultsManagerProtocol,
+         meService: MeServiceRestrictionProtocol
+    ) {
         self.userDefaultsManager = userDefaultsManager
+        self.meService = meService
     }
     
-    // MARK: - New Phone Visibility Option Saving
-    func saveNewPhoneVisibilityOption(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
-        userDefaultsManager.saveConfidentialityPhoneStatus(phoneVisibility.phoneStatus.rawValue)
+    func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData, completion: @escaping (Result<Void, any Error>) -> Void) {
+        meService.sendPutRestrictionRequest(request) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(()):
+                self.userDefaultsManager.saveRestrictions(request)
+                completion(.success(()))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func saveNewRestrictions(_ newUserRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        userDefaultsManager.saveRestrictions(newUserRestrictions)
     }
 }

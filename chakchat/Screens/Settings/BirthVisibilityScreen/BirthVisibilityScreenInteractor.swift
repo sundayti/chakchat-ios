@@ -15,8 +15,9 @@ final class BirthVisibilityScreenInteractor: BirthVisibilityScreenBusinessLogic 
     private let presenter: BirthVisibilityScreenPresentationLogic
     private let worker: BirthVisibilityScreenWorkerLogic
     private let eventManager: EventPublisherProtocol
-    private var userData: BirthVisibilityScreenModels.BirthVisibility
+    private let errorHandler: ErrorHandlerLogic
     private let logger: OSLog
+    private let userRestrictionsSnap: ConfidentialitySettingsModels.ConfidentialityUserData
     
     var onRouteToConfidentialityScreen: (() -> Void)?
     
@@ -24,41 +25,46 @@ final class BirthVisibilityScreenInteractor: BirthVisibilityScreenBusinessLogic 
     init(presenter: BirthVisibilityScreenPresentationLogic, 
          worker: BirthVisibilityScreenWorkerLogic,
          eventManager: EventPublisherProtocol,
-         userData: BirthVisibilityScreenModels.BirthVisibility,
-         logger: OSLog
+         errorHandler: ErrorHandlerLogic,
+         logger: OSLog,
+         userRestrictionsSnap: ConfidentialitySettingsModels.ConfidentialityUserData
     ) {
         self.presenter = presenter
         self.worker = worker
         self.eventManager = eventManager
-        self.userData = userData
+        self.errorHandler = errorHandler
         self.logger = logger
+        self.userRestrictionsSnap = userRestrictionsSnap
     }
     
     // MARK: - User Data Loading
-    func loadUserData() {
+    func loadUserRestrictions() {
         os_log("Loaded user data in birth visibility screen", log: logger, type: .default)
-        showUserData(userData)
+        showUserRestrictions(userRestrictionsSnap)
     }
     
     // MARK: - User Data Showing
-    func showUserData(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility) {
+    func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Passed user data in birth visibility screen to presenter", log: logger, type: .default)
-        presenter.showUserData(birthVisibility)
+        presenter.showUserRestrictions(userRestrictions)
     }
     
     // MARK: - New Data Saving
-    func saveNewData(_ birthVisibility: BirthVisibilityScreenModels.BirthVisibility) {
+    func saveNewRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Saved new data in birth visibility screen", log: logger, type: .default)
-        worker.saveNewBirthVisibilityOption(birthVisibility)
-        userData.birthStatus = birthVisibility.birthStatus
 
     }
     
     // MARK: - Rounting
-    func backToConfidentialityScreen() {
-        let updateBirthStatusEvent = UpdateBirthStatusEvent(newBirthStatus: userData.birthStatus)
+    func backToConfidentialityScreen(_ birthRestriction: String) {
+        let newUserRestrictions = ConfidentialitySettingsModels.ConfidentialityUserData(
+            phone: userRestrictionsSnap.phone,
+            dateOfBirth: ConfidentialityDetails(openTo: birthRestriction, specifiedUsers: nil))
+        saveNewRestrictions(newUserRestrictions)
+        let updateRestrictionsEvent = UpdateRestrictionsEvent(newPhone: newUserRestrictions.phone,
+                                                              newDateOfBirth: newUserRestrictions.dateOfBirth)
         os_log("Event published in birth visibility screen", log: logger, type: .default)
-        eventManager.publish(event: updateBirthStatusEvent)
+        eventManager.publish(event: updateRestrictionsEvent)
         os_log("Routed to confidentiality settings screen", log: logger, type: .default)
         onRouteToConfidentialityScreen?()
     }

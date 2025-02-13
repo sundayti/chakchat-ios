@@ -14,11 +14,10 @@ enum OnlineVisibilityScreenAssembly {
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = OnlineVisibilityScreenPresenter()
         let worker = OnlineVisibilityScreenWorker(userDeafultsManager: context.userDefaultsManager)
-        let userData = getOnlineVisibilityData(context.userDefaultsManager)
         let interactor = OnlineVisibilityScreenInteractor(presenter: presenter, 
                                                           worker: worker,
                                                           eventManager: context.eventManager,
-                                                          userData: userData,
+                                                          onlineRestrictionSnap: OnlineVisibilityStatus(status: context.userDefaultsManager.loadOnlineStatus()),
                                                           logger: context.logger
         )
         interactor.onRouteToConfidentialityScreen = { [weak coordinator] in
@@ -28,13 +27,4 @@ enum OnlineVisibilityScreenAssembly {
         presenter.view = view
         return view
     }
-}
-
-// MARK: - Online Visibility Data Getting
-private func getOnlineVisibilityData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> OnlineVisibilityScreenModels.OnlineVisibility {
-    let onlineVisibility = userDefaultsManager.loadConfidentialityOnlineStatus()
-    guard let onlineVisibility = ConfidentialityState(rawValue: onlineVisibility) else {
-        return OnlineVisibilityScreenModels.OnlineVisibility(onlineStatus: .all)
-    }
-    return OnlineVisibilityScreenModels.OnlineVisibility(onlineStatus: onlineVisibility)
 }

@@ -15,7 +15,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     // MARK: - Properties
     private let presenter: ConfidentialityScreenPresentationLogic
     private let worker: ConfidentialityScreenWorkerLogic
-    private var userData: ConfidentialitySettingsModels.ConfidentialityUserData
+    private let errorHandler: ErrorHandlerLogic
     private let eventSubscriber: EventSubscriberProtocol
     private let logger: OSLog
     
@@ -29,14 +29,14 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     // MARK: - Initialization
     init(presenter: ConfidentialityScreenPresentationLogic, 
          worker: ConfidentialityScreenWorkerLogic,
+         errorHandler: ErrorHandlerLogic,
          eventSubscriber: EventSubscriberProtocol,
-         userData: ConfidentialitySettingsModels.ConfidentialityUserData,
          logger: OSLog
     ) {
         self.presenter = presenter
         self.worker = worker
+        self.errorHandler = errorHandler
         self.eventSubscriber = eventSubscriber
-        self.userData = userData
         self.logger = logger
         
         subscribeToEvents()
@@ -45,68 +45,66 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     // MARK: - User Data
     func loadUserData() {
         os_log("Loaded user data in confidentiality settings screen", log: logger, type: .default)
-        showUserData(userData)
+        worker.getUserData { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let userRestrictions):
+                self.showUserData(userRestrictions)
+            case .failure(let failure):
+                _ = self.errorHandler.handleError(failure)
+            }
+        }
     }
     
-    // MARK: - User Data Updating
-    func updateUserData() {
-        os_log("Loaded new user data in profile settings screen", log: logger, type: .default)
-        showNewUserData(userData)
-    }
     
     // MARK: - User Data Showing
-    func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+    func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Passed user data in confidentiality settings screen to presenter", log: logger, type: .default)
-        presenter.showUserData(userData)
+        presenter.showUserData(userRestrictions)
+    }
+    
+    func showOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus) {
+        os_log("Passed online restrictions in confidentiality settings screen to presenter", log: logger, type: .default)
+        presenter.showOnlineRestriction(onlineRestriction)
     }
     
     // MARK: - New User Data Showing
-    func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData) {
+    func showNewUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Passed new user data in confidentiality settings screen to presenter", log: logger, type: .default)
-        presenter.showNewUserData(userData)
+        presenter.showNewUserData(userRestrictions)
+    }
+    
+    func showNewOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus) {
+        os_log("passed new online restriction in confidentiality settings screen to presenter", log: logger, type: .default)
+        presenter.showNewOnlineRestriction(onlineRestriction)
     }
     
     private func subscribeToEvents() {
-        eventSubscriber.subscribe(UpdatePhoneStatusEvent.self) { [weak self] event in
-            self?.handlePhoneVisibilityChangeEvent(event)
+        eventSubscriber.subscribe(UpdateRestrictionsEvent.self) { [weak self] event in
+            self?.handleRestrictionsUpdate(event)
         }.store(in: &cancellables)
+        eventSubscriber.subscribe(UpdateOnlineRestrictionEvent.self) { [weak self] event in
+            self?.handleOnlineRestrictionUpdate(event)
+        }.store(in: &cancellables)
+    }
+
+    func handleRestrictionsUpdate(_ event: UpdateRestrictionsEvent) {
+        os_log("Handled restriction event in confidentiality settings screen", log: logger, type: .default)
+        let newUserRestrictions = ConfidentialitySettingsModels.ConfidentialityUserData(
+            phone: ConfidentialityDetails(openTo: event.newPhone.openTo, 
+                                          specifiedUsers: event.newPhone.specifiedUsers),
+            dateOfBirth: ConfidentialityDetails(openTo: event.newDateOfBirth.openTo,
+                                                specifiedUsers: event.newDateOfBirth.specifiedUsers)
+        )
+        showNewUserData(newUserRestrictions)
+    }
+    
+    func handleOnlineRestrictionUpdate(_ event: UpdateOnlineRestrictionEvent) {
+        os_log("Handled online restriction event in confidentiality settings screen", log: logger, type: .default)
+        let newOnlineRestriction = OnlineVisibilityStatus(status: event.newOnline)
+        showNewOnlineRestriction(newOnlineRestriction)
         
-        eventSubscriber.subscribe(UpdateBirthStatusEvent.self) { [weak self] event in
-            self?.handleBirthVisibilityChangeEvent(event)
-        }.store(in: &cancellables)
-        
-        eventSubscriber.subscribe(UpdateOnlineStatusEvent.self) { [weak self] event in
-            self?.handleOnlineVisibilityChangeEvent(event)
-        }.store(in: &cancellables)
     }
-    
-    // MARK: - Phone Visibility Change Event Handling
-    func handlePhoneVisibilityChangeEvent(_ event: UpdatePhoneStatusEvent) {
-        os_log("Handled user data changes in phone visibility screen", log: logger, type: .default)
-        userData.phoneNumberState = event.newPhoneStatus
-        DispatchQueue.main.async {
-            self.updateUserData()
-        }
-    }
-    
-    // MARK: - Birth Visibility Change Event Handling
-    func handleBirthVisibilityChangeEvent(_ event: UpdateBirthStatusEvent) {
-        os_log("Handled user data changes in birth visibility screen", log: logger, type: .default)
-        userData.dateOfBirthState = event.newBirthStatus
-        DispatchQueue.main.async {
-            self.updateUserData()
-        }
-    }
-    
-    // MARK: - Online Visibility Change Event Handling
-    func handleOnlineVisibilityChangeEvent(_ event: UpdateOnlineStatusEvent) {
-        os_log("Handled user data changes in online status visibility screen", log: logger, type: .default)
-        userData.onlineStatus = event.newOnlineStatus
-        DispatchQueue.main.async {
-            self.updateUserData()
-        }
-    }
-    
     // MARK: - Routing
     func routeToPhoneVisibilityScreen() {
         os_log("Routed to phone visibility screen", log: logger, type: .default)

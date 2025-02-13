@@ -14,7 +14,7 @@ final class PhoneVisibilityScreenPresenter: PhoneVisibilityScreenPresentationLog
     weak var view: PhoneVisibilityScreenViewController?
     
     // MARK: - User Data Showing
-    func showUserData(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
-        view?.markCurrentOption(phoneVisibility)
+    func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+        view?.markCurrentOption(userRestrictions)
     }
 }
