@@ -16,7 +16,7 @@ final class VerificationService: VerificationServiceLogic {
         _ responseType: Response.Type,
         completion: @escaping (Result<Response, Error>) -> Void
     ) {
-        Sender.send(
+        Sender.Post(
             requestBody: request,
             responseType: responseType,
             endpoint: endpoint,

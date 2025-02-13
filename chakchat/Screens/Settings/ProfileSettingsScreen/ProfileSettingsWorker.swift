@@ -2,30 +2,38 @@
 //  ProfileSettingsWorker.swift
 //  chakchat
 //
-//  Created by Кирилл Исаев on 24.01.2025.
+//  Created by Кирилл Исаев on 13.02.2025.
 //
 
 import Foundation
 
-// MARK: - ProfileSettingsWorker
-final class ProfileSettingsWorker: ProfileSettingsWorkerLogic {
-    
-    // MARK: - Properties
+final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
+
     let userDefaultsManager: UserDefaultsManagerProtocol
+    let meService: MeServiceProtocol
     
-    // MARK: - Initialization
-    init(userDefaultsManager: UserDefaultsManagerProtocol) {
+    init(userDefaultsManager: UserDefaultsManagerProtocol,
+         meService: MeServiceProtocol
+    ) {
         self.userDefaultsManager = userDefaultsManager
+        self.meService = meService
     }
     
-    // MARK: - New Data Saving
-    func saveNewData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        userDefaultsManager.saveNickname(userData.nickname)
-        userDefaultsManager.saveUsername(userData.username)
-        if let data = userData.dateOfBirth {
-            userDefaultsManager.saveBirth(data)
-        } else {
-            userDefaultsManager.saveBirth(nil)
+    func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+        meService.sendPutMeRequest(request) { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let newUserData):
+                self.userDefaultsManager.saveUserData(newUserData)
+                completion(.success(newUserData))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
         }
     }
+    
+    func getUserData() -> ProfileSettingsModels.ProfileUserData {
+        return userDefaultsManager.loadUserData()
+    }
+    
 }

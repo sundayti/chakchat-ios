@@ -14,12 +14,13 @@ enum SettingsScreenAssembly {
     // MARK: - Setting Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SettingsScreenPresenter()
-        let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultsManager)
-        let userData = getUserData(context.userDefaultsManager)
-        let interactor = SettingsScreenInteractor(presenter: presenter, 
-                                                  worker: worker, 
-                                                  userData: userData,
-                                                  eventSubscriber: context.eventManager,
+        let meService = MeService()
+        let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultsManager, meService: meService)
+       
+        let interactor = SettingsScreenInteractor(presenter: presenter,
+                                                  worker: worker,
+                                                  eventSubscriber: context.eventManager, 
+                                                  errorHandler: context.errorHandler,
                                                   logger: context.logger
         )
         interactor.onRouteToUserProfileSettings = { [weak coordinator] in
@@ -36,12 +37,4 @@ enum SettingsScreenAssembly {
         presenter.view = view
         return view
     }
-}
-
-// MARK: - User Data Getting
-private func getUserData(_ userDefaultsManager: UserDefaultsManagerProtocol) -> SettingsScreenModels.UserData {
-    let nickname = userDefaultsManager.loadNickname()
-    let username = userDefaultsManager.loadUsername()
-    let phone = userDefaultsManager.loadPhone()
-    return SettingsScreenModels.UserData(nickname: nickname, username: username, phone: phone)
 }

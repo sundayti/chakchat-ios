@@ -57,11 +57,11 @@ final class ProfileSettingsViewController: UIViewController {
     private var logOutButton: UIButton = UIButton(type: .system)
     private var dateButton: UIButton = UIButton(type: .system)
     private let dateFormatter: DateFormatter = DateFormatter()
-    let interactor: ProfileSettingsBusinessLogic
+    let interactor: ProfileSettingsScreenBusinessLogic
     private var selectedDate: Date?
     
     // MARK: - Initialization
-    init(interactor: ProfileSettingsBusinessLogic) {
+    init(interactor: ProfileSettingsScreenBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -80,11 +80,8 @@ final class ProfileSettingsViewController: UIViewController {
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         nameTextField.setText(userData.nickname)
         usernameTextField.setText(userData.username)
-        let formattedPhone = Format.number(userData.phone);
-        phoneTextField.setText(formattedPhone);
-        if let photo = userData.photo {
-            iconImageView.image = photo
-        }
+        let formattedPhone = Format.number(userData.phone)
+        phoneTextField.setText(formattedPhone)
         if let birth = userData.dateOfBirth {
             dateFormatter.dateFormat = UIConstants.dateFormat
             selectedDate = dateFormatter.date(from: birth)
@@ -154,7 +151,7 @@ final class ProfileSettingsViewController: UIViewController {
         
         iconImageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
-        iconImageView.addGestureRecognizer(tapGesture)
+        //iconImageView.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - Name Text Field Configuration
@@ -220,12 +217,22 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     // MARK: - User Profile Data Transfering
-    private func transferUserProfileData() -> ProfileSettingsModels.ProfileUserData {
-        let newNickname = nameTextField.getText() ?? "Cry"
-        let newUsername = usernameTextField.getText() ?? "Cry"
-        let newBirth = birthTextField.getText();
-        let phone = phoneTextField.getText() ?? "IT IS NOT POSSIBLE"
-        return ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: newNickname, username: newUsername, phone: phone, dateOfBirth: newBirth)
+    private func transferUserProfileData() throws -> ProfileSettingsModels.ChangeableProfileUserData {
+        guard let newNickname = nameTextField.getText() else {
+            throw CriticalError.noData
+        }
+        guard let newUsername = usernameTextField.getText() else {
+            throw CriticalError.noData
+        }
+        var newBirth = birthTextField.getText()
+        if (newBirth != nil) {
+            newBirth = newBirth?.replacingOccurrences(of: ".", with: "-");
+        }
+        return ProfileSettingsModels.ChangeableProfileUserData(
+            nickname: newNickname,
+            username: newUsername,
+            dateOfBirth: newBirth
+        )
     }
     
     // MARK: - Actions
@@ -236,8 +243,14 @@ final class ProfileSettingsViewController: UIViewController {
     
     @objc
     private func applyButtonPressed() {
-        let newData = transferUserProfileData()
-        interactor.saveNewData(newData)
+        do {
+            let newData = try transferUserProfileData()
+            interactor.saveNewData(newData)
+        } catch CriticalError.noData {
+            print("Critical error")
+        } catch {
+            print("Unknown error")
+        }
     }
     
     @objc
@@ -308,4 +321,8 @@ extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINav
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+}
+
+enum CriticalError: Error {
+    case noData
 }

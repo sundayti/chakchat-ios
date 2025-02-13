@@ -24,12 +24,13 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let audioNotificationKey = "audioNotification"
     private let vibrationNotificationKey = "vibrationNotification"
     
-    // MARK: - Avatar Saving
-    func saveAvatar(_ icon: UIImage?) {
-        if let icon = icon?.pngData() {
-            UserDefaults.standard.set(icon, forKey: avatarKey)
-        }
+    func saveUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+        saveNickname(userData.nickname)
+        saveUsername(userData.username)
+        savePhone(userData.phone)
+        saveBirth(userData.dateOfBirth)
     }
+    
     
     // MARK: - Nickname Saving
     func saveNickname(_ nickname: String) {
@@ -81,12 +82,18 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         print("Vibration notification status = \(vibrationNotificationStatus)")
     }
     
-    func loadAvatar() -> UIImage? {
-        if let data = UserDefaults.standard.data(forKey: avatarKey) {
-            let image = UIImage(data: data)
-            return image
-        }
-        return nil
+    func loadUserData() -> ProfileSettingsModels.ProfileUserData {
+        let nickname = loadNickname()
+        let username = loadUsername()
+        let phone = loadPhone()
+        let dateOfBirth = loadBirth()
+        return ProfileSettingsModels.ProfileUserData(id: UUID(),
+                                                     nickname: nickname,
+                                                     username: username,
+                                                     phone: phone,
+                                                     photo: nil,
+                                                     dateOfBirth: dateOfBirth
+        )
     }
     
     // MARK: - Nickname Loading
