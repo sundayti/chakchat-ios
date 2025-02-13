@@ -66,7 +66,7 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
                 eventPublisher.publish(event: updateProfileDataEvent)
             case .failure(let failure):
                 os_log("/me/put failed", log: logger, type: .info)
-                let errorID = self.errorHandler.handleError(failure)
+                _ = self.errorHandler.handleError(failure)
             }
         }
         os_log("Routed to settings menu screen", log: logger, type: .default)

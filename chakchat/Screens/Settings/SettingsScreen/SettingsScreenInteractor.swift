@@ -52,7 +52,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
                 self.showUserData(userData)
             case .failure(let failure):
                 os_log("/me/get failed", log: logger, type: .info)
-                let errorID = self.errorHandler.handleError(failure)
+                _ = self.errorHandler.handleError(failure)
             }
         }
     }

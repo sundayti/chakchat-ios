@@ -150,7 +150,7 @@ final class ProfileSettingsViewController: UIViewController {
         iconImageView.image = gearImage
         
         iconImageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
+        _ = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
         //iconImageView.addGestureRecognizer(tapGesture)
     }
     

@@ -57,6 +57,8 @@ final class SendCodeViewController: UIViewController {
         static let numberOfLines: Int = 2
         static let maxWidth: CGFloat = 320
         static let errorLabelTop: CGFloat = 0
+        
+        static let extraKeyboardIndent: CGFloat = 20
     }
     
     // MARK: - Properties
@@ -85,6 +87,24 @@ final class SendCodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    // MARK: - ViewWillAppear Overriding
+    // Subscribing to Keyboard Notifications
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    // MARK: - ViewWillDisappear Overriding
+    // Unubscribing to Keyboard Notifications
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // MARK: - Show Error as label
@@ -251,6 +271,32 @@ final class SendCodeViewController: UIViewController {
             )
         } else {
             errorLabel.showError(Constants.shortNumberLabelText)
+        }
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let keyboardHeight = keyboardFrame.height
+
+        if let buttonFrame = sendGradientButton.superview?.convert(sendGradientButton.frame, to: nil) {
+            let bottomY = buttonFrame.maxY
+            let screenHeight = UIScreen.main.bounds.height
+    
+            if bottomY > screenHeight - keyboardHeight {
+                let overlap = bottomY - (screenHeight - keyboardHeight)
+                self.view.frame.origin.y -= overlap + Constants.extraKeyboardIndent
+            }
+        }
+    }
+
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
         }
     }
 }
