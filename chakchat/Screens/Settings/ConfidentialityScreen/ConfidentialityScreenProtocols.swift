@@ -10,13 +10,12 @@ import Foundation
 // MARK: - ConfidentialityScreenBusinessLogic
 protocol ConfidentialityScreenBusinessLogic {
     func loadUserData()
-    func updateUserData()
-    func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
-    func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
+    func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
+    func showOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus)
+    func showNewUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
+    func showNewOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus)
     
-    func handlePhoneVisibilityChangeEvent(_ event: UpdatePhoneStatusEvent)
-    func handleBirthVisibilityChangeEvent(_ event: UpdateBirthStatusEvent)
-    func handleOnlineVisibilityChangeEvent(_ event: UpdateOnlineStatusEvent)
+    func handleRestrictionsUpdate(_ event: UpdateRestrictionsEvent)
     
     func backToSettingsMenu()
     func routeToPhoneVisibilityScreen()
@@ -26,10 +25,13 @@ protocol ConfidentialityScreenBusinessLogic {
 
 // MARK: - ConfidentialityScreenPresentationLogic
 protocol ConfidentialityScreenPresentationLogic {
-    func showUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
-    func showNewUserData(_ userData: ConfidentialitySettingsModels.ConfidentialityUserData)
+    func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
+    func showOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus)
+    func showNewUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
+    func showNewOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus)
 }
 
 // MARK: - ConfidentialityScreenWorkerLogic
 protocol ConfidentialityScreenWorkerLogic {
+    func getUserData(completion: @escaping (Result<ConfidentialitySettingsModels.ConfidentialityUserData, Error>) -> Void)
 }
