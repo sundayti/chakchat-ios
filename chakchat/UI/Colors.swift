@@ -22,4 +22,14 @@ enum Colors {
     static let lightOrange: UIColor = UIColor(hex: "FF9D00") ?? UIColor.orange
     // Used when alerts showing
     static let blackout: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
+    // Used as background
+    static let background: UIColor = UIColor(named: "BackgroundColor") ?? .systemBackground
+    // Used for text
+    static let text: UIColor = UIColor(named: "TextColor") ?? .label
+    // Used for chakchat Label
+    static let chakchat: UIColor = UIColor(named: "ChakChatColor") ?? .orange
+    // Used for footer
+    static let footer: UIColor = UIColor(named: "FooterColor") ?? .systemGray5
+    // Used for alerts
+    static let picker: UIColor = UIColor(named: "PickerColor") ?? .tertiaryLabel
 }

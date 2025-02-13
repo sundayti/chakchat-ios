@@ -91,7 +91,7 @@ final class ProfileSettingsViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
@@ -150,7 +150,7 @@ final class ProfileSettingsViewController: UIViewController {
         iconImageView.image = gearImage
         
         iconImageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
+        _ = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
         //iconImageView.addGestureRecognizer(tapGesture)
     }
     

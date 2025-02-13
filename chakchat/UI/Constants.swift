@@ -26,7 +26,7 @@ enum UIConstants {
     ]
     static let gradientButtonGradientStartPoint: CGPoint = CGPoint(x: 0.0, y: 2)
     static let gradientButtonGradientEndPoint: CGPoint = CGPoint(x: -1, y: 0.5)
-    static let gradientButtonGradientCornerRadius: CGFloat = 21
+    static let gradientButtonGradientCornerRadius: CGFloat = 18
     
     // MARK: - Animation constants
     static let buttonScale: CGFloat = 0.95

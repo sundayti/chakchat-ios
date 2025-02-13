@@ -54,7 +54,7 @@ final class ExceptionsCell: UITableViewCell {
     private func configureOptionLabel() {
         contentView.addSubview(optionLabel)
         optionLabel.font = Fonts.systemR16
-        optionLabel.textColor = .black
+        optionLabel.textColor = Colors.text
         optionLabel.pinCenterY(contentView)
         optionLabel.pinLeft(contentView.leadingAnchor, Constants.optionLabelLeading)
     }

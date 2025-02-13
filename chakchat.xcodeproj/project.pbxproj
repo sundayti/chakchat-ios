@@ -362,7 +362,7 @@
 		E135ED412D4E7D06006CE143 /* UIProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProfileTextField.swift; sourceTree = "<group>"; };
 		E135ED472D54C273006CE143 /* UIDateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDateButton.swift; sourceTree = "<group>"; };
 		E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomDatePicker.swift; sourceTree = "<group>"; };
-		E19D64172D5E313000C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
+		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -719,7 +719,7 @@
 		AA9B61FB2D2D47CB0064CB23 = {
 			isa = PBXGroup;
 			children = (
-				E19D64162D5E311100C73CAF /* Config */,
+				E19D641A2D5E3E8800C73CAF /* Config */,
 				AA9B62062D2D47CB0064CB23 /* chakchat */,
 				AA9B62052D2D47CB0064CB23 /* Products */,
 			);
@@ -964,10 +964,10 @@
 			path = ErrorHandler;
 			sourceTree = "<group>";
 		};
-		E19D64162D5E311100C73CAF /* Config */ = {
+		E19D641A2D5E3E8800C73CAF /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				E19D64172D5E313000C73CAF /* config.xcconfig */,
+				E19D641B2D5E3EA600C73CAF /* config.xcconfig */,
 			);
 			path = Config;
 			sourceTree = "<group>";
