@@ -28,7 +28,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var phoneVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var phoneVisibilityData = [
-        [("All"), ("Custom"), ("Nobody")],
+        [("Everyone"), ("Only me"), ("Specified")],
         [("Never show"), ("Always show")]
     ]
     let interactor: PhoneVisibilityScreenBusinessLogic
@@ -51,7 +51,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
-        interactor.loadUserData()
+        interactor.loadUserRestrictions()
         configureBackArrow()
         configurePhoneVisibilityTable()
         configureTitleLabel()
@@ -101,11 +101,28 @@ final class PhoneVisibilityScreenViewController: UIViewController {
             break
         }
     }
+    //TODO: - probably here i will take id of special users(if current user tapped "specified" option)
+    private func transferRestriction() -> String{
+        if let selectedIndex {
+            switch selectedIndex.row {
+            case 0:
+                return "everyone"
+            case 1:
+                return "only_me"
+            case 2:
+                return "specified"
+            default:
+                break
+            }
+        }
+        return "everyone"
+    }
     
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
-        interactor.backToConfidentialityScreen()
+        let phoneRestriction = transferRestriction()
+        interactor.backToConfidentialityScreen(phoneRestriction)
     }
 }
 
@@ -114,15 +131,18 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     
     // MARK: - Mark Current Option
     // Called during screen configuration to check the box depending on the data in the user defaults storage
-    public func markCurrentOption(_ phoneVisibility: PhoneVisibilityScreenModels.PhoneVisibility) {
+    public func markCurrentOption(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         var rowIndex: Int
-        switch phoneVisibility.phoneStatus {
-        case .all:
+        switch userRestrictions.phone.openTo {
+        case "everyone":
             rowIndex = 0
-        case .custom:
+        case "only_me":
             rowIndex = 1
-        case .nobody:
+        case "specified":
             rowIndex = 2
+        default:
+            rowIndex = 0
+            break
         }
         selectedIndex = IndexPath(row: rowIndex, section: 0)
     }
@@ -191,19 +211,6 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
             }
             updateExceptionsSection()
             tableView.reloadData()
-            switch indexPath.row {
-            case 0:
-                let newPhoneVisibility = PhoneVisibilityScreenModels.PhoneVisibility(phoneStatus: .all)
-                interactor.saveNewData(newPhoneVisibility)
-            case 1:
-                let newPhoneVisibility = PhoneVisibilityScreenModels.PhoneVisibility(phoneStatus: .custom)
-                interactor.saveNewData(newPhoneVisibility)
-            case 2:
-                let newPhoneVisibility = PhoneVisibilityScreenModels.PhoneVisibility(phoneStatus: .nobody)
-                interactor.saveNewData(newPhoneVisibility)
-            default:
-                break
-            }
         } else {
             // the logic of the second section has not yet been invented
         }
