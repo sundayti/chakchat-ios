@@ -13,10 +13,10 @@ final class UserProfileScreenViewController: UIViewController {
     private var iconImageView: UIImageView = UIImageView()
     private var userTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var userTableViewData = [
-        [("NamePlaceholder")],
-        [("UsernamePlaceholder")],
-        [("PhonePlaceholder")],
-        [("BirthPlaceholder")]
+        [("Name")],
+        [("Username")],
+        [("Phone")],
+        [("Date of Birth")]
     ]
     
     let interactor: UserProfileScreenBusinessLogic
@@ -161,7 +161,9 @@ extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataS
         case 2:
             label.text = "Phone"
         case 3:
-            label.text = "Date of birth"
+            if !userTableViewData[3][0].isEmpty {
+                label.text = "Date of birth"
+            }
         default:
             label.text = nil
         }

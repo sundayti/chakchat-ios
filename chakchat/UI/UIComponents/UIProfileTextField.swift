@@ -72,6 +72,9 @@ final class UIProfileTextField : UIView {
         textField.placeholder = placeholder
         textField.font = Fonts.systemM17
         textField.isUserInteractionEnabled = isEditable
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
+        textField.autocapitalizationType = .none
     }
     
     // MARK: - Bottom Line Configuration

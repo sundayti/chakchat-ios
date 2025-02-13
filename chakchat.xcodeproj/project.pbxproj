@@ -281,7 +281,6 @@
 		AA84F05E2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateVibrationNotificationEvent.swift; sourceTree = "<group>"; };
 		AA84F0642D53672B00678ABA /* ContextsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextsProtocols.swift; sourceTree = "<group>"; };
 		AA84F0662D53680E00678ABA /* MainAppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppContext.swift; sourceTree = "<group>"; };
-		AA87FC682D54E68700E8D066 /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		AA87FC6A2D55037E00E8D066 /* UserProfileScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreenAssembly.swift; sourceTree = "<group>"; };
 		AA87FC6C2D55038900E8D066 /* UserProfileScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreenInteractor.swift; sourceTree = "<group>"; };
 		AA87FC6E2D55039B00E8D066 /* UserProfileScreenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreenWorker.swift; sourceTree = "<group>"; };
@@ -363,6 +362,7 @@
 		E135ED412D4E7D06006CE143 /* UIProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProfileTextField.swift; sourceTree = "<group>"; };
 		E135ED472D54C273006CE143 /* UIDateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDateButton.swift; sourceTree = "<group>"; };
 		E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomDatePicker.swift; sourceTree = "<group>"; };
+		E19D64172D5E313000C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -650,14 +650,6 @@
 			path = ProfileEvent;
 			sourceTree = "<group>";
 		};
-		AA87FC662D54DE6300E8D066 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				AA87FC682D54E68700E8D066 /* config.xcconfig */,
-			);
-			path = Config;
-			sourceTree = "<group>";
-		};
 		AA87FC692D54FFAD00E8D066 /* UserProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,7 +719,7 @@
 		AA9B61FB2D2D47CB0064CB23 = {
 			isa = PBXGroup;
 			children = (
-				AA87FC662D54DE6300E8D066 /* Config */,
+				E19D64162D5E311100C73CAF /* Config */,
 				AA9B62062D2D47CB0064CB23 /* chakchat */,
 				AA9B62052D2D47CB0064CB23 /* Products */,
 			);
@@ -970,6 +962,14 @@
 				AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */,
 			);
 			path = ErrorHandler;
+			sourceTree = "<group>";
+		};
+		E19D64162D5E311100C73CAF /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E19D64172D5E313000C73CAF /* config.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1312,7 +1312,6 @@
 		};
 		AA9B62162D2D47CE0064CB23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA87FC682D54E68700E8D066 /* config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1376,7 +1375,6 @@
 		};
 		AA9B62172D2D47CE0064CB23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA87FC682D54E68700E8D066 /* config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1438,7 +1436,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ5MGT6276;
+				DEVELOPMENT_TEAM = F46Y9QM766;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1451,7 +1449,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mrdr;
+				PRODUCT_BUNDLE_IDENTIFIER = lzkgmr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1466,7 +1464,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ5MGT6276;
+				DEVELOPMENT_TEAM = F46Y9QM766;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1479,7 +1477,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mrdr;
+				PRODUCT_BUNDLE_IDENTIFIER = lzkgmr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -15,7 +15,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private enum Constants {
         static let headerText: String = "Phone number"
         static let arrowName: String = "arrow.left"
-        static let tableTop: CGFloat = 20
+        static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 40
         static let neverText: String = "Never show"
         static let alwaysText: String = "Always show"
@@ -171,7 +171,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         default:
             label.text = nil
         }
-        label.font = .systemFont(ofSize: 16)
+        label.font = Fonts.systemR16
         label.textColor = .gray
         headerView.addSubview(label)
         return headerView
@@ -179,7 +179,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     
     // MARK: - Setting space between different section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return UIConstants.ConfidentialitySpaceBetweenSections
     }
     
     // MARK: - Defining the behavior when a cell is clicked
