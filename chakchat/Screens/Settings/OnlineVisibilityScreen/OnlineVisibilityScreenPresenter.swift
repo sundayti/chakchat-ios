@@ -15,7 +15,7 @@ final class OnlineVisibilityScreenPresenter: OnlineVisibilityScreenPresentationL
     weak var view: OnlineVisibilityScreenViewController?
     
     // MARK: - User Data Showing
-    func showUserData(_ onlineVisibility: OnlineVisibilityScreenModels.OnlineVisibility) {
-        view?.markCurrentOption(onlineVisibility)
+    func showUserRestrictions(_ onlineRestriction: OnlineVisibilityStatus) {
+        view?.markCurrentOption(onlineRestriction)
     }
 }
