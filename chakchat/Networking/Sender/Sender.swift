@@ -14,88 +14,34 @@ final class Sender: SenderLogic {
         static let baseURL = "SERVER_BASE_URL"
     }
     
-    static func Get<T, U>(requestBody: T? = nil, 
-                          responseType: U.Type,
-                          endpoint: String, 
-                          completion: @escaping (Result<U, any Error>) -> Void
-    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
-        send(requestBody: requestBody,
-             responseType: responseType,
-             endpoint: endpoint,
-             httpMethod: "GET",
-             completion: completion)
-    }
-    
-    static func Put<T, U>(requestBody: T, 
-                          responseType: U.Type,
-                          endpoint: String,
-                          completion: @escaping (Result<U, any Error>) -> Void
-    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
-        send(requestBody: requestBody,
-             responseType: responseType,
-             endpoint: endpoint,
-             httpMethod: "PUT",
-             completion: completion)
-    }
-    
-    static func Post<T, U>(requestBody: T, 
-                           responseType: U.Type,
-                           endpoint: String,
-                           completion: @escaping (Result<U, any Error>) -> Void
-    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
-        send(requestBody: requestBody,
-             responseType: responseType,
-             endpoint: endpoint,
-             httpMethod: "POST",
-             completion: completion)
-    }
-    
-    static func Delete<T, U>(requestBody: T, 
-                             responseType: U.Type,
-                             endpoint: String,
-                             completion: @escaping (Result<U, any Error>) -> Void
-    ) where T : Decodable, T : Encodable, U : Decodable, U : Encodable {
-        send(requestBody: requestBody, 
-             responseType: responseType,
-             endpoint: endpoint,
-             httpMethod: "DELETE",
-             completion: completion)
-    }
-    
-    // MARK: - Sender Method
-    private static func send<T: Codable, U: Codable>(
-        requestBody: T? = nil,
-        responseType: U.Type,
-        endpoint: String,
-        httpMethod: String,
-        completion: @escaping (Result<U, Error>) -> Void
+    static func send<T: Codable>(endpoint: String,
+                                 method: HTTPMethod,
+                                 headers: [String:String]? = nil,
+                                 body: Data? = nil,
+                                 completion: @escaping (Result<T, Error>) -> Void
     ) {
-        guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) as? String else {
-            fatalError("miss base url")
+        guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) else {
+            fatalError("Cant get baseURL")
         }
         
         guard let url = URL(string: "\(baseURL)\(endpoint)") else {
             completion(.failure(APIError.invalidURL))
             return
         }
-        
+        // configure request
         var request = URLRequest(url: url)
-        request.httpMethod = httpMethod
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        //TODO: Разобраться с ключами
-        if (httpMethod == "POST") {
-            request.addValue(UUID().uuidString, forHTTPHeaderField: "Idempotency-Key")
+        request.httpMethod = method.rawValue
+        
+        //headers
+        if let headers = headers {
+            for (key, value) in headers {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
         }
+        //body
+        request.httpBody = body
         
-        
-        guard let httpBody = try? JSONEncoder().encode(requestBody) else {
-            completion(.failure(APIError.invalidRequest))
-            return
-        }
-        
-        request.httpBody = httpBody
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
             if let error = error {
                 completion(.failure(APIError.networkError(error)))
                 return
@@ -114,7 +60,7 @@ final class Sender: SenderLogic {
             switch httpResponse.statusCode {
             case 200:
                 do {
-                    let responseData = try JSONDecoder().decode(SuccessResponse<U>.self, from: data)
+                    let responseData = try JSONDecoder().decode(SuccessResponse<T>.self, from: data)
                     completion(.success(responseData.data))
                 } catch {
                     completion(.failure(APIError.decodingError(error)))
@@ -132,9 +78,17 @@ final class Sender: SenderLogic {
         }
         task.resume()
     }
+
 }
 
 // MARK: - SuccessResponse
 struct SuccessResponse<T: Codable>: Codable {
     let data: T
+}
+
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case delete = "DELETE"
 }

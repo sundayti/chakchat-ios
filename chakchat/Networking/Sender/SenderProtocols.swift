@@ -9,31 +9,10 @@ import Foundation
 
 // MARK: - SenderLogic
 protocol SenderLogic {
-    static func Get<T: Codable, U: Codable>(
-        requestBody: T?,
-        responseType: U.Type,
-        endpoint: String,
-        completion: @escaping (Result<U, Error>) -> Void
-    )
-    
-    static func Put<T: Codable, U: Codable>(
-        requestBody: T,
-        responseType: U.Type,
-        endpoint: String,
-        completion: @escaping (Result<U, Error>) -> Void
-    )
-    
-    static func Post<T: Codable, U: Codable>(
-        requestBody: T,
-        responseType: U.Type,
-        endpoint: String,
-        completion: @escaping (Result<U, Error>) -> Void
-    )
-    
-    static func Delete<T: Codable, U: Codable>(
-        requestBody: T,
-        responseType: U.Type,
-        endpoint: String,
-        completion: @escaping (Result<U, Error>) -> Void
+    static func send<T: Codable>(endpoint: String,
+                                 method: HTTPMethod,
+                                 headers: [String:String]?,
+                                 body: Data?,
+                                 completion: @escaping (Result<T, Error>) -> Void
     )
 }
