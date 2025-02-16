@@ -7,15 +7,19 @@
 
 import Foundation
 
+// MARK: - LocalizationManager
 final class LocalizationManager: LocalizationManagerProtocol {
-    static let shared = LocalizationManager()
     
+    // MARK: - Properties
+    static let shared = LocalizationManager()
     private var bundle: Bundle?
 
+    // MARK: - Initialization
     private init() {
         loadLanguage()
     }
 
+    // MARK: - Public Methods
     func localizedString(for key: String) -> String {
         return bundle?.localizedString(forKey: key, value: nil, table: nil) ?? key
     }
@@ -31,6 +35,7 @@ final class LocalizationManager: LocalizationManagerProtocol {
         }
     }
     
+    // MARK: - Private Methods
     private func loadLanguage() {
         let languageCode = UserDefaults.standard.string(forKey: "appLanguage") ?? Locale.current.languageCode ?? "en"
         
@@ -43,6 +48,7 @@ final class LocalizationManager: LocalizationManagerProtocol {
     }
 }
 
+// MARK: - Notification.Name
 extension Notification.Name {
     static let languageDidChange = Notification.Name("languageDidChange")
 }

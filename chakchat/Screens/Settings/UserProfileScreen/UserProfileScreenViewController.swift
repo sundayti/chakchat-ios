@@ -56,7 +56,7 @@ final class UserProfileScreenViewController: UIViewController {
     
     private func configureUI() {
         configureBackButton()
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         configureEditButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel

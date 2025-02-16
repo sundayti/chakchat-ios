@@ -177,10 +177,8 @@
 		E19609BD2D608EA0008E27C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E19609BC2D608EA0008E27C0 /* Localizable.strings */; };
 		E19609D12D60E879008E27C0 /* LanguageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609D02D60E879008E27C0 /* LanguageAssembly.swift */; };
 		E19609D52D60E8C6008E27C0 /* LanguageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609D42D60E8C6008E27C0 /* LanguageInteractor.swift */; };
-		E19609D72D60E8DA008E27C0 /* LanguageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609D62D60E8DA008E27C0 /* LanguageWorker.swift */; };
 		E19609D92D60E8F6008E27C0 /* LanguagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609D82D60E8F6008E27C0 /* LanguagePresenter.swift */; };
 		E19609DB2D60E90A008E27C0 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609DA2D60E90A008E27C0 /* LanguageViewController.swift */; };
-		E19609DD2D60E91A008E27C0 /* LanguageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609DC2D60E91A008E27C0 /* LanguageModels.swift */; };
 		E19609DF2D60E928008E27C0 /* LanguageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609DE2D60E928008E27C0 /* LanguageProtocols.swift */; };
 		E19609E12D60F47C008E27C0 /* LanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609E02D60F47C008E27C0 /* LanguageCell.swift */; };
 		E19609EA2D61FFF2008E27C0 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19609E92D61FFF2008E27C0 /* LocalizationManager.swift */; };
@@ -372,10 +370,8 @@
 		E19609BB2D608EA0008E27C0 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E19609D02D60E879008E27C0 /* LanguageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageAssembly.swift; sourceTree = "<group>"; };
 		E19609D42D60E8C6008E27C0 /* LanguageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageInteractor.swift; sourceTree = "<group>"; };
-		E19609D62D60E8DA008E27C0 /* LanguageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageWorker.swift; sourceTree = "<group>"; };
 		E19609D82D60E8F6008E27C0 /* LanguagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePresenter.swift; sourceTree = "<group>"; };
 		E19609DA2D60E90A008E27C0 /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
-		E19609DC2D60E91A008E27C0 /* LanguageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModels.swift; sourceTree = "<group>"; };
 		E19609DE2D60E928008E27C0 /* LanguageProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageProtocols.swift; sourceTree = "<group>"; };
 		E19609E02D60F47C008E27C0 /* LanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCell.swift; sourceTree = "<group>"; };
 		E19609E92D61FFF2008E27C0 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
@@ -1028,10 +1024,8 @@
 			children = (
 				E19609D02D60E879008E27C0 /* LanguageAssembly.swift */,
 				E19609D42D60E8C6008E27C0 /* LanguageInteractor.swift */,
-				E19609D62D60E8DA008E27C0 /* LanguageWorker.swift */,
 				E19609D82D60E8F6008E27C0 /* LanguagePresenter.swift */,
 				E19609DA2D60E90A008E27C0 /* LanguageViewController.swift */,
-				E19609DC2D60E91A008E27C0 /* LanguageModels.swift */,
 				E19609DE2D60E928008E27C0 /* LanguageProtocols.swift */,
 				E19609E02D60F47C008E27C0 /* LanguageCell.swift */,
 			);
@@ -1275,7 +1269,6 @@
 				AA9B62592D2EDF9F0064CB23 /* ErrorModels.swift in Sources */,
 				AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */,
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
-				E19609DD2D60E91A008E27C0 /* LanguageModels.swift in Sources */,
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
 				AA84F0512D4D0C4600678ABA /* NotificationScreenWorker.swift in Sources */,
@@ -1339,7 +1332,6 @@
 				AA9B62A12D32DFC60064CB23 /* StateMachine.swift in Sources */,
 				E19609EA2D61FFF2008E27C0 /* LocalizationManager.swift in Sources */,
 				AA9B625B2D2EE5620064CB23 /* VerificationCodeValidator.swift in Sources */,
-				E19609D72D60E8DA008E27C0 /* LanguageWorker.swift in Sources */,
 				AA84F04D2D4D0C3600678ABA /* NotificationScreenAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

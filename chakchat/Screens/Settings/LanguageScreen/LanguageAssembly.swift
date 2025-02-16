@@ -7,7 +7,9 @@
 
 import UIKit
 
+// MARK: - LanguageAssembly
 enum LanguageAssembly {
+    
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = LanguagePresenter()
         let interactor = LanguageInteractor(presenter: presenter)

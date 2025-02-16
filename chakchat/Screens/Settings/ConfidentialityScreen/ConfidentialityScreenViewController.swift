@@ -73,7 +73,7 @@ final class ConfidentialityScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         configureBackArrow()
         interactor.loadUserData()
         configureSettingsTable()

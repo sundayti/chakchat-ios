@@ -50,7 +50,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         interactor.loadUserRestrictions()
         configureBackArrow()
         configurePhoneVisibilityTable()

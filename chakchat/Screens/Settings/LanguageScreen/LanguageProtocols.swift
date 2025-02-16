@@ -7,15 +7,12 @@
 
 import Foundation
 
+// MARK: - LanguageBusinessLogic
 protocol LanguageBusinessLogic {
     func backToSettingsMenu()
-
     func updateLanguage(to languageCode: String, completion: @escaping () -> Void)
 }
 
+// MARK: - LanguagePresentationLogic
 protocol LanguagePresentationLogic {
-}
-
-protocol LanguageWorkerLogic {
-    func updateLanguage()
 }

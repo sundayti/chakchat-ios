@@ -96,7 +96,7 @@ final class SettingsScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         configureSettingsLabel()
         navigationItem.titleView = settingsLabel
         configureBackButton()

@@ -44,7 +44,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         configureBackArrow()
         configureTitleLabel()
         navigationItem.titleView = titleLabel

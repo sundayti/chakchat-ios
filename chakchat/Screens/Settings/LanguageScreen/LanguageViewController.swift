@@ -7,27 +7,39 @@
 
 import UIKit
 
+// TODO: пофиксиить баг с некорректной загрузкой языка
+// MARK: - LanguageViewController
 final class LanguageViewController: UIViewController {
     
+    // MARK: - Constants
     private enum Constants {
         static let headerText: String = NSLocalizedString("Language", comment: "")
+        static let arrowLabel: String = "arrow.left"
+        static let tableTop: CGFloat = 0
+        static let tableBottom: CGFloat = 40
     }
     
+    // MARK: - Properties
     private let interactor: LanguageBusinessLogic
     
     private var selectedIndex: IndexPath?
     private var titleLabel: UILabel = UILabel()
     private var languages = [
-        NSLocalizedString("english", comment: ""),
-        NSLocalizedString("russian", comment: ""),
-        NSLocalizedString("italian", comment: "")
+        [NSLocalizedString("english", comment: ""), "English"],
+        [NSLocalizedString("russian", comment: ""), "Русский"],
+        [NSLocalizedString("italian", comment: ""), "Italiano"]
     ]
     private var isLoadingIndex: IndexPath? = nil
     private var languageTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     
+    // MARK: - Initialization
     init(interactor: LanguageBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -36,20 +48,24 @@ final class LanguageViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         configureBackButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
         configureLanguageTable()
-        markCurrentOption()
+        markCurrentLanguage()
+        languageDidChange()
     }
     
+    // MARK: - Back Button Configuration
     private func configureBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
     }
     
+    // MARK: - Title Label Configure
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
@@ -57,23 +73,21 @@ final class LanguageViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
+    // MARK: - Language Table Configuration
     private func configureLanguageTable() {
         view.addSubview(languageTableView)
         languageTableView.delegate = self
         languageTableView.dataSource = self
         languageTableView.separatorStyle = .singleLine
+        languageTableView.separatorInset = .zero
         languageTableView.pinHorizontal(view)
-        languageTableView.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
-        languageTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 40)
+        languageTableView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.tableTop)
+        languageTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.tableBottom)
         languageTableView.register(LanguageCell.self, forCellReuseIdentifier: LanguageCell.cellIdentifier)
         languageTableView.backgroundColor = view.backgroundColor
     }
     
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    // MARK: - Actions
     @objc
     private func backButtonPressed() {
         interactor.backToSettingsMenu()
@@ -83,21 +97,23 @@ final class LanguageViewController: UIViewController {
     private func languageDidChange() {
         titleLabel.text = LocalizationManager.shared.localizedString(for: "Language")
         titleLabel.sizeToFit()
-        languages = [
-            LocalizationManager.shared.localizedString(for: "english"),
-            LocalizationManager.shared.localizedString(for: "russian"),
-            LocalizationManager.shared.localizedString(for: "italian")
-        ]
+        languages[0][0] = LocalizationManager.shared.localizedString(for: "english")
+        languages[1][0] = LocalizationManager.shared.localizedString(for: "russian")
+        languages[2][0] = LocalizationManager.shared.localizedString(for: "italian")
         languageTableView.reloadData()
     }
 
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension LanguageViewController: UITableViewDelegate, UITableViewDataSource {
     
-    public func markCurrentOption() {
+    // MARK: - Marking current language
+    public func markCurrentLanguage() {
         var rowIndex: Int
-        switch Locale.current.languageCode {
+        let currentLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "en"
+        print(currentLanguage)
+        switch currentLanguage {
         case "en":
             rowIndex = 0
         case "ru":
@@ -130,12 +146,12 @@ extension LanguageViewController: UITableViewDelegate, UITableViewDataSource {
         let item = languages[indexPath.row]
         let isSelected = (indexPath == selectedIndex)
         let isLoading = (indexPath == isLoadingIndex)
-
+        cell.selectionStyle = .none
         cell.configure(title: item, isSelected: isSelected, isLoading: isLoading)
         return cell
     }
 
-    
+    // MARK: - Actions after selection.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 

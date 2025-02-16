@@ -7,22 +7,26 @@
 
 import Foundation
 
+// MARK: - LanguageInteractor
 final class LanguageInteractor: LanguageBusinessLogic {
     
+    // MARK: - Properties
     private let presenter: LanguagePresentationLogic
-
     var onRouteToSettingsMenu: (() -> Void)?
     
+    // MARK: - Initialization
     init(presenter: LanguagePresentationLogic) {
         self.presenter = presenter
     }
     
+    // MARK: - Language Updating
     func updateLanguage(to languageCode: String, completion: @escaping () -> Void) {
         LocalizationManager.shared.setLanguage(languageCode) {
             completion()
         }
     }
     
+    // MARK: - Routing
     func backToSettingsMenu() {
         onRouteToSettingsMenu?()
     }
