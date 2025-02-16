@@ -32,6 +32,9 @@ enum SettingsScreenAssembly {
         interactor.onRouteToNotificationsSettings = { [weak coordinator] in
             coordinator?.showNotificationScreen()
         }
+        interactor.onRouteToLanguageSettings = { [weak coordinator] in
+            coordinator?.showLanguageScreen()
+        }
         
         let view = SettingsScreenViewController(interactor: interactor)
         presenter.view = view

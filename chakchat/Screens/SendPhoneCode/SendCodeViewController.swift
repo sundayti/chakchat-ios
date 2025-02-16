@@ -18,11 +18,11 @@ final class SendCodeViewController: UIViewController {
         
         static let inputNumberTextFieldTopAnchor: CGFloat = 50
         
-        static let descriptionLabelText: String = "by continuing, you agree to our"
+        static let descriptionLabelText: String = NSLocalizedString("agreement_with_prompt", comment: "")
         static let descriptionLabelFontSize: CGFloat = 18
         static let descriptionLabelTop: CGFloat = 0
         
-        static let linksText: String = "term of service  privacy policy  content policies"
+        static let linksText: String = "terms of service  privacy policy  content policies"
         static let linksFontSize: CGFloat = 15
         static let linksTextTop: CGFloat = 4
         static let linksTextBottom: CGFloat = 0

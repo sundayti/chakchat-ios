@@ -1,7 +1,7 @@
-//
-//  Localizable.strings
-//  chakchat
-//
-//  Created by лизо4ка курунок on 15.02.2025.
-//
-
+"tap_hint" = "Жмяк";
+"agreement_with_prompt" = "продолжая, вы соглашаетесь с";
+"policy_links_labels" = "условия обслуживания  политика конфиденциальности  политика в ​​отношении контента";
+"Language" = "Язык";
+"english" = "Английский";
+"russian" = "Русский";
+"italian" = "Итальянский";

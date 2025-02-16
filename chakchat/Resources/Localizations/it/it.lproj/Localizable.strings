@@ -1,7 +1,5 @@
-//
-//  Localizable.strings
-//  chakchat
-//
-//  Created by лизо4ка курунок on 15.02.2025.
-//
-
+"tap_hint" = "Tocca";
+"Language" = "Lingua";
+"english" = "Inglese";
+"russian" = "Russo";
+"italian" = "Italiano";

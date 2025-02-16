@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+final class LanguagePresenter : LanguagePresentationLogic {
+    
+    weak var view: LanguageViewController?
+}

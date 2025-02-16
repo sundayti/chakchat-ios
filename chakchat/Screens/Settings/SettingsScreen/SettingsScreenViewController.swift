@@ -265,6 +265,9 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         // if pressed cell is "Notification"
         case (1,1):
             interactor.notificationSettingsRoute()
+        // if pressed cell is "Language"
+        case (2, 2):
+            interactor.languageSettingsRoute()
         default:
             break
         }

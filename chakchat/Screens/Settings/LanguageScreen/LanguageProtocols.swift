@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+protocol LanguageBusinessLogic {
+    func backToSettingsMenu()
+
+    func updateLanguage(to languageCode: String, completion: @escaping () -> Void)
+}
+
+protocol LanguagePresentationLogic {
+}
+
+protocol LanguageWorkerLogic {
+    func updateLanguage()
+}
