@@ -42,13 +42,13 @@ enum SuccessModels {
         }
     }
     
-    struct FileUploadResponse: Codable {
-        var fileName: String
-        var fileSize: Int
-        var mimeType: String
-        var fileId: UUID
-        var fileURL: URL
-        var createdAt: String
+    struct UploadResponse: Codable {
+        let fileName: String
+        let fileSize: Int
+        let mimeType: String
+        let fileId: UUID
+        let fileURL: URL
+        let createdAt: String
         
         enum CodingKeys: String, CodingKey {
             case fileName = "file_name"
@@ -59,4 +59,22 @@ enum SuccessModels {
             case createdAt = "created_at"
         }
     }
+    
+    struct UploadPartResponse: Codable {
+        let eTag: String
+        
+        enum CodingKeys: String, CodingKey {
+            case eTag = "e_tag"
+        }
+    }
+    
+    struct UploadInitResponse: Codable {
+        let uploadID: String
+        
+        enum CodingKeys: String, CodingKey {
+            case uploadID = "upload_id"
+        }
+    }
+    
+    struct EmptyResponse: Codable {}
 }

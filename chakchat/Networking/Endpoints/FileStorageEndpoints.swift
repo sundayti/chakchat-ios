@@ -13,4 +13,6 @@ enum FileStorageEndpoints: String {
     case uploadMultipartPart = "/api/file-storage/v1.0/upload/multipart/part"
     case uploadMultipartAbort = "/api/file-storage/v1.0/upload/multipart/abort"
     case uploadMultipartComplete = "/api/file-storage/v1.0/upload/multipart/complete"
+    
+    case getFileMetadata = "/api/file-storage/v1.0/file/"
 }
