@@ -5,13 +5,23 @@
 //  Created by Кирилл Исаев on 07.02.2025.
 //
 
-import Foundation
 import UIKit
 
+// MARK: - UserProfileCell
 final class UserProfileCell: UITableViewCell {
     
+    // MARK: - Constants
     static let cellIdentifier: String = "UserProfileCell"
     
+    private enum Constants {
+        static let titleLabelTop: CGFloat = 8
+        static let titleLabelLeading: CGFloat = 12
+        static let valueLabelTop: CGFloat = 8
+        static let valueLabelLeading: CGFloat = 12
+        static let valueLabelBottom: CGFloat = 8
+    }
+    
+    // MARK: - Properties
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.systemL14
@@ -41,21 +51,24 @@ final class UserProfileCell: UITableViewCell {
         self.valueLabel.text = value
     }
     
+    // MARK: - Cell Configuration
     private func configureCell() {
         configureTitleLabel()
         configureValueLabel()
     }
     
+    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         contentView.addSubview(titleLabel)
-        titleLabel.pinTop(contentView, 8)
-        titleLabel.pinLeft(contentView.leadingAnchor, 12)
+        titleLabel.pinTop(contentView, Constants.titleLabelTop)
+        titleLabel.pinLeft(contentView.leadingAnchor, Constants.titleLabelLeading)
     }
     
+    // MARK: - Value Label Configuration
     private func configureValueLabel() {
         contentView.addSubview(valueLabel)
-        valueLabel.pinTop(titleLabel.bottomAnchor, 5)
-        valueLabel.pinLeft(contentView.leadingAnchor, 12)
-        valueLabel.pinBottom(contentView, 8)
+        valueLabel.pinTop(titleLabel.bottomAnchor, Constants.valueLabelTop)
+        valueLabel.pinLeft(contentView.leadingAnchor, Constants.valueLabelLeading)
+        valueLabel.pinBottom(contentView, Constants.valueLabelBottom)
     }
 }

@@ -7,14 +7,17 @@
 
 import Foundation
 
+// MARK: - UserProfileScreenWorker
 final class UserProfileScreenWorker: UserProfileScreenWorkerLogic {
     
     private let userDefaultsManager: UserDefaultsManagerProtocol
     
+    // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
     
+    // MARK: - User Data Getting 
     func getUserData() -> ProfileSettingsModels.ProfileUserData {
         return userDefaultsManager.loadUserData()
     }

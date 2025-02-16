@@ -56,8 +56,7 @@ final class SettingsScreenViewController: UIViewController {
     private let sections = [
         [("My profile", UIImage(systemName: "person.crop.circle"))],
         [("Confidentiality", UIImage(systemName: "lock")),
-         ("Notifications", UIImage(systemName: "bell")),
-         ("Devices", UIImage(systemName: "iphone.gen2.motion"))
+         ("Notifications", UIImage(systemName: "bell"))
         ],
         [("Data and Memory", UIImage(systemName: "memorychip")),
          ("App theme", UIImage(systemName: "cloud.moon.fill")),
@@ -168,7 +167,7 @@ final class SettingsScreenViewController: UIViewController {
         view.addSubview(usernameLabel)
         view.addSubview(dotLabel)
         phoneLabel.font = Fonts.systemL14
-        phoneLabel.text = Format.number(phone ?? "Загрузка...")
+        phoneLabel.text = Format.number(phone ?? "Loading...")
         phoneLabel.textColor = .gray
         phoneLabel.textAlignment = .center
         
@@ -178,7 +177,7 @@ final class SettingsScreenViewController: UIViewController {
         dotLabel.textAlignment = .center
         
         usernameLabel.font = Fonts.systemL14
-        usernameLabel.text = Constants.atText + (username ?? "Загрузка...")
+        usernameLabel.text = Constants.atText + (username ?? "Loading...")
         usernameLabel.textColor = .gray
         usernameLabel.textAlignment = .center
         

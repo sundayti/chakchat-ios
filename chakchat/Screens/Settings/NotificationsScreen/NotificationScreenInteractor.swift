@@ -8,8 +8,10 @@
 import Foundation
 import OSLog
 
+// MARK: - NotificationScreenInteractor
 final class NotificationScreenInteractor: NotificationScreenBusinessLogic {
     
+    // MARK: - Properties
     private let presenter: NotificationScreenPresentationLogic
     private let worker: NotificationScreenWorkerLogic
     private let eventManager: EventPublisherProtocol
@@ -19,6 +21,7 @@ final class NotificationScreenInteractor: NotificationScreenBusinessLogic {
     
     var onRouteToSettingsMenu: (() -> Void)?
     
+    // MARK: - Initialization
     init(presenter: NotificationScreenPresentationLogic,
          worker: NotificationScreenWorkerLogic,
          eventManager: EventPublisherProtocol,
@@ -33,6 +36,7 @@ final class NotificationScreenInteractor: NotificationScreenBusinessLogic {
         snap = userData
     }
     
+    // MARK: - Public methods
     func loadUserData() {
         os_log("Loaded user data in notiffication settings screen", log: logger, type: .default)
         showUserData(userData)

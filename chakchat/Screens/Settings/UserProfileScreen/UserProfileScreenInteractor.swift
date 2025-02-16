@@ -9,8 +9,10 @@ import Foundation
 import OSLog
 import Combine
 
+// MARK: - UserProfileScreenInteractor
 final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     
+    // MARK: - Properties
     private let presenter: UserProfileScreenPresentationLogic
     private let worker: UserProfileScreenWorkerLogic
     private let eventSubscriber: EventSubscriberProtocol
@@ -22,7 +24,8 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     var onRouteToSettingsScreen: (() -> Void)?
     var onRouteToProfileSettingsScreen: (() -> Void)?
     
-    init(preseter: UserProfileScreenPresentationLogic, 
+    // MARK: Initialization
+    init(preseter: UserProfileScreenPresentationLogic,
          worker: UserProfileScreenWorkerLogic,
          eventSubscriber: EventSubscriberProtocol,
          errorHandler: ErrorHandlerLogic,
@@ -36,6 +39,8 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
         
         subscribeToEvents()
     }
+    
+    // MARK: - Public Methods
     // on this screen we are downloading data only from UserDefaults, because we have you already sent a get request to the server
     func loadUserData() {
         os_log("Loaded user data in user profile scree", log: logger, type: .default)
@@ -53,13 +58,7 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
         presenter.showNewUserData(userData)
     }
     
-    private func subscribeToEvents() {
-        eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
-            self?.handleUserDataChangedEvent(event)
-        }.store(in: &cancellables)
-    }
-    
-    internal func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
+    func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         os_log("Handled user data changes in user profile screen", log: logger, type: .default)
         let newUserData = ProfileSettingsModels.ChangeableProfileUserData(nickname: event.newNickname,
                                                                           username: event.newUsername,
@@ -76,5 +75,11 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     func profileSettingsRoute() {
         os_log("Routed to profile setting screen from user profile screen", log: logger, type: .default)
         onRouteToProfileSettingsScreen?()
+    }
+    
+    private func subscribeToEvents() {
+        eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
+            self?.handleUserDataChangedEvent(event)
+        }.store(in: &cancellables)
     }
 }

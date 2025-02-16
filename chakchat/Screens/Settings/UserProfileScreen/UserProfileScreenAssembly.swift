@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
+// MARK: - UserProfileScreenAssembly
 enum UserProfileScreenAssembly {
+    
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = UserProfileScreenPresenter()
         let worker = UserProfileScreenWorker(userDefaultsManager: context.userDefaultsManager)
