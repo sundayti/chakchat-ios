@@ -52,7 +52,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = Colors.backgroundSettings
         interactor.loadUserRestrictions()
-        configureBackArrow()
+        configureBackButton()
         configurePhoneVisibilityTable()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
@@ -66,10 +66,14 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
-    // MARK: - Back Arrow Configuration
-    private func configureBackArrow() {
+    // MARK: - Back Button Configuration
+    private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Phone Visibility Table Configuration

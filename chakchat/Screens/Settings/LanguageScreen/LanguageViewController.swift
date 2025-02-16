@@ -63,6 +63,10 @@ final class LanguageViewController: UIViewController {
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Title Label Configure
@@ -102,7 +106,6 @@ final class LanguageViewController: UIViewController {
         languages[2][0] = LocalizationManager.shared.localizedString(for: "italian")
         languageTableView.reloadData()
     }
-
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource

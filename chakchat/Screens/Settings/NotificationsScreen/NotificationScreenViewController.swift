@@ -12,6 +12,7 @@ final class NotificationScreenViewController: UIViewController {
     
     private enum Constants {
         static let headerText: String = "Notifications"
+        static let arrowLabel: String = "arrow.left"
     }
 
     private var titleLabel: UILabel = UILabel()
@@ -34,12 +35,21 @@ final class NotificationScreenViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = Colors.backgroundSettings
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        configureBackButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
         configureNotificationTable()
         interactor.loadUserData()
+    }
+    
+    // MARK: - Back Button Configuration
+    private func configureBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Title Label Configuration

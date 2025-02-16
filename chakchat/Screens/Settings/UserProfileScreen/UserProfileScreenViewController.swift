@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 final class UserProfileScreenViewController: UIViewController {
     
+    private enum Constants {
+        static let arrowName: String = "arrow.left"
+    }
+    
     private var titleLabel: UILabel = UILabel()
     private var nameLabel: UILabel = UILabel()
     private var iconImageView: UIImageView = UIImageView()
@@ -34,6 +38,9 @@ final class UserProfileScreenViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         interactor.loadUserData()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
@@ -65,9 +72,14 @@ final class UserProfileScreenViewController: UIViewController {
         configureProfileTableView()
     }
     
+    // MARK: - Back Button Configuration
     private func configureBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     private func configureEditButton() {
@@ -131,6 +143,11 @@ final class UserProfileScreenViewController: UIViewController {
     @objc
     private func editButtonPressed() {
         interactor.profileSettingsRoute()
+    }
+    
+    @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

@@ -74,7 +74,7 @@ final class ConfidentialityScreenViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = Colors.backgroundSettings
-        configureBackArrow()
+        configureBackButton()
         interactor.loadUserData()
         configureSettingsTable()
         configureTitleLabel()
@@ -104,10 +104,14 @@ final class ConfidentialityScreenViewController: UIViewController {
         confidentialitySettingsTable.backgroundColor = view.backgroundColor
     }
     
-    // MARK: - Back Arrow Configuration
-    private func configureBackArrow() {
+    // MARK: - Back Button Configuration
+    private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Actions
