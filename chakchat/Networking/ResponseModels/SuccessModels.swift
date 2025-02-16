@@ -41,4 +41,22 @@ enum SuccessModels {
             case signupKey = "signup_key"
         }
     }
+    
+    struct FileUploadResponse: Codable {
+        var fileName: String
+        var fileSize: Int
+        var mimeType: String
+        var fileId: UUID
+        var fileURL: URL
+        var createdAt: String
+        
+        enum CodingKeys: String, CodingKey {
+            case fileName = "file_name"
+            case fileSize = "file_size"
+            case mimeType = "mime_type"
+            case fileId = "file_id"
+            case fileURL = "file_url"
+            case createdAt = "created_at"
+        }
+    }
 }
