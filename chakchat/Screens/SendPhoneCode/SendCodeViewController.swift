@@ -5,8 +5,9 @@
 //  Created by Кирилл Исаев on 07.01.2025.
 //
 
-import Foundation
 import UIKit
+import SafariServices
+import PDFKit
 
 // MARK: - SendCodeViewController
 final class SendCodeViewController: UIViewController {
@@ -18,22 +19,22 @@ final class SendCodeViewController: UIViewController {
         
         static let inputNumberTextFieldTopAnchor: CGFloat = 50
         
-        static let descriptionLabelText: String = "by continuing, you agree to our"
-        static let descriptionLabelFontSize: CGFloat = 18
-        static let descriptionLabelTop: CGFloat = 0
+        static let descriptionLabelText: String = NSLocalizedString("agreement_with_prompt", comment: "")
+        static let descriptionLabelBottom: CGFloat = 4
         
-        static let linksText: String = "term of service  privacy policy  content policies"
-        static let linksFontSize: CGFloat = 15
-        static let linksTextTop: CGFloat = 4
-        static let linksTextBottom: CGFloat = 0
+        static let termsText: String = NSLocalizedString("terms_of_service_label", comment: "")
+        static let privacyText: String = NSLocalizedString("privacy_policy_label", comment: "")
+        static let contentsText: String = NSLocalizedString("content_policies_label", comment: "")
+        static let linksTop: CGFloat = 4
+        static let linksHorizontal: CGFloat = 20
+        static let linksBottom: CGFloat = 40
         
-        static let linkTermAddress: String = "terms://"
+        static let linkTermAddress: String = "https://cdnn21.img.ria.ru/images/07e7/06/0d/1877834821_25:0:3666:2048_1920x1080_80_0_0_23f7d8b4f8862f094a620c91db2e4519.jpg"
         static let linkTermLocation: Int = 0
-        static let linkTermLenght: Int = 15
-        static let linkPrivacyAddress: String = "privacy://"
+        static let linkPrivacyAddress: String = "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2197299756.jpg?c=16x9&q=h_833,w_1480,c_fill"
         static let linkPrivacyLocation: Int = 17
         static let linkPrivacyLenght: Int = 14
-        static let linkContentAddress: String = "content://"
+        static let linkContentAddress: String = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_%2818-06-2023%29_%28cropped%29.jpg/640px-%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_%2818-06-2023%29_%28cropped%29.jpg"
         static let linkContentLocation: Int = 33
         static let linkContentLenght: Int = 16
         
@@ -42,6 +43,8 @@ final class SendCodeViewController: UIViewController {
         
         static let inputButtonHeight: CGFloat = 48
         static let inputButtonWidth: CGFloat = 205
+        static let inputButtonBigWidth: CGFloat = 235
+        static let inputButtonShortCount: Int = 9
         
         static let disclaimerLeading: CGFloat = 20
         static let disclaimerTrailing: CGFloat = 20
@@ -50,12 +53,12 @@ final class SendCodeViewController: UIViewController {
         static let disablingCharactersAmount: Int = 4
         static let numberKerning: CGFloat = 2
         
-        static let shortNumberLabelText: String = "Please enter a valid phone number"
+        static let shortNumberLabelText: String = NSLocalizedString("enter_valid_number", comment: "")
         static let shortNumberLabelTop: CGFloat = 360
         static let shortNumberDuration: TimeInterval = 0.5
         
         static let numberOfLines: Int = 2
-        static let maxWidth: CGFloat = 320
+        static let maxWidth: CGFloat = 330
         static let errorLabelTop: CGFloat = 0
         
         static let extraKeyboardIndent: CGFloat = 20
@@ -65,12 +68,14 @@ final class SendCodeViewController: UIViewController {
     private var interactor: SendCodeBusinessLogic
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: UIPhoneNumberTextField = UIPhoneNumberTextField()
-    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Enter")
+    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: NSLocalizedString("send_code", comment: ""))
     private lazy var shortNumberLabel: UILabel = UILabel()
-    private lazy var disclaimerView: UIView = UIView()
     private lazy var descriptionLabel: UILabel = UILabel()
-    private lazy var linksTextView: UITextView = UITextView()
+    private lazy var termsLabel: UILabel = UILabel()
+    private lazy var privacyLabel: UILabel = UILabel()
+    private lazy var contentsLabel: UILabel = UILabel()
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
+    private let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
     
     private var isPhoneNubmerInputValid: Bool = false
     
@@ -127,7 +132,10 @@ final class SendCodeViewController: UIViewController {
         configureChakChatStackView()
         configureInputNumberTextField()
         configureInputButton()
-        configureDisclaimerView()
+        configureTermsView()
+        configurePrivacyView()
+        configureContentsView()
+        configureCountinuingLabel()
         configurateErrorLabel()
     }
     
@@ -152,73 +160,80 @@ final class SendCodeViewController: UIViewController {
         sendGradientButton.pinCenterX(view)
         sendGradientButton.pinTop(inputNumberTextField.bottomAnchor, UIConstants.gradientButtonTopAnchor)
         sendGradientButton.setHeight(Constants.inputButtonHeight)
-        sendGradientButton.setWidth(Constants.inputButtonWidth)
-        sendGradientButton.titleLabel?.font = Fonts.systemB30
+        guard let label = sendGradientButton.titleLabel,
+              let text = label.text else {
+            return
+        }
+        // If in title more than 9 chars, make button bigger.
+        sendGradientButton.setWidth(text.count > Constants.inputButtonShortCount
+                                    ? Constants.inputButtonBigWidth
+                                    : Constants.inputButtonWidth)
+        sendGradientButton.titleLabel?.font = Fonts.systemB25
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
-        
-    // MARK: - Disclaimer View Configuration
-    private func configureDisclaimerView() {
-        view.addSubview(disclaimerView)
-        disclaimerView.addSubview(descriptionLabel)
-        
+    
+    // MARK: - Countinuing Label Configuration
+    private func configureCountinuingLabel() {
+        view.addSubview(descriptionLabel)
         descriptionLabel.text = Constants.descriptionLabelText
         descriptionLabel.textColor = Colors.text
-        descriptionLabel.font = UIFont.systemFont(ofSize: Constants.descriptionLabelFontSize)
+        descriptionLabel.font = Fonts.systemR15
+        descriptionLabel.pinBottom(contentsLabel.topAnchor, Constants.descriptionLabelBottom)
+        descriptionLabel.pinCenterX(view)
+    }
+    
+    // MARK: - Terms View Configuration
+    private func configureTermsView() {
+        view.addSubview(termsLabel)
+        let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
+        termsLabel.attributedText = underlineAttributedString
+        termsLabel.text = Constants.termsText
+        termsLabel.font = Fonts.systemR12
+        termsLabel.textColor = Colors.darkYellow
+        termsLabel.isUserInteractionEnabled = true
+        termsLabel.lineBreakMode = .byWordWrapping
+        termsLabel.numberOfLines = 1
+        termsLabel.pinCenterX(view)
+        termsLabel.pinBottom(view, Constants.linksBottom)
 
-        linksTextView.isEditable = false
-        linksTextView.isScrollEnabled = false
-        linksTextView.backgroundColor = .clear
-        
-        let attributedString = NSMutableAttributedString(
-            string: Constants.linksText,
-            attributes: [
-                .font: UIFont.systemFont(ofSize: Constants.linksFontSize),
-                .foregroundColor: UIColor.gray,
-            ]
-        )
-        
-        // in value property we have to put link
-        attributedString.addAttribute(.link,
-                value: Constants.linkTermAddress,
-                range: NSRange(
-                    location: Constants.linkTermLocation,
-                    length: Constants.linkTermLenght
-                )
-            )
-        attributedString.addAttribute(.link,
-                value: Constants.linkPrivacyAddress,
-                range: NSRange(
-                    location: Constants.linkPrivacyLocation,
-                    length: Constants.linkPrivacyLenght
-                )
-            )
-        attributedString.addAttribute(.link,
-                value: Constants.linkContentAddress,
-                range: NSRange(
-                    location: Constants.linkContentLocation,
-                    length: Constants.linkContentLenght
-                )
-            )
-        
-        linksTextView.attributedText = attributedString
-        linksTextView.linkTextAttributes = [
-            .foregroundColor: Colors.darkYellow,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        linksTextView.translatesAutoresizingMaskIntoConstraints = false
-        disclaimerView.addSubview(linksTextView)
-        
-        disclaimerView.pinLeft(view.leadingAnchor, Constants.disclaimerLeading)
-        disclaimerView.pinRight(view.trailingAnchor, Constants.disclaimerTrailing)
-        disclaimerView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.disclaimerBottom)
-        
-        descriptionLabel.pinTop(disclaimerView.topAnchor, Constants.descriptionLabelTop)
-        descriptionLabel.pinCenterX(disclaimerView)
-        
-        linksTextView.pinTop(descriptionLabel.bottomAnchor, Constants.linksTextTop)
-        linksTextView.pinCenterX(disclaimerView)
-        linksTextView.pinBottom(disclaimerView.bottomAnchor, Constants.linksTextBottom)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openTerms))
+        termsLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: - Privacy View Configuration
+    private func configurePrivacyView() {
+        view.addSubview(privacyLabel)
+        let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
+        privacyLabel.attributedText = underlineAttributedString
+        privacyLabel.text = Constants.privacyText
+        privacyLabel.font = Fonts.systemR12
+        privacyLabel.textColor = Colors.darkYellow
+        privacyLabel.lineBreakMode = .byWordWrapping
+        privacyLabel.isUserInteractionEnabled = true
+        privacyLabel.numberOfLines = 1
+        privacyLabel.pinCenterX(view)
+        privacyLabel.pinBottom(termsLabel.topAnchor, Constants.descriptionLabelBottom)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openPrivacy))
+        privacyLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: - Contents View Configuration
+    private func configureContentsView() {
+        view.addSubview(contentsLabel)
+        let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
+        contentsLabel.attributedText = underlineAttributedString
+        contentsLabel.text = Constants.contentsText
+        contentsLabel.font = Fonts.systemR12
+        contentsLabel.textColor = Colors.darkYellow
+        contentsLabel.lineBreakMode = .byWordWrapping
+        contentsLabel.isUserInteractionEnabled = true
+        contentsLabel.numberOfLines = 1
+        contentsLabel.pinCenterX(view)
+        contentsLabel.pinBottom(privacyLabel.topAnchor, Constants.descriptionLabelBottom)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openContents))
+        contentsLabel.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - Error Label Configuration
@@ -229,7 +244,7 @@ final class SendCodeViewController: UIViewController {
     }
 
     // MARK: - TextField Handling
-    internal func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         
         switch(textField) {
@@ -297,6 +312,33 @@ final class SendCodeViewController: UIViewController {
     func keyboardWillHide(notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
+        }
+    }
+    
+    @objc
+    func openTerms() {
+        if let url = URL(string: Constants.linkTermAddress) {
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .formSheet
+            present(safariVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc
+    func openPrivacy() {
+        if let url = URL(string: Constants.linkPrivacyAddress) {
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .formSheet
+            present(safariVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc
+    func openContents() {
+        if let url = URL(string: Constants.linkContentAddress) {
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .formSheet
+            present(safariVC, animated: true, completion: nil)
         }
     }
 }

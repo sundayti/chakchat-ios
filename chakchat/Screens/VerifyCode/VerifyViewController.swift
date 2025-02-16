@@ -77,10 +77,6 @@ final class VerifyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.background
-        let backButton = UIBarButtonItem(image: UIImage(systemName: Constants.backButtonName), style: .plain, target: self, action: #selector(backButtonPressed))
-        backButton.tintColor = .black
-        navigationItem.leftBarButtonItem = backButton
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
@@ -135,6 +131,16 @@ final class VerifyViewController: UIViewController {
         startCountdown()
     }
     
+    // MARK: - Back Button Configuration
+    private func configureBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.backButtonName), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
+    }
+    
     // MARK: - Incorrect Code Handling Method
     private func incorrectCode() {
         for i in 0..<textFields.count {
@@ -154,6 +160,7 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
+        configureBackButton()
         configureChakChatStackView()
         configureInputHintLabel()
         interactor.getPhone()

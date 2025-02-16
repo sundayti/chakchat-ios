@@ -22,6 +22,7 @@ final class ConfidentialityScreenWorker: ConfidentialityScreenWorkerLogic {
         self.meService = meService
     }
     
+    // MARK: - User Data Getting
     func getUserData(completion: @escaping (Result<ConfidentialitySettingsModels.ConfidentialityUserData, any Error>) -> Void) {
         meService.sendGetRestrictionRequest { [weak self] result in
             guard let self = self else { return }

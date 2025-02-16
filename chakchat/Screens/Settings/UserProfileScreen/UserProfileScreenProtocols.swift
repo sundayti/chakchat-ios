@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - UserProfileScreenBusinessLogic
 protocol UserProfileScreenBusinessLogic {
     func backToSettingsMenu()
     func profileSettingsRoute()
@@ -16,10 +18,14 @@ protocol UserProfileScreenBusinessLogic {
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent)
 }
+
+// MARK: - UserProfileScreenPresentationLogic
 protocol UserProfileScreenPresentationLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData)
 }
+
+// MARK: - UserProfileScreenWorkerLogic
 protocol UserProfileScreenWorkerLogic {
     func getUserData() -> ProfileSettingsModels.ProfileUserData
 }

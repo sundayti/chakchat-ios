@@ -56,8 +56,7 @@ final class SettingsScreenViewController: UIViewController {
     private let sections = [
         [("My profile", UIImage(systemName: "person.crop.circle"))],
         [("Confidentiality", UIImage(systemName: "lock")),
-         ("Notifications", UIImage(systemName: "bell")),
-         ("Devices", UIImage(systemName: "iphone.gen2.motion"))
+         ("Notifications", UIImage(systemName: "bell"))
         ],
         [("Data and Memory", UIImage(systemName: "memorychip")),
          ("App theme", UIImage(systemName: "cloud.moon.fill")),
@@ -96,7 +95,7 @@ final class SettingsScreenViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         configureSettingsLabel()
         navigationItem.titleView = settingsLabel
         configureBackButton()
@@ -116,6 +115,10 @@ final class SettingsScreenViewController: UIViewController {
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.backArrowSymbol), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Icon ImageView Configuration
@@ -164,7 +167,7 @@ final class SettingsScreenViewController: UIViewController {
         view.addSubview(usernameLabel)
         view.addSubview(dotLabel)
         phoneLabel.font = Fonts.systemL14
-        phoneLabel.text = Format.number(phone ?? "Загрузка...")
+        phoneLabel.text = Format.number(phone ?? "Loading...")
         phoneLabel.textColor = .gray
         phoneLabel.textAlignment = .center
         
@@ -174,7 +177,7 @@ final class SettingsScreenViewController: UIViewController {
         dotLabel.textAlignment = .center
         
         usernameLabel.font = Fonts.systemL14
-        usernameLabel.text = Constants.atText + (username ?? "Загрузка...")
+        usernameLabel.text = Constants.atText + (username ?? "Loading...")
         usernameLabel.textColor = .gray
         usernameLabel.textAlignment = .center
         
@@ -265,6 +268,9 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         // if pressed cell is "Notification"
         case (1,1):
             interactor.notificationSettingsRoute()
+        // if pressed cell is "Language"
+        case (2, 2):
+            interactor.languageSettingsRoute()
         default:
             break
         }

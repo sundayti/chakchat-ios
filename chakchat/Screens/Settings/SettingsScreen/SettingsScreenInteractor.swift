@@ -22,6 +22,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     var onRouteToUserProfileSettings: (() -> Void)?
     var onRouteToConfidentialitySettings: (() -> Void)?
     var onRouteToNotificationsSettings: (() -> Void)?
+    var onRouteToLanguageSettings: (() -> Void)?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -99,5 +100,10 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     func notificationSettingsRoute() {
         os_log("Routed to notification settings screen", log: logger, type: .default)
         onRouteToNotificationsSettings?()
+    }
+    
+    func languageSettingsRoute() {
+        os_log("Routed to language settings screen", log: logger, type: .default)
+        onRouteToLanguageSettings?()
     }
 }

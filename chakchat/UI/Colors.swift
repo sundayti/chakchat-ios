@@ -24,6 +24,8 @@ enum Colors {
     static let blackout: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
     // Used as background
     static let background: UIColor = UIColor(named: "BackgroundColor") ?? .systemBackground
+    // Used as background on the settings screen
+    static let backgroundSettings: UIColor = UIColor(named: "BackgroundSettingsColor") ?? .systemBackground
     // Used for text
     static let text: UIColor = UIColor(named: "TextColor") ?? .label
     // Used for chakchat Label

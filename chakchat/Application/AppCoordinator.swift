@@ -124,9 +124,15 @@ final class AppCoordinator {
         navigationController.pushViewController(onlineVisibilityVC, animated: true)
     }
     
-    // MARK: - Notofocation Screen Showing
+    // MARK: - Notification Screen Showing
     func showNotificationScreen() {
         let notificationVC = NotificationScreenAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(notificationVC, animated: true)
+    }
+    
+    // MARK: - Language Screen Showing
+    func showLanguageScreen() {
+        let languageVC = LanguageAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(languageVC, animated: true)
     }
 }

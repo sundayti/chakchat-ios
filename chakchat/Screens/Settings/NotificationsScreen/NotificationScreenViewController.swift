@@ -5,23 +5,30 @@
 //  Created by Кирилл Исаев on 31.01.2025.
 //
 
-import Foundation
 import UIKit
 
+// MARK: - NotificationScreenViewController
 final class NotificationScreenViewController: UIViewController {
     
+    // MARK: - Constants
     private enum Constants {
         static let headerText: String = "Notifications"
+        static let arrowLabel: String = "arrow.left"
+        static let notificationTableTop: CGFloat = 0
+        static let notificationTableBottom: CGFloat = 40
     }
 
+    // MARK: - Properties
     private var titleLabel: UILabel = UILabel()
     private var notificationTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var notificationData = [
         [("Notification")],
         [("Sound"), ("Vibration")]
     ]
+    
     let interactor: NotificationScreenBusinessLogic
     
+    // MARK: - Initialization
     init(interactor: NotificationScreenBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -32,14 +39,28 @@ final class NotificationScreenViewController: UIViewController {
         configureUI()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        view.backgroundColor = Colors.backgroundSettings
+        configureBackButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
         configureNotificationTable()
         interactor.loadUserData()
+    }
+    
+    // MARK: - Back Button Configuration
+    private func configureBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Title Label Configuration
@@ -50,33 +71,32 @@ final class NotificationScreenViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
-    
+    // MARK: - Notification Table Configuration
     private func configureNotificationTable() {
         view.addSubview(notificationTableView)
         notificationTableView.delegate = self
         notificationTableView.dataSource = self
         notificationTableView.separatorStyle = .singleLine
         notificationTableView.pinHorizontal(view)
-        notificationTableView.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
-        notificationTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 40)
+        notificationTableView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.notificationTableTop)
+        notificationTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.notificationTableBottom)
         notificationTableView.register(NotificationCell.self, forCellReuseIdentifier: NotificationCell.cellIndetifier)
         notificationTableView.backgroundColor = view.backgroundColor
     }
     
+    // MARK: - Actions
     @objc
     private func backButtonPressed() {
         interactor.backToSettingsMenu()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension NotificationScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    public func configureUserData(_ userData: NotificationScreenModels.NotificationStatus) {
+    // MARK: - User Data Configuration
+    func configureUserData(_ userData: NotificationScreenModels.NotificationStatus) {
         
         notificationTableView.layoutIfNeeded()
         
@@ -135,6 +155,7 @@ extension NotificationScreenViewController: UITableViewDelegate, UITableViewData
     }
 }
 
+// MARK: - NotificationCellDelegate
 extension NotificationScreenViewController: NotificationCellDelegate {
     func switchDidToggle(cell: NotificationCell, isOn: Bool) {
         if let indexPath = notificationTableView.indexPath(for: cell) {

@@ -4,11 +4,27 @@
 //
 //  Created by Кирилл Исаев on 06.02.2025.
 //
-
-import Foundation
 import UIKit
+
+// MARK: - UserProfileScreenViewController
 final class UserProfileScreenViewController: UIViewController {
     
+    // MARK: - Constants
+    private enum Constants {
+        static let arrowName: String = "arrow.left"
+        static let editButtonName: String = "Edit"
+        static let titleText: String = "My profile"
+        static let iconDefaultName: String = "camera.circle"
+        static let iconSize: CGFloat = 100
+        static let iconTop: CGFloat = 10
+        static let nameLabelTop: CGFloat = 10
+        static let userTableHorizontal: CGFloat = -15
+        static let userTableBottom: CGFloat = 20
+        static let userTableYop: CGFloat = 0
+        static let estimateRowHeight: CGFloat = 60
+    }
+    
+    // MARK: - Properties
     private var titleLabel: UILabel = UILabel()
     private var nameLabel: UILabel = UILabel()
     private var iconImageView: UIImageView = UIImageView()
@@ -21,6 +37,7 @@ final class UserProfileScreenViewController: UIViewController {
     
     let interactor: UserProfileScreenBusinessLogic
     
+    // MARK: - Initialization
     init(interactor: UserProfileScreenBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -34,8 +51,12 @@ final class UserProfileScreenViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         interactor.loadUserData()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
+    // MARK: - User Data Configuration/Updating
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         nameLabel.text = userData.nickname
         userTableViewData[0].value = userData.username
@@ -54,9 +75,10 @@ final class UserProfileScreenViewController: UIViewController {
         userTableView.reloadData()
     }
     
+    // MARK: - UI Confoguration
     private func configureUI() {
         configureBackButton()
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         configureEditButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
@@ -65,48 +87,58 @@ final class UserProfileScreenViewController: UIViewController {
         configureProfileTableView()
     }
     
+    // MARK: - Back Button Configuration
     private func configureBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
+    // MARK: - Edit Button Configuration
     private func configureEditButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.editButtonName, style: .plain, target: self, action: #selector(editButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
+    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB18
-        titleLabel.text = "My profile"
+        titleLabel.text = Constants.titleText
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 1
     }
     
+    // MARK: - Icon Configuration
     private func configureIcon() {
         view.addSubview(iconImageView)
-        iconImageView.setHeight(100)
-        iconImageView.setWidth(100)
+        iconImageView.setHeight(Constants.iconSize)
+        iconImageView.setWidth(Constants.iconSize)
         iconImageView.contentMode = .scaleAspectFill
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
         iconImageView.pinCenterX(view)
-        iconImageView.pinTop(view.safeAreaLayoutGuide.topAnchor, 10)
-        let config = UIImage.SymbolConfiguration(pointSize: 100, weight: .light, scale: .default)
-        let gearImage = UIImage(systemName: "camera.circle", withConfiguration: config)
+        iconImageView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.iconTop)
+        let config = UIImage.SymbolConfiguration(pointSize: Constants.iconSize, weight: .light, scale: .default)
+        let gearImage = UIImage(systemName: Constants.iconDefaultName, withConfiguration: config)
         iconImageView.tintColor = Colors.lightOrange
         iconImageView.image = gearImage
     }
     
+    // MARK: - Name Label Configuration
     private func configureNameLabel() {
         view.addSubview(nameLabel)
         nameLabel.font = Fonts.systemB20
         nameLabel.textAlignment = .center
         nameLabel.numberOfLines = 2
-        nameLabel.pinTop(iconImageView.bottomAnchor, 10)
+        nameLabel.pinTop(iconImageView.bottomAnchor, Constants.nameLabelTop)
         nameLabel.pinCenterX(view)
     }
     
+    // MARK: - Profile Table Configuration
     private func configureProfileTableView() {
         view.addSubview(userTableView)
         userTableView.delegate = self
@@ -114,15 +146,16 @@ final class UserProfileScreenViewController: UIViewController {
         userTableView.separatorStyle = .singleLine
         userTableView.separatorInset = .zero
         userTableView.isUserInteractionEnabled = false
-        userTableView.pinHorizontal(view, -15)
-        userTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
-        userTableView.pinTop(nameLabel.bottomAnchor, 0)
+        userTableView.pinHorizontal(view, Constants.userTableHorizontal)
+        userTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, Constants.userTableBottom)
+        userTableView.pinTop(nameLabel.bottomAnchor, Constants.userTableYop)
         userTableView.register(UserProfileCell.self, forCellReuseIdentifier: UserProfileCell.cellIdentifier)
         userTableView.backgroundColor = view.backgroundColor
         userTableView.rowHeight = UITableView.automaticDimension
-        userTableView.estimatedRowHeight = 60
+        userTableView.estimatedRowHeight = Constants.estimateRowHeight
     }
     
+    // MARK: - Actions
     @objc
     private func backButtonPressed() {
         interactor.backToSettingsMenu()
@@ -132,8 +165,14 @@ final class UserProfileScreenViewController: UIViewController {
     private func editButtonPressed() {
         interactor.profileSettingsRoute()
     }
+    
+    @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension UserProfileScreenViewController: UITableViewDelegate, UITableViewDataSource {
     // if user dont pick his date of birth he/she will see only 3 sections in current screen
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -91,7 +91,7 @@ final class ProfileSettingsViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.background
+        view.backgroundColor = Colors.backgroundSettings
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
@@ -283,6 +283,10 @@ final class ProfileSettingsViewController: UIViewController {
     private func dateButtonPressed() {
         let datePicker: UICustomDatePicker = UICustomDatePicker()
         view.addSubview(datePicker)
+        datePicker.pinTop(view.topAnchor, 0)
+        datePicker.pinLeft(view.leadingAnchor, 0)
+        datePicker.pinRight(view.trailingAnchor, 0)
+        datePicker.pinBottom(view.bottomAnchor, 0)
         view.bringSubviewToFront(datePicker)
         datePicker.settedDate = selectedDate ?? Date()
         datePicker.title = Constants.datePickerTitle
