@@ -12,11 +12,17 @@ final class RefreshTokensService: RefreshTokensServiceLogic {
     
     func sendRefreshTokensRequest(_ request: Refresh.RefreshRequest, 
                                   completion: @escaping (Result<SuccessModels.Tokens, any Error>) -> Void) {
+        let endpoint = SigninEndpoints.refreshEndpoint.rawValue
+        let idempotencyKey = UUID().uuidString
         
-        Sender.Post(requestBody: request,
-                    responseType: SuccessModels.Tokens.self,
-                    endpoint: SigninEndpoints.refreshEndpoint.rawValue,
-                    completion: completion)
+        let body = try? JSONEncoder().encode(request)
+        
+        let headers = [
+            "Idempotency-Key": idempotencyKey,
+            "Content-Type": "application/json"
+        ]
+        
+        Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
 }

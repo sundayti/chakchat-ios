@@ -12,12 +12,17 @@ final class SignupService: SignupServiceLogic {
     
     func sendSignupRequest(_ request: SignupModels.SignupRequest,
                            completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void) {
-        Sender.Post(
-            requestBody: request,
-            responseType: SuccessModels.Tokens.self,
-            endpoint: SignupEndpoints.signupEndpoint.rawValue,
-            completion: completion
-        )
+        let endpoint = SignupEndpoints.signupEndpoint.rawValue
+        let idempotencyKey = UUID().uuidString
+        
+        let body = try? JSONEncoder().encode(request)
+        
+        let headers = [
+            "Idempotency-Key": idempotencyKey,
+            "Content-Type": "application/json"
+        ]
+        
+        Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
 }
