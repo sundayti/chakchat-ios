@@ -162,6 +162,9 @@
 		AAA5F3DF2D393C0F00B9D50E /* MockSendCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3DE2D393C0F00B9D50E /* MockSendCodePresenter.swift */; };
 		AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */; };
 		AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */; };
+		AAA839BE2D60F64100C870A4 /* FileStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA839BD2D60F64100C870A4 /* FileStorageService.swift */; };
+		AAA839C02D60F64E00C870A4 /* FileStorageServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA839BF2D60F64E00C870A4 /* FileStorageServiceProtocols.swift */; };
+		AAA839E22D62522F00C870A4 /* FileStorageEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA839E12D62522F00C870A4 /* FileStorageEndpoints.swift */; };
 		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
 		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 		E11D350F2D40C3F400A698EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350E2D40C3F400A698EA /* Colors.swift */; };
@@ -345,6 +348,9 @@
 		AAA5F3DE2D393C0F00B9D50E /* MockSendCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSendCodePresenter.swift; sourceTree = "<group>"; };
 		AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlerProtocols.swift; sourceTree = "<group>"; };
 		AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockErrorHandler.swift; sourceTree = "<group>"; };
+		AAA839BD2D60F64100C870A4 /* FileStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageService.swift; sourceTree = "<group>"; };
+		AAA839BF2D60F64E00C870A4 /* FileStorageServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageServiceProtocols.swift; sourceTree = "<group>"; };
+		AAA839E12D62522F00C870A4 /* FileStorageEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageEndpoints.swift; sourceTree = "<group>"; };
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -803,6 +809,7 @@
 		AA9B62372D2D75050064CB23 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AAA839BC2D60F5F400C870A4 /* FileStorageService */,
 				AA07A66F2D5C897300CFE124 /* MeService */,
 				AA626E8E2D36BB4C006EAFD1 /* RefreshTokensService */,
 				AA9B62872D303F9C0064CB23 /* SignupService */,
@@ -890,6 +897,7 @@
 				AA9B62632D2FCA930064CB23 /* SignupEndpoints.swift */,
 				AA9B62972D3163CA0064CB23 /* SigninEndpoints.swift */,
 				AA07A6742D5CA17B00CFE124 /* UserServiceEndpoints.swift */,
+				AAA839E12D62522F00C870A4 /* FileStorageEndpoints.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -953,6 +961,15 @@
 				AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */,
 			);
 			path = ErrorHandler;
+			sourceTree = "<group>";
+		};
+		AAA839BC2D60F5F400C870A4 /* FileStorageService */ = {
+			isa = PBXGroup;
+			children = (
+				AAA839BD2D60F64100C870A4 /* FileStorageService.swift */,
+				AAA839BF2D60F64E00C870A4 /* FileStorageServiceProtocols.swift */,
+			);
+			path = FileStorageService;
 			sourceTree = "<group>";
 		};
 		E19D641A2D5E3E8800C73CAF /* Config */ = {
@@ -1089,6 +1106,7 @@
 				AA84F0652D53672B00678ABA /* ContextsProtocols.swift in Sources */,
 				E11D350F2D40C3F400A698EA /* Colors.swift in Sources */,
 				AA84F0362D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift in Sources */,
+				AAA839C02D60F64E00C870A4 /* FileStorageServiceProtocols.swift in Sources */,
 				AA84F02E2D4BEF1800678ABA /* BirthVisibilityScreenInteractor.swift in Sources */,
 				AA1C0E3A2D43A5D7008E47D8 /* EventManager.swift in Sources */,
 				AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */,
@@ -1171,12 +1189,14 @@
 				AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */,
 				AA9B62A32D33D6B50064CB23 /* ErrorHandler.swift in Sources */,
 				AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */,
+				AAA839E22D62522F00C870A4 /* FileStorageEndpoints.swift in Sources */,
 				AA9B627B2D3004850064CB23 /* SignupWorker.swift in Sources */,
 				AA9B62592D2EDF9F0064CB23 /* ErrorModels.swift in Sources */,
 				AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */,
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
+				AAA839BE2D60F64100C870A4 /* FileStorageService.swift in Sources */,
 				AA84F0512D4D0C4600678ABA /* NotificationScreenWorker.swift in Sources */,
 				E135ED4A2D54EB33006CE143 /* UICustomDatePicker.swift in Sources */,
 				AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */,

@@ -16,12 +16,15 @@ final class SendCodeService: SendCodeServiceLogic {
         _ responseType: Response.Type,
         completion: @escaping (Result<Response, Error>) -> Void
     ) {
-        Sender.Post(
-            requestBody: request,
-            responseType: responseType,
-            endpoint: endpoint,
-            completion: completion
-        )
+        let idempotencyKey = UUID().uuidString
+        
+        let body = try? JSONEncoder().encode(request)
+        
+        let headers = [
+            "Idempotency-Key": idempotencyKey,
+            "Content-Type": "application/json"
+        ]
+        Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
 }

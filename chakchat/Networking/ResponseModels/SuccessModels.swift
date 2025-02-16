@@ -41,4 +41,40 @@ enum SuccessModels {
             case signupKey = "signup_key"
         }
     }
+    
+    struct UploadResponse: Codable {
+        let fileName: String
+        let fileSize: Int
+        let mimeType: String
+        let fileId: UUID
+        let fileURL: URL
+        let createdAt: String
+        
+        enum CodingKeys: String, CodingKey {
+            case fileName = "file_name"
+            case fileSize = "file_size"
+            case mimeType = "mime_type"
+            case fileId = "file_id"
+            case fileURL = "file_url"
+            case createdAt = "created_at"
+        }
+    }
+    
+    struct UploadPartResponse: Codable {
+        let eTag: String
+        
+        enum CodingKeys: String, CodingKey {
+            case eTag = "e_tag"
+        }
+    }
+    
+    struct UploadInitResponse: Codable {
+        let uploadID: String
+        
+        enum CodingKeys: String, CodingKey {
+            case uploadID = "upload_id"
+        }
+    }
+    
+    struct EmptyResponse: Codable {}
 }
