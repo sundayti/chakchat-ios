@@ -30,6 +30,7 @@ jobs:
 
       - name: Run Unit Tests
         run: |
+          mkdir -p Config
           echo "" > Config/config.xcconfig
           xcodebuild test \
           -scheme chakchat \
