@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 24.01.2025.
 //
 
-import Foundation
+import UIKit
 import OSLog
 
 // MARK: - ProfileSettingsInteractor
@@ -71,6 +71,54 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
         }
         os_log("Routed to settings menu screen", log: logger, type: .default)
         onRouteToSettingsMenu?()
+    }
+    
+    func saveImage(_ image: UIImage) -> URL? {
+        os_log("Started saving image in profile setting screen", log: logger, type: .default)
+        guard let data = image.jpegData(compressionQuality: 0.0) else {
+            return nil
+        }
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileName = "\(UUID().uuidString).png"
+        let fileURL = documentDirectory.appendingPathComponent(fileName)
+        do {
+            try data.write(to: fileURL)
+            worker.saveImagePath(fileURL.path)
+            os_log("File saved", log: logger, type: .info)
+            return fileURL
+        } catch {
+            os_log("Error during file saving", log: logger, type: .error)
+            return nil
+        }
+    }
+    
+    func unpackPhotoByUrl(_ url: URL) -> UIImage? {
+        if FileManager.default.fileExists(atPath: url.path) {
+            do {
+                let imageData = try Data(contentsOf: url)
+                if let image = UIImage(data: imageData) {
+                    return image
+                }
+            } catch {
+                os_log("Error during photo load", log: logger, type: .error)
+            }
+        } else {
+            return nil
+        }
+        return nil
+    }
+    
+    func uploadImage(_ fileURL: URL, _ fileName: String, _ mimeType: String) {
+        worker.uploadImage(fileURL, fileName, mimeType) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success():
+                os_log("File uploaded to server", log: logger, type: .info)
+            case .failure(let failure):
+                os_log("File uploding to server failed", log: logger, type: .error)
+                let errorID = self.errorHandler.handleError(failure)
+            }
+        }
     }
     
     // MARK: - Routing

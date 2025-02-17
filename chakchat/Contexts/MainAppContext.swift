@@ -10,12 +10,12 @@ import OSLog
 
 final class MainAppContext: MainAppContextProtocol {
 
-    var keychainManager: KeychainManagerBusinessLogic
-    var errorHandler: ErrorHandlerLogic
-    var userDefaultsManager: UserDefaultsManagerProtocol
-    var eventManager: (EventPublisherProtocol & EventSubscriberProtocol)
+    let keychainManager: KeychainManagerBusinessLogic
+    let errorHandler: ErrorHandlerLogic
+    let userDefaultsManager: UserDefaultsManagerProtocol
+    let eventManager: (EventPublisherProtocol & EventSubscriberProtocol)
     var state: AppState
-    var logger: OSLog
+    let logger: OSLog
     
     init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultsManager: UserDefaultsManagerProtocol, eventManager: EventPublisherProtocol & EventSubscriberProtocol, state: AppState, logger: OSLog) {
         self.keychainManager = keychainManager

@@ -22,6 +22,9 @@ protocol UserDefaultsManagerProtocol {
     func saveAudioNotificationStatus(_ audioNotificationStatus: Bool)
     func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool)
     
+    func savePhotoPath(_ path: String)
+    func savePhotoMetadata(_ photo: SuccessModels.UploadResponse)
+    
     func loadUserData() -> ProfileSettingsModels.ProfileUserData
     func loadNickname() -> String
     func loadUsername() -> String
@@ -33,5 +36,9 @@ protocol UserDefaultsManagerProtocol {
     func loadAudioNotificationStatus() -> Bool
     func loadVibrationNotificationStatus() -> Bool
     
+    func loadPhotoPath() -> String?
+    func loadPhotoMetadata() -> SuccessModels.UploadResponse?
+    
     func deleteBirth()
+    func deletePhotoPath()
 }

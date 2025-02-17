@@ -83,12 +83,21 @@ final class SettingsScreenViewController: UIViewController {
     // MARK: - UserData Configuration
     public func configureUserData(_ data: ProfileSettingsModels.ProfileUserData) {
         // if user already loaded his data
+        if let imageURL = data.photo {
+            if let image = interactor.unpackPhotoByUrl(imageURL) {
+                configureIconImageView(image)
+            }
+        }
         configureNicknameLabel(data.nickname)
         configureDataStackView(data.username, data.phone)
     }
     
     // MARK: - UserData Update
     public func updateUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData) {
+        if let imageURL = data.photo {
+            let newImage = interactor.unpackPhotoByUrl(imageURL)
+            iconImageView.image = newImage
+        }
         nicknameLabel.text = data.nickname
         usernameLabel.text = data.username
     }
@@ -99,7 +108,7 @@ final class SettingsScreenViewController: UIViewController {
         configureSettingsLabel()
         navigationItem.titleView = settingsLabel
         configureBackButton()
-        configureIconImageView()
+        configureIconImageView(nil)
         interactor.loadUserData()
         configureSettingTableView()
     }
@@ -122,7 +131,7 @@ final class SettingsScreenViewController: UIViewController {
     }
     
     // MARK: - Icon ImageView Configuration
-    private func configureIconImageView() {
+    private func configureIconImageView(_ image: UIImage?) {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconImageSize)
         iconImageView.setWidth(Constants.iconImageSize)
@@ -135,7 +144,7 @@ final class SettingsScreenViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: Constants.iconImageSize, weight: .light, scale: .default)
         let gearImage = UIImage(systemName: Constants.defaultProfileImageSymbol, withConfiguration: config)
         iconImageView.tintColor = Colors.lightOrange
-        iconImageView.image = gearImage
+        iconImageView.image = image ?? gearImage
     }
     
     // MARK: - Settings TableView Configuration

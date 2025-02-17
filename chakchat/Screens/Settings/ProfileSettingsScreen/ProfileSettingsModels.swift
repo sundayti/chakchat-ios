@@ -15,14 +15,14 @@ enum ProfileSettingsModels {
         var nickname: String
         var username: String
         let phone: String
-        var photo: UUID?
+        var photo: URL?
         var dateOfBirth: String?
     }
     
     struct ChangeableProfileUserData: Codable {
         var nickname: String
         var username: String
-        var photo: UUID?
+        var photo: URL?
         var dateOfBirth: String?
     }
 }

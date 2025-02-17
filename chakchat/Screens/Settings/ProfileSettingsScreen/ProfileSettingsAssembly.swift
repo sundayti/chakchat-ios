@@ -15,7 +15,12 @@ enum ProfileSettingsAssembly {
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ProfileSettingsPresenter()
         let meService = MeService()
-        let worker = ProfileSettingsWorker(userDefaultsManager: context.userDefaultsManager, meService: meService)
+        let fileStorageService = FileStorageService()
+        let worker = ProfileSettingsWorker(userDefaultsManager: context.userDefaultsManager,
+                                           meService: meService,
+                                           fileStorageService: fileStorageService,
+                                           keychainManager: context.keychainManager
+        )
         let interactor = ProfileSettingsInteractor(presenter: presenter,
                                                    worker: worker,
                                                    eventPublisher: context.eventManager,

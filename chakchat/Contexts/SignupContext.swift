@@ -16,7 +16,7 @@ final class SignupContext: SignupContextProtocol {
     let errorHandler: ErrorHandlerLogic
     let userDefaultsManager: UserDefaultsManagerProtocol
     var state: SignupState
-    var logger: OSLog
+    let logger: OSLog
     
     // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultsManager: UserDefaultsManagerProtocol, state: SignupState, logger: OSLog) {

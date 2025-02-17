@@ -18,6 +18,8 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let phoneKey = "userPhone"
     private let birthKey = "birthKey"
     private let onlineKey = "onlineKey"
+    private let photoPathKey = "photoPathKey"
+    private let photoMetadataKey = "photoMetadataKey"
     private let restrictionsKey = "restrictionsKey"
     private let generalNotificationKey = "generalNotification"
     private let audioNotificationKey = "audioNotification"
@@ -27,6 +29,9 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         saveNickname(userData.nickname)
         saveUsername(userData.username)
         savePhone(userData.phone)
+        if let photoPath = userData.photo?.path {
+            savePhotoPath(photoPath)
+        }
         saveBirth(userData.dateOfBirth)
     }
     
@@ -55,8 +60,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     }
     
     func saveRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(userRestrictions) {
+        if let encoded = try? JSONEncoder().encode(userRestrictions) {
             UserDefaults.standard.set(encoded, forKey: restrictionsKey)
         }
     }
@@ -76,11 +80,30 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         print("Vibration notification status = \(vibrationNotificationStatus)")
     }
     
+    func savePhotoPath(_ path: String) {
+        UserDefaults.standard.set(path, forKey: photoPathKey)
+    }
+    
+    func savePhotoMetadata(_ photo: SuccessModels.UploadResponse) {
+        if let encoded = try? JSONEncoder().encode(photo) {
+            UserDefaults.standard.set(encoded, forKey: photoMetadataKey)
+        }
+    }
+    
     func loadUserData() -> ProfileSettingsModels.ProfileUserData {
         let nickname = loadNickname()
         let username = loadUsername()
         let phone = loadPhone()
         let dateOfBirth = loadBirth()
+        if let photoPath = loadPhotoPath() {
+            let photoURL = URL(fileURLWithPath: photoPath)
+            return ProfileSettingsModels.ProfileUserData(id: UUID(),
+                                                         nickname: nickname,
+                                                         username: username, phone: phone,
+                                                         photo: photoURL,
+                                                         dateOfBirth: dateOfBirth)
+        }
+
         return ProfileSettingsModels.ProfileUserData(id: UUID(),
                                                      nickname: nickname,
                                                      username: username,
@@ -130,8 +153,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func loadRestrictions() -> ConfidentialitySettingsModels.ConfidentialityUserData {
         if let savedData = UserDefaults.standard.data(forKey: restrictionsKey) {
-            let decoder = JSONDecoder()
-            if let savedRestrictions = try? decoder.decode(ConfidentialitySettingsModels.ConfidentialityUserData.self, 
+            if let savedRestrictions = try? JSONDecoder().decode(ConfidentialitySettingsModels.ConfidentialityUserData.self,
                                                            from: savedData) {
                 return savedRestrictions
             }
@@ -156,14 +178,29 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         print("Vibration notification status is \(vibrationNotificationStatus)")
         return vibrationNotificationStatus
     }
-
-    // MARK: - Avatar Deleting
-    func deleteAvatar() {
-        UserDefaults.standard.removeObject(forKey: avatarKey)
+    
+    func loadPhotoPath() -> String? {
+        if let photoPath = UserDefaults.standard.string(forKey: photoPathKey) {
+            return photoPath
+        }
+        return nil
+    }
+    
+    func loadPhotoMetadata() -> SuccessModels.UploadResponse? {
+        if let savedData = UserDefaults.standard.data(forKey: photoMetadataKey) {
+            if let decoded = try? JSONDecoder().decode(SuccessModels.UploadResponse.self, from: savedData) {
+                return decoded
+            }
+        }
+        return nil
     }
     
     func deleteBirth() {
         UserDefaults.standard.removeObject(forKey: birthKey)
+    }
+    
+    func deletePhotoPath() {
+        UserDefaults.standard.removeObject(forKey: photoPathKey)
     }
 }
 
