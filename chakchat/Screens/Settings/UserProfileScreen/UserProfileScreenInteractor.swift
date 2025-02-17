@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 06.02.2025.
 //
 
-import Foundation
+import UIKit
 import OSLog
 import Combine
 
@@ -56,6 +56,22 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
         os_log("Passed new user data in user settings screen to presenter", log: logger, type: .default)
         presenter.showNewUserData(userData)
+    }
+    
+    func unpackPhotoByUrl(_ url: URL) -> UIImage? {
+        if FileManager.default.fileExists(atPath: url.path) {
+            do {
+                let imageData = try Data(contentsOf: url)
+                if let image = UIImage(data: imageData) {
+                    return image
+                }
+            } catch {
+                os_log("Error during photo load", log: logger, type: .error)
+            }
+        } else {
+            return nil
+        }
+        return nil
     }
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
