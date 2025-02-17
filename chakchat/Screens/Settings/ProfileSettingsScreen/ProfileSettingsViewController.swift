@@ -87,6 +87,11 @@ final class ProfileSettingsViewController: UIViewController {
             selectedDate = dateFormatter.date(from: birth)
             birthTextField.setText(birth)
         }
+        if let photoURL = userData.photo {
+            if let image = interactor.unpackPhotoByUrl(photoURL) {
+                iconImageView.image = image
+            }
+        }
     }
     
     // MARK: - UI Configuration
@@ -99,7 +104,7 @@ final class ProfileSettingsViewController: UIViewController {
         configureTitleLabel()
         navigationItem.titleView = titleLabel
         
-        configureIconImageView()
+        configureIconImageView(nil)
         configureNameTextField()
         configureUsernameTextField()
         configurePhoneTextField()
@@ -133,7 +138,7 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     // MARK: - Icon ImageView Configuration
-    private func configureIconImageView() {
+    private func configureIconImageView(_ image: UIImage?) {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconImageSize)
         iconImageView.setWidth(Constants.iconImageSize)
@@ -150,8 +155,8 @@ final class ProfileSettingsViewController: UIViewController {
         iconImageView.image = gearImage
         
         iconImageView.isUserInteractionEnabled = true
-        _ = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
-        //iconImageView.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
+        iconImageView.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - Name Text Field Configuration
@@ -316,6 +321,12 @@ final class ProfileSettingsViewController: UIViewController {
 extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
+            if let pickedImageURL = interactor.saveImage(pickedImage) {
+                print("Image saved in URL: \(pickedImageURL)")
+                print("Image name is \(pickedImageURL.lastPathComponent)")
+                print("MIME-type: image/\(pickedImageURL.pathExtension)")
+                interactor.uploadImage(pickedImageURL, pickedImageURL.lastPathComponent, "image/png")
+            }
             iconImageView.image = pickedImage
             iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         }
