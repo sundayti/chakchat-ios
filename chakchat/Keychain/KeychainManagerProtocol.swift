@@ -12,5 +12,6 @@ protocol KeychainManagerBusinessLogic {
     func save(key: String, value: UUID) -> Bool
     func save(key: String, value: String) -> Bool
     func getUUID(key: String) -> UUID?
+    func getString(key: String) -> String?
     func delete(key: String) -> Bool
 }
