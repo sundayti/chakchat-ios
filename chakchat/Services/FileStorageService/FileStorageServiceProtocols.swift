@@ -6,14 +6,14 @@
 //
 
 import Foundation
+import Alamofire
 
-protocol FileStorageServiceProtocols {
+protocol FileStorageServiceProtocol {
     func sendFileUploadRequest(_ fileURL: URL,
                                _ fileName: String,
                                _ mimeType: String,
-                               _ accessToken: String,
-                               completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void
-    )
+                               _ accessToken: String, 
+                               completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void)
     
     func sendFileUploadInitRequest(_ request: FileStorageRequest.UploadInit,
                                    _ accessToken: String,
