@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 21.01.2025.
 //
 
-import Foundation
+import UIKit
 import Combine
 import OSLog
 
@@ -75,6 +75,22 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
             self?.handleUserDataChangedEvent(event)
         }.store(in: &cancellables)
+    }
+    
+    func unpackPhotoByUrl(_ url: URL) -> UIImage? {
+        if FileManager.default.fileExists(atPath: url.path) {
+            do {
+                let imageData = try Data(contentsOf: url)
+                if let image = UIImage(data: imageData) {
+                    return image
+                }
+            } catch {
+                os_log("Error during photo load", log: logger, type: .error)
+            }
+        } else {
+            return nil
+        }
+        return nil
     }
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {

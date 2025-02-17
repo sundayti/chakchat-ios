@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 21.01.2025.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - SettingsScreenBusinessLogic
 protocol SettingsScreenBusinessLogic {
@@ -17,6 +17,9 @@ protocol SettingsScreenBusinessLogic {
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)
     func loadUserData()
+    
+    func unpackPhotoByUrl(_ url: URL) -> UIImage?
+    
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent)
 }
 
