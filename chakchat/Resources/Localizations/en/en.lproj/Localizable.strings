@@ -9,3 +9,7 @@
 "italian" = "Italian";
 "send_code" = "Send code";
 "enter_valid_number" = "Enter a valid phone number";
+"enter_the_code" = "Enter the code";
+"we_sent_code" = "We sent you a verification code via SMS\non number ";
+"resend_code" = "Resend Code";
+"resend_code_in" = "Resend code in ";

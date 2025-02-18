@@ -40,6 +40,10 @@ final class UIGradientButton: UIButton {
         buttonGradientLayer?.frame = bounds
     }
     
+    func setTitle(_ title: String) {
+        setTitle(title, for: .normal)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -19,12 +19,12 @@ final class SendCodeViewController: UIViewController {
         
         static let inputNumberTextFieldTopAnchor: CGFloat = 50
         
-        static let descriptionLabelText: String = NSLocalizedString("agreement_with_prompt", comment: "")
+        static let descriptionLabelText: String = LocalizationManager.shared.localizedString(for: "agreement_with_prompt")
         static let descriptionLabelBottom: CGFloat = 4
         
-        static let termsText: String = NSLocalizedString("terms_of_service_label", comment: "")
-        static let privacyText: String = NSLocalizedString("privacy_policy_label", comment: "")
-        static let contentsText: String = NSLocalizedString("content_policies_label", comment: "")
+        static let termsText: String = LocalizationManager.shared.localizedString(for: "terms_of_service_label")
+        static let privacyText: String = LocalizationManager.shared.localizedString(for: "privacy_policy_label")
+        static let contentsText: String = LocalizationManager.shared.localizedString(for: "content_policies_label")
         static let linksTop: CGFloat = 4
         static let linksHorizontal: CGFloat = 20
         static let linksBottom: CGFloat = 40
@@ -53,7 +53,6 @@ final class SendCodeViewController: UIViewController {
         static let disablingCharactersAmount: Int = 4
         static let numberKerning: CGFloat = 2
         
-        static let shortNumberLabelText: String = NSLocalizedString("enter_valid_number", comment: "")
         static let shortNumberLabelTop: CGFloat = 360
         static let shortNumberDuration: TimeInterval = 0.5
         
@@ -68,7 +67,7 @@ final class SendCodeViewController: UIViewController {
     private var interactor: SendCodeBusinessLogic
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: UIPhoneNumberTextField = UIPhoneNumberTextField()
-    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: NSLocalizedString("send_code", comment: ""))
+    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: LocalizationManager.shared.localizedString(for: "send_code"))
     private lazy var shortNumberLabel: UILabel = UILabel()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var termsLabel: UILabel = UILabel()
@@ -98,7 +97,7 @@ final class SendCodeViewController: UIViewController {
     // Subscribing to Keyboard Notifications
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -273,7 +272,7 @@ final class SendCodeViewController: UIViewController {
         })
         
         guard let phoneText = inputNumberTextField.text else {
-            errorLabel.showError(Constants.shortNumberLabelText)
+            errorLabel.showError(LocalizationManager.shared.localizedString(for: "enter_valid_number"))
             return
         }
         
@@ -285,7 +284,7 @@ final class SendCodeViewController: UIViewController {
                     phone: cleanedPhone)
             )
         } else {
-            errorLabel.showError(Constants.shortNumberLabelText)
+            errorLabel.showError(LocalizationManager.shared.localizedString(for: "enter_valid_number"))
         }
     }
     
@@ -340,6 +339,23 @@ final class SendCodeViewController: UIViewController {
             safariVC.modalPresentationStyle = .formSheet
             present(safariVC, animated: true, completion: nil)
         }
+    }
+    
+    @objc
+    private func languageDidChange() {
+        descriptionLabel.text = LocalizationManager.shared.localizedString(for: "agreement_with_prompt")
+        termsLabel.text = LocalizationManager.shared.localizedString(for: "terms_of_service_label")
+        privacyLabel.text = LocalizationManager.shared.localizedString(for: "privacy_policy_label")
+        contentsLabel.text = LocalizationManager.shared.localizedString(for: "content_policies_label")
+        sendGradientButton.setTitle(LocalizationManager.shared.localizedString(for: "send_code"))
+        guard let label = sendGradientButton.titleLabel,
+              let text = label.text else {
+            return
+        }
+        // If in title more than 9 chars, make button bigger.
+        sendGradientButton.setWidth(text.count > Constants.inputButtonShortCount
+                                    ? Constants.inputButtonBigWidth
+                                    : Constants.inputButtonWidth)
     }
 }
 

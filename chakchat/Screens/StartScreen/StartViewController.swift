@@ -15,7 +15,7 @@ final class StartViewController: UIViewController {
     private enum Constants {
         static let chakchatStackViewSpacing: CGFloat = -60
         static let tapLabelButtom: CGFloat = 50
-        static let tapLabelText: String = NSLocalizedString("tap_hint", comment: "")
+        static let tapLabelText: String = LocalizationManager.shared.localizedString(for: "tap_hint")
         static let chakLabelText: String = "Chak"
         static let chatLabelText: String = "Chat"
         static let gradientLocation: [NSNumber] = [0.0, 0.5, 1.0]
