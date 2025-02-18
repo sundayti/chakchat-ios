@@ -13,3 +13,12 @@
 "we_sent_code" = "We sent you a verification code via SMS\non number ";
 "resend_code" = "Resend Code";
 "resend_code_in" = "Resend code in ";
+"name" = "Name";
+"username" = "Username";
+"create_account" = "Create account";
+"enter_your_name" = "Enter your name";
+"name_too_long" = "The name is too long";
+"enter_username" = "Enter the username";
+"username_short" = "The username is too short";
+"username_long" = "The username is too long";
+"use_only_characters" = "Use only latin letters, digits and _";

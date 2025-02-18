@@ -22,7 +22,7 @@ final class SignupViewController: UIViewController {
         static let inputButtonGradientEndPoint: CGPoint = CGPoint(x: 1, y: 0.5)
         static let inputButtonGradientCornerRadius: CGFloat = 25
         
-        static let nameTextFieldPlaceholder: String = "Name"
+        static let nameTextFieldPlaceholder: String = LocalizationManager.shared.localizedString(for: "name")
         static let namePaddingX: CGFloat = 0
         static let namePaddingY: CGFloat = 0
         static let namePaddingWidth: CGFloat = 10
@@ -33,7 +33,7 @@ final class SignupViewController: UIViewController {
         static let borderCornerRadius: CGFloat = 8
         static let borderWidth: CGFloat = 1
         
-        static let usernameTextFieldPlaceholder: String = "Username"
+        static let usernameTextFieldPlaceholder: String = LocalizationManager.shared.localizedString(for: "username")
         static let usernamePaddingX: CGFloat = 0
         static let usernamePaddingY: CGFloat = 0
         static let usernamePaddingWidth: CGFloat = 10
@@ -63,7 +63,7 @@ final class SignupViewController: UIViewController {
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var nameTextField: UITextField = UITextField()
     private lazy var usernameTextField: UITextField = UITextField()
-    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: "Create account")
+    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: LocalizationManager.shared.localizedString(for: "create_account"))
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
     
     private var isNameInputValid: Bool = false
@@ -82,6 +82,8 @@ final class SignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
@@ -217,7 +219,7 @@ final class SignupViewController: UIViewController {
     private func checkFields() -> Bool {
         guard let name = nameTextField.text, !name.isEmpty else {
             changeColor(nameTextField)
-            showError("Enter your name")
+            showError(LocalizationManager.shared.localizedString(for: "enter_your_name"))
             return false
         }
         
@@ -225,13 +227,13 @@ final class SignupViewController: UIViewController {
         isNameInputValid = validator.validateName(name)
         if (!isNameInputValid) {
             changeColor(nameTextField)
-            showError("The name is too long")
+            showError(LocalizationManager.shared.localizedString(for: "name_too_long"))
             return false
         }
         
         guard let username = usernameTextField.text, !username.isEmpty else {
             changeColor(usernameTextField)
-            showError("Enter the username")
+            showError(LocalizationManager.shared.localizedString(for: "enter_username"))
             return false
         }
         
@@ -239,11 +241,11 @@ final class SignupViewController: UIViewController {
         if (!isUsernameInputValid) {
             changeColor(usernameTextField)
             if username.count < 2 {
-                showError("The nickname is too short")
+                showError(LocalizationManager.shared.localizedString(for: "username_short"))
             } else if username.count > 19 {
-                showError("The nickname is too long")
+                showError(LocalizationManager.shared.localizedString(for: "username_long"))
             } else {
-                showError("Use only latin letters, digits and _")
+                showError(LocalizationManager.shared.localizedString(for: "use_only_characters"))
             }
             return false
         }
@@ -312,6 +314,13 @@ final class SignupViewController: UIViewController {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+    }
+    
+    @objc
+    private func languageDidChange() {
+        nameTextField.placeholder = LocalizationManager.shared.localizedString(for: "name")
+        usernameTextField.placeholder = LocalizationManager.shared.localizedString(for: "username")
+        sendGradientButton.setTitle(LocalizationManager.shared.localizedString(for: "create_account"))
     }
 }
 
