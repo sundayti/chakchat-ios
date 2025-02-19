@@ -9,8 +9,10 @@ import Foundation
 //TODO: - when Anya created user service, you have to delete mock and implement logic!
 final class MeService: MeServiceProtocol, MeServiceRestrictionProtocol {
     
+    let u = UserDefaultsManager()
+    
     func sendGetMeRequest(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
-        completion(.success(ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: "Mockname", username: "Mockusername", phone: "79776002210", dateOfBirth: "13.02.2025")))
+        completion(.success(ProfileSettingsModels.ProfileUserData(id: UUID(), nickname: "Mockname", username: "Mockusername", phone: "79776002210",photo: u.loadPhotoURL(), dateOfBirth: "13.02.2025")))
     }
     
     func sendPutMeRequest(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {

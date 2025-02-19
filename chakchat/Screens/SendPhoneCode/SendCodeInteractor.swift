@@ -48,7 +48,6 @@ class SendCodeInteractor: SendCodeBusinessLogic {
                 self.presenter.showError(errorId)
             }
         }
-        // successTransition(SignupState.signupVerifyCode)
     }
     
     // MARK: - Routing
