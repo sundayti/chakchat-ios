@@ -15,9 +15,9 @@ enum SendCodeAssembly {
     static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         
         let presenter = SendCodePresenter()
-        let sendCodeService = SendCodeService()
+        let identityService = IdentityService()
         
-        let worker = SendCodeWorker(sendCodeService: sendCodeService, 
+        let worker = SendCodeWorker(identityService: identityService, 
                                     keychainManager: context.keychainManager,
                                     userDefaultsManager: context.userDefaultsManager)
         
