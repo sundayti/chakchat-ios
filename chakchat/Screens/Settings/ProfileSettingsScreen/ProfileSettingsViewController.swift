@@ -273,6 +273,7 @@ final class ProfileSettingsViewController: UIViewController {
                 self.logOutButton.transform = CGAffineTransform.identity
             }
         })
+        interactor.signOut()
     }
     
     @objc
