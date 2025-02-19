@@ -77,6 +77,11 @@ final class UserProfileScreenViewController: UIViewController {
         if let birth = userData.dateOfBirth {
             userTableViewData[2].value = birth
         }
+        if let photoURL = userData.photo {
+            if let image = interactor.unpackPhotoByUrl(photoURL) {
+                iconImageView.image = image
+            }
+        }
         userTableView.reloadData()
     }
     

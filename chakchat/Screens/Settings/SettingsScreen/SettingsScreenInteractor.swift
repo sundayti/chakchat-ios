@@ -78,16 +78,11 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     }
     
     func unpackPhotoByUrl(_ url: URL) -> UIImage? {
+        print(url.path)
         if FileManager.default.fileExists(atPath: url.path) {
-            do {
-                let imageData = try Data(contentsOf: url)
-                if let image = UIImage(data: imageData) {
-                    return image
-                }
-            } catch {
-                os_log("Error during photo load", log: logger, type: .error)
+            if let image = UIImage(contentsOfFile: url.path) {
+                return image
             }
-        } else {
             return nil
         }
         return nil

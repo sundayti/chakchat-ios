@@ -19,7 +19,7 @@ enum ProfileSettingsModels {
         var dateOfBirth: String?
     }
     
-    struct ChangeableProfileUserData: Codable {
+    struct ChangeableProfileUserData {
         var nickname: String
         var username: String
         var photo: URL?

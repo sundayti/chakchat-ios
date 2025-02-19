@@ -31,7 +31,7 @@ protocol ProfileSettingsScreenPresentationLogic {
 protocol ProfileSettingsScreenWorkerLogic {
     func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     func getUserData() -> ProfileSettingsModels.ProfileUserData
-    func saveImagePath(_ path: String)
+    func saveImageURL(_ url: URL)
     
     func signOut(completion: @escaping (Result<Void, Error>) -> Void)
     

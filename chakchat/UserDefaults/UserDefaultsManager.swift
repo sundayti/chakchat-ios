@@ -10,15 +10,17 @@ import UIKit
 
 // MARK: - UserDefaultsManager
 final class UserDefaultsManager: UserDefaultsManagerProtocol {
+    
 
     // MARK: - Constants
-    private let avatarKey = "userAvatar"
+    private let idKey = "IdKey"
+    private let photoKey = "userAvatar"
     private let nicknameKey = "userNickname"
     private let usernameKey = "userUsername"
     private let phoneKey = "userPhone"
     private let birthKey = "birthKey"
     private let onlineKey = "onlineKey"
-    private let photoPathKey = "photoPathKey"
+    private let photoUrlKey = "photoUrlKey"
     private let photoMetadataKey = "photoMetadataKey"
     private let restrictionsKey = "restrictionsKey"
     private let generalNotificationKey = "generalNotification"
@@ -26,15 +28,19 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let vibrationNotificationKey = "vibrationNotification"
     
     func saveUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+        saveId(userData.id)
         saveNickname(userData.nickname)
         saveUsername(userData.username)
         savePhone(userData.phone)
-        if let photoPath = userData.photo?.path {
-            savePhotoPath(photoPath)
+        if let photoPath = userData.photo {
+            savePhotoURL(photoPath)
         }
         saveBirth(userData.dateOfBirth)
     }
     
+    func saveId(_ id: UUID) {
+        UserDefaults.standard.set(id.uuidString, forKey: idKey)
+    }
     
     // MARK: - Nickname Saving
     func saveNickname(_ nickname: String) {
@@ -80,8 +86,8 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         print("Vibration notification status = \(vibrationNotificationStatus)")
     }
     
-    func savePhotoPath(_ path: String) {
-        UserDefaults.standard.set(path, forKey: photoPathKey)
+    func savePhotoURL(_ url: URL) {
+        UserDefaults.standard.set(url, forKey: photoUrlKey)
     }
     
     func savePhotoMetadata(_ photo: SuccessModels.UploadResponse) {
@@ -91,20 +97,20 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     }
     
     func loadUserData() -> ProfileSettingsModels.ProfileUserData {
+        let id = loadID()
         let nickname = loadNickname()
         let username = loadUsername()
         let phone = loadPhone()
         let dateOfBirth = loadBirth()
-        if let photoPath = loadPhotoPath() {
-            let photoURL = URL(fileURLWithPath: photoPath)
-            return ProfileSettingsModels.ProfileUserData(id: UUID(),
+        if let photoURL = loadPhotoURL() {
+            return ProfileSettingsModels.ProfileUserData(id: id,
                                                          nickname: nickname,
                                                          username: username, phone: phone,
                                                          photo: photoURL,
                                                          dateOfBirth: dateOfBirth)
         }
 
-        return ProfileSettingsModels.ProfileUserData(id: UUID(),
+        return ProfileSettingsModels.ProfileUserData(id: id,
                                                      nickname: nickname,
                                                      username: username,
                                                      phone: phone,
@@ -113,6 +119,15 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         )
     }
     
+    func loadID() -> UUID {
+        guard let idString = UserDefaults.standard.string(forKey: idKey) else {
+            return UUID()
+        }
+        if let id = UUID(uuidString: idString) {
+            return id
+        }
+        return UUID()
+    }
     // MARK: - Nickname Loading
     func loadNickname() -> String {
         guard let nickname = UserDefaults.standard.string(forKey: nicknameKey) else {
@@ -179,8 +194,8 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         return vibrationNotificationStatus
     }
     
-    func loadPhotoPath() -> String? {
-        if let photoPath = UserDefaults.standard.string(forKey: photoPathKey) {
+    func loadPhotoURL() -> URL? {
+        if let photoPath = UserDefaults.standard.url(forKey: photoUrlKey) {
             return photoPath
         }
         return nil
@@ -200,7 +215,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     }
     
     func deletePhotoPath() {
-        UserDefaults.standard.removeObject(forKey: photoPathKey)
+        UserDefaults.standard.removeObject(forKey: photoUrlKey)
     }
 }
 
