@@ -35,8 +35,7 @@
 		AA1C0E472D43C984008E47D8 /* ProfileSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E462D43C984008E47D8 /* ProfileSettingsModels.swift */; };
 		AA1C0E4B2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */; };
 		AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */; };
-		AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */; };
-		AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */; };
+		AA22CD7B2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -122,8 +121,6 @@
 		AA9B62322D2D71670064CB23 /* ValidatorsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62312D2D71670064CB23 /* ValidatorsProtocols.swift */; };
 		AA9B62342D2D71A30064CB23 /* PhoneValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62332D2D71A30064CB23 /* PhoneValidator.swift */; };
 		AA9B62362D2D72E30064CB23 /* SendCodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62352D2D72E30064CB23 /* SendCodeWorker.swift */; };
-		AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B623B2D2D75780064CB23 /* SendCodeServiceProtocols.swift */; };
-		AA9B623E2D2D75890064CB23 /* SendCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B623D2D2D75890064CB23 /* SendCodeService.swift */; };
 		AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62402D2EC0170064CB23 /* KeychainManager.swift */; };
 		AA9B62432D2EC4840064CB23 /* KeychainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62422D2EC4840064CB23 /* KeychainManagerProtocol.swift */; };
 		AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62452D2EC77F0064CB23 /* VerifyAssembly.swift */; };
@@ -136,9 +133,6 @@
 		AA9B62572D2EDF900064CB23 /* SuccessModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62562D2EDF900064CB23 /* SuccessModels.swift */; };
 		AA9B62592D2EDF9F0064CB23 /* ErrorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62582D2EDF9F0064CB23 /* ErrorModels.swift */; };
 		AA9B625B2D2EE5620064CB23 /* VerificationCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B625A2D2EE5620064CB23 /* VerificationCodeValidator.swift */; };
-		AA9B625F2D2FC6FD0064CB23 /* VerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B625E2D2FC6FD0064CB23 /* VerificationService.swift */; };
-		AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62602D2FC70A0064CB23 /* VerificationServiceProtocols.swift */; };
-		AA9B62642D2FCA930064CB23 /* SignupEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62632D2FCA930064CB23 /* SignupEndpoints.swift */; };
 		AA9B62672D2FD22B0064CB23 /* SignupAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62662D2FD22B0064CB23 /* SignupAssembly.swift */; };
 		AA9B62692D2FD2390064CB23 /* SignupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62682D2FD2390064CB23 /* SignupInteractor.swift */; };
 		AA9B626B2D2FD2470064CB23 /* SignupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B626A2D2FD2470064CB23 /* SignupPresenter.swift */; };
@@ -150,11 +144,8 @@
 		AA9B62802D3018CB0064CB23 /* SignupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B627F2D3018CB0064CB23 /* SignupContext.swift */; };
 		AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62822D302F150064CB23 /* AppCoordinator.swift */; };
 		AA9B62862D303E330064CB23 /* StartAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62852D303E330064CB23 /* StartAssembly.swift */; };
-		AA9B62892D303FAA0064CB23 /* SignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62882D303FAA0064CB23 /* SignupService.swift */; };
-		AA9B628B2D303FB50064CB23 /* SignupServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B628A2D303FB50064CB23 /* SignupServiceProtocols.swift */; };
 		AA9B628D2D3149B60064CB23 /* ApiErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B628C2D3149B60064CB23 /* ApiErrorTypes.swift */; };
 		AA9B628F2D3152570064CB23 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B628E2D3152570064CB23 /* Sender.swift */; };
-		AA9B62982D3163CA0064CB23 /* SigninEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62972D3163CA0064CB23 /* SigninEndpoints.swift */; };
 		AA9B62A12D32DFC60064CB23 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62A02D32DFC60064CB23 /* StateMachine.swift */; };
 		AA9B62A32D33D6B50064CB23 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9B62A22D33D6B50064CB23 /* ErrorHandler.swift */; };
 		AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3DC2D393A9A00B9D50E /* MockSendCodeService.swift */; };
@@ -163,6 +154,8 @@
 		AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5F3E32D3959C800B9D50E /* MockErrorHandler.swift */; };
 		AAA839E22D62522F00C870A4 /* FileStorageEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA839E12D62522F00C870A4 /* FileStorageEndpoints.swift */; };
 		AAA839F22D638A3200C870A4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AAA839F12D638A3200C870A4 /* Alamofire */; };
+		AAA839F52D65B96600C870A4 /* IdentityServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA839F42D65B96600C870A4 /* IdentityServiceProtocols.swift */; };
+		AAA839F72D65B9E800C870A4 /* IdentityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA839F62D65B9E800C870A4 /* IdentityService.swift */; };
 		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
 		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 		E11D350F2D40C3F400A698EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350E2D40C3F400A698EA /* Colors.swift */; };
@@ -229,8 +222,7 @@
 		AA1C0E462D43C984008E47D8 /* ProfileSettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsModels.swift; sourceTree = "<group>"; };
 		AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
-		AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensService.swift; sourceTree = "<group>"; };
-		AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokensServiceProtocols.swift; sourceTree = "<group>"; };
+		AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityServiceEndpoints.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -319,8 +311,6 @@
 		AA9B62312D2D71670064CB23 /* ValidatorsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorsProtocols.swift; sourceTree = "<group>"; };
 		AA9B62332D2D71A30064CB23 /* PhoneValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidator.swift; sourceTree = "<group>"; };
 		AA9B62352D2D72E30064CB23 /* SendCodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeWorker.swift; sourceTree = "<group>"; };
-		AA9B623B2D2D75780064CB23 /* SendCodeServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeServiceProtocols.swift; sourceTree = "<group>"; };
-		AA9B623D2D2D75890064CB23 /* SendCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeService.swift; sourceTree = "<group>"; };
 		AA9B62402D2EC0170064CB23 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		AA9B62422D2EC4840064CB23 /* KeychainManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManagerProtocol.swift; sourceTree = "<group>"; };
 		AA9B62452D2EC77F0064CB23 /* VerifyAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyAssembly.swift; sourceTree = "<group>"; };
@@ -333,9 +323,6 @@
 		AA9B62562D2EDF900064CB23 /* SuccessModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessModels.swift; sourceTree = "<group>"; };
 		AA9B62582D2EDF9F0064CB23 /* ErrorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModels.swift; sourceTree = "<group>"; };
 		AA9B625A2D2EE5620064CB23 /* VerificationCodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeValidator.swift; sourceTree = "<group>"; };
-		AA9B625E2D2FC6FD0064CB23 /* VerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationService.swift; sourceTree = "<group>"; };
-		AA9B62602D2FC70A0064CB23 /* VerificationServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationServiceProtocols.swift; sourceTree = "<group>"; };
-		AA9B62632D2FCA930064CB23 /* SignupEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupEndpoints.swift; sourceTree = "<group>"; };
 		AA9B62662D2FD22B0064CB23 /* SignupAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupAssembly.swift; sourceTree = "<group>"; };
 		AA9B62682D2FD2390064CB23 /* SignupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInteractor.swift; sourceTree = "<group>"; };
 		AA9B626A2D2FD2470064CB23 /* SignupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPresenter.swift; sourceTree = "<group>"; };
@@ -347,11 +334,8 @@
 		AA9B627F2D3018CB0064CB23 /* SignupContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupContext.swift; sourceTree = "<group>"; };
 		AA9B62822D302F150064CB23 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		AA9B62852D303E330064CB23 /* StartAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartAssembly.swift; sourceTree = "<group>"; };
-		AA9B62882D303FAA0064CB23 /* SignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupService.swift; sourceTree = "<group>"; };
-		AA9B628A2D303FB50064CB23 /* SignupServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupServiceProtocols.swift; sourceTree = "<group>"; };
 		AA9B628C2D3149B60064CB23 /* ApiErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorTypes.swift; sourceTree = "<group>"; };
 		AA9B628E2D3152570064CB23 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
-		AA9B62972D3163CA0064CB23 /* SigninEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninEndpoints.swift; sourceTree = "<group>"; };
 		AA9B62A02D32DFC60064CB23 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		AA9B62A22D33D6B50064CB23 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		AAA5F3DC2D393A9A00B9D50E /* MockSendCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSendCodeService.swift; sourceTree = "<group>"; };
@@ -361,6 +345,8 @@
 		AAA839BD2D60F64100C870A4 /* FileStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageService.swift; sourceTree = "<group>"; };
 		AAA839BF2D60F64E00C870A4 /* FileStorageServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageServiceProtocols.swift; sourceTree = "<group>"; };
 		AAA839E12D62522F00C870A4 /* FileStorageEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageEndpoints.swift; sourceTree = "<group>"; };
+		AAA839F42D65B96600C870A4 /* IdentityServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityServiceProtocols.swift; sourceTree = "<group>"; };
+		AAA839F62D65B9E800C870A4 /* IdentityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityService.swift; sourceTree = "<group>"; };
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -408,13 +394,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA07A66F2D5C897300CFE124 /* MeService */ = {
+		AA07A66F2D5C897300CFE124 /* UserService */ = {
 			isa = PBXGroup;
 			children = (
 				AA07A6702D5C898200CFE124 /* MeService.swift */,
 				AA07A6722D5C898B00CFE124 /* MeServiceProtocols.swift */,
 			);
-			path = MeService;
+			path = UserService;
 			sourceTree = "<group>";
 		};
 		AA1C0E312D43A055008E47D8 /* Events */ = {
@@ -450,15 +436,6 @@
 				AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */,
 			);
 			path = ProfileSettingsScreen;
-			sourceTree = "<group>";
-		};
-		AA626E8E2D36BB4C006EAFD1 /* RefreshTokensService */ = {
-			isa = PBXGroup;
-			children = (
-				AA626E8F2D36BB61006EAFD1 /* RefreshTokensService.swift */,
-				AA626E912D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift */,
-			);
-			path = RefreshTokensService;
 			sourceTree = "<group>";
 		};
 		AA7BADDF2D3F9E2F0030AC82 /* Chats */ = {
@@ -836,22 +813,10 @@
 			isa = PBXGroup;
 			children = (
 				E19609FB2D627E43008E27C0 /* FileStorageService */,
-				AA07A66F2D5C897300CFE124 /* MeService */,
-				AA626E8E2D36BB4C006EAFD1 /* RefreshTokensService */,
-				AA9B62872D303F9C0064CB23 /* SignupService */,
-				AA9B625D2D2FC6E70064CB23 /* VerificationService */,
-				AA9B623A2D2D75620064CB23 /* SendPhoneCodeService */,
+				AA07A66F2D5C897300CFE124 /* UserService */,
+				AAA839F32D65B95200C870A4 /* IdentityService */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		AA9B623A2D2D75620064CB23 /* SendPhoneCodeService */ = {
-			isa = PBXGroup;
-			children = (
-				AA9B623D2D2D75890064CB23 /* SendCodeService.swift */,
-				AA9B623B2D2D75780064CB23 /* SendCodeServiceProtocols.swift */,
-			);
-			path = SendPhoneCodeService;
 			sourceTree = "<group>";
 		};
 		AA9B623F2D2EC0010064CB23 /* Keychain */ = {
@@ -908,20 +873,10 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		AA9B625D2D2FC6E70064CB23 /* VerificationService */ = {
-			isa = PBXGroup;
-			children = (
-				AA9B625E2D2FC6FD0064CB23 /* VerificationService.swift */,
-				AA9B62602D2FC70A0064CB23 /* VerificationServiceProtocols.swift */,
-			);
-			path = VerificationService;
-			sourceTree = "<group>";
-		};
 		AA9B62622D2FCA830064CB23 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				AA9B62632D2FCA930064CB23 /* SignupEndpoints.swift */,
-				AA9B62972D3163CA0064CB23 /* SigninEndpoints.swift */,
+				AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */,
 				AA07A6742D5CA17B00CFE124 /* UserServiceEndpoints.swift */,
 				AAA839E12D62522F00C870A4 /* FileStorageEndpoints.swift */,
 			);
@@ -970,15 +925,6 @@
 			path = StartScreen;
 			sourceTree = "<group>";
 		};
-		AA9B62872D303F9C0064CB23 /* SignupService */ = {
-			isa = PBXGroup;
-			children = (
-				AA9B62882D303FAA0064CB23 /* SignupService.swift */,
-				AA9B628A2D303FB50064CB23 /* SignupServiceProtocols.swift */,
-			);
-			path = SignupService;
-			sourceTree = "<group>";
-		};
 		AAA5F3E02D39560900B9D50E /* ErrorHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -987,6 +933,15 @@
 				AAA5F3E12D39561E00B9D50E /* ErrorHandlerProtocols.swift */,
 			);
 			path = ErrorHandler;
+			sourceTree = "<group>";
+		};
+		AAA839F32D65B95200C870A4 /* IdentityService */ = {
+			isa = PBXGroup;
+			children = (
+				AAA839F62D65B9E800C870A4 /* IdentityService.swift */,
+				AAA839F42D65B96600C870A4 /* IdentityServiceProtocols.swift */,
+			);
+			path = IdentityService;
 			sourceTree = "<group>";
 		};
 		E19609A92D608CF3008E27C0 /* Resources */ = {
@@ -1209,7 +1164,6 @@
 			files = (
 				AA87FC6B2D55037E00E8D066 /* UserProfileScreenAssembly.swift in Sources */,
 				AA84EFFB2D49129C00678ABA /* ConfidentialityScreenAssembly.swift in Sources */,
-				AA9B625F2D2FC6FD0064CB23 /* VerificationService.swift in Sources */,
 				AA84F0162D4BBE6900678ABA /* PhoneVisibilityScreenAssembly.swift in Sources */,
 				E19609D52D60E8C6008E27C0 /* LanguageInteractor.swift in Sources */,
 				AA84F0012D4912C900678ABA /* ConfidentialityScreenViewController.swift in Sources */,
@@ -1221,7 +1175,6 @@
 				AA84F0362D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift in Sources */,
 				AA84F02E2D4BEF1800678ABA /* BirthVisibilityScreenInteractor.swift in Sources */,
 				AA1C0E3A2D43A5D7008E47D8 /* EventManager.swift in Sources */,
-				AA626E922D36BB6E006EAFD1 /* RefreshTokensServiceProtocols.swift in Sources */,
 				AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */,
 				AA84F0222D4BBEC300678ABA /* PhoneVisibilityScreenViewController.swift in Sources */,
 				AA1C0E3C2D43ACED008E47D8 /* UpdateProfileDataEvent.swift in Sources */,
@@ -1240,7 +1193,7 @@
 				AA92EC6F2D3932D6007DEC76 /* SenderProtocols.swift in Sources */,
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
 				AA9B628F2D3152570064CB23 /* Sender.swift in Sources */,
-				AA9B623E2D2D75890064CB23 /* SendCodeService.swift in Sources */,
+				AAA839F72D65B9E800C870A4 /* IdentityService.swift in Sources */,
 				AA7BAE3D2D40E8920030AC82 /* UserDefaultsManager.swift in Sources */,
 				AA1C0E382D43A232008E47D8 /* UserDefaultsManagerProtocol.swift in Sources */,
 				AA1C0E3E2D43C452008E47D8 /* EventSubscriberProtocol.swift in Sources */,
@@ -1269,20 +1222,18 @@
 				AA84F0572D4D0C7100678ABA /* NotificationScreenModels.swift in Sources */,
 				AA07A6732D5C898B00CFE124 /* MeServiceProtocols.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
-				AA9B623C2D2D75780064CB23 /* SendCodeServiceProtocols.swift in Sources */,
 				AA7BADEB2D3FA0230030AC82 /* ChatsScreenModels.swift in Sources */,
 				AA84F03B2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift in Sources */,
 				E19609E12D60F47C008E27C0 /* LanguageCell.swift in Sources */,
-				AA626E902D36BB61006EAFD1 /* RefreshTokensService.swift in Sources */,
 				AA84F05D2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift in Sources */,
 				9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */,
 				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
 				AA87FC752D5503B400E8D066 /* UserProfileScreenViewController.swift in Sources */,
-				AA9B62612D2FC70A0064CB23 /* VerificationServiceProtocols.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				AA84F0202D4BBEB800678ABA /* PhoneVisibilityScreenProtocols.swift in Sources */,
 				AA84F0532D4D0C5D00678ABA /* NotificationScreenPresenter.swift in Sources */,
 				E135ED482D54C273006CE143 /* UIDateButton.swift in Sources */,
+				AA22CD7B2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift in Sources */,
 				AA84F0322D4BEF2700678ABA /* BirthVisibilityScreenWorker.swift in Sources */,
 				AA84F01C2D4BBEA800678ABA /* PhoneVisibilityScreenWorker.swift in Sources */,
 				E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */,
@@ -1301,7 +1252,6 @@
 				AA84F0552D4D0C6900678ABA /* NotificationScreenViewController.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
-				AA9B628B2D303FB50064CB23 /* SignupServiceProtocols.swift in Sources */,
 				AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */,
 				E19609FD2D627E9B008E27C0 /* FileStorageService.swift in Sources */,
 				AA9B62A32D33D6B50064CB23 /* ErrorHandler.swift in Sources */,
@@ -1320,6 +1270,7 @@
 				AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */,
 				AA7BADF42D3FC9F40030AC82 /* SettingsScreenAssembly.swift in Sources */,
 				AA9B62272D2D6C810064CB23 /* SendCodeInteractor.swift in Sources */,
+				AAA839F52D65B96600C870A4 /* IdentityServiceProtocols.swift in Sources */,
 				AA7BADF62D3FCA2A0030AC82 /* SettingsScreenInteractor.swift in Sources */,
 				AA07A67D2D5E5CC800CFE124 /* UpdateOnlineRestrictionEvent.swift in Sources */,
 				E19609D12D60E879008E27C0 /* LanguageAssembly.swift in Sources */,
@@ -1328,10 +1279,8 @@
 				AA9B622F2D2D6CB90064CB23 /* SendCodeProtocols.swift in Sources */,
 				AA87FC6D2D55038900E8D066 /* UserProfileScreenInteractor.swift in Sources */,
 				AA9B62432D2EC4840064CB23 /* KeychainManagerProtocol.swift in Sources */,
-				AA9B62642D2FCA930064CB23 /* SignupEndpoints.swift in Sources */,
 				AA84F04F2D4D0C3E00678ABA /* NotificationScreenInteractor.swift in Sources */,
 				AA84F0412D4CD87D00678ABA /* OnlineVisibilityScreenWorker.swift in Sources */,
-				AA9B62982D3163CA0064CB23 /* SigninEndpoints.swift in Sources */,
 				AA9B626B2D2FD2470064CB23 /* SignupPresenter.swift in Sources */,
 				AA1C0E452D43C974008E47D8 /* ProfileSettingsPresenter.swift in Sources */,
 				AA9B62362D2D72E30064CB23 /* SendCodeWorker.swift in Sources */,
@@ -1368,7 +1317,6 @@
 				AA1C0E362D43A0D5008E47D8 /* EventPublisherProtocol.swift in Sources */,
 				AA9B62862D303E330064CB23 /* StartAssembly.swift in Sources */,
 				E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */,
-				AA9B62892D303FAA0064CB23 /* SignupService.swift in Sources */,
 				AA87FC6F2D55039B00E8D066 /* UserProfileScreenWorker.swift in Sources */,
 				AA9B62802D3018CB0064CB23 /* SignupContext.swift in Sources */,
 				AA9B62A12D32DFC60064CB23 /* StateMachine.swift in Sources */,
