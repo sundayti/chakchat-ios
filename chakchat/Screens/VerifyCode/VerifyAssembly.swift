@@ -15,16 +15,20 @@ enum VerifyAssembly {
     static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         
         let presenter = VerifyPresenter()
-        let verificationService = VerificationService()
-        let sendCodeService = SendCodeService()
+        let identityService = IdentityService()
         
-        let worker = VerifyWorker(verificationService: verificationService, keychainManager: context.keychainManager, userDefaultsManager: context.userDefaultsManager, sendCodeService: sendCodeService)
+        let worker = VerifyWorker(
+            identityService: identityService,
+            keychainManager: context.keychainManager,
+            userDefaultsManager: context.userDefaultsManager
+        )
         
-        let interactor = VerifyInteractor(presentor: presenter,
-                                          worker: worker,
-                                          errorHandler: context.errorHandler, 
-                                          state: context.state,
-                                          logger: context.logger
+        let interactor = VerifyInteractor(
+            presentor: presenter,
+            worker: worker,
+            errorHandler: context.errorHandler,
+            state: context.state,
+            logger: context.logger
         )
         let view = VerifyViewController(interactor: interactor)
         presenter.view = view

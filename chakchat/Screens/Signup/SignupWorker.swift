@@ -13,20 +13,20 @@ final class SignupWorker: SignupWorkerLogic {
     // MARK: - Properties
     private let keychainManager: KeychainManagerBusinessLogic
     private let userDefautlsManager: UserDefaultsManagerProtocol
-    private let signupService: SignupServiceLogic
+    private let identityService: IdentityServiceProtocol
     
     // MARK: - Initialization
-    init(keychainManager: KeychainManagerBusinessLogic, userDefautlsManager: UserDefaultsManagerProtocol, signupService: SignupServiceLogic) {
+    init(keychainManager: KeychainManagerBusinessLogic, userDefautlsManager: UserDefaultsManagerProtocol, identityService: IdentityServiceProtocol) {
         self.keychainManager = keychainManager
         self.userDefautlsManager = userDefautlsManager
-        self.signupService = signupService
+        self.identityService = identityService
     }
     
     // MARK: - Request Sending
     func sendRequest(_ request: SignupModels.SignupRequest, completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
         
-        signupService.sendSignupRequest(request) { [weak self] result in
+        identityService.sendSignupRequest(request) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {return}
                 switch result {

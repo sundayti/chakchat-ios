@@ -77,6 +77,10 @@ final class KeychainManager: KeychainManagerBusinessLogic {
         let status = SecItemDelete(query as CFDictionary)
         return status == errSecSuccess
     }
+    
+    func deleteTokens() -> Bool {
+        return (delete(key: KeychainManager.keyForSaveAccessToken) && delete(key: KeychainManager.keyForSaveRefreshToken))
+    }
 }
 
 // MARK: Keychain Models

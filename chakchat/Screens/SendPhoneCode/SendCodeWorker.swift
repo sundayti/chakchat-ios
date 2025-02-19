@@ -11,12 +11,12 @@ import Foundation
 final class SendCodeWorker: SendCodeWorkerLogic {
     
     // MARK: - Properties
-    private let sendCodeService: SendCodeServiceLogic
+    private let identityService: IdentityServiceProtocol
     private let keychainManager: KeychainManagerBusinessLogic
     private let userDefaultsManager: UserDefaultsManagerProtocol
     
-    init(sendCodeService: SendCodeServiceLogic, keychainManager: KeychainManagerBusinessLogic, userDefaultsManager: UserDefaultsManagerProtocol) {
-        self.sendCodeService = sendCodeService
+    init(identityService: IdentityServiceProtocol, keychainManager: KeychainManagerBusinessLogic, userDefaultsManager: UserDefaultsManagerProtocol) {
+        self.identityService = identityService
         self.keychainManager = keychainManager
         self.userDefaultsManager = userDefaultsManager
     }
@@ -25,8 +25,8 @@ final class SendCodeWorker: SendCodeWorkerLogic {
     func sendInRequest(_ request: SendCodeModels.SendCodeRequest,
                      completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
-        sendCodeService.sendCodeRequest(request,
-                                        SigninEndpoints.sendPhoneCodeEndpoint.rawValue,
+        identityService.sendCodeRequest(request,
+                                        IdentityServiceEndpoints.signinCodeEndpoint.rawValue,
                                         SuccessModels.SendCodeSigninData.self) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {return}
@@ -59,9 +59,9 @@ final class SendCodeWorker: SendCodeWorkerLogic {
     // MARK: - Registration Requests
     func sendUpRequest(_ request: SendCodeModels.SendCodeRequest,
                        completion: @escaping (Result<SignupState, Error>) -> Void) {
-        sendCodeService.sendCodeRequest(request,
-                                        SignupEndpoints.sendPhoneCodeEndpoint.rawValue,
-                                        SuccessModels.SendCodeSignupData.self) { [weak self]result in
+        identityService.sendCodeRequest(request,
+                                        IdentityServiceEndpoints.signupCodeEndpoint.rawValue,
+                                        SuccessModels.SendCodeSignupData.self) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {return}
                 switch result {

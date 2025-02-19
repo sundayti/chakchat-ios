@@ -39,7 +39,7 @@ final class AppCoordinator {
     // MARK: - Start
     func start() {
         let startVC = CreateStartScreen()
-        navigationController.setViewControllers([startVC], animated: false)
+        navigationController.pushViewController(startVC, animated: false)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
@@ -52,7 +52,7 @@ final class AppCoordinator {
     // MARK: - Registration Screen Showing
     func showRegistrationScreen() {
         let registrationVC = SendCodeAssembly.build(with: signupContext, coordinator: self)
-        navigationController.pushViewController(registrationVC, animated: true)
+        navigationController.setViewControllers([registrationVC], animated: true)
     }
 
     // MARK: - Verify Screen Showing

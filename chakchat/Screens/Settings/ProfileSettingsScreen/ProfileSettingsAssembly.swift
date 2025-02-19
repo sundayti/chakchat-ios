@@ -16,20 +16,27 @@ enum ProfileSettingsAssembly {
         let presenter = ProfileSettingsPresenter()
         let meService = MeService()
         let fileStorageService = FileStorageService()
-        let worker = ProfileSettingsWorker(userDefaultsManager: context.userDefaultsManager,
-                                           meService: meService,
-                                           fileStorageService: fileStorageService,
-                                           keychainManager: context.keychainManager
+        let identityService = IdentityService()
+        let worker = ProfileSettingsWorker(
+            userDefaultsManager: context.userDefaultsManager,
+            meService: meService,
+            fileStorageService: fileStorageService,
+            identityService: identityService,
+            keychainManager: context.keychainManager
         )
-        let interactor = ProfileSettingsInteractor(presenter: presenter,
-                                                   worker: worker,
-                                                   eventPublisher: context.eventManager,
-                                                   errorHandler: context.errorHandler,
-                                                   logger: context.logger
+        let interactor = ProfileSettingsInteractor(
+            presenter: presenter,
+            worker: worker,
+            eventPublisher: context.eventManager,
+            errorHandler: context.errorHandler,
+            logger: context.logger
         )
         
         interactor.onRouteToSettingsMenu = { [weak coordinator] in
             coordinator?.popScreen()
+        }
+        interactor.onRouteToRegistration = { [weak coordinator] in
+            coordinator?.showRegistrationScreen()
         }
         let view = ProfileSettingsViewController(interactor: interactor)
         presenter.view = view

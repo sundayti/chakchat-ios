@@ -11,25 +11,29 @@ import Foundation
 final class VerifyWorker: VerifyWorkerLogic {
     
     // MARK: - Properties
-    private let verificationService: VerificationServiceLogic
+    private let identityService: IdentityServiceProtocol
     private let keychainManager: KeychainManagerBusinessLogic
     private let userDefaultsManager: UserDefaultsManagerProtocol
-    private let sendCodeService: SendCodeServiceLogic
 
     // MARK: - Initialization
-    init(verificationService: VerificationServiceLogic, keychainManager: KeychainManagerBusinessLogic, userDefaultsManager: UserDefaultsManagerProtocol, sendCodeService: SendCodeServiceLogic) {
-        self.verificationService = verificationService
+    init(
+        identityService: IdentityServiceProtocol,
+        keychainManager: KeychainManagerBusinessLogic,
+        userDefaultsManager: UserDefaultsManagerProtocol
+    ) {
+        self.identityService = identityService
         self.keychainManager = keychainManager
         self.userDefaultsManager = userDefaultsManager
-        self.sendCodeService = sendCodeService
     }
     
     // MARK: - Verification Request
     func sendVerificationRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<SignupState, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
         print("Send request to service")
-        verificationService.sendVerificationRequest(request,
-                                                    endpoint,
-                                                    responseType) { [weak self] result in
+        identityService.sendVerificationRequest(
+            request,
+            endpoint,
+            responseType
+        ) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {return}
                 switch result {
@@ -83,8 +87,8 @@ final class VerifyWorker: VerifyWorkerLogic {
     func resendInRequest(_ request: VerifyModels.ResendCodeRequest,
                      completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
-        sendCodeService.sendCodeRequest(request,
-                                        SigninEndpoints.sendPhoneCodeEndpoint.rawValue,
+        identityService.sendCodeRequest(request,
+                                        IdentityServiceEndpoints.signinCodeEndpoint.rawValue,
                                         SuccessModels.SendCodeSigninData.self) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {return}
@@ -108,8 +112,8 @@ final class VerifyWorker: VerifyWorkerLogic {
     func resendUpRequest(_ request: VerifyModels.ResendCodeRequest,
                        completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
-        sendCodeService.sendCodeRequest(request,
-                                        SignupEndpoints.sendPhoneCodeEndpoint.rawValue,
+        identityService.sendCodeRequest(request,
+                                        IdentityServiceEndpoints.signupCodeEndpoint.rawValue,
                                         SuccessModels.SendCodeSignupData.self) { [weak self]result in
             DispatchQueue.main.async {
                 guard let self = self else {return}
