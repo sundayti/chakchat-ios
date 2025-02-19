@@ -6,3 +6,26 @@
 //
 
 import Foundation
+
+protocol IdentityServiceProtocol {
+    func sendCodeRequest<Request: Codable, Response: Codable>(
+        _ request: Request,
+        _ endpoint: String,
+        _ responseType: Response.Type,
+        completion: @escaping (Result<Response, Error>) -> Void
+    )
+    
+    func sendVerificationRequest<Request: Codable, Response: Codable>(
+        _ request: Request,
+        _ endpoint: String,
+        _ responseType: Response.Type,
+        completion: @escaping (Result<Response, Error>) -> Void
+    )
+    
+    func sendSignupRequest(_ request: SignupModels.SignupRequest,
+                           completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void)
+    
+    func sendRefreshTokensRequest(_ request: RefreshRequest, completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void)
+    
+    func sendSignoutRequest(_ request: RefreshRequest, _ accessToken: String, completion: @escaping (Result<SuccessModels.EmptyResponse, Error>) -> Void)
+}
