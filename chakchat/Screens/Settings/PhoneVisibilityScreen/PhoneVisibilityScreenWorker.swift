@@ -12,11 +12,11 @@ final class PhoneVisibilityScreenWorker: PhoneVisibilityScreenWorkerLogic {
     
     // MARK: - Properties
     let userDefaultsManager: UserDefaultsManagerProtocol
-    let meService: MeServiceRestrictionProtocol
+    let meService: UserServiceProtocol
     
     // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol,
-         meService: MeServiceRestrictionProtocol
+         meService: UserServiceProtocol
     ) {
         self.userDefaultsManager = userDefaultsManager
         self.meService = meService

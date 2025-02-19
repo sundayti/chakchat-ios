@@ -12,10 +12,10 @@ final class BirthVisibilityScreenWorker: BirthVisibilityScreenWorkerLogic {
     
     // MARK: - Properties
     let userDeafultsManager: UserDefaultsManagerProtocol
-    let meService: MeServiceRestrictionProtocol
+    let meService: UserServiceProtocol
     
     // MARK: - Initialization
-    init(userDeafultsManager: UserDefaultsManagerProtocol, meService: MeServiceRestrictionProtocol) {
+    init(userDeafultsManager: UserDefaultsManagerProtocol, meService: UserServiceProtocol) {
         self.userDeafultsManager = userDeafultsManager
         self.meService = meService
     }

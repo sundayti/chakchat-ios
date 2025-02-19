@@ -12,11 +12,11 @@ final class ConfidentialityScreenWorker: ConfidentialityScreenWorkerLogic {
         
     // MARK: - Properties
     private let userDefaultsManager: UserDefaultsManagerProtocol
-    private let meService: MeServiceRestrictionProtocol
+    private let meService: UserServiceProtocol
     
     // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol,
-         meService: MeServiceRestrictionProtocol
+         meService: UserServiceProtocol
     ) {
         self.userDefaultsManager = userDefaultsManager
         self.meService = meService

@@ -12,7 +12,7 @@ import UIKit
 enum ProfileSettingsModels {
     struct ProfileUserData: Codable {
         var id: UUID
-        var nickname: String
+        var name: String
         var username: String
         let phone: String
         var photo: URL?
@@ -20,7 +20,7 @@ enum ProfileSettingsModels {
     }
     
     struct ChangeableProfileUserData {
-        var nickname: String
+        var name: String
         var username: String
         var photo: URL?
         var dateOfBirth: String?
