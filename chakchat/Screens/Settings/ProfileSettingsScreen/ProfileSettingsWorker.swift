@@ -41,8 +41,8 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
         }
     }
     
-    func saveImagePath(_ path: String) {
-        userDefaultsManager.savePhotoPath(path)
+    func saveImageURL(_ url: URL) {
+        userDefaultsManager.savePhotoURL(url)
     }
     
     func uploadImage(_ fileURL: URL, _ fileName: String, _ mimeType: String, completion: @escaping (Result<Void, any Error>) -> Void) {

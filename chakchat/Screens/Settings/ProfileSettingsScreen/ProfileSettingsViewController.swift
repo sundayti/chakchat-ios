@@ -59,6 +59,7 @@ final class ProfileSettingsViewController: UIViewController {
     private let dateFormatter: DateFormatter = DateFormatter()
     let interactor: ProfileSettingsScreenBusinessLogic
     private var selectedDate: Date?
+    private var imageURL: URL?
     
     // MARK: - Initialization
     init(interactor: ProfileSettingsScreenBusinessLogic) {
@@ -233,9 +234,11 @@ final class ProfileSettingsViewController: UIViewController {
         if (newBirth != nil) {
             newBirth = newBirth?.replacingOccurrences(of: ".", with: "-");
         }
+        
         return ProfileSettingsModels.ChangeableProfileUserData(
             nickname: newNickname,
             username: newUsername,
+            photo: imageURL,
             dateOfBirth: newBirth
         )
     }
@@ -323,6 +326,7 @@ extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINav
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             if let pickedImageURL = interactor.saveImage(pickedImage) {
+                imageURL = pickedImageURL // чтобы сохранить юрл для ивента
                 print("Image saved in URL: \(pickedImageURL)")
                 print("Image name is \(pickedImageURL.lastPathComponent)")
                 print("MIME-type: image/\(pickedImageURL.pathExtension)")
