@@ -11,4 +11,5 @@ import Foundation
 protocol LocalizationManagerProtocol {
     func localizedString(for key: String) -> String
     func setLanguage(_ languageCode: String, completion: @escaping () -> Void)
+    func getLocale() -> Locale
 }

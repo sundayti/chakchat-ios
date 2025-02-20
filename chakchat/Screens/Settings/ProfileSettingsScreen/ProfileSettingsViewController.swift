@@ -15,12 +15,9 @@ final class ProfileSettingsViewController: UIViewController {
     private enum Constants {
         static let defaultProfileImageSymbol: String = "camera.circle"
         static let iconImageSize: CGFloat = 100
-        static let headerText: String = "Account\nSettings"
-        static let iconImageViewTop: CGFloat = 20
-        static let nicknamePlaceholder: String = "Nickname"
-        static let titleNumberOfLines: Int = 2
-        static let cancelButtonTitle: String = "Cancel"
-        static let applyButtonTitle: String = "Apply"
+        static let iconImageViewTop: CGFloat = 0
+        static let cancelButtonTitle: String = LocalizationManager.shared.localizedString(for: "cancel")
+        static let applyButtonTitle: String = LocalizationManager.shared.localizedString(for: "apply")
         static let nameTop: CGFloat = 2
         static let usernameTop: CGFloat = 2.5
         static let phoneTop: CGFloat = 2.5
@@ -29,7 +26,7 @@ final class ProfileSettingsViewController: UIViewController {
         static let defaultText: String = "default"
         
         static let logOutButtonRadius: CGFloat = 18
-        static let logOutButtonTitle: String = "Log out"
+        static let logOutButtonTitle: String = LocalizationManager.shared.localizedString(for: "log_out")
         static let logOutButtonTop: CGFloat = 25
         static let logOutButtonHeight: CGFloat = 38
         static let logOutButtonWidth: CGFloat = 100
@@ -39,8 +36,8 @@ final class ProfileSettingsViewController: UIViewController {
         static let dateButtonX: CGFloat = 20
         static let dateButtonHeight: CGFloat = 50
         
-        static let datePickerTitle: String = "Select your birthday date"
-        static let errorText: String = "error"
+        static let datePickerTitle: String = LocalizationManager.shared.localizedString(for: "date_of_birth")
+        static let errorText: String = LocalizationManager.shared.localizedString(for: "error")
         
         static let birthTextFieldTop: CGFloat = 2.5
         static let birthTextFieldLeading: CGFloat = 0
@@ -48,12 +45,11 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     // MARK: - Properties
-    private lazy var titleLabel: UILabel = UILabel()
     private lazy var iconImageView: UIImageView = UIImageView()
-    private var nameTextField: UIProfileTextField = UIProfileTextField(title: "Name", placeholder: "Name", isEditable: true)
-    private var usernameTextField: UIProfileTextField = UIProfileTextField(title: "Username", placeholder: "Username", isEditable: true)
-    private var phoneTextField: UIProfileTextField = UIProfileTextField(title: "Phone", placeholder: "Phone", isEditable: false)
-    private var birthTextField: UIProfileTextField = UIProfileTextField(title: "Date of Birth", placeholder: "Choose", isEditable: false)
+    private var nameTextField: UIProfileTextField = UIProfileTextField(title: "name", placeholder: "name", isEditable: true)
+    private var usernameTextField: UIProfileTextField = UIProfileTextField(title: "username", placeholder: "username", isEditable: true)
+    private var phoneTextField: UIProfileTextField = UIProfileTextField(title: "phone", placeholder: "phone", isEditable: false)
+    private var birthTextField: UIProfileTextField = UIProfileTextField(title: "date_of_birth", placeholder: "choose", isEditable: false)
     private var logOutButton: UIButton = UIButton(type: .system)
     private var dateButton: UIButton = UIButton(type: .system)
     private let dateFormatter: DateFormatter = DateFormatter()
@@ -74,6 +70,7 @@ final class ProfileSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         interactor.loadUserData()
     }
     
@@ -102,8 +99,6 @@ final class ProfileSettingsViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
-        configureTitleLabel()
-        navigationItem.titleView = titleLabel
         
         configureIconImageView(nil)
         configureNameTextField()
@@ -127,15 +122,6 @@ final class ProfileSettingsViewController: UIViewController {
     private func configureApplyButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.applyButtonTitle, style: .plain, target: self, action: #selector(applyButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
-    }
-    
-    // MARK: - Title Label Configuration
-    private func configureTitleLabel() {
-        view.addSubview(titleLabel)
-        titleLabel.font = Fonts.systemB18
-        titleLabel.text = Constants.headerText
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = Constants.titleNumberOfLines
     }
     
     // MARK: - Icon ImageView Configuration
@@ -318,6 +304,17 @@ final class ProfileSettingsViewController: UIViewController {
             selectedDate = nil
             birthTextField.setText(nil)
         }
+    }
+    
+    @objc
+    private func languageDidChange() {
+        navigationItem.rightBarButtonItem?.title = LocalizationManager.shared.localizedString(for: "apply")
+        navigationItem.leftBarButtonItem?.title = LocalizationManager.shared.localizedString(for: "cancel")
+        logOutButton.titleLabel?.text = LocalizationManager.shared.localizedString(for: "log_out")
+        nameTextField.localize()
+        usernameTextField.localize()
+        phoneTextField.localize()
+        birthTextField.localize()
     }
 }
 
