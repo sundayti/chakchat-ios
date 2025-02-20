@@ -88,7 +88,7 @@ final class SettingsScreenViewController: UIViewController {
                 configureIconImageView(image)
             }
         }
-        configureNicknameLabel(data.nickname)
+        configureNicknameLabel(data.name)
         configureDataStackView(data.username, data.phone)
     }
     
@@ -98,7 +98,7 @@ final class SettingsScreenViewController: UIViewController {
             let newImage = interactor.unpackPhotoByUrl(imageURL)
             iconImageView.image = newImage
         }
-        nicknameLabel.text = data.nickname
+        nicknameLabel.text = data.name
         usernameLabel.text = data.username
     }
     

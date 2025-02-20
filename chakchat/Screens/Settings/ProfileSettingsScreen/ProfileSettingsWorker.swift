@@ -10,13 +10,13 @@ import Foundation
 final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
 
     private let userDefaultsManager: UserDefaultsManagerProtocol
-    private let meService: MeServiceProtocol
+    private let meService: UserServiceProtocol
     private let fileStorageService: FileStorageServiceProtocol
     private let identityService: IdentityServiceProtocol
     private let keychainManager: KeychainManagerBusinessLogic
     
     init(userDefaultsManager: UserDefaultsManagerProtocol,
-         meService: MeServiceProtocol,
+         meService: UserServiceProtocol,
          fileStorageService: FileStorageServiceProtocol,
          identityService: IdentityServiceProtocol,
          keychainManager: KeychainManagerBusinessLogic

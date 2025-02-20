@@ -29,7 +29,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func saveUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         saveId(userData.id)
-        saveNickname(userData.nickname)
+        saveNickname(userData.name)
         saveUsername(userData.username)
         savePhone(userData.phone)
         if let photoPath = userData.photo {
@@ -104,14 +104,13 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         let dateOfBirth = loadBirth()
         if let photoURL = loadPhotoURL() {
             return ProfileSettingsModels.ProfileUserData(id: id,
-                                                         nickname: nickname,
+                                                         name: nickname,
                                                          username: username, phone: phone,
                                                          photo: photoURL,
                                                          dateOfBirth: dateOfBirth)
         }
-
         return ProfileSettingsModels.ProfileUserData(id: id,
-                                                     nickname: nickname,
+                                                     name: nickname,
                                                      username: username,
                                                      phone: phone,
                                                      photo: nil,

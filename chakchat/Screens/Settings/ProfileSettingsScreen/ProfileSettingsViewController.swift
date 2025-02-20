@@ -79,7 +79,7 @@ final class ProfileSettingsViewController: UIViewController {
     
     // MARK: - User Data Configuration
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        nameTextField.setText(userData.nickname)
+        nameTextField.setText(userData.name)
         usernameTextField.setText(userData.username)
         let formattedPhone = Format.number(userData.phone)
         phoneTextField.setText(formattedPhone)
@@ -236,7 +236,7 @@ final class ProfileSettingsViewController: UIViewController {
         }
         
         return ProfileSettingsModels.ChangeableProfileUserData(
-            nickname: newNickname,
+            name: newNickname,
             username: newUsername,
             photo: imageURL,
             dateOfBirth: newBirth

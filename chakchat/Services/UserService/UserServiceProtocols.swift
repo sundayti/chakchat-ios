@@ -7,15 +7,15 @@
 
 import Foundation
 
-protocol MeServiceProtocol {
+protocol UserServiceProtocol {
     func sendGetMeRequest(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     
     func sendPutMeRequest(_ request: ProfileSettingsModels.ChangeableProfileUserData,
                        completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
-}
-
-protocol MeServiceRestrictionProtocol {
+    
     func sendGetRestrictionRequest(completion: @escaping (Result<ConfidentialitySettingsModels.ConfidentialityUserData, Error>) -> Void)
+    
     func sendPutRestrictionRequest(_ request: ConfidentialitySettingsModels.ConfidentialityUserData,
                                    completion: @escaping (Result<Void, Error>) -> Void)
 }
+

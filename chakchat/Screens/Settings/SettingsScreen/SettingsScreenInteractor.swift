@@ -90,7 +90,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         os_log("Handled user data changes in settings screen", log: logger, type: .default)
-        let newUserData = ProfileSettingsModels.ChangeableProfileUserData(nickname: event.newNickname,
+        let newUserData = ProfileSettingsModels.ChangeableProfileUserData(name: event.newNickname,
                                                                        username: event.newUsername,
                                                                        photo: event.newPhoto,
                                                                        dateOfBirth: event.newBirth)

@@ -58,7 +58,7 @@ final class UserProfileScreenViewController: UIViewController {
     
     // MARK: - User Data Configuration/Updating
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        nameLabel.text = userData.nickname
+        nameLabel.text = userData.name
         userTableViewData[0].value = userData.username
         userTableViewData[1].value = userData.phone
         if let birth = userData.dateOfBirth {
@@ -72,7 +72,7 @@ final class UserProfileScreenViewController: UIViewController {
     }
     
     public func updateUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
-        nameLabel.text = userData.nickname
+        nameLabel.text = userData.name
         userTableViewData[0].value = userData.username
         if let birth = userData.dateOfBirth {
             userTableViewData[2].value = birth

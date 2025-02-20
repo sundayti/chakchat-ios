@@ -5,9 +5,8 @@
 //  Created by Кирилл Исаев on 21.01.2025.
 //
 
-import Foundation
 import UIKit
-
+import OSLog
 // MARK: - ChatsScreenViewController
 final class ChatsScreenViewController: UIViewController {
     
@@ -34,7 +33,7 @@ final class ChatsScreenViewController: UIViewController {
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var settingButton: UIButton = UIButton(type: .system)
     private lazy var newChatButton: UIButton = UIButton(type: .system)
-    private lazy var searchBar: UISearchBar = UISearchBar()
+    private let searchController = UISearchController(searchResultsController: SearchResultViewController())
     var interactor: ChatsScreenBusinessLogic
     
     // MARK: - Lifecycle
@@ -49,10 +48,8 @@ final class ChatsScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.searchController = searchController
         configureUI()
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - UI Configuration
@@ -64,7 +61,6 @@ final class ChatsScreenViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingButton)
         configureNewChatButton()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newChatButton)
-        configurateSearchBar()
     }
     
     // MARK: - Title Label Configuration
@@ -97,57 +93,46 @@ final class ChatsScreenViewController: UIViewController {
         newChatButton.contentVerticalAlignment = .fill
     }
     
-    // MARK: - Search Bar Configuration
-    private func configurateSearchBar() {
-        view.addSubview(searchBar)
-        
-        searchBar.placeholder = Constants.searchPlaceholder
-        searchBar.delegate = self
-        searchBar.showsCancelButton = false
-        searchBar.searchBarStyle = .minimal
-
-        searchBar.pinLeft(view, Constants.saerchLeading)
-        searchBar.pinRight(view, Constants.searchTrailing)
-        searchBar.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.searchTop)
-    }
-    
     // MARK: - Actions
     @objc
     private func settingButtonPressed() {
         interactor.routeToSettingsScreen()
     }
-    
-    @objc
-    private func dismissKeyboard() {
-        searchBar.resignFirstResponder()
-    }
 }
 
-// MARK: - UISearchBarDelegate
-extension ChatsScreenViewController: UISearchBarDelegate {
+
+class SearchResultViewController: UIViewController {
+
+    private let usersTableView = UITableView()
+    private var users: [ProfileSettingsModels.ProfileUserData] = []
+    private var currentPage = 1
+    private let limit = 10
+    private var isFetchingData = false
+    private var hasMoreData = true
     
-    // MARK: - searchBarTextDidBeginEditing
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
-        
-        if let cancelButton = searchBar.value(forKey: Constants.cancelKey) as? UIButton {
-            cancelButton.setTitle(Constants.cancelButtonTitle, for: .normal)
-            cancelButton.setTitleColor(Colors.orange, for: .normal)
-        }
-        
-        UIView.animate(withDuration: Constants.cancelAnimationDuration) {
-            self.searchBar.transform = CGAffineTransform(translationX: Constants.animationTransformX, y: Constants.animationTransformY)
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
     }
+    
+    private func configureUI() {
+        view.backgroundColor = .white
+        usersTableView.delegate = self
+        usersTableView.dataSource = self
+    }
+    
+}
 
-    // MARK: - searchBarCancelButtonClicked
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: true)
-
-        UIView.animate(withDuration: Constants.cancelAnimationDuration) {
-            self.searchBar.transform = .identity
-        }
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
+extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
 }

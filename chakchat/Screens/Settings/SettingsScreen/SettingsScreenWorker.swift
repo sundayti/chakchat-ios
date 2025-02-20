@@ -12,11 +12,11 @@ final class SettingsScreenWorker: SettingsScreenWorkerLogic {
     
     // MARK: - Properties
     let userDefaultsManager: UserDefaultsManagerProtocol
-    let meService: MeServiceProtocol
+    let meService: UserServiceProtocol
     
     // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol, 
-         meService: MeServiceProtocol
+         meService: UserServiceProtocol
     ) {
         self.userDefaultsManager = userDefaultsManager
         self.meService = meService
