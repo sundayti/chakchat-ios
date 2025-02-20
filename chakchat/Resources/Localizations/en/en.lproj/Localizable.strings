@@ -25,3 +25,15 @@
 "cancel" = "Cancel";
 "search" = "Search";
 "chats" = "Chats";
+"settings" = "Settings";
+"user" = "User";
+"general" = "General";
+"app" = "App";
+"support" = "Support";
+"loading." = "Loading...";
+"my_profile" = "My profile";
+"confidantiality" = "Confidentiality";
+"notifications" = "Notifications";
+"data_and_memory" = "Data and Memory";
+"app_theme" = "App theme";
+"help" = "Help";

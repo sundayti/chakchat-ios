@@ -25,3 +25,15 @@
 "cancel" = "Отменить";
 "search" = "Поиск";
 "chats" = "Чаты";
+"settings" = "Настройки";
+"user" = "Пользователь";
+"general" = "Общее";
+"app" = "Приложение";
+"support" = "Поддержка";
+"loading." = "Загрузка...";
+"confidantiality" = "Конфиденциальность";
+"notifications" = "Уведомления";
+"data_and_memory" = "Данные и память";
+"app_theme" = "Тема приложения";
+"help" = "Помощь";
+"my_profile" = "Мой профиль";

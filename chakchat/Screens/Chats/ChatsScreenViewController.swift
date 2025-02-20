@@ -110,6 +110,7 @@ final class ChatsScreenViewController: UIViewController {
     @objc
     private func languageDidChange() {
         titleLabel.text = LocalizationManager.shared.localizedString(for: "chats")
+        titleLabel.sizeToFit()
         searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "search")
         searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
     }
