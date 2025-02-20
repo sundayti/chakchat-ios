@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import OSLog
+
 // MARK: - ChatsScreenViewController
 final class ChatsScreenViewController: UIViewController {
     
@@ -48,7 +48,7 @@ final class ChatsScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.searchController = searchController
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
     }
     
@@ -56,11 +56,12 @@ final class ChatsScreenViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = Colors.background
         configureTitleLabel()
-        navigationItem.title = titleLabel.text
+        navigationItem.titleView = titleLabel
         configureSettingsButton()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingButton)
         configureNewChatButton()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newChatButton)
+        configureSearchController()
     }
     
     // MARK: - Title Label Configuration
@@ -68,6 +69,13 @@ final class ChatsScreenViewController: UIViewController {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
         titleLabel.text = Constants.headerText
+    }
+    
+    // MARK: - Search Controller Configuration
+    private func configureSearchController() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = Constants.searchPlaceholder
+        searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
     }
     
     // MARK: - Settings Button Configuration
@@ -102,6 +110,8 @@ final class ChatsScreenViewController: UIViewController {
     @objc
     private func languageDidChange() {
         titleLabel.text = LocalizationManager.shared.localizedString(for: "chats")
+        searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "search")
+        searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
     }
 }
 
@@ -141,3 +151,4 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         return UITableViewCell()
     }
 }
+
