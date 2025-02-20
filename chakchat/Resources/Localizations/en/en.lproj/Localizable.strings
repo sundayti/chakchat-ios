@@ -31,9 +31,12 @@
 "app" = "App";
 "support" = "Support";
 "loading." = "Loading...";
-"my_profile" = "My profile";
+"my_profile" = "Profile";
 "confidantiality" = "Confidentiality";
 "notifications" = "Notifications";
 "data_and_memory" = "Data and Memory";
 "app_theme" = "App theme";
 "help" = "Help";
+"edit" = "Edit";
+"phone" = "Phone";
+"date_of_birth" = "Date of Birth";
