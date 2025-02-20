@@ -103,11 +103,36 @@ final class ChatsScreenViewController: UIViewController {
 
 class SearchResultViewController: UIViewController {
 
-    private let tableView = UITableView()
+    private let usersTableView = UITableView()
     private var users: [ProfileSettingsModels.ProfileUserData] = []
+    private var currentPage = 1
+    private let limit = 10
+    private var isFetchingData = false
+    private var hasMoreData = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
     }
     
+    private func configureUI() {
+        view.backgroundColor = .white
+        usersTableView.delegate = self
+        usersTableView.dataSource = self
+    }
+    
+}
+
+extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
 }
