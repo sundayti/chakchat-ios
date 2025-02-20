@@ -22,3 +22,6 @@
 "username_short" = "The username is too short";
 "username_long" = "The username is too long";
 "use_only_characters" = "Use only latin letters, digits and _";
+"cancel" = "Cancel";
+"search" = "Search";
+"chats" = "Chats";

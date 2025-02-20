@@ -16,15 +16,15 @@ final class ChatsScreenViewController: UIViewController {
         static let cancelAnimationDuration: TimeInterval = 0.1
         static let animationTransformX: CGFloat = -10
         static let animationTransformY: CGFloat = 0
-        static let cancelButtonTitle: String = "Cancel"
+        static let cancelButtonTitle: String = LocalizationManager.shared.localizedString(for: "cancel")
         static let cancelKey: String = "cancelButton"
         
-        static let searchPlaceholder: String = "Search"
+        static let searchPlaceholder: String = LocalizationManager.shared.localizedString(for: "search")
         static let searchTrailing: CGFloat = 16
         static let saerchLeading: CGFloat = 16
         static let searchTop: CGFloat = 10
         
-        static let headerText: String = "Chats"
+        static let headerText: String = LocalizationManager.shared.localizedString(for: "chats")
         static let symbolSize: CGFloat = 30
         static let settingsName: String = "gearshape"
         static let plusName: String = "plus"
@@ -51,6 +51,7 @@ final class ChatsScreenViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
@@ -120,6 +121,12 @@ final class ChatsScreenViewController: UIViewController {
     @objc
     private func dismissKeyboard() {
         searchBar.resignFirstResponder()
+    }
+    
+    @objc
+    private func languageDidChange() {
+        searchBar.placeholder = LocalizationManager.shared.localizedString(for: "search")
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "chats")
     }
 }
 
