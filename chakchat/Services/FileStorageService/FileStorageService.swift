@@ -6,41 +6,60 @@
 //
 
 import Foundation
+import Alamofire
 
-final class FileStorageService: FileStorageServiceProtocols {
+final class FileStorageService: FileStorageServiceProtocol {
     
-    func sendFileUploadRequest(_ fileURL: URL, _ fileName: String, _ mimeType: String, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadResponse, any Error>) -> Void) {
-        let endpoint = FileStorageEndpoints.upload.rawValue
-        let idempotencyKey = UUID().uuidString
-        // подготовка для реквеста в случае multipart/form-data
-        let boundary = "Boundary-\(UUID().uuidString)"
-        var body = Data()
-        
-        // специальные поля
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"file_name\"\r\n\r\n".data(using: .utf8)!)
-        body.append("\(fileName)\r\n".data(using: .utf8)!)
-        
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"mime_type\"\r\n\r\n".data(using: .utf8)!)
-        body.append("\(mimeType)\r\n".data(using: .utf8)!)
-        
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-        if let fileData = try? Data(contentsOf: fileURL) {
-            body.append(fileData)
+    func sendFileUploadRequest(_ fileURL: URL, _ fileName: String, _ mimeType: String, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void) {
+        guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Sender.Keys.baseURL) else {
+            fatalError("Can't get baseurl")
         }
-        body.append("\r\n".data(using: .utf8)!)
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
-        let headers = [
+        let endpoint = "\(baseURL)\(FileStorageEndpoints.upload.rawValue)"
+        let idempotencyKey = UUID().uuidString
+        let headers: HTTPHeaders = [
             "Authorization": "Bearer \(accessToken)",
-            "Idempotency-Key": idempotencyKey,
-            "Content-Type": "multipart/form-data; boundary=\(boundary)"
+            "Idempotency-Key": idempotencyKey
         ]
         
-        Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
+        guard let fileData = try? Data(contentsOf: fileURL) else {
+            return
+        }
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(Data(fileName.utf8), withName: "file_name")
+            multipartFormData.append(Data(mimeType.utf8), withName: "mime_type")
+            multipartFormData.append(fileData, withName: "file", fileName: fileName, mimeType: mimeType)
+        }, to: endpoint, headers: headers)
+        .validate()
+        .responseDecodable(of: SuccessResponse<SuccessModels.UploadResponse>.self) { response in
+            print("Response: \(response)")
+            if let statusCode = response.response?.statusCode {
+                print("Status code: \(statusCode)")
+            }
+            if let headers = response.response?.headers {
+                print("Headers: \(headers)")
+            }
+            
+            // Логирование тела ответа
+            if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
+                print("Server response: \(responseString)")
+            }
+            switch response.result {
+            case .success(let responseData):
+                completion(.success(responseData.data))
+            case .failure:
+                if let data = response.data {
+                    do {
+                        let apiErrorResponse = try JSONDecoder().decode(APIErrorResponse.self, from: data)
+                        completion(.failure(APIErrorResponse(errorType: apiErrorResponse.errorType, errorMessage: apiErrorResponse.errorMessage, errorDetails: apiErrorResponse.errorDetails)))
+                    } catch {
+                        completion(.failure(APIError.decodingError(error)))
+                    }
+                } else {
+                    completion(.failure(APIError.noData))
+                }
+            }
+        }
     }
     
     func sendFileUploadInitRequest(_ request: FileStorageRequest.UploadInit, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadInitResponse, any Error>) -> Void) {

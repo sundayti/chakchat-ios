@@ -10,26 +10,37 @@ import UIKit
 
 // MARK: - UserDefaultsManager
 final class UserDefaultsManager: UserDefaultsManagerProtocol {
+    
 
     // MARK: - Constants
-    private let avatarKey = "userAvatar"
+    private let idKey = "IdKey"
+    private let photoKey = "userAvatar"
     private let nicknameKey = "userNickname"
     private let usernameKey = "userUsername"
     private let phoneKey = "userPhone"
     private let birthKey = "birthKey"
     private let onlineKey = "onlineKey"
+    private let photoUrlKey = "photoUrlKey"
+    private let photoMetadataKey = "photoMetadataKey"
     private let restrictionsKey = "restrictionsKey"
     private let generalNotificationKey = "generalNotification"
     private let audioNotificationKey = "audioNotification"
     private let vibrationNotificationKey = "vibrationNotification"
     
     func saveUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        saveNickname(userData.nickname)
+        saveId(userData.id)
+        saveNickname(userData.name)
         saveUsername(userData.username)
         savePhone(userData.phone)
+        if let photoPath = userData.photo {
+            savePhotoURL(photoPath)
+        }
         saveBirth(userData.dateOfBirth)
     }
     
+    func saveId(_ id: UUID) {
+        UserDefaults.standard.set(id.uuidString, forKey: idKey)
+    }
     
     // MARK: - Nickname Saving
     func saveNickname(_ nickname: String) {
@@ -55,8 +66,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     }
     
     func saveRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(userRestrictions) {
+        if let encoded = try? JSONEncoder().encode(userRestrictions) {
             UserDefaults.standard.set(encoded, forKey: restrictionsKey)
         }
     }
@@ -76,13 +86,31 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         print("Vibration notification status = \(vibrationNotificationStatus)")
     }
     
+    func savePhotoURL(_ url: URL) {
+        UserDefaults.standard.set(url, forKey: photoUrlKey)
+    }
+    
+    func savePhotoMetadata(_ photo: SuccessModels.UploadResponse) {
+        if let encoded = try? JSONEncoder().encode(photo) {
+            UserDefaults.standard.set(encoded, forKey: photoMetadataKey)
+        }
+    }
+    
     func loadUserData() -> ProfileSettingsModels.ProfileUserData {
+        let id = loadID()
         let nickname = loadNickname()
         let username = loadUsername()
         let phone = loadPhone()
         let dateOfBirth = loadBirth()
-        return ProfileSettingsModels.ProfileUserData(id: UUID(),
-                                                     nickname: nickname,
+        if let photoURL = loadPhotoURL() {
+            return ProfileSettingsModels.ProfileUserData(id: id,
+                                                         name: nickname,
+                                                         username: username, phone: phone,
+                                                         photo: photoURL,
+                                                         dateOfBirth: dateOfBirth)
+        }
+        return ProfileSettingsModels.ProfileUserData(id: id,
+                                                     name: nickname,
                                                      username: username,
                                                      phone: phone,
                                                      photo: nil,
@@ -90,6 +118,15 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         )
     }
     
+    func loadID() -> UUID {
+        guard let idString = UserDefaults.standard.string(forKey: idKey) else {
+            return UUID()
+        }
+        if let id = UUID(uuidString: idString) {
+            return id
+        }
+        return UUID()
+    }
     // MARK: - Nickname Loading
     func loadNickname() -> String {
         guard let nickname = UserDefaults.standard.string(forKey: nicknameKey) else {
@@ -130,8 +167,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func loadRestrictions() -> ConfidentialitySettingsModels.ConfidentialityUserData {
         if let savedData = UserDefaults.standard.data(forKey: restrictionsKey) {
-            let decoder = JSONDecoder()
-            if let savedRestrictions = try? decoder.decode(ConfidentialitySettingsModels.ConfidentialityUserData.self, 
+            if let savedRestrictions = try? JSONDecoder().decode(ConfidentialitySettingsModels.ConfidentialityUserData.self,
                                                            from: savedData) {
                 return savedRestrictions
             }
@@ -156,14 +192,29 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         print("Vibration notification status is \(vibrationNotificationStatus)")
         return vibrationNotificationStatus
     }
-
-    // MARK: - Avatar Deleting
-    func deleteAvatar() {
-        UserDefaults.standard.removeObject(forKey: avatarKey)
+    
+    func loadPhotoURL() -> URL? {
+        if let photoPath = UserDefaults.standard.url(forKey: photoUrlKey) {
+            return photoPath
+        }
+        return nil
+    }
+    
+    func loadPhotoMetadata() -> SuccessModels.UploadResponse? {
+        if let savedData = UserDefaults.standard.data(forKey: photoMetadataKey) {
+            if let decoded = try? JSONDecoder().decode(SuccessModels.UploadResponse.self, from: savedData) {
+                return decoded
+            }
+        }
+        return nil
     }
     
     func deleteBirth() {
         UserDefaults.standard.removeObject(forKey: birthKey)
+    }
+    
+    func deletePhotoPath() {
+        UserDefaults.standard.removeObject(forKey: photoUrlKey)
     }
 }
 

@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 21.01.2025.
 //
 
-import Foundation
+import UIKit
 import Combine
 import OSLog
 
@@ -77,9 +77,20 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         }.store(in: &cancellables)
     }
     
+    func unpackPhotoByUrl(_ url: URL) -> UIImage? {
+        print(url.path)
+        if FileManager.default.fileExists(atPath: url.path) {
+            if let image = UIImage(contentsOfFile: url.path) {
+                return image
+            }
+            return nil
+        }
+        return nil
+    }
+    
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         os_log("Handled user data changes in settings screen", log: logger, type: .default)
-        let newUserData = ProfileSettingsModels.ChangeableProfileUserData(nickname: event.newNickname,
+        let newUserData = ProfileSettingsModels.ChangeableProfileUserData(name: event.newNickname,
                                                                        username: event.newUsername,
                                                                        photo: event.newPhoto,
                                                                        dateOfBirth: event.newBirth)

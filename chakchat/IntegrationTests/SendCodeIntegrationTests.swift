@@ -14,7 +14,7 @@ final class SendCodeIntegrationTests: XCTestCase {
     
     // MARK: - Properties
     var mockSender: MockSender?
-    var mockSendCodeService: MockSendCodeService?
+    var mockSendCodeService: MockIdentityService<SuccessModels.SendCodeSignupData>?
     var mockSendCodeWorker: MockWorker?
     var mockSendCodePresenter: MockSendCodePresenter?
     var mockErrorHandler: MockErrorHandler?
@@ -23,7 +23,7 @@ final class SendCodeIntegrationTests: XCTestCase {
     // MARK: - Set Up With Error
     override func setUpWithError() throws {
         mockSender = MockSender()
-        mockSendCodeService = MockSendCodeService()
+        mockSendCodeService = MockIdentityService()
         mockSendCodeWorker = MockWorker()
         mockSendCodePresenter = MockSendCodePresenter()
         mockErrorHandler = MockErrorHandler()

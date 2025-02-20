@@ -45,13 +45,13 @@ final class KeychainManager: KeychainManagerBusinessLogic {
     // MARK: - UUID Getting Method
     // for verification code and other data with UUID type
     func getUUID(key: String) -> UUID? {
-        guard let valueString = getPhone(key: key) else { return nil }
+        guard let valueString = getString(key: key) else { return nil }
         return UUID(uuidString: valueString)
     }
     
-    // MARK: - Phone Getting Method
+    // MARK: - String Getting Method
     // for phone and other data with string type
-    func getPhone(key: String) -> String? {
+    func getString(key: String) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
@@ -76,6 +76,10 @@ final class KeychainManager: KeychainManagerBusinessLogic {
         
         let status = SecItemDelete(query as CFDictionary)
         return status == errSecSuccess
+    }
+    
+    func deleteTokens() -> Bool {
+        return (delete(key: KeychainManager.keyForSaveAccessToken) && delete(key: KeychainManager.keyForSaveRefreshToken))
     }
 }
 

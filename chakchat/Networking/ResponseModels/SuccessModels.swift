@@ -10,7 +10,6 @@ import Foundation
 // MARK: - SuccessModels
 enum SuccessModels {
     
-    // MARK: - Tokens Models
     struct Tokens: Codable {
         let accessToken: String
         let refreshToken: String
@@ -21,10 +20,7 @@ enum SuccessModels {
         }
     }
     
-    // MARK: - VerifySignupData Models
-    struct VerifySignupData: Codable {}
     
-    // MARK: - SendCodeSigninData Models
     struct SendCodeSigninData: Codable {
         let signinKey: UUID
         
@@ -33,7 +29,6 @@ enum SuccessModels {
         }
     }
     
-    // MARK: - SendCodeSignupData Models
     struct SendCodeSignupData: Codable {
         let signupKey: UUID
         

@@ -11,6 +11,7 @@ import UIKit
 // MARK: - UserDefaultsManagerProtocol
 protocol UserDefaultsManagerProtocol {
     
+    func saveId(_ id: UUID)
     func saveUserData(_ userData: ProfileSettingsModels.ProfileUserData)
     func saveNickname(_ nickname: String)
     func saveUsername(_ username: String)
@@ -22,6 +23,10 @@ protocol UserDefaultsManagerProtocol {
     func saveAudioNotificationStatus(_ audioNotificationStatus: Bool)
     func saveVibrationNotificationStatus(_ visualNotificationStatus: Bool)
     
+    func savePhotoURL(_ url: URL)
+    func savePhotoMetadata(_ photo: SuccessModels.UploadResponse)
+    
+    func loadID() -> UUID
     func loadUserData() -> ProfileSettingsModels.ProfileUserData
     func loadNickname() -> String
     func loadUsername() -> String
@@ -33,5 +38,9 @@ protocol UserDefaultsManagerProtocol {
     func loadAudioNotificationStatus() -> Bool
     func loadVibrationNotificationStatus() -> Bool
     
+    func loadPhotoURL() -> URL?
+    func loadPhotoMetadata() -> SuccessModels.UploadResponse?
+    
     func deleteBirth()
+    func deletePhotoPath()
 }
