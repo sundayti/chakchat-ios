@@ -12,8 +12,6 @@ final class UserProfileScreenViewController: UIViewController {
     // MARK: - Constants
     private enum Constants {
         static let arrowName: String = "arrow.left"
-        static let editButtonName: String = "Edit"
-        static let titleText: String = "My profile"
         static let iconDefaultName: String = "camera.circle"
         static let iconSize: CGFloat = 100
         static let iconTop: CGFloat = 10
@@ -30,9 +28,9 @@ final class UserProfileScreenViewController: UIViewController {
     private var iconImageView: UIImageView = UIImageView()
     private var userTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var userTableViewData: [(title: String, value: String)] = [
-        ("Username", ""),
-        ("Phone", ""),
-        ("Date of Birth", "")
+        (LocalizationManager.shared.localizedString(for: "username"), ""),
+        (LocalizationManager.shared.localizedString(for: "phone"), ""),
+        (LocalizationManager.shared.localizedString(for: "date_of_birth"), "")
     ]
     
     let interactor: UserProfileScreenBusinessLogic
@@ -51,6 +49,7 @@ final class UserProfileScreenViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         interactor.loadUserData()
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
@@ -60,7 +59,7 @@ final class UserProfileScreenViewController: UIViewController {
     public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         nameLabel.text = userData.name
         userTableViewData[0].value = userData.username
-        userTableViewData[1].value = userData.phone
+        userTableViewData[1].value = Format.number(userData.phone) ?? ""
         if let birth = userData.dateOfBirth {
             userTableViewData[2].value = birth
         }
@@ -109,17 +108,15 @@ final class UserProfileScreenViewController: UIViewController {
     
     // MARK: - Edit Button Configuration
     private func configureEditButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.editButtonName, style: .plain, target: self, action: #selector(editButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "edit"), style: .plain, target: self, action: #selector(editButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
     // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
-        titleLabel.font = Fonts.systemB18
-        titleLabel.text = Constants.titleText
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 1
+        titleLabel.font = Fonts.systemB24
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "my_profile")
     }
     
     // MARK: - Icon Configuration
@@ -179,6 +176,17 @@ final class UserProfileScreenViewController: UIViewController {
     @objc
     private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc
+    private func languageDidChange() {
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "my_profile")
+        titleLabel.sizeToFit()
+        navigationItem.rightBarButtonItem?.title = LocalizationManager.shared.localizedString(for: "edit")
+        userTableViewData[0].title = LocalizationManager.shared.localizedString(for: "username")
+        userTableViewData[1].title = LocalizationManager.shared.localizedString(for: "phone")
+        userTableViewData[2].title = LocalizationManager.shared.localizedString(for: "date_of_birth")
+        userTableView.reloadData()
     }
 }
 

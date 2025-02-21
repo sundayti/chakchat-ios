@@ -18,13 +18,7 @@ final class SendCodeViewController: UIViewController {
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
         static let inputNumberTextFieldTopAnchor: CGFloat = 50
-        
-        static let descriptionLabelText: String = NSLocalizedString("agreement_with_prompt", comment: "")
         static let descriptionLabelBottom: CGFloat = 4
-        
-        static let termsText: String = NSLocalizedString("terms_of_service_label", comment: "")
-        static let privacyText: String = NSLocalizedString("privacy_policy_label", comment: "")
-        static let contentsText: String = NSLocalizedString("content_policies_label", comment: "")
         static let linksTop: CGFloat = 4
         static let linksHorizontal: CGFloat = 20
         static let linksBottom: CGFloat = 40
@@ -53,7 +47,6 @@ final class SendCodeViewController: UIViewController {
         static let disablingCharactersAmount: Int = 4
         static let numberKerning: CGFloat = 2
         
-        static let shortNumberLabelText: String = NSLocalizedString("enter_valid_number", comment: "")
         static let shortNumberLabelTop: CGFloat = 360
         static let shortNumberDuration: TimeInterval = 0.5
         
@@ -68,7 +61,7 @@ final class SendCodeViewController: UIViewController {
     private var interactor: SendCodeBusinessLogic
     private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
     private lazy var inputNumberTextField: UIPhoneNumberTextField = UIPhoneNumberTextField()
-    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: NSLocalizedString("send_code", comment: ""))
+    private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: LocalizationManager.shared.localizedString(for: "send_code"))
     private lazy var shortNumberLabel: UILabel = UILabel()
     private lazy var descriptionLabel: UILabel = UILabel()
     private lazy var termsLabel: UILabel = UILabel()
@@ -98,7 +91,7 @@ final class SendCodeViewController: UIViewController {
     // Subscribing to Keyboard Notifications
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -175,7 +168,7 @@ final class SendCodeViewController: UIViewController {
     // MARK: - Countinuing Label Configuration
     private func configureCountinuingLabel() {
         view.addSubview(descriptionLabel)
-        descriptionLabel.text = Constants.descriptionLabelText
+        descriptionLabel.text = LocalizationManager.shared.localizedString(for: "agreement_with_prompt")
         descriptionLabel.textColor = Colors.text
         descriptionLabel.font = Fonts.systemR15
         descriptionLabel.pinBottom(contentsLabel.topAnchor, Constants.descriptionLabelBottom)
@@ -187,7 +180,7 @@ final class SendCodeViewController: UIViewController {
         view.addSubview(termsLabel)
         let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
         termsLabel.attributedText = underlineAttributedString
-        termsLabel.text = Constants.termsText
+        termsLabel.text = LocalizationManager.shared.localizedString(for: "terms_of_service_label")
         termsLabel.font = Fonts.systemR12
         termsLabel.textColor = Colors.darkYellow
         termsLabel.isUserInteractionEnabled = true
@@ -205,7 +198,7 @@ final class SendCodeViewController: UIViewController {
         view.addSubview(privacyLabel)
         let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
         privacyLabel.attributedText = underlineAttributedString
-        privacyLabel.text = Constants.privacyText
+        privacyLabel.text = LocalizationManager.shared.localizedString(for: "privacy_policy_label")
         privacyLabel.font = Fonts.systemR12
         privacyLabel.textColor = Colors.darkYellow
         privacyLabel.lineBreakMode = .byWordWrapping
@@ -223,7 +216,7 @@ final class SendCodeViewController: UIViewController {
         view.addSubview(contentsLabel)
         let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
         contentsLabel.attributedText = underlineAttributedString
-        contentsLabel.text = Constants.contentsText
+        contentsLabel.text = LocalizationManager.shared.localizedString(for: "content_policies_label")
         contentsLabel.font = Fonts.systemR12
         contentsLabel.textColor = Colors.darkYellow
         contentsLabel.lineBreakMode = .byWordWrapping
@@ -273,7 +266,7 @@ final class SendCodeViewController: UIViewController {
         })
         
         guard let phoneText = inputNumberTextField.text else {
-            errorLabel.showError(Constants.shortNumberLabelText)
+            errorLabel.showError(LocalizationManager.shared.localizedString(for: "enter_valid_number"))
             return
         }
         
@@ -285,7 +278,7 @@ final class SendCodeViewController: UIViewController {
                     phone: cleanedPhone)
             )
         } else {
-            errorLabel.showError(Constants.shortNumberLabelText)
+            errorLabel.showError(LocalizationManager.shared.localizedString(for: "enter_valid_number"))
         }
     }
     
@@ -340,6 +333,23 @@ final class SendCodeViewController: UIViewController {
             safariVC.modalPresentationStyle = .formSheet
             present(safariVC, animated: true, completion: nil)
         }
+    }
+    
+    @objc
+    private func languageDidChange() {
+        descriptionLabel.text = LocalizationManager.shared.localizedString(for: "agreement_with_prompt")
+        termsLabel.text = LocalizationManager.shared.localizedString(for: "terms_of_service_label")
+        privacyLabel.text = LocalizationManager.shared.localizedString(for: "privacy_policy_label")
+        contentsLabel.text = LocalizationManager.shared.localizedString(for: "content_policies_label")
+        sendGradientButton.setTitle(LocalizationManager.shared.localizedString(for: "send_code"))
+        guard let label = sendGradientButton.titleLabel,
+              let text = label.text else {
+            return
+        }
+        // If in title more than 9 chars, make button bigger.
+        sendGradientButton.setWidth(text.count > Constants.inputButtonShortCount
+                                    ? Constants.inputButtonBigWidth
+                                    : Constants.inputButtonWidth)
     }
 }
 

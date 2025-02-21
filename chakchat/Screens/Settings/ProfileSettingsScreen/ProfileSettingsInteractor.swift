@@ -115,7 +115,7 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
                 os_log("File uploaded to server", log: logger, type: .info)
             case .failure(let failure):
                 os_log("File uploding to server failed", log: logger, type: .error)
-                let errorID = self.errorHandler.handleError(failure)
+                _ = self.errorHandler.handleError(failure)
             }
         }
     }
@@ -128,7 +128,7 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
                 os_log("Signout from account, data deleted", log: logger, type: .info)
                 backToRegistration()
             case .failure(let failure):
-                let errorID = self.errorHandler.handleError(failure)
+                _ = self.errorHandler.handleError(failure)
             }
         }
     }

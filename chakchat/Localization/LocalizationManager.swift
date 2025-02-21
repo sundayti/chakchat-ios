@@ -35,6 +35,11 @@ final class LocalizationManager: LocalizationManagerProtocol {
         }
     }
     
+    func getLocale() -> Locale {
+        let languageCode = UserDefaults.standard.string(forKey: "appLanguage") ?? Locale.current.languageCode ?? "en"
+        return Locale(identifier: languageCode)
+    }
+    
     // MARK: - Private Methods
     private func loadLanguage() {
         let languageCode = UserDefaults.standard.string(forKey: "appLanguage") ?? Locale.current.languageCode ?? "en"

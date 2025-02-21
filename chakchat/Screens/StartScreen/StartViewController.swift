@@ -15,7 +15,6 @@ final class StartViewController: UIViewController {
     private enum Constants {
         static let chakchatStackViewSpacing: CGFloat = -60
         static let tapLabelButtom: CGFloat = 50
-        static let tapLabelText: String = NSLocalizedString("tap_hint", comment: "")
         static let chakLabelText: String = "Chak"
         static let chatLabelText: String = "Chat"
         static let gradientLocation: [NSNumber] = [0.0, 0.5, 1.0]
@@ -91,7 +90,7 @@ final class StartViewController: UIViewController {
     // MARK: - Tap Label Configuration
     private func configureTapLabel() {
         view.addSubview(tapLabel)
-        tapLabel.text = Constants.tapLabelText
+        tapLabel.text = LocalizationManager.shared.localizedString(for: "tap_hint")
         tapLabel.textAlignment = .center
         tapLabel.font = Fonts.montserratB25
         tapLabel.textColor = .black

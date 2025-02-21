@@ -12,7 +12,6 @@ final class NotificationScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = "Notifications"
         static let arrowLabel: String = "arrow.left"
         static let notificationTableTop: CGFloat = 0
         static let notificationTableBottom: CGFloat = 40
@@ -22,8 +21,9 @@ final class NotificationScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var notificationTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var notificationData = [
-        [("Notification")],
-        [("Sound"), ("Vibration")]
+        [LocalizationManager.shared.localizedString(for: "notifications")],
+        [LocalizationManager.shared.localizedString(for: "sound"),
+         LocalizationManager.shared.localizedString(for: "vibration")]
     ]
     
     let interactor: NotificationScreenBusinessLogic
@@ -67,7 +67,7 @@ final class NotificationScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
-        titleLabel.text = Constants.headerText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "notifications")
         titleLabel.textAlignment = .center
     }
     
@@ -138,9 +138,9 @@ extension NotificationScreenViewController: UITableViewDelegate, UITableViewData
         label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = "General"
+            label.text = LocalizationManager.shared.localizedString(for: "general")
         case 1:
-            label.text = "Notifications in app"
+            label.text = LocalizationManager.shared.localizedString(for: "notifications_in_app")
         default:
             label.text = nil
         }

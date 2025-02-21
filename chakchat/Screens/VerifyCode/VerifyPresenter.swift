@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// TODO: - локализировать ошибки 
 // MARK: - VerifyPresenter
 final class VerifyPresenter: VerifyPresentationLogic {
     

@@ -25,11 +25,15 @@ final class UIProfileTextField : UIView {
     private let titleLabel: UILabel = UILabel()
     private let textField: UITextField = UITextField()
     private let bottomLine: UIView = UIView()
+    private var title: String = ""
+    private var placeholder: String = ""
     
     // MARK: - Initialization
     init(title: String, placeholder: String, isEditable: Bool) {
         super.init(frame: .zero)
         configureUI(title: title, placeholder: placeholder, isEditable: isEditable)
+        self.title = title
+        self.placeholder = placeholder
     }
     
     required init?(coder: NSCoder) {
@@ -46,6 +50,11 @@ final class UIProfileTextField : UIView {
         return textField.text
     }
     
+    func localize() {
+        titleLabel.text = LocalizationManager.shared.localizedString(for: title)
+        textField.placeholder = LocalizationManager.shared.localizedString(for: placeholder)
+    }
+    
     // MARK: - UI Configuration
     private func configureUI(title: String, placeholder: String, isEditable: Bool) {
         configureTitleLabel(title: title)
@@ -56,7 +65,7 @@ final class UIProfileTextField : UIView {
     // MARK: - Title Label Configuration
     private func configureTitleLabel(title: String) {
         addSubview(titleLabel)
-        titleLabel.text = title
+        titleLabel.text = LocalizationManager.shared.localizedString(for: title)
         titleLabel.font = Fonts.systemL14
         titleLabel.pinTop(self.topAnchor, Constants.titleTop)
         titleLabel.pinLeft(self.leadingAnchor, Constants.leading)
@@ -69,7 +78,7 @@ final class UIProfileTextField : UIView {
         textField.pinTop(titleLabel.bottomAnchor, Constants.textTop)
         textField.pinLeft(self.leadingAnchor, Constants.leading)
         textField.pinRight(self.trailingAnchor, Constants.trailing)
-        textField.placeholder = placeholder
+        textField.placeholder = LocalizationManager.shared.localizedString(for: placeholder)
         textField.font = Fonts.systemM17
         textField.isUserInteractionEnabled = isEditable
         textField.autocorrectionType = .no
