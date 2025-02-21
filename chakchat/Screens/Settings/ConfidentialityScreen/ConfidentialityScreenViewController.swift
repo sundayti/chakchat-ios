@@ -24,9 +24,9 @@ final class ConfidentialityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private lazy var confidentialitySettingsTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var confidentilitySection = [
-        (LocalizationManager.shared.localizedString(for: "phone_number"), LocalizationManager.shared.localizedString(for: "all")),
-        (LocalizationManager.shared.localizedString(for: "date_of_birth"), LocalizationManager.shared.localizedString(for: "all")),
-        (LocalizationManager.shared.localizedString(for: "online_status"), LocalizationManager.shared.localizedString(for: "all")),
+        (LocalizationManager.shared.localizedString(for: "phone_number"), LocalizationManager.shared.localizedString(for: "everybody")),
+        (LocalizationManager.shared.localizedString(for: "date_of_birth"), LocalizationManager.shared.localizedString(for: "everybody")),
+        (LocalizationManager.shared.localizedString(for: "online_status"), LocalizationManager.shared.localizedString(for: "everybody")),
         (LocalizationManager.shared.localizedString(for: "black_list"), "10")
     ]
     
@@ -49,27 +49,26 @@ final class ConfidentialityScreenViewController: UIViewController {
     
     // MARK: - Sections Configurations
     public func configureSections(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        confidentilitySection[0].1 = userRestrictions.phone.openTo
-        confidentilitySection[1].1 = userRestrictions.dateOfBirth.openTo
+        confidentilitySection[0].1 = LocalizationManager.shared.localizedString(for: userRestrictions.phone.openTo)
+        confidentilitySection[1].1 = LocalizationManager.shared.localizedString(for: userRestrictions.dateOfBirth.openTo)
     }
     
     // MARK: - Visibility Status Updating
     public func updateVisibilityStatus(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
-        confidentilitySection[0].1 = userRestrictions.phone.openTo
-        confidentilitySection[1].1 = userRestrictions.dateOfBirth.openTo
+        confidentilitySection[0].1 = LocalizationManager.shared.localizedString(for: userRestrictions.phone.openTo)
+        confidentilitySection[1].1 = LocalizationManager.shared.localizedString(for: userRestrictions.dateOfBirth.openTo)
         confidentialitySettingsTable.reloadData()
     }
     // TODO: подумать, что делать с этим всем. Нужно конфигурировать вместе.
     /// проблема в том что Булат пока сам не знает, будем ли мы изменять видимость онлайн статуса или не будем
     /// пока сделаю такой костыль
     public func configureOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
-        confidentilitySection[2].1 = onlineRestriction.status
+        confidentilitySection[2].1 = LocalizationManager.shared.localizedString(for: onlineRestriction.status)
     }
     
     public func updateOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
-        print(confidentilitySection[2].1)
-        confidentilitySection[2].1 = onlineRestriction.status
-        print(confidentilitySection[2].1)
+        confidentilitySection[2].1 = LocalizationManager.shared.localizedString(for: onlineRestriction.status)
+        confidentialitySettingsTable.reloadData()
     }
     
     // MARK: - UI Configuration

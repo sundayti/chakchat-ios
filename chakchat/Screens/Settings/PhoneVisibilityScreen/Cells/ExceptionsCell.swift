@@ -19,7 +19,7 @@ final class ExceptionsCell: UITableViewCell {
         static let chevronName: String = "chevron.right"
         static let chevronTrailing: CGFloat = 10
         static let chevronSize: CGFloat = 12
-        static let addLabelText: String = "Add"
+        static let addLabelText: String = LocalizationManager.shared.localizedString(for: "add")
         static let addLabelTrailing: CGFloat = 10
     }
     

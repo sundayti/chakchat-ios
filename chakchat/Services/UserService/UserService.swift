@@ -20,8 +20,8 @@ final class MeService: UserServiceProtocol {
     func sendGetRestrictionRequest(completion: @escaping (Result<ConfidentialitySettingsModels.ConfidentialityUserData, any Error>) -> Void) {
 //        Sender.Get(requestBody: nil as EmptyRequest?, responseType: ConfidentialitySettingsModels.ConfidentialityUserData.self, endpoint: UserServiceEndpoints.meRestrictions.rawValue, completion: completion)
         completion(.success(ConfidentialitySettingsModels.ConfidentialityUserData(
-            phone: ConfidentialityDetails(openTo: LocalizationManager.shared.localizedString(for: "all"), specifiedUsers: nil),
-            dateOfBirth: ConfidentialityDetails(openTo: LocalizationManager.shared.localizedString(for: "nobody"), specifiedUsers: nil))
+            phone: ConfidentialityDetails(openTo: LocalizationManager.shared.localizedString(for: "everybody"), specifiedUsers: nil),
+            dateOfBirth: ConfidentialityDetails(openTo: LocalizationManager.shared.localizedString(for: "only_me"), specifiedUsers: nil))
         ))
     }
     

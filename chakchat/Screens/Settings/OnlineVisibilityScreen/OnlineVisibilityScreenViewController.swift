@@ -8,17 +8,18 @@
 import Foundation
 import UIKit
 
+// TODO: непонятно зачем нужен режим "specified"
 // MARK: - OnlineVisibilityScreenViewController
 final class OnlineVisibilityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = "Online Status"
+        static let headerText: String = LocalizationManager.shared.localizedString(for: "online_status")
         static let arrowName: String = "arrow.left"
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 20
-        static let label0Text: String = "Who can see my online status"
-        static let label1Text: String = "Exceptions"
+        static let label0Text: String = LocalizationManager.shared.localizedString(for: "who_can_see_online")
+        static let label1Text: String = LocalizationManager.shared.localizedString(for: "exceptions")
     }
     
     // MARK: - Properties
@@ -26,8 +27,11 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var onlineVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var onlineVisibilityData = [
-        [("Everyone"), ("Only me"), ("Specified")],
-        [("Never show"), ("Always show")]
+        [(LocalizationManager.shared.localizedString(for: "everybody")),
+         (LocalizationManager.shared.localizedString(for: "only_me")),
+         (LocalizationManager.shared.localizedString(for: "specified"))],
+        [(LocalizationManager.shared.localizedString(for: "never_show")),
+         (LocalizationManager.shared.localizedString(for: "always_show"))]
     ]
     let interactor: OnlineVisibilityScreenBusinessLogic
     
@@ -93,11 +97,12 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
         case 0:
-            onlineVisibilityData[1] = [("Never show")]
+            onlineVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "never_show")]
         case 1:
-            onlineVisibilityData[1] = [("Never show"), ("Always show")]
+            onlineVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "never_show"),
+                                       LocalizationManager.shared.localizedString(for: "always_show")]
         case 2:
-            onlineVisibilityData[1] = [("Always show")]
+            onlineVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "always_show")]
         default:
             break
         }
@@ -107,7 +112,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         if let selectedIndex {
             switch selectedIndex.row {
             case 0:
-                return "everyone"
+                return "everybody"
             case 1:
                 return "only_me"
             case 2:
@@ -116,12 +121,13 @@ final class OnlineVisibilityScreenViewController: UIViewController {
                 break
             }
         }
-        return "everyone"
+        return "everybody"
     }
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
         let onlineStatus = transferRestriction()
+        print("11" + onlineStatus)
         interactor.backToConfidentialityScreen(onlineStatus)
     }
 }
@@ -134,7 +140,7 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
     public func markCurrentOption(_ onlineRestriction: OnlineVisibilityStatus) {
         var rowIndex: Int
         switch onlineRestriction.status{
-        case "everyone":
+        case "everybody":
             rowIndex = 0
         case "only_me":
             rowIndex = 1
