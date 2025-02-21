@@ -5,11 +5,12 @@
 //  Created by Кирилл Исаев on 21.01.2025.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - ChatsScreenBusinessLogic
 protocol ChatsScreenBusinessLogic {
     func routeToSettingsScreen()
+    func createSearchResultVC() -> UIViewController
 }
 
 // MARK: - ChatsScreenPresentationLogic

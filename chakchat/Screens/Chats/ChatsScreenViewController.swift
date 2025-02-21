@@ -33,12 +33,14 @@ final class ChatsScreenViewController: UIViewController {
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var settingButton: UIButton = UIButton(type: .system)
     private lazy var newChatButton: UIButton = UIButton(type: .system)
-    private let searchController = UISearchController(searchResultsController: SearchResultViewController())
-    var interactor: ChatsScreenBusinessLogic
+    private let searchController: UISearchController
+    private let interactor: ChatsScreenBusinessLogic
     
     // MARK: - Lifecycle
     init(interactor: ChatsScreenBusinessLogic) {
         self.interactor = interactor
+        let searchResultVC = interactor.createSearchResultVC()
+        searchController = UISearchController(searchResultsController: searchResultVC)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -97,42 +99,5 @@ final class ChatsScreenViewController: UIViewController {
     @objc
     private func settingButtonPressed() {
         interactor.routeToSettingsScreen()
-    }
-}
-
-
-class SearchResultViewController: UIViewController {
-
-    private let usersTableView = UITableView()
-    private var users: [ProfileSettingsModels.ProfileUserData] = []
-    private var currentPage = 1
-    private let limit = 10
-    private var isFetchingData = false
-    private var hasMoreData = true
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureUI()
-    }
-    
-    private func configureUI() {
-        view.backgroundColor = .white
-        usersTableView.delegate = self
-        usersTableView.dataSource = self
-    }
-    
-}
-
-extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
     }
 }
