@@ -13,7 +13,6 @@ final class BirthVisibilityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = "Date of Birth"
         static let arrowName: String = "arrow.left"
     }
     
@@ -22,8 +21,11 @@ final class BirthVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var birthVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var birthVisibilityData = [
-        [("Everyone"), ("Only me"), ("Specified")],
-        [("Never show"), ("Always show")]
+        [(LocalizationManager.shared.localizedString(for: "everybody")),
+         (LocalizationManager.shared.localizedString(for: "only_me")),
+         (LocalizationManager.shared.localizedString(for: "specified"))],
+        [(LocalizationManager.shared.localizedString(for: "never_show")),
+         (LocalizationManager.shared.localizedString(for: "always_show"))]
     ]
     let interactor: BirthVisibilityScreenBusinessLogic
     
@@ -45,10 +47,10 @@ final class BirthVisibilityScreenViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = Colors.backgroundSettings
+        interactor.loadUserRestrictions()
         configureBackButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
-        interactor.loadUserRestrictions()
         configurePhoneVisibilityTable()
     }
     
@@ -66,7 +68,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
-        titleLabel.text = Constants.headerText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "date_of_birth")
         titleLabel.textAlignment = .center
     }
     
@@ -89,11 +91,12 @@ final class BirthVisibilityScreenViewController: UIViewController {
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
         case 0:
-            birthVisibilityData[1] = [("Never show")]
+            birthVisibilityData[1] = [(LocalizationManager.shared.localizedString(for: "never_show"))]
         case 1:
-            birthVisibilityData[1] = [("Never show"), ("Always show")]
+            birthVisibilityData[1] = [(LocalizationManager.shared.localizedString(for: "never_show")),
+                                      (LocalizationManager.shared.localizedString(for: "always_show"))]
         case 2:
-            birthVisibilityData[1] = [("Always show")]
+            birthVisibilityData[1] = [(LocalizationManager.shared.localizedString(for: "always_show"))]
         default:
             break
         }
@@ -102,7 +105,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
         if let selectedIndex {
             switch selectedIndex.row {
             case 0:
-                return "everyone"
+                return "everybody"
             case 1:
                 return "only_me"
             case 2:
@@ -111,7 +114,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
                 break
             }
         }
-        return "everyone"
+        return "everybody"
     }
     // MARK: - Actions
     @objc
@@ -128,8 +131,9 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     // Called during screen configuration to check the box depending on the data in the user defaults storage
     public func markCurrentOption(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         var rowIndex: Int
+        print(userRestrictions.dateOfBirth.openTo)
         switch userRestrictions.dateOfBirth.openTo {
-        case "everyone":
+        case "everybody":
             rowIndex = 0
         case "only_me":
             rowIndex = 1
@@ -180,9 +184,9 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = "Who can see my date of Birth"
+            label.text = LocalizationManager.shared.localizedString(for: "who_can_see_birth")
         case 1:
-            label.text = "Exceptions"
+            label.text = LocalizationManager.shared.localizedString(for: "exceptions")
         default:
             label.text = nil
         }

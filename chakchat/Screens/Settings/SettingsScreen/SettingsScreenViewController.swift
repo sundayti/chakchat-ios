@@ -16,7 +16,6 @@ final class SettingsScreenViewController: UIViewController {
         static let iconImageSize: CGFloat = 80
         static let defaultProfileImageSymbol: String = "camera.circle"
         static let backArrowSymbol: String = "arrow.left"
-        static let headerText: String = "Settings"
         static let iconTop: CGFloat = 10
         static let settingsTableHorizontal: CGFloat = -15
         static let settingsTableTop: CGFloat = 5
@@ -32,10 +31,6 @@ final class SettingsScreenViewController: UIViewController {
         static let tableLabelX: CGFloat = 10
         static let tableLabelY: CGFloat = 0
         static let tableLabelDifferenceToHeader: CGFloat = -10
-        static let labelCase0: String = "User"
-        static let labelCase1: String = "General"
-        static let labelCase2: String = "App"
-        static let labelCase3: String = "Support"
         static let labelFontSize: CGFloat = 12
         static let spaceBetweenSections: CGFloat = 30
     }
@@ -49,20 +44,20 @@ final class SettingsScreenViewController: UIViewController {
     private var usernameLabel: UILabel = UILabel()
     private var phoneLabel: UILabel = UILabel()
     private var dotLabel: UILabel = UILabel()
-    private var editProfileButton: UIGradientButton = UIGradientButton(title: "Edit profile")
+    private var headerLabels: [Int: UILabel] = [:]
     private lazy var dataStackView: UIStackView = UIStackView(arrangedSubviews: [phoneLabel, dotLabel, usernameLabel])
     
     private let iconImageView: UIImageView = UIImageView()
-    private let sections = [
-        [("My profile", UIImage(systemName: "person.crop.circle"))],
-        [("Confidentiality", UIImage(systemName: "lock")),
-         ("Notifications", UIImage(systemName: "bell"))
+    private var sections = [
+        [(LocalizationManager.shared.localizedString(for: "my_profile"), UIImage(systemName: "person.crop.circle"))],
+        [(LocalizationManager.shared.localizedString(for: "confidantiality"), UIImage(systemName: "lock")),
+         (LocalizationManager.shared.localizedString(for: "notifications"), UIImage(systemName: "bell"))
         ],
-        [("Data and Memory", UIImage(systemName: "memorychip")),
-         ("App theme", UIImage(systemName: "cloud.moon.fill")),
-         ("Language", UIImage(systemName: "globe.europe.africa.fill"))
+        [(LocalizationManager.shared.localizedString(for: "data_and_memory"), UIImage(systemName: "memorychip")),
+         (LocalizationManager.shared.localizedString(for: "app_theme"), UIImage(systemName: "cloud.moon.fill")),
+         (LocalizationManager.shared.localizedString(for: "Language"), UIImage(systemName: "globe.europe.africa.fill"))
         ],
-        [("Help", UIImage(systemName: "questionmark.bubble"))]
+        [(LocalizationManager.shared.localizedString(for: "help"), UIImage(systemName: "questionmark.bubble"))]
     ]
     
     // MARK: - Initialization
@@ -77,6 +72,7 @@ final class SettingsScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
     }
     
@@ -117,7 +113,7 @@ final class SettingsScreenViewController: UIViewController {
     private func configureSettingsLabel() {
         view.addSubview(settingsLabel)
         settingsLabel.font = Fonts.systemB24
-        settingsLabel.text = Constants.headerText
+        settingsLabel.text = LocalizationManager.shared.localizedString(for: "settings")
     }
     
     // MARK: - Back Button Configuration
@@ -176,7 +172,7 @@ final class SettingsScreenViewController: UIViewController {
         view.addSubview(usernameLabel)
         view.addSubview(dotLabel)
         phoneLabel.font = Fonts.systemL14
-        phoneLabel.text = Format.number(phone ?? "Loading...")
+        phoneLabel.text = Format.number(phone ?? LocalizationManager.shared.localizedString(for: "loading."))
         phoneLabel.textColor = .gray
         phoneLabel.textAlignment = .center
         
@@ -186,7 +182,7 @@ final class SettingsScreenViewController: UIViewController {
         dotLabel.textAlignment = .center
         
         usernameLabel.font = Fonts.systemL14
-        usernameLabel.text = Constants.atText + (username ?? "Loading...")
+        usernameLabel.text = Constants.atText + (username ?? LocalizationManager.shared.localizedString(for: "loading."))
         usernameLabel.textColor = .gray
         usernameLabel.textAlignment = .center
         
@@ -203,6 +199,24 @@ final class SettingsScreenViewController: UIViewController {
     @objc
     private func backButtonPressed() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func languageDidChange() {
+        settingsLabel.text = LocalizationManager.shared.localizedString(for: "settings")
+        settingsLabel.sizeToFit()
+        sections = [
+            [(LocalizationManager.shared.localizedString(for: "my_profile"), UIImage(systemName: "person.crop.circle"))],
+            [(LocalizationManager.shared.localizedString(for: "confidantiality"), UIImage(systemName: "lock")),
+             (LocalizationManager.shared.localizedString(for: "notifications"), UIImage(systemName: "bell"))
+            ],
+            [(LocalizationManager.shared.localizedString(for: "data_and_memory"), UIImage(systemName: "memorychip")),
+             (LocalizationManager.shared.localizedString(for: "app_theme"), UIImage(systemName: "cloud.moon.fill")),
+             (LocalizationManager.shared.localizedString(for: "Language"), UIImage(systemName: "globe.europe.africa.fill"))
+            ],
+            [(LocalizationManager.shared.localizedString(for: "help"), UIImage(systemName: "questionmark.bubble"))]
+        ]
+        settingsTableView.reloadData()
     }
 }
 
@@ -222,19 +236,20 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         )
         switch section {
         case 0:
-            label.text = Constants.labelCase0
+            label.text = LocalizationManager.shared.localizedString(for: "user")
         case 1:
-            label.text = Constants.labelCase1
+            label.text = LocalizationManager.shared.localizedString(for: "general")
         case 2:
-            label.text = Constants.labelCase2
+            label.text = LocalizationManager.shared.localizedString(for: "app")
         case 3:
-            label.text = Constants.labelCase3
+            label.text = LocalizationManager.shared.localizedString(for: "support")
         default:
             label.text = nil
         }
         label.font = .systemFont(ofSize: Constants.labelFontSize)
         label.textColor = .gray
         headerView.addSubview(label)
+        headerLabels[section] = label
         return headerView
     }
     

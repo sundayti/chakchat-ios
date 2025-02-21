@@ -19,7 +19,6 @@ final class ExceptionsCell: UITableViewCell {
         static let chevronName: String = "chevron.right"
         static let chevronTrailing: CGFloat = 10
         static let chevronSize: CGFloat = 12
-        static let addLabelText: String = "Add"
         static let addLabelTrailing: CGFloat = 10
     }
     
@@ -76,7 +75,7 @@ final class ExceptionsCell: UITableViewCell {
         contentView.addSubview(addLabel)
         addLabel.font = Fonts.systemR16
         addLabel.textColor = .gray
-        addLabel.text = Constants.addLabelText
+        addLabel.text = LocalizationManager.shared.localizedString(for: "add")
         addLabel.pinRight(chevronImageView.leadingAnchor, Constants.addLabelTrailing)
         addLabel.pinCenterY(contentView)
     }

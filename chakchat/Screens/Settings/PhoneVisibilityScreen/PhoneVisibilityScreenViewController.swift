@@ -13,14 +13,9 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = "Phone number"
         static let arrowName: String = "arrow.left"
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 40
-        static let neverText: String = "Never show"
-        static let alwaysText: String = "Always show"
-        static let whoCanSeeLabelText: String = "Who can see my phone number"
-        static let exceptionsLabelText: String = "Exceptions"
     }
     
     // MARK: - Properties
@@ -28,8 +23,11 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var phoneVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var phoneVisibilityData = [
-        [("Everyone"), ("Only me"), ("Specified")],
-        [("Never show"), ("Always show")]
+        [(LocalizationManager.shared.localizedString(for: "everybody")),
+         (LocalizationManager.shared.localizedString(for: "only_me")),
+         (LocalizationManager.shared.localizedString(for: "specified"))],
+        [(LocalizationManager.shared.localizedString(for: "never_show")),
+         (LocalizationManager.shared.localizedString(for: "always_show"))]
     ]
     let interactor: PhoneVisibilityScreenBusinessLogic
     
@@ -62,7 +60,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
-        titleLabel.text = Constants.headerText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "phone_number")
         titleLabel.textAlignment = .center
     }
     
@@ -96,21 +94,22 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
         case 0:
-            phoneVisibilityData[1] = [(Constants.neverText)]
+            phoneVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "never_show")]
         case 1:
-            phoneVisibilityData[1] = [(Constants.neverText), (Constants.alwaysText)]
+            phoneVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "never_show"),
+                                      LocalizationManager.shared.localizedString(for: "always_show")]
         case 2:
-            phoneVisibilityData[1] = [(Constants.alwaysText)]
+            phoneVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "always_show")]
         default:
             break
         }
     }
     //TODO: - probably here i will take id of special users(if current user tapped "specified" option)
-    private func transferRestriction() -> String{
+    private func transferRestriction() -> String {
         if let selectedIndex {
             switch selectedIndex.row {
             case 0:
-                return "everyone"
+                return "everybody"
             case 1:
                 return "only_me"
             case 2:
@@ -119,7 +118,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
                 break
             }
         }
-        return "everyone"
+        return "everybody"
     }
     
     // MARK: - Actions
@@ -138,7 +137,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     public func markCurrentOption(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         var rowIndex: Int
         switch userRestrictions.phone.openTo {
-        case "everyone":
+        case "everybody":
             rowIndex = 0
         case "only_me":
             rowIndex = 1
@@ -189,9 +188,9 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = Constants.whoCanSeeLabelText
+            label.text = LocalizationManager.shared.localizedString(for: "who_can_see_phone")
         case 1:
-            label.text = Constants.exceptionsLabelText
+            label.text = LocalizationManager.shared.localizedString(for: "exceptions")
         default:
             label.text = nil
         }

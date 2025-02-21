@@ -13,7 +13,6 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let inputHintLabelText: String = "Enter the code"
         static let inputHintLabelTopAnchor: CGFloat = 10
         static let backButtonName: String = "arrow.left"
         
@@ -44,23 +43,27 @@ final class VerifyViewController: UIViewController {
         
         static let resendButtonHeight: CGFloat = 48
         static let resendButtonWidth: CGFloat = 230
+        static let resendButtonBigWidth: CGFloat = 280
+        static let resendButtonShortCount: Int = 11
     }
     
     // MARK: - Fields
     private var interactor: VerifyBusinessLogic
     private var textFields: [UITextField] = []
-    private var inputDescriptionText: String = "We sent you a verification code via SMS\non number "
+    private var inputDescriptionText: String = LocalizationManager.shared.localizedString(for: "we_sent_code")
     private var countdownTimer: Timer?
+    private var timeLabelText: String = LocalizationManager.shared.localizedString(for: "resend_code_in")
     
-    private lazy var remainingTime: TimeInterval = 0
-    private lazy var rawPhone: String = ""
-    private lazy var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
-    private lazy var inputHintLabel: UILabel = UILabel()
-    private lazy var inputDescriptionLabel: UILabel = UILabel()
-    private lazy var digitsStackView: UIStackView = UIStackView()
-    private lazy var timerLabel: UILabel = UILabel()
-    private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
-    private lazy var resendButton: UIGradientButton = UIGradientButton(title: "Resend Code")
+    private var remainingTime: TimeInterval = 0
+    private var rawPhone: String = ""
+    private var formattedPhone: String = ""
+    private var chakchatStackView: UIChakChatStackView = UIChakChatStackView()
+    private var inputHintLabel: UILabel = UILabel()
+    private var inputDescriptionLabel: UILabel = UILabel()
+    private var digitsStackView: UIStackView = UIStackView()
+    private var timerLabel: UILabel = UILabel()
+    private var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
+    private var resendButton: UIGradientButton = UIGradientButton(title: LocalizationManager.shared.localizedString(for: "resend_code"))
     
     let timerDuration: TimeInterval = 90.0
     
@@ -77,6 +80,8 @@ final class VerifyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.background
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
@@ -107,10 +112,12 @@ final class VerifyViewController: UIViewController {
         guard let prettyPhone = Format.number(phone) else {
             return
         }
-        inputDescriptionText += prettyPhone
+        formattedPhone = prettyPhone
+        inputDescriptionText += formattedPhone
         rawPhone = phone
     }
     
+    // TODO: локализировать ошибки
     // MARK: - Show Error as label
     func showError(_ message: String?) {
         if message != nil {
@@ -126,7 +133,7 @@ final class VerifyViewController: UIViewController {
         resendButton.isHidden = true
         timerLabel.isHidden = false
         timerLabel.alpha = 1.0
-        timerLabel.text = "Resend code in \(formatTime(Int(timerDuration)))"
+        timerLabel.text = timeLabelText + "\n\(formatTime(Int(timerDuration)))"
         remainingTime = timerDuration
         startCountdown()
     }
@@ -181,7 +188,7 @@ final class VerifyViewController: UIViewController {
     // MARK: - Input Hint Label Configuration
     private func configureInputHintLabel() {
         view.addSubview(inputHintLabel)
-        inputHintLabel.text = Constants.inputHintLabelText
+        inputHintLabel.text = LocalizationManager.shared.localizedString(for: "enter_the_code")
         inputHintLabel.font = Fonts.systemB30
         inputHintLabel.pinCenterX(view)
         inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)
@@ -240,7 +247,8 @@ final class VerifyViewController: UIViewController {
         timerLabel.pinBottom(view, Constants.timerLabelBottom)
         timerLabel.textAlignment = .center
         timerLabel.textColor = .lightGray
-        timerLabel.text = "Resend code in \(formatTime(Int(timerDuration)))"
+        timerLabel.numberOfLines = 2
+        timerLabel.text = timeLabelText + "\n\(formatTime(Int(timerDuration)))"
         remainingTime = timerDuration
         startCountdown()
     }
@@ -251,7 +259,14 @@ final class VerifyViewController: UIViewController {
         resendButton.pinCenterX(view)
         resendButton.pinBottom(view, Constants.timerLabelBottom)
         resendButton.setHeight(Constants.resendButtonHeight)
-        resendButton.setWidth(Constants.resendButtonWidth)
+        guard let label = resendButton.titleLabel,
+              let text = label.text else {
+            return
+        }
+        // If in title more than 11 chars, make button bigger.
+        resendButton.setWidth(text.count > Constants.resendButtonShortCount
+                                    ? Constants.resendButtonBigWidth
+                                    : Constants.resendButtonWidth)
         resendButton.titleLabel?.font = Fonts.systemB25
         resendButton.addTarget(self, action: #selector(resendButtonPressed), for: .touchUpInside)
         resendButton.isHidden = true
@@ -336,7 +351,7 @@ final class VerifyViewController: UIViewController {
     @objc func updateLabel() {
         remainingTime -= 1
         if remainingTime > 0 {
-            timerLabel.text = "Resend code in \(formatTime(Int(remainingTime)))"
+            timerLabel.text = timeLabelText + "\n\(formatTime(Int(remainingTime)))"
         } else {
             countdownTimer?.invalidate()
             hideLabel()
@@ -365,6 +380,22 @@ final class VerifyViewController: UIViewController {
             VerifyModels.ResendCodeRequest(
                 phone: rawPhone)
         )
+    }
+    
+    @objc
+    private func languageDidChange() {
+        inputHintLabel.text = LocalizationManager.shared.localizedString(for: "enter_the_code")
+        inputDescriptionText = LocalizationManager.shared.localizedString(for: "we_sent_code") + formattedPhone
+        resendButton.setTitle(LocalizationManager.shared.localizedString(for: "resend_code"))
+        guard let label = resendButton.titleLabel,
+              let text = label.text else {
+            return
+        }
+        // If in title more than 11 chars, make button bigger.
+        resendButton.setWidth(text.count > Constants.resendButtonShortCount
+                                    ? Constants.resendButtonBigWidth
+                                    : Constants.resendButtonWidth)
+        timeLabelText = LocalizationManager.shared.localizedString(for: "resend_code_in")
     }
 }
 

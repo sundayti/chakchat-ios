@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: пофиксиить баг с некорректной загрузкой языка
 // MARK: - LanguageViewController
 final class LanguageViewController: UIViewController {
     

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import OSLog
+
 // MARK: - ChatsScreenViewController
 final class ChatsScreenViewController: UIViewController {
     
@@ -15,15 +15,15 @@ final class ChatsScreenViewController: UIViewController {
         static let cancelAnimationDuration: TimeInterval = 0.1
         static let animationTransformX: CGFloat = -10
         static let animationTransformY: CGFloat = 0
-        static let cancelButtonTitle: String = "Cancel"
+        static let cancelButtonTitle: String = LocalizationManager.shared.localizedString(for: "cancel")
         static let cancelKey: String = "cancelButton"
         
-        static let searchPlaceholder: String = "Search"
+        static let searchPlaceholder: String = LocalizationManager.shared.localizedString(for: "search")
         static let searchTrailing: CGFloat = 16
         static let saerchLeading: CGFloat = 16
         static let searchTop: CGFloat = 10
         
-        static let headerText: String = "Chats"
+        static let headerText: String = LocalizationManager.shared.localizedString(for: "chats")
         static let symbolSize: CGFloat = 30
         static let settingsName: String = "gearshape"
         static let plusName: String = "plus"
@@ -48,7 +48,7 @@ final class ChatsScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.searchController = searchController
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
     }
     
@@ -56,11 +56,12 @@ final class ChatsScreenViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = Colors.background
         configureTitleLabel()
-        navigationItem.title = titleLabel.text
+        navigationItem.titleView = titleLabel
         configureSettingsButton()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingButton)
         configureNewChatButton()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newChatButton)
+        configureSearchController()
     }
     
     // MARK: - Title Label Configuration
@@ -68,6 +69,13 @@ final class ChatsScreenViewController: UIViewController {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
         titleLabel.text = Constants.headerText
+    }
+    
+    // MARK: - Search Controller Configuration
+    private func configureSearchController() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = Constants.searchPlaceholder
+        searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
     }
     
     // MARK: - Settings Button Configuration
@@ -97,6 +105,14 @@ final class ChatsScreenViewController: UIViewController {
     @objc
     private func settingButtonPressed() {
         interactor.routeToSettingsScreen()
+    }
+    
+    @objc
+    private func languageDidChange() {
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "chats")
+        titleLabel.sizeToFit()
+        searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "search")
+        searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
     }
 }
 
@@ -136,3 +152,4 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         return UITableViewCell()
     }
 }
+
