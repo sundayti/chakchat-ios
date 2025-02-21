@@ -45,3 +45,8 @@
 "error" = "error";
 "reset" = "Reset";
 "choose" = "Choose";
+"all" = "Everyone";
+"phone_number" = "Phone number";
+"online_status" = "Online status";
+"black_list" = "Black status";
+"nobody" = "Nobody";

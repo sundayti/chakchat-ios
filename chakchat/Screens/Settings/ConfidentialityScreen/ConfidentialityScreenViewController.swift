@@ -13,20 +13,21 @@ final class ConfidentialityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = "Confidentiality"
+        static let headerText: String = LocalizationManager.shared.localizedString(for: "confidantiality")
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 20
         static let arrowName: String = "arrow.left"
     }
     
+    // TODO: change values in confidentilitySection
     // MARK: - Properties
     private var titleLabel: UILabel = UILabel()
     private lazy var confidentialitySettingsTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var confidentilitySection = [
-        ("Phone number", "everyone"),
-        ("Date of Birth", "everyone"),
-        ("Online status", "everyone"),
-        ("Black list", "10")
+        (LocalizationManager.shared.localizedString(for: "phone_number"), LocalizationManager.shared.localizedString(for: "all")),
+        (LocalizationManager.shared.localizedString(for: "date_of_birth"), LocalizationManager.shared.localizedString(for: "all")),
+        (LocalizationManager.shared.localizedString(for: "online_status"), LocalizationManager.shared.localizedString(for: "all")),
+        (LocalizationManager.shared.localizedString(for: "black_list"), "10")
     ]
     
     let interactor: ConfidentialityScreenBusinessLogic
@@ -84,7 +85,7 @@ final class ConfidentialityScreenViewController: UIViewController {
     // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
-        titleLabel.font = Fonts.systemB24
+        titleLabel.font = Fonts.systemB18
         titleLabel.text = Constants.headerText
         titleLabel.textAlignment = .center
     }
