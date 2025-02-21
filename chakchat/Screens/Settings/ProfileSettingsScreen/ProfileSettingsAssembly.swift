@@ -14,7 +14,7 @@ enum ProfileSettingsAssembly {
     // MARK: - Profile Setting Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ProfileSettingsPresenter()
-        let meService = MeService()
+        let meService = UserService()
         let fileStorageService = FileStorageService()
         let identityService = IdentityService()
         let worker = ProfileSettingsWorker(

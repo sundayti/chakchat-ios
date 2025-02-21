@@ -29,12 +29,13 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
     }
     
     func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
-        meService.sendPutMeRequest(request) { [weak self] result in
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        meService.sendPutMeRequest(request, accessToken) { [weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let newUserData):
-                self.userDefaultsManager.saveUserData(newUserData)
-                completion(.success(newUserData))
+                self.userDefaultsManager.saveUserData(newUserData.data)
+                completion(.success(newUserData.data))
             case .failure(let failure):
                 completion(.failure(failure))
             }
@@ -50,8 +51,8 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
             fileStorageService.sendFileUploadRequest(fileURL, fileName, mimeType, accessToken) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case .success(let data):
-                    self.userDefaultsManager.savePhotoMetadata(data)
+                case .success(let response):
+                    self.userDefaultsManager.savePhotoMetadata(response.data)
                     completion(.success(()))
                 case .failure(let failure):
                     completion(.failure(failure))

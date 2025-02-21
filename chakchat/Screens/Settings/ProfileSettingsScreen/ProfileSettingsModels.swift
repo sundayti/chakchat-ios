@@ -11,15 +11,19 @@ import UIKit
 // MARK: - ProfileSettingsModels
 enum ProfileSettingsModels {
     struct ProfileUserData: Codable {
-        var id: UUID
-        var name: String
-        var username: String
+        let id: UUID
+        let name: String
+        let username: String
         let phone: String
-        var photo: URL?
-        var dateOfBirth: String?
+        let photo: URL?
+        let dateOfBirth: String?
     }
     
-    struct ChangeableProfileUserData {
+    struct Users: Codable {
+        let users: [ProfileSettingsModels.ProfileUserData]
+    }
+    
+    struct ChangeableProfileUserData: Codable {
         var name: String
         var username: String
         var photo: URL?
