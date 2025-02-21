@@ -33,7 +33,7 @@ final class SignupWorker: SignupWorkerLogic {
                 case .success(let successResponse):
                     self.userDefautlsManager.saveNickname(request.name)
                     self.userDefautlsManager.saveUsername(request.username)
-                    self.saveToken(successResponse, completion: completion)
+                    self.saveToken(successResponse.data, completion: completion)
                 case .failure(let apiError):
                     completion(.failure(apiError))
                 }

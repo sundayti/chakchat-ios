@@ -14,8 +14,8 @@ enum SettingsScreenAssembly {
     // MARK: - Setting Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SettingsScreenPresenter()
-        let meService = MeService()
-        let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultsManager, meService: meService)
+        let userService = UserService()
+        let worker = SettingsScreenWorker(userDefaultsManager: context.userDefaultsManager, userService: userService, keychainManager: context.keychainManager)
        
         let interactor = SettingsScreenInteractor(presenter: presenter,
                                                   worker: worker,

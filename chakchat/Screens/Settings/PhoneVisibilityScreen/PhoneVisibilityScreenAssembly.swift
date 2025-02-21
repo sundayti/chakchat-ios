@@ -14,8 +14,8 @@ enum PhoneVisibilityScreenAssembly {
     // MARK: - Phone Visibility Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = PhoneVisibilityScreenPresenter()
-        let meService = MeService()
-        let worker = PhoneVisibilityScreenWorker(userDefaultsManager: context.userDefaultsManager, meService: meService)
+        let userService = UserService()
+        let worker = PhoneVisibilityScreenWorker(userDefaultsManager: context.userDefaultsManager, userService: userService, keychainManager: context.keychainManager)
         let interactor = PhoneVisibilityScreenInteractor(presenter: presenter,
                                                          worker: worker,
                                                          eventManager: context.eventManager,

@@ -14,8 +14,8 @@ enum BirthVisibilityScreenAssembly {
     // MARK: - Birth Visibility Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = BirthVisibilityScreenPresenter()
-        let meService = MeService()
-        let worker = BirthVisibilityScreenWorker(userDeafultsManager: context.userDefaultsManager, meService: meService)
+        let userService = UserService()
+        let worker = BirthVisibilityScreenWorker(userDeafultsManager: context.userDefaultsManager, userService: userService, keychainManager: context.keychainManager)
         let interactor = BirthVisibilityScreenInteractor(presenter: presenter,
                                                          worker: worker,
                                                          eventManager: context.eventManager,

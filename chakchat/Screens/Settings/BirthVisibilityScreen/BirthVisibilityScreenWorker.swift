@@ -11,17 +11,23 @@ import Foundation
 final class BirthVisibilityScreenWorker: BirthVisibilityScreenWorkerLogic {
     
     // MARK: - Properties
-    let userDeafultsManager: UserDefaultsManagerProtocol
-    let meService: UserServiceProtocol
+    private let userDeafultsManager: UserDefaultsManagerProtocol
+    private let userService: UserServiceProtocol
+    private let keychainManager: KeychainManagerBusinessLogic
     
     // MARK: - Initialization
-    init(userDeafultsManager: UserDefaultsManagerProtocol, meService: UserServiceProtocol) {
+    init(userDeafultsManager: UserDefaultsManagerProtocol, 
+         userService: UserServiceProtocol,
+         keychainManager: KeychainManagerBusinessLogic
+    ) {
         self.userDeafultsManager = userDeafultsManager
-        self.meService = meService
+        self.userService = userService
+        self.keychainManager = keychainManager
     }
     
     func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData, completion: @escaping (Result<Void, any Error>) -> Void) {
-        meService.sendPutRestrictionRequest(request) { [weak self] result in
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        userService.sendPutRestrictionRequest(request, accessToken) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(_):
