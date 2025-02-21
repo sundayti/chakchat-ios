@@ -14,9 +14,8 @@ enum ConfidentialityScreenAssembly {
     // MARK: - Confidentiality Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ConfidentialityScreenPresenter()
-        let meService = MeService()
-        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultsManager,
-                                                 meService: meService)
+        let userService = UserService()
+        let worker = ConfidentialityScreenWorker(userDefaultsManager: context.userDefaultsManager, userService: userService, keychainManager: context.keychainManager)
         let interactor = ConfidentialityScreenInteractor(presenter: presenter,
                                                          worker: worker,
                                                          errorHandler: context.errorHandler,

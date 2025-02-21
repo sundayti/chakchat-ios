@@ -12,20 +12,22 @@ protocol IdentityServiceProtocol {
         _ request: Request,
         _ endpoint: String,
         _ responseType: Response.Type,
-        completion: @escaping (Result<Response, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<Response>, Error>) -> Void
     )
     
     func sendVerificationRequest<Request: Codable, Response: Codable>(
         _ request: Request,
         _ endpoint: String,
         _ responseType: Response.Type,
-        completion: @escaping (Result<Response, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<Response>, Error>) -> Void
     )
     
     func sendSignupRequest(_ request: SignupModels.SignupRequest,
-                           completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void)
+                           completion: @escaping (Result<SuccessResponse<SuccessModels.Tokens>, Error>) -> Void)
     
-    func sendRefreshTokensRequest(_ request: RefreshRequest, completion: @escaping (Result<SuccessModels.Tokens, Error>) -> Void)
+    func sendRefreshTokensRequest(_ request: RefreshRequest, 
+                                  completion: @escaping (Result<SuccessResponse<SuccessModels.Tokens>, Error>) -> Void)
     
-    func sendSignoutRequest(_ request: RefreshRequest, _ accessToken: String, completion: @escaping (Result<SuccessModels.EmptyResponse, Error>) -> Void)
+    func sendSignoutRequest(_ request: RefreshRequest, _ accessToken: String, 
+                            completion: @escaping (Result<SuccessResponse<SuccessModels.EmptyResponse>, Error>) -> Void)
 }

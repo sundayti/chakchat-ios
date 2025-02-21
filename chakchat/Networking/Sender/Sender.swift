@@ -18,7 +18,7 @@ final class Sender: SenderLogic {
                                  method: HTTPMethod,
                                  headers: [String:String]? = nil,
                                  body: Data? = nil,
-                                 completion: @escaping (Result<T, Error>) -> Void
+                                 completion: @escaping (Result<SuccessResponse<T>, Error>) -> Void
     ) {
         guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) else {
             fatalError("Cant get baseURL")
@@ -41,7 +41,7 @@ final class Sender: SenderLogic {
         //body
         request.httpBody = body
         
-        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(APIError.networkError(error)))
                 return
@@ -61,7 +61,7 @@ final class Sender: SenderLogic {
             case 200:
                 do {
                     let responseData = try JSONDecoder().decode(SuccessResponse<T>.self, from: data)
-                    completion(.success(responseData.data))
+                    completion(.success(responseData))
                 } catch {
                     completion(.failure(APIError.decodingError(error)))
                 }

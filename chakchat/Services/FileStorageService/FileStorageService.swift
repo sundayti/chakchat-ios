@@ -10,7 +10,7 @@ import Alamofire
 
 final class FileStorageService: FileStorageServiceProtocol {
     
-    func sendFileUploadRequest(_ fileURL: URL, _ fileName: String, _ mimeType: String, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void) {
+    func sendFileUploadRequest(_ fileURL: URL, _ fileName: String, _ mimeType: String, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadResponse>, Error>) -> Void) {
         guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Sender.Keys.baseURL) else {
             fatalError("Can't get baseurl")
         }
@@ -46,7 +46,7 @@ final class FileStorageService: FileStorageServiceProtocol {
             }
             switch response.result {
             case .success(let responseData):
-                completion(.success(responseData.data))
+                completion(.success(responseData))
             case .failure:
                 if let data = response.data {
                     do {
@@ -62,7 +62,7 @@ final class FileStorageService: FileStorageServiceProtocol {
         }
     }
     
-    func sendFileUploadInitRequest(_ request: FileStorageRequest.UploadInit, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadInitResponse, any Error>) -> Void) {
+    func sendFileUploadInitRequest(_ request: FileStorageRequest.UploadInit, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadInitResponse>, any Error>) -> Void) {
         let endpoint = FileStorageEndpoints.uploadMultipartInit.rawValue
         let idempotencyKey = UUID().uuidString
         
@@ -77,7 +77,7 @@ final class FileStorageService: FileStorageServiceProtocol {
         Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
-    func sendFileUploadPartRequest(_ partNumber: Int, _ uploadID: UUID, _ fileData: Data, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadPartResponse, any Error>) -> Void) {
+    func sendFileUploadPartRequest(_ partNumber: Int, _ uploadID: UUID, _ fileData: Data, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadPartResponse>, any Error>) -> Void) {
         let endpoint = FileStorageEndpoints.uploadMultipartPart.rawValue
         
         let boundary = "Boundary-\(UUID().uuidString)"
@@ -106,7 +106,7 @@ final class FileStorageService: FileStorageServiceProtocol {
         Sender.send(endpoint: endpoint, method: .put, headers: headers, body: body, completion: completion)
     }
     
-    func sendFileUploadAbortRequest(_ request: FileStorageRequest.UploadAbort, _ accessToken: String, completion: @escaping (Result<SuccessModels.EmptyResponse, any Error>) -> Void) {
+    func sendFileUploadAbortRequest(_ request: FileStorageRequest.UploadAbort, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.EmptyResponse>, any Error>) -> Void) {
         let endpoint = FileStorageEndpoints.uploadMultipartAbort.rawValue
         let idempotencyKey = UUID().uuidString
         
@@ -121,7 +121,7 @@ final class FileStorageService: FileStorageServiceProtocol {
         Sender.send(endpoint: endpoint, method: .put, headers: headers, body: body, completion: completion)
     }
     
-    func sendFileUploadCompleteRequest(_ request: FileStorageRequest.UploadComplete, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadResponse, any Error>) -> Void) {
+    func sendFileUploadCompleteRequest(_ request: FileStorageRequest.UploadComplete, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadResponse>, any Error>) -> Void) {
         let endpoint = FileStorageEndpoints.uploadMultipartComplete.rawValue
         let idempotencyKey = UUID().uuidString
         
@@ -136,7 +136,7 @@ final class FileStorageService: FileStorageServiceProtocol {
         Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
-    func sendGetFileRequest(_ fileID: UUID, _ accessToken: String, completion: @escaping (Result<SuccessModels.UploadResponse, any Error>) -> Void) {
+    func sendGetFileRequest(_ fileID: UUID, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadResponse>, any Error>) -> Void) {
         let endpoint = "\(FileStorageEndpoints.getFileMetadata.rawValue)\(fileID)"
         //let idempotencyKey = UUID().uuidString
         

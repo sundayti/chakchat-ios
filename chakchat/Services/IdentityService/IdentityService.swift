@@ -8,8 +8,7 @@
 import UIKit
 
 final class IdentityService: IdentityServiceProtocol {
-
-    func sendCodeRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<Response, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
+    func sendCodeRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<SuccessResponse<Response>, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
         let idempotencyKey = UUID().uuidString
         
         let body = try? JSONEncoder().encode(request)
@@ -21,7 +20,7 @@ final class IdentityService: IdentityServiceProtocol {
         Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
-    func sendVerificationRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<Response, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
+    func sendVerificationRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<SuccessResponse<Response>, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
         let idempotencyKey = UUID().uuidString
         
         let body = try? JSONEncoder().encode(request)
@@ -34,7 +33,8 @@ final class IdentityService: IdentityServiceProtocol {
         Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
-    func sendSignupRequest(_ request: SignupModels.SignupRequest, completion: @escaping (Result<SuccessModels.Tokens, any Error>) -> Void) {
+    func sendSignupRequest(_ request: SignupModels.SignupRequest, 
+                           completion: @escaping (Result<SuccessResponse<SuccessModels.Tokens>, any Error>) -> Void) {
         let endpoint = IdentityServiceEndpoints.signupEndpoint.rawValue
         let idempotencyKey = UUID().uuidString
         
@@ -48,7 +48,8 @@ final class IdentityService: IdentityServiceProtocol {
         Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
-    func sendRefreshTokensRequest(_ request: RefreshRequest, completion: @escaping (Result<SuccessModels.Tokens, any Error>) -> Void) {
+    func sendRefreshTokensRequest(_ request: RefreshRequest, 
+                                  completion: @escaping (Result<SuccessResponse<SuccessModels.Tokens>, any Error>) -> Void) {
         let endpoint = IdentityServiceEndpoints.refreshEndpoint.rawValue
         let idempotencyKey = UUID().uuidString
         
@@ -62,7 +63,9 @@ final class IdentityService: IdentityServiceProtocol {
         Sender.send(endpoint: endpoint, method: .post, headers: headers, body: body, completion: completion)
     }
     
-    func sendSignoutRequest(_ request: RefreshRequest, _ accessToken: String, completion: @escaping (Result<SuccessModels.EmptyResponse, any Error>) -> Void) {
+    func sendSignoutRequest(_ request: RefreshRequest, 
+                            _ accessToken: String,
+                            completion: @escaping (Result<SuccessResponse<SuccessModels.EmptyResponse>, any Error>) -> Void) {
         let endpoint = IdentityServiceEndpoints.signoutEndpoint.rawValue
         
         let body = try? JSONEncoder().encode(request)

@@ -11,24 +11,28 @@ import Foundation
 final class SettingsScreenWorker: SettingsScreenWorkerLogic {
     
     // MARK: - Properties
-    let userDefaultsManager: UserDefaultsManagerProtocol
-    let meService: UserServiceProtocol
+    private let userDefaultsManager: UserDefaultsManagerProtocol
+    private let userService: UserServiceProtocol
+    private let keychainManager: KeychainManagerBusinessLogic
     
     // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol, 
-         meService: UserServiceProtocol
+         userService: UserServiceProtocol,
+         keychainManager: KeychainManagerBusinessLogic
     ) {
         self.userDefaultsManager = userDefaultsManager
-        self.meService = meService
+        self.userService = userService
+        self.keychainManager = keychainManager
     }
     
     func getUserData(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
-        meService.sendGetMeRequest { [weak self] result in
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        userService.sendGetMeRequest(accessToken) { [weak self] result in
             guard let self = self else {return}
             switch result {
-            case .success(let userData):
-                self.userDefaultsManager.saveUserData(userData)
-                completion(.success(userData))
+            case .success(let response):
+                self.userDefaultsManager.saveUserData(response.data)
+                completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))
             }

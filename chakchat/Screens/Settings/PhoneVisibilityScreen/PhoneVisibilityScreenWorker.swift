@@ -11,22 +11,26 @@ import Foundation
 final class PhoneVisibilityScreenWorker: PhoneVisibilityScreenWorkerLogic {
     
     // MARK: - Properties
-    let userDefaultsManager: UserDefaultsManagerProtocol
-    let meService: UserServiceProtocol
+    private let userDefaultsManager: UserDefaultsManagerProtocol
+    private let userService: UserServiceProtocol
+    private let keychainManager: KeychainManagerBusinessLogic
     
     // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol,
-         meService: UserServiceProtocol
+         userService: UserServiceProtocol,
+         keychainManager: KeychainManagerBusinessLogic
     ) {
         self.userDefaultsManager = userDefaultsManager
-        self.meService = meService
+        self.userService = userService
+        self.keychainManager = keychainManager
     }
     
     func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData, completion: @escaping (Result<Void, any Error>) -> Void) {
-        meService.sendPutRestrictionRequest(request) { [weak self] result in
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        userService.sendPutRestrictionRequest(request, accessToken) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(()):
+            case .success(_):
                 self.userDefaultsManager.saveRestrictions(request)
                 completion(.success(()))
             case .failure(let failure):

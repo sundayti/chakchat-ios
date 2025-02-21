@@ -95,7 +95,7 @@ final class VerifyWorker: VerifyWorkerLogic {
                 switch result {
                 case .success(let successResponse):
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSigninCode,
-                                                       value: successResponse.signinKey)
+                                                            value: successResponse.data.signinKey)
                     if isSaved {
                         completion(.success(SignupState.signin))
                     } else {
@@ -120,7 +120,7 @@ final class VerifyWorker: VerifyWorkerLogic {
                 switch result {
                 case .success(let successResponse):
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSignupCode,
-                                                       value: successResponse.signupKey)
+                                                            value: successResponse.data.signupKey)
                     if isSaved {
                         completion(.success(SignupState.signupVerifyCode))
                     } else {

@@ -33,7 +33,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
                 switch result {
                 case .success(let successResponse):
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSigninCode,
-                                                       value: successResponse.signinKey)
+                                                            value: successResponse.data.signinKey)
                     if isSaved {
                         self.userDefaultsManager.savePhone(request.phone)
                         completion(.success(SignupState.signin))
@@ -67,7 +67,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
                 switch result {
                 case .success(let successResponse):
                     let isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveSignupCode,
-                                                       value: successResponse.signupKey)
+                                                            value: successResponse.data.signupKey)
                     if isSaved {
                         self.userDefaultsManager.savePhone(request.phone)
                         completion(.success(SignupState.signupVerifyCode))

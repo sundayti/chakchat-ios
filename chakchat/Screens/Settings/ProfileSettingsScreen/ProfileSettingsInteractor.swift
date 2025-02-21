@@ -55,13 +55,13 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
         worker.updateUserData(newUserData) { [weak self] result in
             guard let self = self else {return}
             switch result {
-            case .success(_):
+            case .success(let response):
                 os_log("/me/put complete", log: logger, type: .info)
                 let updateProfileDataEvent = UpdateProfileDataEvent(
-                    newNickname: newUserData.name,
-                    newUsername: newUserData.username,
-                    newPhoto: newUserData.photo,
-                    newBirth: newUserData.dateOfBirth
+                    newNickname: response.name,
+                    newUsername: response.username,
+                    newPhoto: response.photo,
+                    newBirth: response.dateOfBirth
                 )
                 os_log("Published event in profile settings screen", log: logger, type: .default)
                 eventPublisher.publish(event: updateProfileDataEvent)
