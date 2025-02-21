@@ -52,7 +52,7 @@ final class BirthVisibilityScreenInteractor: BirthVisibilityScreenBusinessLogic 
     // MARK: - New Data Saving
     func saveNewRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Saved new data in birth visibility screen", log: logger, type: .default)
-
+        worker.saveNewRestrictions(userRestrictions)
     }
     
     // MARK: - Rounting

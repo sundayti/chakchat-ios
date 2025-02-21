@@ -52,6 +52,7 @@
 "only_me" = "Nobody";
 "who_can_see_online" = "Who can see my online status?";
 "who_can_see_phone" = "Who can see my phone number?";
+"who_can_see_birth" = "Who can see my birthday date?";
 "exceptions" = "Exceptions";
 "specified" = "Specified";
 "never_show" = "Never show";
