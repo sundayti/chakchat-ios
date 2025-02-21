@@ -127,7 +127,6 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     @objc
     private func backButtonPressed() {
         let onlineStatus = transferRestriction()
-        print("11" + onlineStatus)
         interactor.backToConfidentialityScreen(onlineStatus)
     }
 }

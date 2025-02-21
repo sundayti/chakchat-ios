@@ -13,14 +13,14 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = "Phone number"
+        static let headerText: String = LocalizationManager.shared.localizedString(for: "phone_number")
         static let arrowName: String = "arrow.left"
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 40
-        static let neverText: String = "Never show"
-        static let alwaysText: String = "Always show"
-        static let whoCanSeeLabelText: String = "Who can see my phone number"
-        static let exceptionsLabelText: String = "Exceptions"
+        static let neverText: String = LocalizationManager.shared.localizedString(for: "never_show")
+        static let alwaysText: String = LocalizationManager.shared.localizedString(for: "always_show")
+        static let whoCanSeeLabelText: String = LocalizationManager.shared.localizedString(for: "who_can_see_phone")
+        static let exceptionsLabelText: String = LocalizationManager.shared.localizedString(for: "exceptions")
     }
     
     // MARK: - Properties
@@ -28,8 +28,11 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var phoneVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var phoneVisibilityData = [
-        [("Everyone"), ("Only me"), ("Specified")],
-        [("Never show"), ("Always show")]
+        [(LocalizationManager.shared.localizedString(for: "everybody")),
+         (LocalizationManager.shared.localizedString(for: "only_me")),
+         (LocalizationManager.shared.localizedString(for: "specified"))],
+        [(LocalizationManager.shared.localizedString(for: "never_show")),
+         (LocalizationManager.shared.localizedString(for: "always_show"))]
     ]
     let interactor: PhoneVisibilityScreenBusinessLogic
     
@@ -106,11 +109,11 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         }
     }
     //TODO: - probably here i will take id of special users(if current user tapped "specified" option)
-    private func transferRestriction() -> String{
+    private func transferRestriction() -> String {
         if let selectedIndex {
             switch selectedIndex.row {
             case 0:
-                return "everyone"
+                return "everybody"
             case 1:
                 return "only_me"
             case 2:
@@ -119,7 +122,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
                 break
             }
         }
-        return "everyone"
+        return "everybody"
     }
     
     // MARK: - Actions
@@ -138,7 +141,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     public func markCurrentOption(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         var rowIndex: Int
         switch userRestrictions.phone.openTo {
-        case "everyone":
+        case "everybody":
             rowIndex = 0
         case "only_me":
             rowIndex = 1
