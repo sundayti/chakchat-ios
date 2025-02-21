@@ -36,12 +36,17 @@
 		AA1C0E4B2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */; };
 		AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */; };
 		AA22CD7B2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */; };
+		AA22CD952D68EC5300A7A4F1 /* UsersSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD942D68EC5300A7A4F1 /* UsersSearchViewController.swift */; };
+		AA22CD972D68EC5C00A7A4F1 /* UsersSearchAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD962D68EC5C00A7A4F1 /* UsersSearchAssembly.swift */; };
+		AA22CD992D68EC6400A7A4F1 /* UsersSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD982D68EC6400A7A4F1 /* UsersSearchInteractor.swift */; };
+		AA22CD9B2D68EC7100A7A4F1 /* UsersSearchWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD9A2D68EC7100A7A4F1 /* UsersSearchWorker.swift */; };
+		AA22CD9D2D68EC7800A7A4F1 /* UsersSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD9C2D68EC7800A7A4F1 /* UsersSearchPresenter.swift */; };
+		AA22CD9F2D68EC8400A7A4F1 /* UsersSearchProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD9E2D68EC8400A7A4F1 /* UsersSearchProtocols.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
 		AA7BADE72D3F9FB80030AC82 /* ChatsScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE62D3F9FB80030AC82 /* ChatsScreenPresenter.swift */; };
 		AA7BADE92D3F9FDF0030AC82 /* ChatsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE82D3F9FDF0030AC82 /* ChatsScreenViewController.swift */; };
-		AA7BADEB2D3FA0230030AC82 /* ChatsScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADEA2D3FA0230030AC82 /* ChatsScreenModels.swift */; };
 		AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADEC2D3FA0440030AC82 /* ChatsScreenWorker.swift */; };
 		AA7BADF42D3FC9F40030AC82 /* SettingsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADF32D3FC9F40030AC82 /* SettingsScreenAssembly.swift */; };
 		AA7BADF62D3FCA2A0030AC82 /* SettingsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADF52D3FCA2A0030AC82 /* SettingsScreenInteractor.swift */; };
@@ -223,12 +228,17 @@
 		AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityServiceEndpoints.swift; sourceTree = "<group>"; };
+		AA22CD942D68EC5300A7A4F1 /* UsersSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchViewController.swift; sourceTree = "<group>"; };
+		AA22CD962D68EC5C00A7A4F1 /* UsersSearchAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchAssembly.swift; sourceTree = "<group>"; };
+		AA22CD982D68EC6400A7A4F1 /* UsersSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchInteractor.swift; sourceTree = "<group>"; };
+		AA22CD9A2D68EC7100A7A4F1 /* UsersSearchWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchWorker.swift; sourceTree = "<group>"; };
+		AA22CD9C2D68EC7800A7A4F1 /* UsersSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchPresenter.swift; sourceTree = "<group>"; };
+		AA22CD9E2D68EC8400A7A4F1 /* UsersSearchProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchProtocols.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
 		AA7BADE62D3F9FB80030AC82 /* ChatsScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenPresenter.swift; sourceTree = "<group>"; };
 		AA7BADE82D3F9FDF0030AC82 /* ChatsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenViewController.swift; sourceTree = "<group>"; };
-		AA7BADEA2D3FA0230030AC82 /* ChatsScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenModels.swift; sourceTree = "<group>"; };
 		AA7BADEC2D3FA0440030AC82 /* ChatsScreenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenWorker.swift; sourceTree = "<group>"; };
 		AA7BADF32D3FC9F40030AC82 /* SettingsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADF52D3FCA2A0030AC82 /* SettingsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenInteractor.swift; sourceTree = "<group>"; };
@@ -438,6 +448,19 @@
 			path = ProfileSettingsScreen;
 			sourceTree = "<group>";
 		};
+		AA22CD932D68EC2C00A7A4F1 /* UsersSearch */ = {
+			isa = PBXGroup;
+			children = (
+				AA22CD962D68EC5C00A7A4F1 /* UsersSearchAssembly.swift */,
+				AA22CD982D68EC6400A7A4F1 /* UsersSearchInteractor.swift */,
+				AA22CD9A2D68EC7100A7A4F1 /* UsersSearchWorker.swift */,
+				AA22CD9C2D68EC7800A7A4F1 /* UsersSearchPresenter.swift */,
+				AA22CD942D68EC5300A7A4F1 /* UsersSearchViewController.swift */,
+				AA22CD9E2D68EC8400A7A4F1 /* UsersSearchProtocols.swift */,
+			);
+			path = UsersSearch;
+			sourceTree = "<group>";
+		};
 		AA7BADDF2D3F9E2F0030AC82 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,7 +469,6 @@
 				AA7BADEC2D3FA0440030AC82 /* ChatsScreenWorker.swift */,
 				AA7BADE62D3F9FB80030AC82 /* ChatsScreenPresenter.swift */,
 				AA7BADE82D3F9FDF0030AC82 /* ChatsScreenViewController.swift */,
-				AA7BADEA2D3FA0230030AC82 /* ChatsScreenModels.swift */,
 				AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */,
 			);
 			path = Chats;
@@ -763,6 +785,7 @@
 		AA9B621D2D2D5E650064CB23 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				AA22CD932D68EC2C00A7A4F1 /* UsersSearch */,
 				AA7BADF02D3FC7CA0030AC82 /* Settings */,
 				AA7BADDF2D3F9E2F0030AC82 /* Chats */,
 				AA9B62842D303DD90064CB23 /* StartScreen */,
@@ -1174,6 +1197,7 @@
 				E11D350F2D40C3F400A698EA /* Colors.swift in Sources */,
 				AA84F0362D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift in Sources */,
 				AA84F02E2D4BEF1800678ABA /* BirthVisibilityScreenInteractor.swift in Sources */,
+				AA22CD9F2D68EC8400A7A4F1 /* UsersSearchProtocols.swift in Sources */,
 				AA1C0E3A2D43A5D7008E47D8 /* EventManager.swift in Sources */,
 				AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */,
 				AA84F0222D4BBEC300678ABA /* PhoneVisibilityScreenViewController.swift in Sources */,
@@ -1222,7 +1246,6 @@
 				AA84F0572D4D0C7100678ABA /* NotificationScreenModels.swift in Sources */,
 				AA07A6732D5C898B00CFE124 /* UserServiceProtocols.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
-				AA7BADEB2D3FA0230030AC82 /* ChatsScreenModels.swift in Sources */,
 				AA84F03B2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift in Sources */,
 				E19609E12D60F47C008E27C0 /* LanguageCell.swift in Sources */,
 				AA84F05D2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift in Sources */,
@@ -1241,6 +1264,7 @@
 				E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */,
 				AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */,
 				AA07A6792D5E1D2000CFE124 /* UpdateRestrictionsEvent.swift in Sources */,
+				AA22CD9D2D68EC7800A7A4F1 /* UsersSearchPresenter.swift in Sources */,
 				E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */,
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
 				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
@@ -1249,6 +1273,7 @@
 				AA9B62522D2EC7DC0064CB23 /* VerifyProtocols.swift in Sources */,
 				9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */,
 				AA1C0E332D43A081008E47D8 /* Event.swift in Sources */,
+				AA22CD992D68EC6400A7A4F1 /* UsersSearchInteractor.swift in Sources */,
 				AA84F0552D4D0C6900678ABA /* NotificationScreenViewController.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
@@ -1259,7 +1284,9 @@
 				AAA839E22D62522F00C870A4 /* FileStorageEndpoints.swift in Sources */,
 				AA9B627B2D3004850064CB23 /* SignupWorker.swift in Sources */,
 				AA9B62592D2EDF9F0064CB23 /* ErrorModels.swift in Sources */,
+				AA22CD952D68EC5300A7A4F1 /* UsersSearchViewController.swift in Sources */,
 				AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */,
+				AA22CD972D68EC5C00A7A4F1 /* UsersSearchAssembly.swift in Sources */,
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
@@ -1316,6 +1343,7 @@
 				AA9B622D2D2D6CAE0064CB23 /* SendCodeModels.swift in Sources */,
 				AA1C0E362D43A0D5008E47D8 /* EventPublisherProtocol.swift in Sources */,
 				AA9B62862D303E330064CB23 /* StartAssembly.swift in Sources */,
+				AA22CD9B2D68EC7100A7A4F1 /* UsersSearchWorker.swift in Sources */,
 				E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */,
 				AA87FC6F2D55039B00E8D066 /* UserProfileScreenWorker.swift in Sources */,
 				AA9B62802D3018CB0064CB23 /* SignupContext.swift in Sources */,

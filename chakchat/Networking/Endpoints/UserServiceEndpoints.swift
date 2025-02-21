@@ -10,4 +10,5 @@ import Foundation
 enum UserServiceEndpoints: String {
     case me = "/api/user/v1.0/me"
     case meRestrictions = "/api/user/v1.0/me/restrictions"
+    case users = "/api/user/v1.0/users"
 }
