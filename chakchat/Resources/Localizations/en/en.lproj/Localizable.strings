@@ -58,3 +58,6 @@
 "never_show" = "Never show";
 "always_show" = "Always show";
 "add" = "Add";
+"sound" = "Sound";
+"vibration" = "Vibration";
+"notifications_in_app" = "Notifications in app";

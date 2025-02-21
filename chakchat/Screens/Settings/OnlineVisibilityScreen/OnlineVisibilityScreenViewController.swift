@@ -14,12 +14,9 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = LocalizationManager.shared.localizedString(for: "online_status")
         static let arrowName: String = "arrow.left"
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 20
-        static let label0Text: String = LocalizationManager.shared.localizedString(for: "who_can_see_online")
-        static let label1Text: String = LocalizationManager.shared.localizedString(for: "exceptions")
     }
     
     // MARK: - Properties
@@ -64,7 +61,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
-        titleLabel.text = Constants.headerText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "online_status")
         titleLabel.textAlignment = .center
     }
     
@@ -190,9 +187,9 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
         label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = Constants.label0Text
+            label.text = LocalizationManager.shared.localizedString(for: "who_can_see_online")
         case 1:
-            label.text = Constants.label1Text
+            label.text = LocalizationManager.shared.localizedString(for: "exceptions")
         default:
             label.text = nil
         }

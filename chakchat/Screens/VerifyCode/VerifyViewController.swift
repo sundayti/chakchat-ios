@@ -13,7 +13,6 @@ final class VerifyViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let inputHintLabelText: String = LocalizationManager.shared.localizedString(for: "enter_the_code")
         static let inputHintLabelTopAnchor: CGFloat = 10
         static let backButtonName: String = "arrow.left"
         
@@ -189,7 +188,7 @@ final class VerifyViewController: UIViewController {
     // MARK: - Input Hint Label Configuration
     private func configureInputHintLabel() {
         view.addSubview(inputHintLabel)
-        inputHintLabel.text = Constants.inputHintLabelText
+        inputHintLabel.text = LocalizationManager.shared.localizedString(for: "enter_the_code")
         inputHintLabel.font = Fonts.systemB30
         inputHintLabel.pinCenterX(view)
         inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)

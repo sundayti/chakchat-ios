@@ -18,7 +18,6 @@ final class UICustomDatePicker : UIView {
         static let frameWidth: CGFloat = 350
         static let titleTop: CGFloat = 20
         static let datePickerTop: CGFloat = 10
-        static let resetTitle: String = LocalizationManager.shared.localizedString(for: "reset")
         static let okTitle: String = "OK"
         static let buttonTop: CGFloat = 0
         static let buttonX: CGFloat = 60
@@ -103,7 +102,7 @@ final class UICustomDatePicker : UIView {
     // MARK: - Reset Button Configuration
     private func configureResetButton() {
         frameView.addSubview(resetButton)
-        resetButton.setTitle(Constants.resetTitle, for: .normal)
+        resetButton.setTitle(LocalizationManager.shared.localizedString(for: "reset"), for: .normal)
         resetButton.setTitleColor(UIColor.systemBlue, for: .normal)
         resetButton.addTarget(self, action: #selector(resetPressed), for: .touchUpInside)
         

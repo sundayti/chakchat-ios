@@ -13,14 +13,9 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = LocalizationManager.shared.localizedString(for: "phone_number")
         static let arrowName: String = "arrow.left"
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 40
-        static let neverText: String = LocalizationManager.shared.localizedString(for: "never_show")
-        static let alwaysText: String = LocalizationManager.shared.localizedString(for: "always_show")
-        static let whoCanSeeLabelText: String = LocalizationManager.shared.localizedString(for: "who_can_see_phone")
-        static let exceptionsLabelText: String = LocalizationManager.shared.localizedString(for: "exceptions")
     }
     
     // MARK: - Properties
@@ -65,7 +60,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
-        titleLabel.text = Constants.headerText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "phone_number")
         titleLabel.textAlignment = .center
     }
     
@@ -99,11 +94,12 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
         case 0:
-            phoneVisibilityData[1] = [(Constants.neverText)]
+            phoneVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "never_show")]
         case 1:
-            phoneVisibilityData[1] = [(Constants.neverText), (Constants.alwaysText)]
+            phoneVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "never_show"),
+                                      LocalizationManager.shared.localizedString(for: "always_show")]
         case 2:
-            phoneVisibilityData[1] = [(Constants.alwaysText)]
+            phoneVisibilityData[1] = [LocalizationManager.shared.localizedString(for: "always_show")]
         default:
             break
         }
@@ -192,9 +188,9 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
-            label.text = Constants.whoCanSeeLabelText
+            label.text = LocalizationManager.shared.localizedString(for: "who_can_see_phone")
         case 1:
-            label.text = Constants.exceptionsLabelText
+            label.text = LocalizationManager.shared.localizedString(for: "exceptions")
         default:
             label.text = nil
         }

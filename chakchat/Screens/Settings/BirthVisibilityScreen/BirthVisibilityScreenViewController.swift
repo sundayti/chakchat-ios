@@ -13,7 +13,6 @@ final class BirthVisibilityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = LocalizationManager.shared.localizedString(for: "date_of_birth")
         static let arrowName: String = "arrow.left"
     }
     
@@ -69,7 +68,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
-        titleLabel.text = Constants.headerText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "date_of_birth")
         titleLabel.textAlignment = .center
     }
     

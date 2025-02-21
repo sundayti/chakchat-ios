@@ -18,13 +18,7 @@ final class SendCodeViewController: UIViewController {
         static let inputNumberLabelTopAnchor: CGFloat = 100
         
         static let inputNumberTextFieldTopAnchor: CGFloat = 50
-        
-        static let descriptionLabelText: String = LocalizationManager.shared.localizedString(for: "agreement_with_prompt")
         static let descriptionLabelBottom: CGFloat = 4
-        
-        static let termsText: String = LocalizationManager.shared.localizedString(for: "terms_of_service_label")
-        static let privacyText: String = LocalizationManager.shared.localizedString(for: "privacy_policy_label")
-        static let contentsText: String = LocalizationManager.shared.localizedString(for: "content_policies_label")
         static let linksTop: CGFloat = 4
         static let linksHorizontal: CGFloat = 20
         static let linksBottom: CGFloat = 40
@@ -174,7 +168,7 @@ final class SendCodeViewController: UIViewController {
     // MARK: - Countinuing Label Configuration
     private func configureCountinuingLabel() {
         view.addSubview(descriptionLabel)
-        descriptionLabel.text = Constants.descriptionLabelText
+        descriptionLabel.text = LocalizationManager.shared.localizedString(for: "agreement_with_prompt")
         descriptionLabel.textColor = Colors.text
         descriptionLabel.font = Fonts.systemR15
         descriptionLabel.pinBottom(contentsLabel.topAnchor, Constants.descriptionLabelBottom)
@@ -186,7 +180,7 @@ final class SendCodeViewController: UIViewController {
         view.addSubview(termsLabel)
         let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
         termsLabel.attributedText = underlineAttributedString
-        termsLabel.text = Constants.termsText
+        termsLabel.text = LocalizationManager.shared.localizedString(for: "terms_of_service_label")
         termsLabel.font = Fonts.systemR12
         termsLabel.textColor = Colors.darkYellow
         termsLabel.isUserInteractionEnabled = true
@@ -204,7 +198,7 @@ final class SendCodeViewController: UIViewController {
         view.addSubview(privacyLabel)
         let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
         privacyLabel.attributedText = underlineAttributedString
-        privacyLabel.text = Constants.privacyText
+        privacyLabel.text = LocalizationManager.shared.localizedString(for: "privacy_policy_label")
         privacyLabel.font = Fonts.systemR12
         privacyLabel.textColor = Colors.darkYellow
         privacyLabel.lineBreakMode = .byWordWrapping
@@ -222,7 +216,7 @@ final class SendCodeViewController: UIViewController {
         view.addSubview(contentsLabel)
         let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
         contentsLabel.attributedText = underlineAttributedString
-        contentsLabel.text = Constants.contentsText
+        contentsLabel.text = LocalizationManager.shared.localizedString(for: "content_policies_label")
         contentsLabel.font = Fonts.systemR12
         contentsLabel.textColor = Colors.darkYellow
         contentsLabel.lineBreakMode = .byWordWrapping

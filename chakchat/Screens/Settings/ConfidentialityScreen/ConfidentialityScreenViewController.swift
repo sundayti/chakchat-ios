@@ -13,7 +13,6 @@ final class ConfidentialityScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = LocalizationManager.shared.localizedString(for: "confidantiality")
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 20
         static let arrowName: String = "arrow.left"
@@ -85,7 +84,7 @@ final class ConfidentialityScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB18
-        titleLabel.text = Constants.headerText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "confidantiality")
         titleLabel.textAlignment = .center
     }
     

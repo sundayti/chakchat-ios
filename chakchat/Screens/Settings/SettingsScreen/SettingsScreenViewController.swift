@@ -16,7 +16,6 @@ final class SettingsScreenViewController: UIViewController {
         static let iconImageSize: CGFloat = 80
         static let defaultProfileImageSymbol: String = "camera.circle"
         static let backArrowSymbol: String = "arrow.left"
-        static let headerText: String = LocalizationManager.shared.localizedString(for: "settings")
         static let iconTop: CGFloat = 10
         static let settingsTableHorizontal: CGFloat = -15
         static let settingsTableTop: CGFloat = 5
@@ -32,10 +31,6 @@ final class SettingsScreenViewController: UIViewController {
         static let tableLabelX: CGFloat = 10
         static let tableLabelY: CGFloat = 0
         static let tableLabelDifferenceToHeader: CGFloat = -10
-        static let labelCase0: String = LocalizationManager.shared.localizedString(for: "user")
-        static let labelCase1: String = LocalizationManager.shared.localizedString(for: "general")
-        static let labelCase2: String = LocalizationManager.shared.localizedString(for: "app")
-        static let labelCase3: String = LocalizationManager.shared.localizedString(for: "support")
         static let labelFontSize: CGFloat = 12
         static let spaceBetweenSections: CGFloat = 30
     }
@@ -118,7 +113,7 @@ final class SettingsScreenViewController: UIViewController {
     private func configureSettingsLabel() {
         view.addSubview(settingsLabel)
         settingsLabel.font = Fonts.systemB24
-        settingsLabel.text = Constants.headerText
+        settingsLabel.text = LocalizationManager.shared.localizedString(for: "settings")
     }
     
     // MARK: - Back Button Configuration
@@ -210,20 +205,6 @@ final class SettingsScreenViewController: UIViewController {
     private func languageDidChange() {
         settingsLabel.text = LocalizationManager.shared.localizedString(for: "settings")
         settingsLabel.sizeToFit()
-        for (section, header) in headerLabels {
-            switch section {
-            case 0:
-                header.text = LocalizationManager.shared.localizedString(for: "user")
-            case 1:
-                header.text = LocalizationManager.shared.localizedString(for: "general")
-            case 2:
-                header.text = LocalizationManager.shared.localizedString(for: "app")
-            case 3:
-                header.text = LocalizationManager.shared.localizedString(for: "support")
-            default:
-                header.text = nil
-            }
-        }
         sections = [
             [(LocalizationManager.shared.localizedString(for: "my_profile"), UIImage(systemName: "person.crop.circle"))],
             [(LocalizationManager.shared.localizedString(for: "confidantiality"), UIImage(systemName: "lock")),
@@ -255,13 +236,13 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         )
         switch section {
         case 0:
-            label.text = Constants.labelCase0
+            label.text = LocalizationManager.shared.localizedString(for: "user")
         case 1:
-            label.text = Constants.labelCase1
+            label.text = LocalizationManager.shared.localizedString(for: "general")
         case 2:
-            label.text = Constants.labelCase2
+            label.text = LocalizationManager.shared.localizedString(for: "app")
         case 3:
-            label.text = Constants.labelCase3
+            label.text = LocalizationManager.shared.localizedString(for: "support")
         default:
             label.text = nil
         }

@@ -22,7 +22,6 @@ final class SignupViewController: UIViewController {
         static let inputButtonGradientEndPoint: CGPoint = CGPoint(x: 1, y: 0.5)
         static let inputButtonGradientCornerRadius: CGFloat = 25
         
-        static let nameTextFieldPlaceholder: String = LocalizationManager.shared.localizedString(for: "name")
         static let namePaddingX: CGFloat = 0
         static let namePaddingY: CGFloat = 0
         static let namePaddingWidth: CGFloat = 10
@@ -33,7 +32,6 @@ final class SignupViewController: UIViewController {
         static let borderCornerRadius: CGFloat = 8
         static let borderWidth: CGFloat = 1
         
-        static let usernameTextFieldPlaceholder: String = LocalizationManager.shared.localizedString(for: "username")
         static let usernamePaddingX: CGFloat = 0
         static let usernamePaddingY: CGFloat = 0
         static let usernamePaddingWidth: CGFloat = 10
@@ -138,7 +136,7 @@ final class SignupViewController: UIViewController {
     private func configureNameTextField() {
         view.addSubview(nameTextField)
         nameTextField.borderStyle = UITextField.BorderStyle.roundedRect
-        nameTextField.placeholder = Constants.nameTextFieldPlaceholder
+        nameTextField.placeholder = LocalizationManager.shared.localizedString(for: "name")
         let paddingView = UIView(
             frame: CGRect(
                 x: Constants.namePaddingX,
@@ -169,7 +167,7 @@ final class SignupViewController: UIViewController {
     private func configureUsernameTextField() {
         view.addSubview(usernameTextField)
         usernameTextField.borderStyle = UITextField.BorderStyle.roundedRect
-        usernameTextField.placeholder = Constants.usernameTextFieldPlaceholder
+        usernameTextField.placeholder = LocalizationManager.shared.localizedString(for: "username")
         let paddingView = UIView(
             frame: CGRect(
                 x: Constants.usernamePaddingX,

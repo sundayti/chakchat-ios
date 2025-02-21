@@ -12,8 +12,6 @@ final class UserProfileScreenViewController: UIViewController {
     // MARK: - Constants
     private enum Constants {
         static let arrowName: String = "arrow.left"
-        static let editButtonName: String = LocalizationManager.shared.localizedString(for: "edit")
-        static let titleText: String = LocalizationManager.shared.localizedString(for: "my_profile")
         static let iconDefaultName: String = "camera.circle"
         static let iconSize: CGFloat = 100
         static let iconTop: CGFloat = 10
@@ -110,7 +108,7 @@ final class UserProfileScreenViewController: UIViewController {
     
     // MARK: - Edit Button Configuration
     private func configureEditButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.editButtonName, style: .plain, target: self, action: #selector(editButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "edit"), style: .plain, target: self, action: #selector(editButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
@@ -118,7 +116,7 @@ final class UserProfileScreenViewController: UIViewController {
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
-        titleLabel.text = Constants.titleText
+        titleLabel.text = LocalizationManager.shared.localizedString(for: "my_profile")
     }
     
     // MARK: - Icon Configuration

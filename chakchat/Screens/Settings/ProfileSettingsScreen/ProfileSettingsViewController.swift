@@ -16,8 +16,6 @@ final class ProfileSettingsViewController: UIViewController {
         static let defaultProfileImageSymbol: String = "camera.circle"
         static let iconImageSize: CGFloat = 100
         static let iconImageViewTop: CGFloat = 0
-        static let cancelButtonTitle: String = LocalizationManager.shared.localizedString(for: "cancel")
-        static let applyButtonTitle: String = LocalizationManager.shared.localizedString(for: "apply")
         static let nameTop: CGFloat = 2
         static let usernameTop: CGFloat = 2.5
         static let phoneTop: CGFloat = 2.5
@@ -26,7 +24,6 @@ final class ProfileSettingsViewController: UIViewController {
         static let defaultText: String = "default"
         
         static let logOutButtonRadius: CGFloat = 18
-        static let logOutButtonTitle: String = LocalizationManager.shared.localizedString(for: "log_out")
         static let logOutButtonTop: CGFloat = 25
         static let logOutButtonHeight: CGFloat = 38
         static let logOutButtonWidth: CGFloat = 100
@@ -35,9 +32,6 @@ final class ProfileSettingsViewController: UIViewController {
         static let dateButtonTop: CGFloat = 2.5
         static let dateButtonX: CGFloat = 20
         static let dateButtonHeight: CGFloat = 50
-        
-        static let datePickerTitle: String = LocalizationManager.shared.localizedString(for: "date_of_birth")
-        static let errorText: String = LocalizationManager.shared.localizedString(for: "error")
         
         static let birthTextFieldTop: CGFloat = 2.5
         static let birthTextFieldLeading: CGFloat = 0
@@ -114,13 +108,13 @@ final class ProfileSettingsViewController: UIViewController {
     
     // MARK: - Cancel Button Configuration
     private func configureCancelButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constants.cancelButtonTitle, style: .plain, target: self, action: #selector(cancelButtonPressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .plain, target: self, action: #selector(cancelButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.lightOrange
     }
     
     // MARK: - Apply Button Configuration
     private func configureApplyButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.applyButtonTitle, style: .plain, target: self, action: #selector(applyButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "apply"), style: .plain, target: self, action: #selector(applyButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
@@ -152,7 +146,7 @@ final class ProfileSettingsViewController: UIViewController {
         nameTextField.pinTop(iconImageView.bottomAnchor, Constants.nameTop)
         nameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         nameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        nameTextField.setText(Constants.errorText)
+        nameTextField.setText(LocalizationManager.shared.localizedString(for: "error"))
     }
     
     // MARK: - Username Text Field Configuration
@@ -161,7 +155,7 @@ final class ProfileSettingsViewController: UIViewController {
         usernameTextField.pinTop(nameTextField.bottomAnchor, Constants.usernameTop)
         usernameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         usernameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        usernameTextField.setText(Constants.errorText)
+        usernameTextField.setText(LocalizationManager.shared.localizedString(for: "error"))
     }
     
     // MARK: - Phone Text Field Configuration
@@ -170,7 +164,7 @@ final class ProfileSettingsViewController: UIViewController {
         phoneTextField.pinTop(usernameTextField.bottomAnchor, Constants.phoneTop)
         phoneTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         phoneTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
-        phoneTextField.setText(Constants.errorText)
+        phoneTextField.setText(LocalizationManager.shared.localizedString(for: "error"))
     }
     
     private func configureBirthTextField() {
@@ -182,7 +176,7 @@ final class ProfileSettingsViewController: UIViewController {
     
     // MARK: - Log Out Button Configuration
     private func configureLogOutButton() {
-        logOutButton.setTitle(Constants.logOutButtonTitle, for: .normal)
+        logOutButton.setTitle(LocalizationManager.shared.localizedString(for: "log_out"), for: .normal)
         logOutButton.setTitleColor(.systemRed, for: .normal)
         logOutButton.titleLabel?.font = Fonts.systemB20
         logOutButton.backgroundColor = .clear
@@ -216,10 +210,7 @@ final class ProfileSettingsViewController: UIViewController {
         guard let newUsername = usernameTextField.getText() else {
             throw CriticalError.noData
         }
-        var newBirth = birthTextField.getText()
-        if (newBirth != nil) {
-            newBirth = newBirth?.replacingOccurrences(of: ".", with: "-");
-        }
+        let newBirth = birthTextField.getText()
         
         return ProfileSettingsModels.ChangeableProfileUserData(
             name: newNickname,
@@ -284,7 +275,7 @@ final class ProfileSettingsViewController: UIViewController {
         datePicker.pinBottom(view.bottomAnchor, 0)
         view.bringSubviewToFront(datePicker)
         datePicker.settedDate = selectedDate ?? Date()
-        datePicker.title = Constants.datePickerTitle
+        datePicker.title = LocalizationManager.shared.localizedString(for: "date_of_birth")
         datePicker.pinSuperView(view)
         datePicker.delegate = { [weak self] date in
             self?.handleDateSelection(date)
