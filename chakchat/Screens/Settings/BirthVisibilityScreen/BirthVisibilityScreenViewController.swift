@@ -21,7 +21,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var birthVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var birthVisibilityData = [
-        [(LocalizationManager.shared.localizedString(for: "everybody")),
+        [(LocalizationManager.shared.localizedString(for: "everyone")),
          (LocalizationManager.shared.localizedString(for: "only_me")),
          (LocalizationManager.shared.localizedString(for: "specified"))],
         [(LocalizationManager.shared.localizedString(for: "never_show")),
@@ -105,7 +105,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
         if let selectedIndex {
             switch selectedIndex.row {
             case 0:
-                return "everybody"
+                return "everyone"
             case 1:
                 return "only_me"
             case 2:
@@ -114,7 +114,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
                 break
             }
         }
-        return "everybody"
+        return "everyone"
     }
     // MARK: - Actions
     @objc
@@ -133,7 +133,7 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         var rowIndex: Int
         print(userRestrictions.dateOfBirth.openTo)
         switch userRestrictions.dateOfBirth.openTo {
-        case "everybody":
+        case "everyone":
             rowIndex = 0
         case "only_me":
             rowIndex = 1

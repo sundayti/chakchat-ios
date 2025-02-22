@@ -23,7 +23,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var phoneVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var phoneVisibilityData = [
-        [(LocalizationManager.shared.localizedString(for: "everybody")),
+        [(LocalizationManager.shared.localizedString(for: "everyone")),
          (LocalizationManager.shared.localizedString(for: "only_me")),
          (LocalizationManager.shared.localizedString(for: "specified"))],
         [(LocalizationManager.shared.localizedString(for: "never_show")),
@@ -109,7 +109,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         if let selectedIndex {
             switch selectedIndex.row {
             case 0:
-                return "everybody"
+                return "everyone"
             case 1:
                 return "only_me"
             case 2:
@@ -118,7 +118,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
                 break
             }
         }
-        return "everybody"
+        return "everyone"
     }
     
     // MARK: - Actions
@@ -137,7 +137,7 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     public func markCurrentOption(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         var rowIndex: Int
         switch userRestrictions.phone.openTo {
-        case "everybody":
+        case "everyone":
             rowIndex = 0
         case "only_me":
             rowIndex = 1

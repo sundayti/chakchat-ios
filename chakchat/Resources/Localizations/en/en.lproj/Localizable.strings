@@ -45,7 +45,7 @@
 "error" = "error";
 "reset" = "Reset";
 "choose" = "Choose";
-"everybody" = "Everyone";
+"everyone" = "Everyone";
 "phone_number" = "Phone number";
 "online_status" = "Online status";
 "black_list" = "Black status";
@@ -61,3 +61,6 @@
 "sound" = "Sound";
 "vibration" = "Vibration";
 "notifications_in_app" = "Notifications in app";
+"dark" = "Dark";
+"light" = "Light";
+"system" = "System";

@@ -24,7 +24,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
     private var titleLabel: UILabel = UILabel()
     private var onlineVisibilityTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var onlineVisibilityData = [
-        [(LocalizationManager.shared.localizedString(for: "everybody")),
+        [(LocalizationManager.shared.localizedString(for: "everyone")),
          (LocalizationManager.shared.localizedString(for: "only_me")),
          (LocalizationManager.shared.localizedString(for: "specified"))],
         [(LocalizationManager.shared.localizedString(for: "never_show")),
@@ -109,7 +109,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         if let selectedIndex {
             switch selectedIndex.row {
             case 0:
-                return "everybody"
+                return "everyone"
             case 1:
                 return "only_me"
             case 2:
@@ -118,7 +118,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
                 break
             }
         }
-        return "everybody"
+        return "everyone"
     }
     // MARK: - Actions
     @objc
@@ -136,7 +136,7 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
     public func markCurrentOption(_ onlineRestriction: OnlineVisibilityStatus) {
         var rowIndex: Int
         switch onlineRestriction.status{
-        case "everybody":
+        case "everyone":
             rowIndex = 0
         case "only_me":
             rowIndex = 1

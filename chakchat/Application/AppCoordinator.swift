@@ -135,4 +135,10 @@ final class AppCoordinator {
         let languageVC = LanguageAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(languageVC, animated: true)
     }
+    
+    // MARK: - AppTheme Screen Showing
+    func showAppThemeScreen() {
+        let appThemeVC = AppThemeAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(appThemeVC, animated: true)
+    }
 }

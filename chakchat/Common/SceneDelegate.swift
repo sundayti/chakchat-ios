@@ -26,6 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appCoordinator = AppCoordinator(window: window)
         appCoordinator?.start()
         
+        ThemeManager.shared.applyTheme(theme: ThemeManager.shared.currentTheme)
+        
         window.makeKeyAndVisible()
     }
 

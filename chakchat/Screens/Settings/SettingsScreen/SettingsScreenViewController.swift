@@ -295,6 +295,9 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         // if pressed cell is "Language"
         case (2, 2):
             interactor.languageSettingsRoute()
+        // if pressed cell is "App theme"
+        case (2, 1):
+            interactor.appThemeSettingsRoute()
         default:
             break
         }

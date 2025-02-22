@@ -48,7 +48,7 @@
 "phone_number" = "Номер телефона";
 "online_status" = "Время захода";
 "black_list" = "Черный список";
-"everybody" = "Все";
+"everyone" = "Все";
 "only_me" = "Никто";
 "who_can_see_online" = "Кто видит время моего последнего захода?";
 "who_can_see_phone" = "Кто видит мой номер телефона?";
@@ -61,3 +61,6 @@
 "sound" = "Звук";
 "vibration" = "Вибрация";
 "notifications_in_app" = "Уведомления в приложении";
+"dark" = "Темная";
+"light" = "Светлая";
+"system" = "Системная";
