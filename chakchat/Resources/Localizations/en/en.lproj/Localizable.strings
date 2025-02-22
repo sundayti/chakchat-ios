@@ -45,7 +45,7 @@
 "error" = "error";
 "reset" = "Reset";
 "choose" = "Choose";
-"everybody" = "Everyone";
+"everyone" = "Everyone";
 "phone_number" = "Phone number";
 "online_status" = "Online status";
 "black_list" = "Black status";
