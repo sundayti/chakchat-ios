@@ -61,3 +61,6 @@
 "sound" = "Sound";
 "vibration" = "Vibration";
 "notifications_in_app" = "Notifications in app";
+"dark" = "Dark";
+"light" = "Light";
+"system" = "System";

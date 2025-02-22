@@ -13,6 +13,7 @@ protocol SettingsScreenBusinessLogic {
     func confidentialitySettingsRoute()
     func notificationSettingsRoute()
     func languageSettingsRoute()
+    func appThemeSettingsRoute()
     
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)

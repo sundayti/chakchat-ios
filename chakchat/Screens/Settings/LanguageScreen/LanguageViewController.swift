@@ -12,7 +12,7 @@ final class LanguageViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let headerText: String = NSLocalizedString("Language", comment: "")
+        static let headerText: String = LocalizationManager.shared.localizedString(for: "Language")
         static let arrowLabel: String = "arrow.left"
         static let tableTop: CGFloat = 0
         static let tableBottom: CGFloat = 40
@@ -24,9 +24,9 @@ final class LanguageViewController: UIViewController {
     private var selectedIndex: IndexPath?
     private var titleLabel: UILabel = UILabel()
     private var languages = [
-        [NSLocalizedString("english", comment: ""), "English"],
-        [NSLocalizedString("russian", comment: ""), "Русский"],
-        [NSLocalizedString("italian", comment: ""), "Italiano"]
+        [LocalizationManager.shared.localizedString(for: "english"), "English"],
+        [LocalizationManager.shared.localizedString(for: "russian"), "Русский"],
+        [LocalizationManager.shared.localizedString(for: "italian"), "Italiano"]
     ]
     private var isLoadingIndex: IndexPath? = nil
     private var languageTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -113,7 +113,7 @@ extension LanguageViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Marking current language
     public func markCurrentLanguage() {
         var rowIndex: Int
-        let currentLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "en"
+        let currentLanguage = LocalizationManager.shared.getCode()
         print(currentLanguage)
         switch currentLanguage {
         case "en":
