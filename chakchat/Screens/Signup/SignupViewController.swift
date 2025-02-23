@@ -5,8 +5,8 @@
 //  Created by Кирилл Исаев on 09.01.2025.
 //
 
-import Foundation
 import UIKit
+import Combine
 
 // MARK: - SignupViewController
 final class SignupViewController: UIViewController {
@@ -62,10 +62,10 @@ final class SignupViewController: UIViewController {
     private lazy var nameTextField: UITextField = UITextField()
     private lazy var usernameTextField: UITextField = UITextField()
     private lazy var sendGradientButton: UIGradientButton = UIGradientButton(title: LocalizationManager.shared.localizedString(for: "create_account"))
+    private var nameIndicator: UIImageView = UIImageView()
+    private var usernameIndicator: UIImageView = UIImageView()
     private lazy var errorLabel: UIErrorLabel = UIErrorLabel(width: Constants.maxWidth, numberOfLines: Constants.numberOfLines)
-    
-    private var isNameInputValid: Bool = false
-    private var isUsernameInputValid: Bool = false
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
     init(interactor: SignupBusinessLogic) {
@@ -123,6 +123,7 @@ final class SignupViewController: UIViewController {
         configureUsernameTextField()
         configureInputButton()
         configurateErrorLabel()
+        bindDynamicCheck()
     }
     
     // MARK: - ChakChat Configuration
@@ -135,6 +136,7 @@ final class SignupViewController: UIViewController {
     // MARK: - Name Text Field Configuration
     private func configureNameTextField() {
         view.addSubview(nameTextField)
+        nameTextField.addSubview(nameIndicator)
         nameTextField.borderStyle = UITextField.BorderStyle.roundedRect
         nameTextField.placeholder = LocalizationManager.shared.localizedString(for: "name")
         let paddingView = UIView(
@@ -157,6 +159,9 @@ final class SignupViewController: UIViewController {
         nameTextField.pinCenterX(view)
         nameTextField.setHeight(Constants.nameTextFieldHeight)
         nameTextField.setWidth(Constants.nameTextFieldWidth)
+        nameIndicator.image = nil
+        nameIndicator.pinCenterY(nameTextField)
+        nameIndicator.pinRight(nameTextField.trailingAnchor, 20)
         
         nameTextField.autocorrectionType = .no
         nameTextField.spellCheckingType = .no
@@ -166,6 +171,7 @@ final class SignupViewController: UIViewController {
     // MARK: - Username Text Field Configuration
     private func configureUsernameTextField() {
         view.addSubview(usernameTextField)
+        usernameTextField.addSubview(usernameIndicator)
         usernameTextField.borderStyle = UITextField.BorderStyle.roundedRect
         usernameTextField.placeholder = LocalizationManager.shared.localizedString(for: "username")
         let paddingView = UIView(
@@ -189,6 +195,9 @@ final class SignupViewController: UIViewController {
         usernameTextField.pinCenterX(view)
         usernameTextField.setHeight(Constants.usernameTextFieldHeight)
         usernameTextField.setWidth(Constants.usernameTextFieldWidth)
+        usernameIndicator.image = nil
+        usernameIndicator.pinCenterY(usernameTextField)
+        usernameIndicator.pinRight(usernameTextField.trailingAnchor, 20)
         
         usernameTextField.autocorrectionType = .no
         usernameTextField.spellCheckingType = .no
@@ -203,6 +212,8 @@ final class SignupViewController: UIViewController {
         sendGradientButton.setHeight(Constants.createButtonHeight)
         sendGradientButton.setWidth(Constants.createButtonWidth)
         sendGradientButton.titleLabel?.font = Fonts.systemB20
+        sendGradientButton.isEnabled = false
+        sendGradientButton.alpha = 0.5
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
@@ -211,43 +222,6 @@ final class SignupViewController: UIViewController {
         view.addSubview(errorLabel)
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
-    }
-    
-    // MARK: - Check Name and Username Fields and Show Errors
-    private func checkFields() -> Bool {
-        guard let name = nameTextField.text, !name.isEmpty else {
-            changeColor(nameTextField)
-            showError(LocalizationManager.shared.localizedString(for: "enter_your_name"))
-            return false
-        }
-        
-        let validator = SignupDataValidator()
-        isNameInputValid = validator.validateName(name)
-        if (!isNameInputValid) {
-            changeColor(nameTextField)
-            showError(LocalizationManager.shared.localizedString(for: "name_too_long"))
-            return false
-        }
-        
-        guard let username = usernameTextField.text, !username.isEmpty else {
-            changeColor(usernameTextField)
-            showError(LocalizationManager.shared.localizedString(for: "enter_username"))
-            return false
-        }
-        
-        isUsernameInputValid = validator.validateUsername(username)
-        if (!isUsernameInputValid) {
-            changeColor(usernameTextField)
-            if username.count < 2 {
-                showError(LocalizationManager.shared.localizedString(for: "username_short"))
-            } else if username.count > 19 {
-                showError(LocalizationManager.shared.localizedString(for: "username_long"))
-            } else {
-                showError(LocalizationManager.shared.localizedString(for: "use_only_characters"))
-            }
-            return false
-        }
-        return true
     }
     
     // MARK: - Text Field Changing color
@@ -260,6 +234,60 @@ final class SignupViewController: UIViewController {
                 field.layer.borderColor = originalColor
             }
         }
+    }
+    
+    private func bindDynamicCheck() {
+        let validator = SignupDataValidator()
+        let nicknamePublisher = nameTextField.textPublisher
+        let usernamePublishsr = usernameTextField.textPublisher
+        
+        let isNameInputValid = nicknamePublisher
+            .map { text in
+                return validator.validateName(text)
+            }
+        let isUsernameInputValid = usernamePublishsr
+            .map { text in
+                return validator.validateUsername(text)
+            }
+        
+        isNameInputValid
+            .sink { [weak self] isValid in
+                self?.nameIndicator.image = isValid 
+                ? UIImage(systemName: "checkmark.circle.fill")
+                : UIImage(systemName: "xmark.circle.fill")
+                
+                self?.nameTextField.layer.borderColor = isValid
+                ? CGColor(red: 0, green: 255, blue: 0, alpha: 1)
+                : CGColor(red: 255, green: 0, blue: 0, alpha: 1)
+                
+                self?.nameIndicator.tintColor = isValid
+                ? .systemGreen
+                : .systemRed
+    
+            }.store(in: &cancellables)
+        
+        isUsernameInputValid
+            .sink { [weak self] isValid in
+                self?.usernameIndicator.image = isValid
+                ? UIImage(systemName: "checkmark.circle.fill")
+                : UIImage(systemName: "xmark.circle.fill")
+                
+                self?.usernameIndicator.tintColor = isValid
+                ? .systemGreen
+                : .systemRed
+                
+                self?.usernameTextField.layer.borderColor = isValid
+                ? CGColor(red: 0, green: 255, blue: 0, alpha: 1)
+                : CGColor(red: 255, green: 0, blue: 0, alpha: 1)
+            }.store(in: &cancellables)
+        
+        Publishers.CombineLatest(isNameInputValid, isUsernameInputValid)
+            .map { $0 && $1 }
+            .sink { [weak self] isEnabled in
+                self?.sendGradientButton.isEnabled = isEnabled
+                self?.sendGradientButton.alpha = isEnabled ? 1 : 0.5
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Actions
@@ -278,13 +306,11 @@ final class SignupViewController: UIViewController {
             }
         })
         
-        if checkFields() {
-            guard let name = nameTextField.text, !name.isEmpty,
-                  let username = usernameTextField.text, !username.isEmpty else {
-                return
-            }
-            interactor.sendSignupRequest(name, username)
+        guard let name = nameTextField.text, !name.isEmpty,
+              let username = usernameTextField.text, !username.isEmpty else {
+            return
         }
+        interactor.sendSignupRequest(name, username)
     }
     
     @objc
@@ -324,3 +350,12 @@ final class SignupViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension SignupViewController: UITextFieldDelegate {}
+
+extension UITextField {
+    var textPublisher: AnyPublisher<String, Never> {
+        NotificationCenter.default
+            .publisher(for: UITextField.textDidChangeNotification, object: self)
+            .map { ($0.object as? UITextField)?.text ?? ""}
+            .eraseToAnyPublisher()
+    }
+}
