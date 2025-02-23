@@ -1,8 +1,6 @@
 "tap_hint" = "Жмяк";
 "agreement_with_prompt" = "продолжая, вы соглашаетесь с";
-"terms_of_service_label" = "условия обслуживания";
-"privacy_policy_label" = "политика конфиденциальности";
-"content_policies_label" = "политика в ​​отношении контента";
+"terms_of_service_label" = "пользовательским соглашением";
 "Language" = "Язык";
 "english" = "Английский";
 "russian" = "Русский";
@@ -64,3 +62,4 @@
 "dark" = "Темная";
 "light" = "Светлая";
 "system" = "Системная";
+"terms_link_github" = "https://github.com/chakchat/chakchat-ios/blob/main/Docs/%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%BE%D0%B5%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B5%20ChakChat.pdf";
