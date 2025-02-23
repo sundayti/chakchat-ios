@@ -5,12 +5,13 @@
 //  Created by Кирилл Исаев on 13.02.2025.
 //
 
-import Foundation
+import UIKit
+import Combine
 
 final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
 
     private let userDefaultsManager: UserDefaultsManagerProtocol
-    private let meService: UserServiceProtocol
+    private let userService: UserServiceProtocol
     private let fileStorageService: FileStorageServiceProtocol
     private let identityService: IdentityServiceProtocol
     private let keychainManager: KeychainManagerBusinessLogic
@@ -22,7 +23,7 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
          keychainManager: KeychainManagerBusinessLogic
     ) {
         self.userDefaultsManager = userDefaultsManager
-        self.meService = meService
+        self.userService = meService
         self.fileStorageService = fileStorageService
         self.identityService = identityService
         self.keychainManager = keychainManager
@@ -30,7 +31,7 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
     
     func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        meService.sendPutMeRequest(request, accessToken) { [weak self] result in
+        userService.sendPutMeRequest(request, accessToken) { [weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let newUserData):
@@ -81,6 +82,19 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
                 if keychainManager.deleteTokens() {
                     completion(.success(()))
                 }
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func checkUsername(_ username: String, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        userService.sendGetUsernameRequst(username, accessToken) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))
             }

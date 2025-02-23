@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol UserServiceProtocol {
     func sendGetMeRequest(_ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, Error>) -> Void)
@@ -22,5 +23,8 @@ protocol UserServiceProtocol {
                                    completion: @escaping (Result<SuccessResponse<EmptyResponse>, Error>) -> Void)
     
     func sendGetUsersRequest(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.Users>, any Error>) -> Void)
+    
+    func sendGetUsernameRequst(_ username: String, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void)
+
 }
 

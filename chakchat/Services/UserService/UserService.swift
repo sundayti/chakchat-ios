@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 /// пока что здесь закомменчены настоящие реализации запроса к серверу и работают только моки
 final class UserService: UserServiceProtocol {
     func sendGetMeRequest(_ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void) {
@@ -153,6 +155,48 @@ final class UserService: UserServiceProtocol {
                 )
             )
         )
+    }
+    /// нужен для поиска по username в бд, чтобы понимать, может ли пользователь использовать такой username или нет
+    /// пока что сделал стаб, в дальнейшем должно работать нормально
+    /// в текущий момент если пользователь пытается поставить username = eusername, что
+    /// идеалогически означает existing username, то ему выдается информация про этого пользователя,
+    /// т е ответ 200.
+    /// в противном случае ему вылетает ошибка userNotFound.
+    /// валидатор нужен чтобы проверять, не ввел ли пользователь некорректный username
+    func sendGetUsernameRequst(_ username: String, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void) {
+//        let endpoint = "\(UserServiceEndpoints.username.rawValue)\(username)"
+//        
+//        let headers = [
+//            "Authorization": "Bearer \(accessToken)",
+//            "Content-Type": "application/json"
+//        ]
+//        
+//        Sender.send(endpoint: endpoint, method: .get, headers: headers, completion: completion)
+        let validator = SignupDataValidator()
+        if username == "eusername" || !validator.validateUsername(username) {
+            completion(.success(SuccessResponse<ProfileSettingsModels.ProfileUserData>(
+                        data: ProfileSettingsModels.ProfileUserData(
+                            id: UUID(),
+                            name: "Mockname",
+                            username: "Mockusername",
+                            phone: "79776002210",
+                            photo: nil,
+                            dateOfBirth: "29.08.2005"
+                        )
+                    )
+                )
+            )
+        } else {
+            completion(
+                .failure(
+                    APIErrorResponse(
+                        errorType: ApiErrorType.userNotFound.rawValue,
+                        errorMessage: "Mockmessage",
+                        errorDetails: nil
+                    )
+                )
+            )
+        }
     }
 }
 
