@@ -46,7 +46,7 @@ final class AppCoordinator {
     
     // MARK: - Start Screen Creation
     private func CreateStartScreen() -> UIViewController {
-        return StartAssembly.build(with: signupContext, coordinator: self)
+        return SettingsScreenAssembly.build(with: mainAppContext, coordinator: self)
     }
     
     // MARK: - Registration Screen Showing
@@ -146,5 +146,11 @@ final class AppCoordinator {
     func showCacheScreen() {
         let cacheVC = CacheAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(cacheVC, animated: true)
+    }
+    
+    // MARK: - Help Screen Showing
+    func showHelpScreen() {
+        let helpVC = HelpAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(helpVC, animated: true)
     }
 }

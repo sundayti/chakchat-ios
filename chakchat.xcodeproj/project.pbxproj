@@ -193,6 +193,11 @@
 		E1960A222D6B49E8008E27C0 /* CacheProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A212D6B49E8008E27C0 /* CacheProtocols.swift */; };
 		E1960A242D6B4A02008E27C0 /* CacheInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A232D6B4A02008E27C0 /* CacheInteractor.swift */; };
 		E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A252D6B4A2A008E27C0 /* CacheViewController.swift */; };
+		E1960A292D6B79AA008E27C0 /* HelpAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A282D6B79AA008E27C0 /* HelpAssembly.swift */; };
+		E1960A2B2D6B79B6008E27C0 /* HelpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A2A2D6B79B6008E27C0 /* HelpPresenter.swift */; };
+		E1960A2D2D6B79C6008E27C0 /* HelpProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A2C2D6B79C6008E27C0 /* HelpProtocols.swift */; };
+		E1960A2F2D6B79D1008E27C0 /* HelpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */; };
+		E1960A312D6B79F4008E27C0 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A302D6B79F4008E27C0 /* HelpViewController.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -397,6 +402,11 @@
 		E1960A212D6B49E8008E27C0 /* CacheProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheProtocols.swift; sourceTree = "<group>"; };
 		E1960A232D6B4A02008E27C0 /* CacheInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInteractor.swift; sourceTree = "<group>"; };
 		E1960A252D6B4A2A008E27C0 /* CacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheViewController.swift; sourceTree = "<group>"; };
+		E1960A282D6B79AA008E27C0 /* HelpAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAssembly.swift; sourceTree = "<group>"; };
+		E1960A2A2D6B79B6008E27C0 /* HelpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPresenter.swift; sourceTree = "<group>"; };
+		E1960A2C2D6B79C6008E27C0 /* HelpProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpProtocols.swift; sourceTree = "<group>"; };
+		E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpInteractor.swift; sourceTree = "<group>"; };
+		E1960A302D6B79F4008E27C0 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -480,6 +490,7 @@
 		AA7BADF02D3FC7CA0030AC82 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E1960A272D6B7994008E27C0 /* HelpScreen */,
 				E1960A1C2D6B4932008E27C0 /* CacheScreen */,
 				E1960A062D6A29D9008E27C0 /* AppThemeScreen */,
 				E19609CF2D60E84F008E27C0 /* LanguageScreen */,
@@ -1090,6 +1101,18 @@
 			path = CacheScreen;
 			sourceTree = "<group>";
 		};
+		E1960A272D6B7994008E27C0 /* HelpScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E1960A282D6B79AA008E27C0 /* HelpAssembly.swift */,
+				E1960A2A2D6B79B6008E27C0 /* HelpPresenter.swift */,
+				E1960A2C2D6B79C6008E27C0 /* HelpProtocols.swift */,
+				E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */,
+				E1960A302D6B79F4008E27C0 /* HelpViewController.swift */,
+			);
+			path = HelpScreen;
+			sourceTree = "<group>";
+		};
 		E19D641A2D5E3E8800C73CAF /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1290,6 +1313,7 @@
 				AA07A6732D5C898B00CFE124 /* UserServiceProtocols.swift in Sources */,
 				AA92EC632D382057007DEC76 /* UIGradientButton.swift in Sources */,
 				AA84F03B2D4CD86600678ABA /* OnlineVisibilityScreenAssembly.swift in Sources */,
+				E1960A292D6B79AA008E27C0 /* HelpAssembly.swift in Sources */,
 				E19609E12D60F47C008E27C0 /* LanguageCell.swift in Sources */,
 				E1960A082D6A2B00008E27C0 /* AppThemeAssembly.swift in Sources */,
 				AA84F05D2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift in Sources */,
@@ -1299,6 +1323,7 @@
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				E1960A122D6A2C46008E27C0 /* AppThemeViewController.swift in Sources */,
 				AA84F0202D4BBEB800678ABA /* PhoneVisibilityScreenProtocols.swift in Sources */,
+				E1960A2F2D6B79D1008E27C0 /* HelpInteractor.swift in Sources */,
 				AA84F0532D4D0C5D00678ABA /* NotificationScreenPresenter.swift in Sources */,
 				E135ED482D54C273006CE143 /* UIDateButton.swift in Sources */,
 				AA22CD7B2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift in Sources */,
@@ -1312,6 +1337,7 @@
 				E1960A242D6B4A02008E27C0 /* CacheInteractor.swift in Sources */,
 				E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */,
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
+				E1960A312D6B79F4008E27C0 /* HelpViewController.swift in Sources */,
 				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
 				AA9B627D2D300DEE0064CB23 /* SignupDataValidator.swift in Sources */,
 				AA84EFFD2D4912AB00678ABA /* ConfidentialityScreenInteractor.swift in Sources */,
@@ -1351,6 +1377,7 @@
 				AA84F0302D4BEF1F00678ABA /* BirthVisibilityScreenPresenter.swift in Sources */,
 				AA84F0032D4912D300678ABA /* ConfidentialityScreenWorker.swift in Sources */,
 				AA9B622F2D2D6CB90064CB23 /* SendCodeProtocols.swift in Sources */,
+				E1960A2D2D6B79C6008E27C0 /* HelpProtocols.swift in Sources */,
 				AA87FC6D2D55038900E8D066 /* UserProfileScreenInteractor.swift in Sources */,
 				AA9B62432D2EC4840064CB23 /* KeychainManagerProtocol.swift in Sources */,
 				AA84F04F2D4D0C3E00678ABA /* NotificationScreenInteractor.swift in Sources */,
@@ -1383,6 +1410,7 @@
 				AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */,
 				E19609DF2D60E928008E27C0 /* LanguageProtocols.swift in Sources */,
 				AA84F0592D4D0C8300678ABA /* NotificationScreenProtocols.swift in Sources */,
+				E1960A2B2D6B79B6008E27C0 /* HelpPresenter.swift in Sources */,
 				AA1C0E412D43C927008E47D8 /* ProfileSettingsAssembly.swift in Sources */,
 				AA9B62672D2FD22B0064CB23 /* SignupAssembly.swift in Sources */,
 				AA07A6772D5D4F9300CFE124 /* ProfileSettingsWorker.swift in Sources */,

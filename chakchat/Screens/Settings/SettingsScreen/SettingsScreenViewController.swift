@@ -302,6 +302,9 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         // if pressed cell is "Data and memory"
         case (2, 0):
             interactor.cacheSettingsRoute()
+        // if pressed cell is "Help"
+        case (3, 0):
+            interactor.helpSettingsRoute()
         default:
             break
         }
