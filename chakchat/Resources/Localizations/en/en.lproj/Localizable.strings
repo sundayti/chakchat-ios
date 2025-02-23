@@ -63,3 +63,9 @@
 "light" = "Light";
 "system" = "System";
 "terms_link_github" = "https://github.com/chakchat/chakchat-ios/blob/main/Docs/Terms%20of%20Service%20ChakChat.pdf";
+"version" = "Version";
+"report_bug" = "Report a bug";
+"write_email" = "Write to us by email";
+"write_support_chat" = "Write to support in chat";
+"send_review" = "Send review";
+"not_find_answer" = "Didn't find the answer to your question?";

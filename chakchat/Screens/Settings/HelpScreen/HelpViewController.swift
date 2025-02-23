@@ -6,17 +6,36 @@
 //
 
 import UIKit
+import SafariServices
 
 final class HelpViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
         static let arrowLabel: String = "arrow.left"
+        static let versionBottom: CGFloat = 30
+        static let chakchatBottom1: CGFloat = 4
+        static let chakchatBottom2: CGFloat = 30
+        static let tableHorizontal: CGFloat = -5
+        static let tableTop: CGFloat = 20
+        static let tableBottom: CGFloat = 15
     }
     
     // MARK: - Properties
     private let interactor: HelpBusinessLogic
     private let titleLabel: UILabel = UILabel()
+    private let versionLabel: UILabel = UILabel()
+    private let chakchatLabel: UILabel = UILabel()
+    private let tableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var sections = [
+        [LocalizationManager.shared.localizedString(for: "report_bug"),
+         LocalizationManager.shared.localizedString(for: "send_review"),
+         "FAQ"
+        ],
+        [LocalizationManager.shared.localizedString(for: "write_email"),
+         LocalizationManager.shared.localizedString(for: "write_support_chat")
+        ]
+    ]
     
     // MARK: - Initialization
     init(interactor: HelpBusinessLogic) {
@@ -39,6 +58,9 @@ final class HelpViewController: UIViewController {
         configureBackButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
+        configureVersionLabel()
+        configureChakChatLabel()
+        configureTableView()
     }
     
     // MARK: - Back Button Configuration
@@ -59,9 +81,140 @@ final class HelpViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
+    // MARK: - Version Label Configuration
+    private func configureVersionLabel() {
+        if let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            view.addSubview(versionLabel)
+            versionLabel.text = LocalizationManager.shared.localizedString(for: "version") + " " + appVersion
+            versionLabel.textAlignment = .center
+            versionLabel.numberOfLines = 1
+            versionLabel.textColor = Colors.text
+            
+            versionLabel.pinCenterX(view)
+            versionLabel.pinBottom(view, Constants.versionBottom)
+        }
+    }
+    
+    // MARK: - ChakChat Label Configuration
+    private func configureChakChatLabel() {
+        view.addSubview(chakchatLabel)
+        chakchatLabel.text = "ChakChat"
+        chakchatLabel.textAlignment = .center
+        chakchatLabel.textColor = Colors.text
+        chakchatLabel.font = Fonts.systemSB20
+        chakchatLabel.pinCenterX(view)
+        if versionLabel.text != nil {
+            chakchatLabel.pinBottom(versionLabel.topAnchor, Constants.chakchatBottom1)
+        } else {
+            chakchatLabel.pinBottom(view, Constants.chakchatBottom2)
+        }
+    }
+    
+    // MARK: - Table View Configuration
+    private func configureTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = .zero
+        tableView.pinHorizontal(view, Constants.tableHorizontal)
+        tableView.pinTop(view, Constants.tableTop)
+        tableView.pinBottom(chakchatLabel.topAnchor, Constants.tableBottom)
+        tableView.register(HelpCell.self, forCellReuseIdentifier: HelpCell.cellIdentifier)
+        tableView.backgroundColor = view.backgroundColor
+    }
+    
+    // MARK: - Open FAQ
+    private func FAQ() {
+        // TODO: add link to FAQ
+        if let url = URL(string: "https://github.com/chakchat/chakchat-ios/blob/main/Docs") {
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .formSheet
+            present(safariVC, animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
         interactor.backToSettingsMenu()
     }
 }
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
+extension HelpViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - Table Header Configuration
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        
+        let label = UILabel()
+        label.frame = CGRect.init(
+            x: 10,
+            y: 0,
+            width: headerView.frame.width - 10,
+            height: headerView.frame.height - 10
+        )
+        switch section {
+        case 1:
+            label.text = LocalizationManager.shared.localizedString(for: "not_find_answer")
+        default:
+            label.text = nil
+        }
+        label.font = Fonts.systemR16
+        label.textColor = .gray
+        headerView.addSubview(label)
+        return headerView
+    }
+    
+    // MARK: - Setting Space between Sections
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    // MARK: - Setting Number of Sections
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    // MARK: - Number of lines in Section
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].count
+    }
+    
+    // MARK: - Configuration and returning the cell for the specified index
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let helpCell = tableView.dequeueReusableCell(withIdentifier: HelpCell.cellIdentifier, for: indexPath) as? HelpCell
+        else {
+            return UITableViewCell()
+        }
+        let item = sections[indexPath.section][indexPath.row]
+        helpCell.configure(with: item)
+        return helpCell
+    }
+    
+    // MARK: - Defining the behavior when a cell is clicked
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch (indexPath.section, indexPath.row) {
+        // if pressed cell is "Report a bug"
+        case (0, 0):
+            interactor.sendErrorMail(self)
+        // if pressed cell is "Send review"
+        case (0, 1):
+            interactor.reviewInAppStore()
+        // if pressed cell is "FAQ"
+        case (0, 2):
+            FAQ()
+        // if pressed cell is "Write to us by email"
+        case (1, 0):
+            interactor.sendEmptyMail(self)
+        // if pressed cell is ""Write to support in chat"
+        case (1, 1): break
+            // link to support chat in messanger
+        default:
+            break
+        }
+    }
+}
+

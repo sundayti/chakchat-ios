@@ -20,7 +20,7 @@ extension UIViewController {
         let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel, handler: nil)
         alert.addAction(cancelAction)
         let sendEmailAction = UIAlertAction(title: "Send Email", style: .default) { _ in
-            MailHelper.shared.sendEmail(message: message, from: self)
+            MailHelper.shared.sendAutoErrorEmail(message: message, from: self)
         }
         alert.addAction(sendEmailAction)
         present(alert, animated: true, completion: nil)

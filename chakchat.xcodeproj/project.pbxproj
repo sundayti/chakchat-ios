@@ -198,6 +198,7 @@
 		E1960A2D2D6B79C6008E27C0 /* HelpProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A2C2D6B79C6008E27C0 /* HelpProtocols.swift */; };
 		E1960A2F2D6B79D1008E27C0 /* HelpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */; };
 		E1960A312D6B79F4008E27C0 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A302D6B79F4008E27C0 /* HelpViewController.swift */; };
+		E1960A332D6BA5B4008E27C0 /* HelpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A322D6BA5B4008E27C0 /* HelpCell.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -407,6 +408,7 @@
 		E1960A2C2D6B79C6008E27C0 /* HelpProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpProtocols.swift; sourceTree = "<group>"; };
 		E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpInteractor.swift; sourceTree = "<group>"; };
 		E1960A302D6B79F4008E27C0 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		E1960A322D6BA5B4008E27C0 /* HelpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCell.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1109,6 +1111,7 @@
 				E1960A2C2D6B79C6008E27C0 /* HelpProtocols.swift */,
 				E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */,
 				E1960A302D6B79F4008E27C0 /* HelpViewController.swift */,
+				E1960A322D6BA5B4008E27C0 /* HelpCell.swift */,
 			);
 			path = HelpScreen;
 			sourceTree = "<group>";
@@ -1322,6 +1325,7 @@
 				AA87FC752D5503B400E8D066 /* UserProfileScreenViewController.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				E1960A122D6A2C46008E27C0 /* AppThemeViewController.swift in Sources */,
+				E1960A332D6BA5B4008E27C0 /* HelpCell.swift in Sources */,
 				AA84F0202D4BBEB800678ABA /* PhoneVisibilityScreenProtocols.swift in Sources */,
 				E1960A2F2D6B79D1008E27C0 /* HelpInteractor.swift in Sources */,
 				AA84F0532D4D0C5D00678ABA /* NotificationScreenPresenter.swift in Sources */,
