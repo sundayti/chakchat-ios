@@ -7,6 +7,7 @@
 
 import UIKit
 import OSLog
+import Combine
 
 // MARK: - ProfileSettingsInteractor
 final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
@@ -116,6 +117,18 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
             case .failure(let failure):
                 os_log("File uploding to server failed", log: logger, type: .error)
                 _ = self.errorHandler.handleError(failure)
+            }
+        }
+    }
+    
+    func checkUsername(_ username: String, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+        worker.checkUsername(username) { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let failure):
+                completion(.failure(failure))
             }
         }
     }

@@ -21,7 +21,7 @@ protocol FileStorageServiceProtocol {
     
     func sendFileUploadPartRequest(_ partNumber: Int,
                                    _ uploadID: UUID,
-                                   _ fileData: Data,
+                                   _ fileURL: URL,
                                    _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadPartResponse>, Error>) -> Void)
     
     func sendFileUploadAbortRequest(_ request: FileStorageRequest.UploadAbort,
