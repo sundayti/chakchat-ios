@@ -46,7 +46,7 @@
 "everyone" = "Everyone";
 "phone_number" = "Phone number";
 "online_status" = "Online status";
-"black_list" = "Black status";
+"black_list" = "Black list";
 "only_me" = "Nobody";
 "who_can_see_online" = "Who can see my online status?";
 "who_can_see_phone" = "Who can see my phone number?";

@@ -156,7 +156,7 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
             interactor.routeToOnlineVisibilityScreen()
             break
         case (0,3):
-            print("Route to black list")
+            interactor.routeToBlackListScreen()
             break
         default:
             break

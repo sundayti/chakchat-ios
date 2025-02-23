@@ -153,4 +153,10 @@ final class AppCoordinator {
         let helpVC = HelpAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(helpVC, animated: true)
     }
+    
+    // MARK: - Black List Screen Showing
+    func showBlackListScreen() {
+        let blackListVC = BlackListAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(blackListVC, animated: true)
+    }
 }

@@ -199,6 +199,11 @@
 		E1960A2F2D6B79D1008E27C0 /* HelpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */; };
 		E1960A312D6B79F4008E27C0 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A302D6B79F4008E27C0 /* HelpViewController.swift */; };
 		E1960A332D6BA5B4008E27C0 /* HelpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A322D6BA5B4008E27C0 /* HelpCell.swift */; };
+		E1960A452D6BE12C008E27C0 /* BlackListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A442D6BE12C008E27C0 /* BlackListAssembly.swift */; };
+		E1960A472D6BE13C008E27C0 /* BlackListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A462D6BE13C008E27C0 /* BlackListPresenter.swift */; };
+		E1960A492D6BE148008E27C0 /* BlackListProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A482D6BE148008E27C0 /* BlackListProtocols.swift */; };
+		E1960A4B2D6BE159008E27C0 /* BlackListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A4A2D6BE159008E27C0 /* BlackListInteractor.swift */; };
+		E1960A4D2D6BE168008E27C0 /* BlackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A4C2D6BE168008E27C0 /* BlackListViewController.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -409,6 +414,11 @@
 		E1960A2E2D6B79D1008E27C0 /* HelpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpInteractor.swift; sourceTree = "<group>"; };
 		E1960A302D6B79F4008E27C0 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		E1960A322D6BA5B4008E27C0 /* HelpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCell.swift; sourceTree = "<group>"; };
+		E1960A442D6BE12C008E27C0 /* BlackListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackListAssembly.swift; sourceTree = "<group>"; };
+		E1960A462D6BE13C008E27C0 /* BlackListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackListPresenter.swift; sourceTree = "<group>"; };
+		E1960A482D6BE148008E27C0 /* BlackListProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackListProtocols.swift; sourceTree = "<group>"; };
+		E1960A4A2D6BE159008E27C0 /* BlackListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackListInteractor.swift; sourceTree = "<group>"; };
+		E1960A4C2D6BE168008E27C0 /* BlackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackListViewController.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -492,6 +502,7 @@
 		AA7BADF02D3FC7CA0030AC82 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E1960A432D6BE116008E27C0 /* BlackListScreen */,
 				E1960A272D6B7994008E27C0 /* HelpScreen */,
 				E1960A1C2D6B4932008E27C0 /* CacheScreen */,
 				E1960A062D6A29D9008E27C0 /* AppThemeScreen */,
@@ -1116,6 +1127,18 @@
 			path = HelpScreen;
 			sourceTree = "<group>";
 		};
+		E1960A432D6BE116008E27C0 /* BlackListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E1960A442D6BE12C008E27C0 /* BlackListAssembly.swift */,
+				E1960A462D6BE13C008E27C0 /* BlackListPresenter.swift */,
+				E1960A482D6BE148008E27C0 /* BlackListProtocols.swift */,
+				E1960A4A2D6BE159008E27C0 /* BlackListInteractor.swift */,
+				E1960A4C2D6BE168008E27C0 /* BlackListViewController.swift */,
+			);
+			path = BlackListScreen;
+			sourceTree = "<group>";
+		};
 		E19D641A2D5E3E8800C73CAF /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1280,6 +1303,7 @@
 				AA84F04B2D4D0C0B00678ABA /* NotificationCell.swift in Sources */,
 				AA07A6752D5CA17B00CFE124 /* UserServiceEndpoints.swift in Sources */,
 				AA84EFFF2D4912B600678ABA /* ConfidentialityScreenPresenter.swift in Sources */,
+				E1960A4D2D6BE168008E27C0 /* BlackListViewController.swift in Sources */,
 				E19609FF2D627EB3008E27C0 /* FileStorageServiceProtocols.swift in Sources */,
 				AA92EC6F2D3932D6007DEC76 /* SenderProtocols.swift in Sources */,
 				AA9B62482D2EC78F0064CB23 /* VerifyInteractor.swift in Sources */,
@@ -1324,6 +1348,7 @@
 				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
 				AA87FC752D5503B400E8D066 /* UserProfileScreenViewController.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
+				E1960A452D6BE12C008E27C0 /* BlackListAssembly.swift in Sources */,
 				E1960A122D6A2C46008E27C0 /* AppThemeViewController.swift in Sources */,
 				E1960A332D6BA5B4008E27C0 /* HelpCell.swift in Sources */,
 				AA84F0202D4BBEB800678ABA /* PhoneVisibilityScreenProtocols.swift in Sources */,
@@ -1362,6 +1387,7 @@
 				AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */,
 				E1960A222D6B49E8008E27C0 /* CacheProtocols.swift in Sources */,
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
+				E1960A4B2D6BE159008E27C0 /* BlackListInteractor.swift in Sources */,
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
 				E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */,
@@ -1402,6 +1428,7 @@
 				E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */,
 				AA1C0E472D43C984008E47D8 /* ProfileSettingsModels.swift in Sources */,
 				AA84F0472D4CD89800678ABA /* OnlineVisibilityScreenViewController.swift in Sources */,
+				E1960A472D6BE13C008E27C0 /* BlackListPresenter.swift in Sources */,
 				E19609D92D60E8F6008E27C0 /* LanguagePresenter.swift in Sources */,
 				AA87FC772D5503BD00E8D066 /* UserProfileScreenProtocols.swift in Sources */,
 				E1960A142D6A3169008E27C0 /* AppThemeCell.swift in Sources */,
@@ -1429,6 +1456,7 @@
 				AA9B62802D3018CB0064CB23 /* SignupContext.swift in Sources */,
 				AA9B62A12D32DFC60064CB23 /* StateMachine.swift in Sources */,
 				E19609EA2D61FFF2008E27C0 /* LocalizationManager.swift in Sources */,
+				E1960A492D6BE148008E27C0 /* BlackListProtocols.swift in Sources */,
 				AA9B625B2D2EE5620064CB23 /* VerificationCodeValidator.swift in Sources */,
 				AA84F04D2D4D0C3600678ABA /* NotificationScreenAssembly.swift in Sources */,
 			);
@@ -1641,7 +1669,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ5MGT6276;
+				DEVELOPMENT_TEAM = F46Y9QM766;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1654,7 +1682,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mmrdr;
+				PRODUCT_BUNDLE_IDENTIFIER = lzkgmr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1671,7 +1699,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XQ5MGT6276;
+				DEVELOPMENT_TEAM = F46Y9QM766;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chakchat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1684,7 +1712,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mmrdr;
+				PRODUCT_BUNDLE_IDENTIFIER = lzkgmr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
