@@ -5,8 +5,9 @@
 //  Created by Кирилл Исаев on 24.01.2025.
 //
 
-import Foundation
 import UIKit
+import Combine
+import OSLog
 
 // MARK: - ProfileSettingsViewController
 final class ProfileSettingsViewController: UIViewController {
@@ -48,6 +49,10 @@ final class ProfileSettingsViewController: UIViewController {
     private var dateButton: UIButton = UIButton(type: .system)
     private let dateFormatter: DateFormatter = DateFormatter()
     let interactor: ProfileSettingsScreenBusinessLogic
+    private var cancellables = Set<AnyCancellable>()
+    private var nameIndicator: UIImageView = UIImageView()
+    private var usernameIndicator: UIImageView = UIImageView()
+    private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     private var selectedDate: Date?
     private var imageURL: URL?
     
@@ -104,6 +109,8 @@ final class ProfileSettingsViewController: UIViewController {
         configureCancelButton()
         configureApplyButton()
         configureLogOutButton()
+        
+        bindDynamicCheck()
     }
     
     // MARK: - Cancel Button Configuration
@@ -143,19 +150,34 @@ final class ProfileSettingsViewController: UIViewController {
     // MARK: - Name Text Field Configuration
     private func configureNameTextField() {
         view.addSubview(nameTextField)
+        nameTextField.addSubview(nameIndicator)
         nameTextField.pinTop(iconImageView.bottomAnchor, Constants.nameTop)
         nameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         nameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
         nameTextField.setText(LocalizationManager.shared.localizedString(for: "error"))
+        nameIndicator.image = nil
+        nameIndicator.pinCenterY(nameTextField)
+        nameIndicator.pinRight(nameTextField.trailingAnchor, 20)
     }
     
     // MARK: - Username Text Field Configuration
     private func configureUsernameTextField() {
         view.addSubview(usernameTextField)
+        usernameTextField.addSubview(activityIndicator)
+        usernameTextField.addSubview(usernameIndicator)
         usernameTextField.pinTop(nameTextField.bottomAnchor, Constants.usernameTop)
         usernameTextField.pinLeft(view.leadingAnchor, Constants.fieldsLeading)
         usernameTextField.pinRight(view.trailingAnchor, Constants.fieldsTrailing)
         usernameTextField.setText(LocalizationManager.shared.localizedString(for: "error"))
+        
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.stopAnimating()
+        activityIndicator.pinCenter(usernameTextField)
+        
+        usernameIndicator.image = nil
+        usernameIndicator.pinCenterY(usernameTextField)
+        usernameIndicator.pinRight(usernameTextField.trailingAnchor, 20)
+   
     }
     
     // MARK: - Phone Text Field Configuration
@@ -218,6 +240,48 @@ final class ProfileSettingsViewController: UIViewController {
             photo: imageURL,
             dateOfBirth: newBirth
         )
+    }
+    
+    private func bindDynamicCheck() {
+        usernameTextField.textField.textPublisher
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .filter { !$0.isEmpty }
+            .flatMap { [weak self] username -> AnyPublisher<Result<ProfileSettingsModels.ProfileUserData, Error>, Never> in
+                guard let self = self else { return Empty().eraseToAnyPublisher() }
+                self.activityIndicator.startAnimating()
+                print(self.activityIndicator.frame)
+                print(self.activityIndicator.isAnimating)
+                print(self.activityIndicator.isHidden)
+                self.usernameIndicator.image = nil
+                return Future { promise in
+                    self.interactor.checkUsername(username) { result in
+                        switch result {
+                        case .success(let userData):
+                            promise(.success(.success(userData)))
+                        case .failure(let failure):
+                            promise(.success(.failure(failure)))
+                        }
+                    }
+                }
+                .eraseToAnyPublisher()
+            }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] result in
+                self?.activityIndicator.stopAnimating()
+                switch result {
+                case .success(_):
+                    self?.usernameIndicator.image = UIImage(systemName:  "xmark.circle.fill")
+                    self?.usernameIndicator.tintColor = .systemRed
+                case .failure(let error):
+                    if let err = error as? APIErrorResponse {
+                        if err.errorType == ApiErrorType.userNotFound.rawValue {
+                            self?.usernameIndicator.image = UIImage(systemName: "checkmark.circle.fill")
+                            self?.usernameIndicator.tintColor = .systemGreen
+                        }
+                    }
+                }
+            }.store(in: &cancellables)
     }
     
     // MARK: - Actions

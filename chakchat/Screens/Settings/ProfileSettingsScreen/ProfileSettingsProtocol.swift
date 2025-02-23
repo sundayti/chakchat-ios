@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 // MARK: - ProfileSettingsBusinessLogic
 protocol ProfileSettingsScreenBusinessLogic {
@@ -14,6 +15,8 @@ protocol ProfileSettingsScreenBusinessLogic {
     func saveNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData)
     func loadUserData()
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
+    func checkUsername(_ username: String,
+                       completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     
     func signOut()
     
@@ -32,6 +35,7 @@ protocol ProfileSettingsScreenWorkerLogic {
     func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     func getUserData() -> ProfileSettingsModels.ProfileUserData
     func saveImageURL(_ url: URL)
+    func checkUsername(_ username: String, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     
     func signOut(completion: @escaping (Result<Void, Error>) -> Void)
     
