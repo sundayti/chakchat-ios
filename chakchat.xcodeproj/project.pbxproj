@@ -188,6 +188,11 @@
 		E1960A172D6A35D4008E27C0 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A162D6A35D4008E27C0 /* ThemeManager.swift */; };
 		E1960A192D6A35E1008E27C0 /* ThemeManagerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A182D6A35E1008E27C0 /* ThemeManagerProtocols.swift */; };
 		E1960A1B2D6A3666008E27C0 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A1A2D6A3666008E27C0 /* AppTheme.swift */; };
+		E1960A1E2D6B4998008E27C0 /* CacheAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A1D2D6B4998008E27C0 /* CacheAssembly.swift */; };
+		E1960A202D6B49C4008E27C0 /* CachePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A1F2D6B49C4008E27C0 /* CachePresenter.swift */; };
+		E1960A222D6B49E8008E27C0 /* CacheProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A212D6B49E8008E27C0 /* CacheProtocols.swift */; };
+		E1960A242D6B4A02008E27C0 /* CacheInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A232D6B4A02008E27C0 /* CacheInteractor.swift */; };
+		E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A252D6B4A2A008E27C0 /* CacheViewController.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -387,6 +392,11 @@
 		E1960A162D6A35D4008E27C0 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		E1960A182D6A35E1008E27C0 /* ThemeManagerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManagerProtocols.swift; sourceTree = "<group>"; };
 		E1960A1A2D6A3666008E27C0 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		E1960A1D2D6B4998008E27C0 /* CacheAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAssembly.swift; sourceTree = "<group>"; };
+		E1960A1F2D6B49C4008E27C0 /* CachePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePresenter.swift; sourceTree = "<group>"; };
+		E1960A212D6B49E8008E27C0 /* CacheProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheProtocols.swift; sourceTree = "<group>"; };
+		E1960A232D6B4A02008E27C0 /* CacheInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInteractor.swift; sourceTree = "<group>"; };
+		E1960A252D6B4A2A008E27C0 /* CacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheViewController.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -470,6 +480,7 @@
 		AA7BADF02D3FC7CA0030AC82 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E1960A1C2D6B4932008E27C0 /* CacheScreen */,
 				E1960A062D6A29D9008E27C0 /* AppThemeScreen */,
 				E19609CF2D60E84F008E27C0 /* LanguageScreen */,
 				AA84F0482D4D0BEB00678ABA /* NotificationsScreen */,
@@ -1067,6 +1078,18 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
+		E1960A1C2D6B4932008E27C0 /* CacheScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E1960A1D2D6B4998008E27C0 /* CacheAssembly.swift */,
+				E1960A1F2D6B49C4008E27C0 /* CachePresenter.swift */,
+				E1960A212D6B49E8008E27C0 /* CacheProtocols.swift */,
+				E1960A232D6B4A02008E27C0 /* CacheInteractor.swift */,
+				E1960A252D6B4A2A008E27C0 /* CacheViewController.swift */,
+			);
+			path = CacheScreen;
+			sourceTree = "<group>";
+		};
 		E19D641A2D5E3E8800C73CAF /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,6 +1233,7 @@
 				AA7BAE002D3FCA740030AC82 /* SettingsScreenViewController.swift in Sources */,
 				AA07A67B2D5E596500CFE124 /* OnlineVisibilityScreenModels.swift in Sources */,
 				AA1C0E432D43C968008E47D8 /* ProfileSettingsInteractor.swift in Sources */,
+				E1960A202D6B49C4008E27C0 /* CachePresenter.swift in Sources */,
 				AA84F0652D53672B00678ABA /* ContextsProtocols.swift in Sources */,
 				E11D350F2D40C3F400A698EA /* Colors.swift in Sources */,
 				AA84F0362D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift in Sources */,
@@ -1285,6 +1309,7 @@
 				E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */,
 				AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */,
 				AA07A6792D5E1D2000CFE124 /* UpdateRestrictionsEvent.swift in Sources */,
+				E1960A242D6B4A02008E27C0 /* CacheInteractor.swift in Sources */,
 				E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */,
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
 				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
@@ -1294,6 +1319,7 @@
 				9B1EC0802D36CEEF00E01E00 /* UIView+Pin.swift in Sources */,
 				AA1C0E332D43A081008E47D8 /* Event.swift in Sources */,
 				AA84F0552D4D0C6900678ABA /* NotificationScreenViewController.swift in Sources */,
+				E1960A1E2D6B4998008E27C0 /* CacheAssembly.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
 				AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */,
@@ -1304,9 +1330,11 @@
 				AA9B627B2D3004850064CB23 /* SignupWorker.swift in Sources */,
 				AA9B62592D2EDF9F0064CB23 /* ErrorModels.swift in Sources */,
 				AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */,
+				E1960A222D6B49E8008E27C0 /* CacheProtocols.swift in Sources */,
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
+				E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */,
 				E1960A172D6A35D4008E27C0 /* ThemeManager.swift in Sources */,
 				AA84F0512D4D0C4600678ABA /* NotificationScreenWorker.swift in Sources */,
 				E135ED4A2D54EB33006CE143 /* UICustomDatePicker.swift in Sources */,

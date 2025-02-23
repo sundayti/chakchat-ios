@@ -141,4 +141,10 @@ final class AppCoordinator {
         let appThemeVC = AppThemeAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(appThemeVC, animated: true)
     }
+    
+    // MARK: - Cache Screen Showing
+    func showCacheScreen() {
+        let cacheVC = CacheAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(cacheVC, animated: true)
+    }
 }

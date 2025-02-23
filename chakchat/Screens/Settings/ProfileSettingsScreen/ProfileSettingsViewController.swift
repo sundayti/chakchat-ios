@@ -36,6 +36,7 @@ final class ProfileSettingsViewController: UIViewController {
         static let birthTextFieldTop: CGFloat = 2.5
         static let birthTextFieldLeading: CGFloat = 0
         static let birthTextFieldTrailing: CGFloat = 0
+        static let cornerRadius: CGFloat = 50
     }
     
     // MARK: - Properties
@@ -82,6 +83,7 @@ final class ProfileSettingsViewController: UIViewController {
         if let photoURL = userData.photo {
             if let image = interactor.unpackPhotoByUrl(photoURL) {
                 iconImageView.image = image
+                iconImageView.layer.cornerRadius = Constants.cornerRadius
             }
         }
     }

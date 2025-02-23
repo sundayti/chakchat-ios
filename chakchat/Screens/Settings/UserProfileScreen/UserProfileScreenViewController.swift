@@ -20,6 +20,7 @@ final class UserProfileScreenViewController: UIViewController {
         static let userTableBottom: CGFloat = 20
         static let userTableYop: CGFloat = 0
         static let estimateRowHeight: CGFloat = 60
+        static let cornerRadius: CGFloat = 50
     }
     
     // MARK: - Properties
@@ -66,6 +67,7 @@ final class UserProfileScreenViewController: UIViewController {
         if let photoURL = userData.photo {
             if let image = interactor.unpackPhotoByUrl(photoURL) {
                 iconImageView.image = image
+                iconImageView.layer.cornerRadius = Constants.cornerRadius
             }
         }
     }
@@ -79,6 +81,7 @@ final class UserProfileScreenViewController: UIViewController {
         if let photoURL = userData.photo {
             if let image = interactor.unpackPhotoByUrl(photoURL) {
                 iconImageView.image = image
+                iconImageView.layer.cornerRadius = Constants.cornerRadius
             }
         }
         userTableView.reloadData()

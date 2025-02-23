@@ -33,6 +33,7 @@ final class SettingsScreenViewController: UIViewController {
         static let tableLabelDifferenceToHeader: CGFloat = -10
         static let labelFontSize: CGFloat = 12
         static let spaceBetweenSections: CGFloat = 30
+        static let cornerRadius: CGFloat = 50
     }
     
     // MARK: - Properties
@@ -132,7 +133,7 @@ final class SettingsScreenViewController: UIViewController {
         iconImageView.setHeight(Constants.iconImageSize)
         iconImageView.setWidth(Constants.iconImageSize)
         iconImageView.contentMode = .scaleAspectFill
-        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.layer.cornerRadius = Constants.cornerRadius
         iconImageView.layer.masksToBounds = true
         iconImageView.pinCenterX(view)
         iconImageView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.iconTop)
@@ -298,6 +299,9 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         // if pressed cell is "App theme"
         case (2, 1):
             interactor.appThemeSettingsRoute()
+        // if pressed cell is "Data and memory"
+        case (2, 0):
+            interactor.cacheSettingsRoute()
         default:
             break
         }
