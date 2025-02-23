@@ -1,8 +1,6 @@
 "tap_hint" = "Tap";
 "agreement_with_prompt" = "by continuing, you agree to our";
 "terms_of_service_label" = "terms of service";
-"privacy_policy_label" = "privacy policy";
-"content_policies_label" = "content policies";
 "Language" = "Language";
 "english" = "English";
 "russian" = "Russian";
@@ -64,3 +62,10 @@
 "dark" = "Dark";
 "light" = "Light";
 "system" = "System";
+"terms_link_github" = "https://github.com/chakchat/chakchat-ios/blob/main/Docs/Terms%20of%20Service%20ChakChat.pdf";
+"version" = "Version";
+"report_bug" = "Report a bug";
+"write_email" = "Write to us by email";
+"write_support_chat" = "Write to support in chat";
+"send_review" = "Send review";
+"not_find_answer" = "Didn't find the answer to your question?";

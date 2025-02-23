@@ -38,6 +38,12 @@ enum SettingsScreenAssembly {
         interactor.onRouteToAppThemeSettings = { [weak coordinator] in
             coordinator?.showAppThemeScreen()
         }
+        interactor.onRouteToCacheSettings = { [weak coordinator] in
+            coordinator?.showCacheScreen()
+        }
+        interactor.onRouteToHelpSettings = { [weak coordinator] in
+            coordinator?.showHelpScreen()
+        }
         
         let view = SettingsScreenViewController(interactor: interactor)
         presenter.view = view

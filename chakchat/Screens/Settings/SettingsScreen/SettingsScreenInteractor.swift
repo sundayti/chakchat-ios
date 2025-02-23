@@ -24,6 +24,8 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     var onRouteToNotificationsSettings: (() -> Void)?
     var onRouteToLanguageSettings: (() -> Void)?
     var onRouteToAppThemeSettings: (() -> Void)?
+    var onRouteToCacheSettings: (() -> Void)?
+    var onRouteToHelpSettings: (() -> Void)?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -122,5 +124,15 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     func appThemeSettingsRoute() {
         os_log("Routed to app theme settings screen", log: logger, type: .default)
         onRouteToAppThemeSettings?()
+    }
+    
+    func cacheSettingsRoute() {
+        os_log("Routed to cache settings screen", log: logger, type: .default)
+        onRouteToCacheSettings?()
+    }
+    
+    func helpSettingsRoute() {
+        os_log("Routed to help settings screen", log: logger, type: .default)
+        onRouteToHelpSettings?()
     }
 }

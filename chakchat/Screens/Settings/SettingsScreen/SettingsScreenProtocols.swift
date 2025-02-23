@@ -14,6 +14,8 @@ protocol SettingsScreenBusinessLogic {
     func notificationSettingsRoute()
     func languageSettingsRoute()
     func appThemeSettingsRoute()
+    func cacheSettingsRoute()
+    func helpSettingsRoute()
     
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)
