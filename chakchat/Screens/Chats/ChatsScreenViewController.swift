@@ -107,12 +107,18 @@ final class ChatsScreenViewController: UIViewController {
         newChatButton.setImage(gearImage, for: .normal)
         newChatButton.contentHorizontalAlignment = .fill
         newChatButton.contentVerticalAlignment = .fill
+        newChatButton.addTarget(self, action: #selector(plusButtonPressed), for: .touchUpInside)
     }
     
     // MARK: - Actions
     @objc
     private func settingButtonPressed() {
         interactor.routeToSettingsScreen()
+    }
+    
+    @objc
+    private func plusButtonPressed() {
+        interactor.routeToNewMessageScreen()
     }
     
     @objc

@@ -10,6 +10,7 @@ import UIKit
 // MARK: - ChatsScreenBusinessLogic
 protocol ChatsScreenBusinessLogic {
     func routeToSettingsScreen()
+    func routeToNewMessageScreen()
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void)
     func handleError(_ error: Error)
 }

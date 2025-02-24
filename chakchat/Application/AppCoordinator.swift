@@ -46,7 +46,7 @@ final class AppCoordinator {
     
     // MARK: - Start Screen Creation
     private func CreateStartScreen() -> UIViewController {
-        return StartAssembly.build(with: signupContext, coordinator: self)
+        return ChatsAssembly.build(with: mainAppContext, coordinator: self)
     }
     
     // MARK: - Registration Screen Showing
@@ -159,4 +159,11 @@ final class AppCoordinator {
         let blackListVC = BlackListAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(blackListVC, animated: true)
     }
+    
+    // MARK: - New message Screen Showing
+    func showNewMessageScreen() {
+        let newMessageVC = NewMessageAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(newMessageVC, animated: true)
+    }
+
 }
