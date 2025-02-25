@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol FileStorageServiceProtocol {
-    func sendFileUploadRequest(_ fileURL: URL,
+    func sendFileUploadRequest(_ fileData: Data,
                                _ fileName: String,
                                _ mimeType: String,
                                _ accessToken: String, 

@@ -38,7 +38,7 @@ final class VerifyWorker: VerifyWorkerLogic {
                 guard let self = self else {return}
                 switch result {
                 case .success(let successResponse):
-                    guard let successResponse = successResponse as? SuccessModels.Tokens else {
+                    guard let successResponse = successResponse.data as? SuccessModels.Tokens else {
                         completion(.success(SignupState.signup))
                         return
                     }
