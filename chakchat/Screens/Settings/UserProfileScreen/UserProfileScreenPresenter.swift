@@ -21,4 +21,8 @@ final class UserProfileScreenPresenter: UserProfileScreenPresentationLogic {
     func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
         view?.updateUserData(userData)
     }
+    
+    func showNewPhoto(_ photo: URL?) {
+        view?.updatePhoto(photo)
+    }
 }

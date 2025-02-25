@@ -58,22 +58,21 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
         presenter.showNewUserData(userData)
     }
     
-    func unpackPhotoByUrl(_ url: URL) -> UIImage? {
-        print(url.path)
-        if FileManager.default.fileExists(atPath: url.path) {
-            if let image = UIImage(contentsOfFile: url.path) {
-                return image
-            }
-            return nil
-        }
-        return nil
+    func showNewPhoto(_ photo: URL?) {
+        os_log("Passed new photo in user settings screen to presenter", log: logger, type: .default)
+        presenter.showNewPhoto(photo)
+    }
+    
+    func handlePhotoChangedEvent(_ event: UpdatePhotoEvent) {
+        os_log("Handled photo changes in user profile screen", log: logger, type: .default)
+        let newPhoto = event.newPhoto
+        showNewPhoto(newPhoto)
     }
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         os_log("Handled user data changes in user profile screen", log: logger, type: .default)
         let newUserData = ProfileSettingsModels.ChangeableProfileUserData(name: event.newNickname,
                                                                           username: event.newUsername,
-                                                                          photo: event.newPhoto,
                                                                           dateOfBirth: event.newBirth)
         showNewUserData(newUserData)
     }
@@ -91,6 +90,9 @@ final class UserProfileScreenInteractor: UserProfileScreenBusinessLogic {
     private func subscribeToEvents() {
         eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
             self?.handleUserDataChangedEvent(event)
+        }.store(in: &cancellables)
+        eventSubscriber.subscribe(UpdatePhotoEvent.self) { [weak self] event in
+            self?.handlePhotoChangedEvent(event)
         }.store(in: &cancellables)
     }
 }

@@ -15,16 +15,17 @@ protocol UserProfileScreenBusinessLogic {
     func loadUserData()
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData)
-    
-    func unpackPhotoByUrl(_ url: URL) -> UIImage?
+    func showNewPhoto(_ photo: URL?)
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent)
+    func handlePhotoChangedEvent(_ event: UpdatePhotoEvent)
 }
 
 // MARK: - UserProfileScreenPresentationLogic
 protocol UserProfileScreenPresentationLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData)
+    func showNewPhoto(_ photo: URL?)
 }
 
 // MARK: - UserProfileScreenWorkerLogic

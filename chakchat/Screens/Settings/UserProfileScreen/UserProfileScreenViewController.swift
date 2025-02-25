@@ -28,6 +28,7 @@ final class UserProfileScreenViewController: UIViewController {
     private var nameLabel: UILabel = UILabel()
     private var iconImageView: UIImageView = UIImageView()
     private var userTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+    let config = UIImage.SymbolConfiguration(pointSize: Constants.iconSize, weight: .light, scale: .default)
     private var userTableViewData: [(title: String, value: String)] = [
         (LocalizationManager.shared.localizedString(for: "username"), ""),
         (LocalizationManager.shared.localizedString(for: "phone"), ""),
@@ -65,10 +66,9 @@ final class UserProfileScreenViewController: UIViewController {
             userTableViewData[2].value = birth
         }
         if let photoURL = userData.photo {
-            if let image = interactor.unpackPhotoByUrl(photoURL) {
-                iconImageView.image = image
-                iconImageView.layer.cornerRadius = Constants.cornerRadius
-            }
+            let image = ImageCacheManager.shared.getImage(for: photoURL as NSURL)
+            iconImageView.image = image
+            iconImageView.layer.cornerRadius = 50
         }
     }
     
@@ -78,13 +78,18 @@ final class UserProfileScreenViewController: UIViewController {
         if let birth = userData.dateOfBirth {
             userTableViewData[2].value = birth
         }
-        if let photoURL = userData.photo {
-            if let image = interactor.unpackPhotoByUrl(photoURL) {
-                iconImageView.image = image
-                iconImageView.layer.cornerRadius = Constants.cornerRadius
-            }
-        }
         userTableView.reloadData()
+    }
+    
+    public func updatePhoto(_ photo: URL?) {
+        if let url = photo {
+            let image = ImageCacheManager.shared.getImage(for: url as NSURL)
+            iconImageView.image = image
+            iconImageView.layer.cornerRadius = 50
+        } else {
+            iconImageView.image = UIImage(systemName: Constants.iconDefaultName, withConfiguration: config)
+            iconImageView.layer.cornerRadius = 50
+        }
     }
     
     // MARK: - UI Confoguration
@@ -132,7 +137,6 @@ final class UserProfileScreenViewController: UIViewController {
         iconImageView.layer.masksToBounds = true
         iconImageView.pinCenterX(view)
         iconImageView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.iconTop)
-        let config = UIImage.SymbolConfiguration(pointSize: Constants.iconSize, weight: .light, scale: .default)
         let gearImage = UIImage(systemName: Constants.iconDefaultName, withConfiguration: config)
         iconImageView.tintColor = Colors.lightOrange
         iconImageView.image = gearImage
