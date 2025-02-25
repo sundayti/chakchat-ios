@@ -19,6 +19,8 @@ final class NewGroupViewController: UIViewController {
         static let tableTop: CGFloat = 10
         static let tableBottom: CGFloat = 0
         static let tableHorizontal: CGFloat = 0
+        static let imageViewSize: CGFloat = 90
+        static let imageBorderWidth: CGFloat = 10
     }
     
     // MARK: - Properties
@@ -32,6 +34,9 @@ final class NewGroupViewController: UIViewController {
     private let tableView: UITableView = UITableView()
     private var shouldAnimateEmptyButton = false
     private let usersTableView: UITableView = UITableView()
+    private var iconImageView: UIImageView = UIImageView()
+    private let groupNameTextField: UITextField = UITextField()
+
     
     // MARK: - Initialization
     init(interactor: NewGroupBusinessLogic) {
@@ -69,6 +74,7 @@ final class NewGroupViewController: UIViewController {
         configureTitleLabel()
         configureSearchController()
         configureEmptyButton()
+        configureIconImageView()
         configureTableView()
     }
     
@@ -127,11 +133,47 @@ final class NewGroupViewController: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.pinTop(emptyButton.bottomAnchor, Constants.tableTop)
+        tableView.pinTop(iconImageView.bottomAnchor, Constants.tableTop)
         tableView.pinBottom(view, Constants.tableBottom)
         tableView.pinLeft(view, Constants.tableHorizontal)
         tableView.pinRight(view, Constants.tableHorizontal)
+        tableView.separatorInset = .zero
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    }
+    
+    // MARK: - Icon ImageView Configuration
+    private func configureIconImageView(title: String = "new_group") {
+        
+        let image = UIImage.imageWithText(
+            text: LocalizationManager.shared.localizedString(for: title),
+            size: CGSize(width: Constants.imageViewSize, height: Constants.imageViewSize),
+            backgroundColor: .white,
+            textColor: Colors.lightOrange,
+            borderColor: Colors.lightOrange,
+            borderWidth: Constants.imageBorderWidth
+        )
+        
+        iconImageView = UIImageView(image: image)
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.clipsToBounds = true
+        view.addSubview(iconImageView)
+        iconImageView.pinCenterX(view)
+        iconImageView.pinTop(emptyButton.bottomAnchor, Constants.tableTop)
+        
+        iconImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
+        iconImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: - Updating iconImageView after picking pic
+    private func addPickedImage(_ image: UIImage) {
+        iconImageView.setHeight(Constants.imageViewSize)
+        iconImageView.setWidth(Constants.imageViewSize)
+        iconImageView.image = image
+        iconImageView.contentMode = .scaleAspectFill
+        iconImageView.clipsToBounds = true
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
     }
     
     // MARK: - Empty Button Animation.
@@ -146,6 +188,10 @@ final class NewGroupViewController: UIViewController {
 
     // MARK: - Handling user selected.
     private func handleSelectedUser(_ user: ProfileSettingsModels.ProfileUserData) {
+        if users.contains(where: { $0.username == user.username }) {
+            searchController.isActive = false
+            return
+        }
         users.append(user)
         titleLabel.updateCounter(users.count)
         tableView.reloadData()
@@ -161,6 +207,15 @@ final class NewGroupViewController: UIViewController {
     @objc
     private func createButtonPressed() {
         // Creating group
+    }
+    
+    @objc
+    private func iconImageViewTapped() {
+        // TODO: added screen with setting image
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
 }
 
@@ -197,5 +252,19 @@ extension NewGroupViewController: UITableViewDelegate, UITableViewDataSource {
         let user = users[indexPath.row]
         cell.textLabel?.text = "\(user.name) @\(user.username)"
         return cell
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension NewGroupViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage {
+            addPickedImage(pickedImage)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

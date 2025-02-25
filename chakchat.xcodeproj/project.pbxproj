@@ -219,6 +219,7 @@
 		E1960A6B2D6DE53F008E27C0 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6A2D6DE53F008E27C0 /* NewGroupViewController.swift */; };
 		E1960A6D2D6DE555008E27C0 /* NewGroupWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6C2D6DE555008E27C0 /* NewGroupWorker.swift */; };
 		E1960A6F2D6E0286008E27C0 /* UINewGroupTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */; };
+		E1960A732D6E181A008E27C0 /* UIImage+Letters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A722D6E181A008E27C0 /* UIImage+Letters.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -449,6 +450,7 @@
 		E1960A6A2D6DE53F008E27C0 /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		E1960A6C2D6DE555008E27C0 /* NewGroupWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupWorker.swift; sourceTree = "<group>"; };
 		E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINewGroupTitleLabel.swift; sourceTree = "<group>"; };
+		E1960A722D6E181A008E27C0 /* UIImage+Letters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Letters.swift"; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -881,6 +883,7 @@
 				9B1EC0812D383F0B00E01E00 /* UIColor+Hex.swift */,
 				E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */,
 				E11D35102D40C95F00A698EA /* UIViewController+Alert.swift */,
+				E1960A722D6E181A008E27C0 /* UIImage+Letters.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1362,6 +1365,7 @@
 				E19609EC2D620004008E27C0 /* LocalizationManagerProtocols.swift in Sources */,
 				E19609DB2D60E90A008E27C0 /* LanguageViewController.swift in Sources */,
 				E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */,
+				E1960A732D6E181A008E27C0 /* UIImage+Letters.swift in Sources */,
 				AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */,
 				AA84F04B2D4D0C0B00678ABA /* NotificationCell.swift in Sources */,
 				AA07A6752D5CA17B00CFE124 /* UserServiceEndpoints.swift in Sources */,
