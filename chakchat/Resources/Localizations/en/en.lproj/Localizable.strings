@@ -46,7 +46,7 @@
 "everyone" = "Everyone";
 "phone_number" = "Phone number";
 "online_status" = "Online status";
-"black_list" = "Black status";
+"black_list" = "Black list";
 "only_me" = "Nobody";
 "who_can_see_online" = "Who can see my online status?";
 "who_can_see_phone" = "Who can see my phone number?";
@@ -69,3 +69,7 @@
 "write_support_chat" = "Write to support in chat";
 "send_review" = "Send review";
 "not_find_answer" = "Didn't find the answer to your question?";
+"new_message" = "New message";
+"new_group" = "New group";
+"who_would_you_add" = "Who would you like to add?";
+"create" = "Create";

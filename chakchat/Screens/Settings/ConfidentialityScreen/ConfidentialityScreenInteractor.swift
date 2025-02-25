@@ -25,6 +25,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     var onRouteToPhoneVisibilityScreen: (() -> Void)?
     var onRouteToBirthVisibilityScreen: (() -> Void)?
     var onRouteToOnlineVisibilityScreen: (() -> Void)?
+    var onRouteToBlackListScreen: (() -> Void)?
     
     // MARK: - Initialization
     init(presenter: ConfidentialityScreenPresentationLogic, 
@@ -119,6 +120,11 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     func routeToOnlineVisibilityScreen() {
         os_log("Routed to online status visibility screen", log: logger, type: .default)
         onRouteToOnlineVisibilityScreen?()
+    }
+    
+    func routeToBlackListScreen() {
+        os_log("Routed to black list screen", log: logger, type: .default)
+        onRouteToBlackListScreen?()
     }
     
     func backToSettingsMenu() {

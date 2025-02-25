@@ -21,6 +21,7 @@ protocol ConfidentialityScreenBusinessLogic {
     func routeToPhoneVisibilityScreen()
     func routeToBirthVisibilityScreen()
     func routeToOnlineVisibilityScreen()
+    func routeToBlackListScreen()
 }
 
 // MARK: - ConfidentialityScreenPresentationLogic

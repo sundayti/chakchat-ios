@@ -17,9 +17,14 @@ enum ChatsAssembly {
         let userService = UserService()
         let worker = ChatsScreenWorker(keychainManager: context.keychainManager, userService: userService)
         let interactor = ChatsScreenInteractor(presenter: presenter, worker: worker, logger: context.logger, errorHandler: context.errorHandler, keychainManager: context.keychainManager)
+        
         interactor.onRouteToSettings = { [weak coordinator] in
             coordinator?.showSettingsScreen()
         }
+        interactor.onRouteToNewMessage = { [weak coordinator] in
+            coordinator?.showNewMessageScreen()
+        }
+        
         let view = ChatsScreenViewController(interactor: interactor)
         presenter.view = view
         

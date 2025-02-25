@@ -19,6 +19,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     private let keychainManager: KeychainManagerBusinessLogic
     
     var onRouteToSettings: (() -> Void)?
+    var onRouteToNewMessage: (() -> Void)?
     
     // MARK: - Initialization
     init(presenter: ChatsScreenPresentationLogic, 
@@ -40,6 +41,11 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         onRouteToSettings?()
     }
     
+    func routeToNewMessageScreen() {
+        os_log("Routed to new message screen", log: logger, type: .default)
+        onRouteToNewMessage?()
+    }
+    
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
         worker.fetchUsers(name, username, page, limit) { [weak self] result in
             guard self != nil else { return }
@@ -51,6 +57,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
             }
         }
     }
+    
     func handleError(_ error: Error) {
         _ = errorHandler.handleError(error)
     }

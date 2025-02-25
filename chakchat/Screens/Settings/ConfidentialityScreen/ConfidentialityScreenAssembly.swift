@@ -38,6 +38,10 @@ enum ConfidentialityScreenAssembly {
             coordinator?.showOnlineVisibilityScreen()
         }
         
+        interactor.onRouteToBlackListScreen = { [weak coordinator] in
+            coordinator?.showBlackListScreen()
+        }
+        
         let view = ConfidentialityScreenViewController(interactor: interactor)
         presenter.view = view
         return view
