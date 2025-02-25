@@ -212,13 +212,13 @@
 		E1960A5A2D6CADA2008E27C0 /* UINewGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */; };
 		E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */; };
 		E1960A5E2D6CE42C008E27C0 /* UIUsersSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */; };
-		E1960A602D6DDCA6008E27C0 /* UICheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5F2D6DDCA6008E27C0 /* UICheckbox.swift */; };
 		E1960A632D6DE4FF008E27C0 /* NewGroupAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A622D6DE4FF008E27C0 /* NewGroupAssembly.swift */; };
 		E1960A652D6DE50D008E27C0 /* NewGroupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A642D6DE50D008E27C0 /* NewGroupPresenter.swift */; };
 		E1960A672D6DE51E008E27C0 /* NewGroupProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A662D6DE51E008E27C0 /* NewGroupProtocols.swift */; };
 		E1960A692D6DE52B008E27C0 /* NewGroupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A682D6DE52B008E27C0 /* NewGroupInteractor.swift */; };
 		E1960A6B2D6DE53F008E27C0 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6A2D6DE53F008E27C0 /* NewGroupViewController.swift */; };
 		E1960A6D2D6DE555008E27C0 /* NewGroupWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6C2D6DE555008E27C0 /* NewGroupWorker.swift */; };
+		E1960A6F2D6E0286008E27C0 /* UINewGroupTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -442,13 +442,13 @@
 		E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINewGroupButton.swift; sourceTree = "<group>"; };
 		E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageWorker.swift; sourceTree = "<group>"; };
 		E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUsersSearchViewController.swift; sourceTree = "<group>"; };
-		E1960A5F2D6DDCA6008E27C0 /* UICheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICheckbox.swift; sourceTree = "<group>"; };
 		E1960A622D6DE4FF008E27C0 /* NewGroupAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupAssembly.swift; sourceTree = "<group>"; };
 		E1960A642D6DE50D008E27C0 /* NewGroupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupPresenter.swift; sourceTree = "<group>"; };
 		E1960A662D6DE51E008E27C0 /* NewGroupProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupProtocols.swift; sourceTree = "<group>"; };
 		E1960A682D6DE52B008E27C0 /* NewGroupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupInteractor.swift; sourceTree = "<group>"; };
 		E1960A6A2D6DE53F008E27C0 /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		E1960A6C2D6DE555008E27C0 /* NewGroupWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupWorker.swift; sourceTree = "<group>"; };
+		E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINewGroupTitleLabel.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -765,7 +765,7 @@
 				E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */,
 				E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */,
 				E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */,
-				E1960A5F2D6DDCA6008E27C0 /* UICheckbox.swift */,
+				E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1382,7 +1382,6 @@
 				AA9B626F2D2FD2660064CB23 /* SignupModels.swift in Sources */,
 				E135ED402D4D373F006CE143 /* Format.swift in Sources */,
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
-				E1960A602D6DDCA6008E27C0 /* UICheckbox.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
 				AA84F05F2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift in Sources */,
 				AA84F0182D4BBE7C00678ABA /* PhoneVisibilityScreenInteractor.swift in Sources */,
@@ -1412,6 +1411,7 @@
 				AA84F05D2D4E302F00678ABA /* UpdateAudioNotificationEvent.swift in Sources */,
 				9B1EC08D2D3A834600E01E00 /* ErrorId.swift in Sources */,
 				AA92EC662D392CEB007DEC76 /* MockSendCodeWorker.swift in Sources */,
+				E1960A6F2D6E0286008E27C0 /* UINewGroupTitleLabel.swift in Sources */,
 				AA87FC752D5503B400E8D066 /* UserProfileScreenViewController.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				E1960A452D6BE12C008E27C0 /* BlackListAssembly.swift in Sources */,

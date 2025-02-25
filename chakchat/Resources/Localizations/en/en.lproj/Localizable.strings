@@ -70,4 +70,6 @@
 "send_review" = "Send review";
 "not_find_answer" = "Didn't find the answer to your question?";
 "new_message" = "New message";
-"group" = "Group";
+"new_group" = "New group";
+"who_would_you_add" = "Who would you like to add?";
+"create" = "Create";

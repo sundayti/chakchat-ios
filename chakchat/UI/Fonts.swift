@@ -27,6 +27,7 @@ enum Fonts {
     static let systemB18: UIFont = UIFont.systemFont(ofSize: 18, weight: .bold)
     // Used: SettingsVC - nicknameLabel
     static let systemSB20: UIFont =  UIFont.systemFont(ofSize: 20, weight: .semibold)
+    static let systemSB18: UIFont =  UIFont.systemFont(ofSize: 18, weight: .semibold)
     // Used: SettingsVC - phone and username
     static let systemL14: UIFont = UIFont.systemFont(ofSize: 14, weight: .light)
     // Used: SettingsVC - dot between phone and username

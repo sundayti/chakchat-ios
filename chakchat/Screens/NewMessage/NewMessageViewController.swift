@@ -60,7 +60,7 @@ final class NewMessageViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = Colors.backgroundSettings
+        view.backgroundColor = Colors.background
         configureBackButton()
         configureTitleLabel()
         navigationItem.titleView = titleLabel
@@ -89,6 +89,7 @@ final class NewMessageViewController: UIViewController {
     // MARK: - Search Controller Configuration
     private func configureSearchController() {
         searchController.delegate = self
+        searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "search")
         searchController.searchBar.autocapitalizationType = .none
@@ -147,5 +148,3 @@ extension NewMessageViewController: UISearchControllerDelegate {
         shouldAnimateNewGroupButton = true
     }
 }
-
-

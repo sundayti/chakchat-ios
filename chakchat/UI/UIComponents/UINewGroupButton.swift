@@ -13,7 +13,7 @@ final class UINewGroupButton: UIButton {
     // MARK: - Initialization
     init() {
         super.init(frame: .zero)
-        setTitle("New group", for: .normal)
+        setTitle(LocalizationManager.shared.localizedString(for: "new_group"), for: .normal)
         setTitleColor(Colors.text, for: .normal)
         layer.cornerRadius = 20
         let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .default)
