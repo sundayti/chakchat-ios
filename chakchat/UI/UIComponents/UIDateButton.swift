@@ -31,7 +31,7 @@ final class UIDateButton : UIView {
         button.titleLabel?.font = Fonts.systemM17
         return button
     }()
-    private let datePicker = UIDatePicker()
+    
     private let titleLabel: UILabel = UILabel()
     private var birthDate: Date = Date()
 

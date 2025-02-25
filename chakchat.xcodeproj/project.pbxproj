@@ -210,6 +210,8 @@
 		E1960A562D6BE66B008E27C0 /* NewMessageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A552D6BE66B008E27C0 /* NewMessageInteractor.swift */; };
 		E1960A582D6BE69E008E27C0 /* NewMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A572D6BE69E008E27C0 /* NewMessageViewController.swift */; };
 		E1960A5A2D6CADA2008E27C0 /* UINewGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */; };
+		E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */; };
+		E1960A5E2D6CE42C008E27C0 /* UIUsersSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -431,6 +433,8 @@
 		E1960A552D6BE66B008E27C0 /* NewMessageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageInteractor.swift; sourceTree = "<group>"; };
 		E1960A572D6BE69E008E27C0 /* NewMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageViewController.swift; sourceTree = "<group>"; };
 		E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINewGroupButton.swift; sourceTree = "<group>"; };
+		E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageWorker.swift; sourceTree = "<group>"; };
+		E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUsersSearchViewController.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -746,6 +750,7 @@
 				E135ED472D54C273006CE143 /* UIDateButton.swift */,
 				E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */,
 				E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */,
+				E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1161,6 +1166,7 @@
 				E1960A532D6BE653008E27C0 /* NewMessageProtocols.swift */,
 				E1960A552D6BE66B008E27C0 /* NewMessageInteractor.swift */,
 				E1960A572D6BE69E008E27C0 /* NewMessageViewController.swift */,
+				E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */,
 			);
 			path = NewMessage;
 			sourceTree = "<group>";
@@ -1326,6 +1332,7 @@
 				E1960A562D6BE66B008E27C0 /* NewMessageInteractor.swift in Sources */,
 				E19609EC2D620004008E27C0 /* LocalizationManagerProtocols.swift in Sources */,
 				E19609DB2D60E90A008E27C0 /* LanguageViewController.swift in Sources */,
+				E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */,
 				AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */,
 				AA84F04B2D4D0C0B00678ABA /* NotificationCell.swift in Sources */,
 				AA07A6752D5CA17B00CFE124 /* UserServiceEndpoints.swift in Sources */,
@@ -1405,6 +1412,7 @@
 				E1960A1E2D6B4998008E27C0 /* CacheAssembly.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
+				E1960A5E2D6CE42C008E27C0 /* UIUsersSearchViewController.swift in Sources */,
 				AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */,
 				E19609FD2D627E9B008E27C0 /* FileStorageService.swift in Sources */,
 				AA9B62A32D33D6B50064CB23 /* ErrorHandler.swift in Sources */,

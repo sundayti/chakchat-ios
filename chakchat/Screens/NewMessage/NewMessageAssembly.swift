@@ -12,7 +12,9 @@ enum NewMessageAssembly {
     
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = NewMessagePresenter()
-        let interactor = NewMessageInteractor(presenter: presenter)
+        let userService = UserService()
+        let worker = NewMessageWorker(userService: userService, keychainManager: context.keychainManager)
+        let interactor = NewMessageInteractor(presenter: presenter, worker: worker, errorHandler: context.errorHandler)
         interactor.onRouteToChatsScreen = { [weak coordinator] in
             coordinator?.popScreen()
         }
