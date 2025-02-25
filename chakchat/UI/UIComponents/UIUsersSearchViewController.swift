@@ -39,13 +39,15 @@ final class UIUsersSearchViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         configureSearchTableView()
-        usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 70, bottom: 0, right: 5)
+        usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
         bindSearch()
     }
     
+    // MARK: - Search TableView Configuration
     private func configureSearchTableView() {
         view.addSubview(usersTableView)
         usersTableView.delegate = self
@@ -57,6 +59,7 @@ final class UIUsersSearchViewController: UIViewController {
         usersTableView.register(UISearchControllerCell.self, forCellReuseIdentifier: "SearchControllerCell")
     }
     
+    // MARK: - Searching methods
     private func bindSearch() {
         searchTextPublisher
             //.debounce(for: .seconds(0.5), scheduler: RunLoop.main)
@@ -66,7 +69,6 @@ final class UIUsersSearchViewController: UIViewController {
                 self?.startNewSearch(query)
             }.store(in: &cancellable)
     }
-    
     
     private func startNewSearch(_ query: String) {
         users = []
@@ -113,6 +115,7 @@ final class UIUsersSearchViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension UIUsersSearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
@@ -130,10 +133,12 @@ extension UIUsersSearchViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedUser = users[indexPath.row]
         onUserSelected?(selectedUser)
     }
+    
     // пагинация
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y

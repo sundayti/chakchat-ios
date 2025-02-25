@@ -42,4 +42,5 @@ enum Fonts {
     static let systemR12: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular)
     // Used: SendCodeVC
     static let systemR15: UIFont = UIFont.systemFont(ofSize: 15, weight: .regular)
+    static let systemR20: UIFont = UIFont.systemFont(ofSize: 20, weight: .regular)
 }
