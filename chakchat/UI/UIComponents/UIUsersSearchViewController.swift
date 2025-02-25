@@ -13,10 +13,10 @@ final class UIUsersSearchViewController: UIViewController {
     
     // MARK: - Properties
     private let usersTableView: UITableView = UITableView()
-    private let limit = 10
     private var users: [ProfileSettingsModels.ProfileUserData] = []
     private var isLoading = false
     private var currentPage = 1
+    private let limit = 10
     private var lastQuery: String?
     let searchTextPublisher = PassthroughSubject<String, Never>()
     private var cancellable = Set<AnyCancellable>()
@@ -39,14 +39,13 @@ final class UIUsersSearchViewController: UIViewController {
         configureUI()
     }
     
-    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         configureSearchTableView()
+        usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 70, bottom: 0, right: 5)
         bindSearch()
     }
     
-    // MARK: - Search Table View Configuration
     private func configureSearchTableView() {
         view.addSubview(usersTableView)
         usersTableView.delegate = self
@@ -55,29 +54,30 @@ final class UIUsersSearchViewController: UIViewController {
         usersTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 0)
         usersTableView.pinLeft(view.safeAreaLayoutGuide.leadingAnchor, 0)
         usersTableView.pinRight(view.safeAreaLayoutGuide.trailingAnchor, 0)
-        usersTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        usersTableView.register(UISearchControllerCell.self, forCellReuseIdentifier: "SearchControllerCell")
     }
     
-    // MARK: - Searching methods
     private func bindSearch() {
         searchTextPublisher
-            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            //.debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .removeDuplicates()
-            .print("Datastream")
+            .print("Datastream/search")
             .sink { [weak self] query in
                 self?.startNewSearch(query)
             }.store(in: &cancellable)
     }
     
+    
     private func startNewSearch(_ query: String) {
+        users = []
+        usersTableView.reloadData()
+        
         guard !query.isEmpty else {
-            users = []
-            usersTableView.reloadData()
             return
         }
+        
         currentPage = 1
         lastQuery = query
-        users = []
         fetchUsers(query, currentPage)
     }
 
@@ -99,11 +99,11 @@ final class UIUsersSearchViewController: UIViewController {
             isLoading = false
             switch result {
             case .success(let response):
+                self.users = response.users.filter { user in
+                    user.name.lowercased().contains(query.lowercased()) ||
+                    user.username.lowercased().contains(query.lowercased())
+                }
                 DispatchQueue.main.async {
-                    self.users = response.users.filter { user in
-                        user.name.lowercased().contains(query.lowercased()) ||
-                        user.username.lowercased().contains(query.lowercased())
-                    }
                     self.usersTableView.reloadData()
                 }
             case .failure(let failure):
@@ -113,25 +113,28 @@ final class UIUsersSearchViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
 extension UIUsersSearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchControllerCell", for: indexPath) as? UISearchControllerCell else {
+            return UITableViewCell()
+        }
         let user = users[indexPath.row]
-        cell.textLabel?.text = "\(user.name) @\(user.username)"
+        cell.configure(user.photo, user.name)
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedUser = users[indexPath.row]
         onUserSelected?(selectedUser)
     }
-
-    // Pagination
+    // пагинация
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
