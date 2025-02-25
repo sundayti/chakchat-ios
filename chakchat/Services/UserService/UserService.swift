@@ -138,23 +138,23 @@ final class UserService: UserServiceProtocol {
 //        Sender.send(endpoint: endpointWithQuery, method: .get, headers: headers, completion: completion)
         completion(
             .success(
-                SuccessResponse<ProfileSettingsModels.Users>(
-                    data: ProfileSettingsModels.Users(
-                        users: [
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kirill", username: "mrdr", phone: "79776002210", photo: nil, dateOfBirth: "29.08.2005"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Fedor", username: "yeezus", phone: "79651838086", photo: nil, dateOfBirth: "13.05.2005"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Vanya", username: "mrdr", phone: "79167723490", photo: nil, dateOfBirth: "25.02.2005"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Yulia", username: "kykx", phone: "79772722390", photo: nil, dateOfBirth: "29.08.2005"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kolya", username: "kolya", phone: "79410422300", photo: nil, dateOfBirth: "23.12.2005"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Liza", username: "lzkgmr", phone: "79289120023", photo: nil, dateOfBirth: "18.04.2003"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Asshat", username: "justpuice", phone: "79238926740", photo: nil, dateOfBirth: "13.11.2005"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Vlad", username: "nepomny", phone: "79223926740", photo: nil, dateOfBirth: "02.06.2005"),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Bulat", username: "sunyysh", phone: "79223924740", photo: nil, dateOfBirth: "12.10.2005"),
-                        ]
+                    SuccessResponse<ProfileSettingsModels.Users>(
+                        data: ProfileSettingsModels.Users(
+                            users: [
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kirill", username: "mrdr", phone: "79776002210", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "29.08.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Fedor", username: "yeezus", phone: "79651838086", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.05.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Vanya", username: "mrdr", phone: "79167723490", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "25.02.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Yulia", username: "kykx", phone: "79772722390", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "29.08.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kolya", username: "kolya", phone: "79410422300", photo: nil, dateOfBirth: "23.12.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Liza", username: "lzkgmr", phone: "79289120023", photo: nil, dateOfBirth: "18.04.2003"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Asshat", username: "justpuice", phone: "79238926740", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.11.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Vlad", username: "nepomny", phone: "79223926740", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "02.06.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Bulat", username: "sunyysh", phone: "79223924740", photo: nil, dateOfBirth: "12.10.2005"),
+                            ]
+                        )
                     )
                 )
             )
-        )
     }
     /// нужен для поиска по username в бд, чтобы понимать, может ли пользователь использовать такой username или нет
     /// пока что сделал стаб, в дальнейшем должно работать нормально
@@ -197,6 +197,33 @@ final class UserService: UserServiceProtocol {
                 )
             )
         }
+    }
+    
+    func sendPutPhotoRequest(_ request: ProfileSettingsModels.NewPhotoRequest, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void) {
+//        let endpoint = UserServiceEndpoints.photo.rawValue
+//
+//        let body = try? JSONEncoder().encode(request)
+//        
+//        let headers = [
+//            "Authorization": "Bearer \(accessToken)",
+//            "Content-Type": "application/json"
+//        ]
+//        
+//        Sender.send(endpoint: endpoint, method: .put, headers: headers, body: body, completion: completion)
+        completion(
+            .success(
+                SuccessResponse<ProfileSettingsModels.ProfileUserData>(
+                    data: ProfileSettingsModels.ProfileUserData(
+                        id: UUID(),
+                        name: "",
+                        username: "",
+                        phone: "",
+                        photo: nil,
+                        dateOfBirth: nil
+                    )
+                )
+            )
+        )
     }
 }
 

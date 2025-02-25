@@ -25,6 +25,10 @@ protocol UserServiceProtocol {
     func sendGetUsersRequest(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.Users>, any Error>) -> Void)
     
     func sendGetUsernameRequst(_ username: String, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void)
+    
+    func sendPutPhotoRequest(_ request: ProfileSettingsModels.NewPhotoRequest,
+                             _ accessToken: String, 
+                             completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, Error>) -> Void)
 
 }
 
