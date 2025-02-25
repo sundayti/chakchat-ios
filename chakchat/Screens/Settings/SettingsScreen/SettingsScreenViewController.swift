@@ -47,6 +47,7 @@ final class SettingsScreenViewController: UIViewController {
     private var dotLabel: UILabel = UILabel()
     private var headerLabels: [Int: UILabel] = [:]
     private lazy var dataStackView: UIStackView = UIStackView(arrangedSubviews: [phoneLabel, dotLabel, usernameLabel])
+    let config = UIImage.SymbolConfiguration(pointSize: Constants.iconImageSize, weight: .light, scale: .default)
     
     private let iconImageView: UIImageView = UIImageView()
     private var sections = [
@@ -81,8 +82,20 @@ final class SettingsScreenViewController: UIViewController {
     public func configureUserData(_ data: ProfileSettingsModels.ProfileUserData) {
         // if user already loaded his data
         if let imageURL = data.photo {
-            if let image = interactor.unpackPhotoByUrl(imageURL) {
-                configureIconImageView(image)
+            if let image = ImageCacheManager.shared.getImage(for: imageURL as NSURL) {
+                iconImageView.image = image
+                iconImageView.layer.cornerRadius = 40
+            } else {
+                interactor.loadPhotoByURL(imageURL) { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let image):
+                        iconImageView.image = image
+                        iconImageView.layer.cornerRadius = 40
+                    case .failure(let failure):
+                        print("Failed to download file")
+                    }
+                }
             }
         }
         configureNicknameLabel(data.name)
@@ -91,12 +104,17 @@ final class SettingsScreenViewController: UIViewController {
     
     // MARK: - UserData Update
     public func updateUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData) {
-        if let imageURL = data.photo {
-            let newImage = interactor.unpackPhotoByUrl(imageURL)
-            iconImageView.image = newImage
-        }
         nicknameLabel.text = data.name
         usernameLabel.text = data.username
+    }
+    
+    public func updatePhoto(_ photo: URL?) {
+        if let url = photo {
+            iconImageView.image = ImageCacheManager.shared.getImage(for: url as NSURL)
+            iconImageView.layer.cornerRadius = 40
+        } else {
+            iconImageView.image = UIImage(systemName: Constants.defaultProfileImageSymbol, withConfiguration: config)
+        }
     }
     
     // MARK: - UI Configuration
@@ -138,7 +156,6 @@ final class SettingsScreenViewController: UIViewController {
         iconImageView.pinCenterX(view)
         iconImageView.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.iconTop)
         
-        let config = UIImage.SymbolConfiguration(pointSize: Constants.iconImageSize, weight: .light, scale: .default)
         let gearImage = UIImage(systemName: Constants.defaultProfileImageSymbol, withConfiguration: config)
         iconImageView.tintColor = Colors.lightOrange
         iconImageView.image = image ?? gearImage

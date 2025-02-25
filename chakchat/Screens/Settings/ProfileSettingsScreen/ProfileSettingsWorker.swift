@@ -29,7 +29,7 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
         self.keychainManager = keychainManager
     }
     
-    func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+    func putUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         userService.sendPutMeRequest(request, accessToken) { [weak self] result in
             guard let self = self else {return}
@@ -43,24 +43,36 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
         }
     }
     
-    func saveImageURL(_ url: URL) {
-        userDefaultsManager.savePhotoURL(url)
-    }
-    
-    func uploadImage(_ fileURL: URL, _ fileName: String, _ mimeType: String, completion: @escaping (Result<Void, any Error>) -> Void) {
+    func uploadImage(_ fileData: Data, _ fileName: String, _ mimeType: String, completion: @escaping (Result<SuccessModels.UploadResponse, any Error>) -> Void) {
         if let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) {
-            fileStorageService.sendFileUploadRequest(fileURL, fileName, mimeType, accessToken) { [weak self] result in
+            fileStorageService.sendFileUploadRequest(fileData, fileName, mimeType, accessToken) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let response):
                     self.userDefaultsManager.savePhotoMetadata(response.data)
-                    completion(.success(()))
+                    completion(.success(response.data))
                 case .failure(let failure):
                     completion(.failure(failure))
                 }
             }
         }
     }
+    
+    func putProfilePhoto(_ photoID: UUID, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        let request = ProfileSettingsModels.NewPhotoRequest(photoID: photoID)
+        userService.sendPutPhotoRequest(request, accessToken) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let successResponse):
+                //self.userDefaultsManager.saveUserData(successResponse.data)
+                completion(.success(successResponse.data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
     /// уже объяснял в файле IdentityService почему я использую здесь
     /// реквест типа RefreshRequest. Ручки "refresh-token" и "sing-out" имеют одинаковый
     /// формат request'a, поэтому использую один для двоих

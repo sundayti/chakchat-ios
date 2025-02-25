@@ -51,18 +51,17 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
     }
     
     // MARK: - New data Saving
-    func saveNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData) {
+    func putNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData) {
         os_log("Saved new data in profile settings screen", log: logger, type: .default)
-        worker.updateUserData(newUserData) { [weak self] result in
+        worker.putUserData(newUserData) { [weak self] result in
             guard let self = self else {return}
             switch result {
-            case .success(let response):
+            case .success(_):
                 os_log("/me/put complete", log: logger, type: .info)
                 let updateProfileDataEvent = UpdateProfileDataEvent(
-                    newNickname: response.name,
-                    newUsername: response.username,
-                    newPhoto: response.photo,
-                    newBirth: response.dateOfBirth
+                    newNickname: newUserData.name,
+                    newUsername: newUserData.username,
+                    newBirth: newUserData.dateOfBirth
                 )
                 os_log("Published event in profile settings screen", log: logger, type: .default)
                 eventPublisher.publish(event: updateProfileDataEvent)
@@ -75,48 +74,33 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
         onRouteToSettingsMenu?()
     }
     
-    func saveImage(_ image: UIImage) -> URL? {
+    func uploadFile(_ image: UIImage, completion: @escaping (Result<SuccessModels.UploadResponse, any Error>) -> Void) {
         os_log("Started saving image in profile setting screen", log: logger, type: .default)
         guard let data = image.jpegData(compressionQuality: 0.0) else {
-            return nil
+            return
         }
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileName = "\(UUID().uuidString).png"
-            let fileURL = documentDirectory.appendingPathComponent(fileName)
-            do {
-                print(fileURL)
-                try data.write(to: fileURL)
-                worker.saveImageURL(fileURL)
-                os_log("File saved", log: logger, type: .info)
-                return fileURL
-            } catch {
-                os_log("Error during file saving", log: logger, type: .error)
-                return nil
-            }
-        }
-        return nil
-    }
-    
-    func unpackPhotoByUrl(_ url: URL) -> UIImage? {
-        print(url.path)
-        if FileManager.default.fileExists(atPath: url.path) {
-            if let image = UIImage(contentsOfFile: url.path) {
-                return image
-            }
-            return nil
-        }
-        return nil
-    }
-    
-    func uploadImage(_ fileURL: URL, _ fileName: String, _ mimeType: String) {
-        worker.uploadImage(fileURL, fileName, mimeType) { [weak self] result in
+        let fileName = "\(UUID().uuidString).jpeg"
+        worker.uploadImage(data, fileName, "image/jpeg") { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success():
-                os_log("File uploaded to server", log: logger, type: .info)
+            case .success(let fileMetaData):
+                ImageCacheManager.shared.saveImage(image, for: fileMetaData.fileURL as NSURL)
+                completion(.success(fileMetaData))
             case .failure(let failure):
-                os_log("File uploding to server failed", log: logger, type: .error)
-                _ = self.errorHandler.handleError(failure)
+                _ = errorHandler.handleError(failure)
+            }
+        }
+    }
+    
+    func putProfilePhoto(_ photoID: UUID, _ tempURL: URL) {
+        worker.putProfilePhoto(photoID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let newUserData):
+                let updatePhotoEvent = UpdatePhotoEvent(newPhoto: tempURL)
+                self.eventPublisher.publish(event: updatePhotoEvent)
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
             }
         }
     }
@@ -145,6 +129,7 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
             }
         }
     }
+    
     
     // MARK: - Routing
     func backToSettingsMenu() {

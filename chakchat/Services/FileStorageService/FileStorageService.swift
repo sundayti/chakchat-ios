@@ -10,7 +10,7 @@ import Alamofire
 
 final class FileStorageService: FileStorageServiceProtocol {
     
-    func sendFileUploadRequest(_ fileURL: URL, _ fileName: String, _ mimeType: String, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadResponse>, Error>) -> Void) {
+    func sendFileUploadRequest(_ fileData: Data, _ fileName: String, _ mimeType: String, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadResponse>, Error>) -> Void) {
         guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Sender.Keys.baseURL) else {
             fatalError("Can't get baseurl")
         }
@@ -20,10 +20,6 @@ final class FileStorageService: FileStorageServiceProtocol {
             "Authorization": "Bearer \(accessToken)",
             "Idempotency-Key": idempotencyKey
         ]
-        
-        guard let fileData = try? Data(contentsOf: fileURL) else {
-            return
-        }
         
         AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(Data(fileName.utf8), withName: "file_name")

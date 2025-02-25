@@ -9,8 +9,6 @@ import Foundation
 
 // MARK: - SettingsScreenPresenter
 final class SettingsScreenPresenter: SettingsScreenPresentationLogic {
-
-    
     // MARK: - Properties
     weak var view: SettingsScreenViewController?
     
@@ -21,5 +19,9 @@ final class SettingsScreenPresenter: SettingsScreenPresentationLogic {
     
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData) {
         view?.updateUserData(data)
+    }
+    
+    func showNewPhoto(_ photo: URL?) {
+        view?.updatePhoto(photo)
     }
 }

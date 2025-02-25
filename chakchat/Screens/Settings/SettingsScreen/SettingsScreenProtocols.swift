@@ -19,20 +19,25 @@ protocol SettingsScreenBusinessLogic {
     
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)
+    func showNewPhoto(_ photo: URL?)
+    
     func loadUserData()
     
-    func unpackPhotoByUrl(_ url: URL) -> UIImage?
+    func loadPhotoByURL(_ url: URL, completion: @escaping (Result<UIImage, Error>) -> Void)
     
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent)
+    func handlePhotoChangedEvent(_ event: UpdatePhotoEvent)
 }
 
 // MARK: - SettingsScreenPresentationLogic
 protocol SettingsScreenPresentationLogic {
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)
+    func showNewPhoto(_ photo: URL?)
 }
 
 // MARK: - SettingsScreenWorkerLogic
 protocol SettingsScreenWorkerLogic {
     func getUserData(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func loadPhoto(_ url: URL, completion: @escaping (Result<UIImage, Error>) -> Void)
 }

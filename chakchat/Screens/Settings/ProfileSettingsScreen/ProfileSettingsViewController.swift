@@ -86,10 +86,9 @@ final class ProfileSettingsViewController: UIViewController {
             birthTextField.setText(birth)
         }
         if let photoURL = userData.photo {
-            if let image = interactor.unpackPhotoByUrl(photoURL) {
-                iconImageView.image = image
-                iconImageView.layer.cornerRadius = Constants.cornerRadius
-            }
+            let image = ImageCacheManager.shared.getImage(for: photoURL as NSURL)
+            iconImageView.image = image
+            iconImageView.layer.cornerRadius = 50
         }
     }
     
@@ -239,7 +238,6 @@ final class ProfileSettingsViewController: UIViewController {
         return ProfileSettingsModels.ChangeableProfileUserData(
             name: newNickname,
             username: newUsername,
-            photo: imageURL,
             dateOfBirth: newBirth
         )
     }
@@ -296,7 +294,7 @@ final class ProfileSettingsViewController: UIViewController {
     private func applyButtonPressed() {
         do {
             let newData = try transferUserProfileData()
-            interactor.saveNewData(newData)
+            interactor.putNewData(newData)
         } catch CriticalError.noData {
             print("Critical error")
         } catch {
@@ -379,12 +377,13 @@ final class ProfileSettingsViewController: UIViewController {
 extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
-            if let pickedImageURL = interactor.saveImage(pickedImage) {
-                imageURL = pickedImageURL // чтобы сохранить юрл для ивента
-                print("Image saved in URL: \(pickedImageURL)")
-                print("Image name is \(pickedImageURL.lastPathComponent)")
-                print("MIME-type: image/\(pickedImageURL.pathExtension)")
-                interactor.uploadImage(pickedImageURL, pickedImageURL.lastPathComponent, "image/png")
+            interactor.uploadFile(pickedImage) { [weak self] result in
+                switch result {
+                case .success(let metaData):
+                    self?.interactor.putProfilePhoto(metaData.fileId, metaData.fileURL)
+                case .failure(_):
+                    os_log("Failed to upload file")
+                }
             }
             iconImageView.image = pickedImage
             iconImageView.layer.cornerRadius = iconImageView.frame.width / 2

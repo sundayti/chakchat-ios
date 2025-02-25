@@ -75,7 +75,6 @@ final class VerifyInteractor: VerifyBusinessLogic {
                 }
             }
         }
-        // routeToSignupScreen(SignupState.signup)
     }
     
     // MARK: - Routing
