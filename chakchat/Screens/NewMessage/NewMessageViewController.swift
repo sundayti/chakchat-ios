@@ -14,6 +14,10 @@ final class NewMessageViewController: UIViewController {
     private enum Constants {
         static let arrowLabel: String = "arrow.left"
         static let searchPlaceholder: String = LocalizationManager.shared.localizedString(for: "search")
+        static let newGroupButtonStartTop: CGFloat = -10
+        static let newGroupButtonEndTop: CGFloat = 0
+        static let newGroupButtonHorizontal: CGFloat = 10
+        static let newGroupButtonHeight: CGFloat = 50
     }
     
     // MARK: - Properties
@@ -39,6 +43,20 @@ final class NewMessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    // MARK: - Add animation to NewGroupButton
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if shouldAnimateNewGroupButton {
+            if searchController.isActive {
+                animateNewGroupButton(constant: Constants.newGroupButtonEndTop)
+            } else {
+                animateNewGroupButton(constant: Constants.newGroupButtonStartTop)
+            }
+        }
+        shouldAnimateNewGroupButton = false
     }
     
     // MARK: - UI Configuration
@@ -84,37 +102,20 @@ final class NewMessageViewController: UIViewController {
     // MARK: - New Group Configuration
     private func configureNewGroupButton() {
         view.addSubview(newGroupButton)
-        newGroupButton.pinLeft(view, 10)
-        newGroupButton.pinRight(view, 10)
-        newGroupButtonTopConstraint = newGroupButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -10)
+        newGroupButton.pinLeft(view, Constants.newGroupButtonHorizontal)
+        newGroupButton.pinRight(view, Constants.newGroupButtonHorizontal)
+        newGroupButtonTopConstraint = newGroupButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.newGroupButtonStartTop)
         newGroupButtonTopConstraint.isActive = true
-        newGroupButton.setHeight(50)
+        newGroupButton.setHeight(Constants.newGroupButtonHeight)
         newGroupButton.addTarget(self, action: #selector(newGroupButtonPressed), for: .touchUpInside)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        if shouldAnimateNewGroupButton {
-            if searchController.isActive {
-                animateNewGroupButton(constant: 0)
-            } else {
-                animateNewGroupButton(constant: -10)
-            }
-        }
-        shouldAnimateNewGroupButton = false
-    }
-    
+    // MARK: - New Group Button Animation
     private func animateNewGroupButton(constant: CGFloat) {
         UIView.animate(withDuration: 0.3) {
             self.newGroupButtonTopConstraint.constant = constant
             self.view.layoutIfNeeded()
         }
-    }
-    
-    // MARK: - Table Configuration
-    private func configureTableView() {
-        
     }
     
     // MARK: - Actions

@@ -212,6 +212,7 @@
 		E1960A5A2D6CADA2008E27C0 /* UINewGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */; };
 		E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */; };
 		E1960A5E2D6CE42C008E27C0 /* UIUsersSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */; };
+		E1960A602D6DDCA6008E27C0 /* UICheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A5F2D6DDCA6008E27C0 /* UICheckbox.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -435,6 +436,7 @@
 		E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINewGroupButton.swift; sourceTree = "<group>"; };
 		E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageWorker.swift; sourceTree = "<group>"; };
 		E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUsersSearchViewController.swift; sourceTree = "<group>"; };
+		E1960A5F2D6DDCA6008E27C0 /* UICheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICheckbox.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -751,6 +753,7 @@
 				E135ED492D54EB33006CE143 /* UICustomDatePicker.swift */,
 				E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */,
 				E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */,
+				E1960A5F2D6DDCA6008E27C0 /* UICheckbox.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1352,6 +1355,7 @@
 				AA9B626F2D2FD2660064CB23 /* SignupModels.swift in Sources */,
 				E135ED402D4D373F006CE143 /* Format.swift in Sources */,
 				AA9B62252D2D6C490064CB23 /* SendCodeAssembly.swift in Sources */,
+				E1960A602D6DDCA6008E27C0 /* UICheckbox.swift in Sources */,
 				AA9B624A2D2EC7A90064CB23 /* VerifyPresenter.swift in Sources */,
 				AA84F05F2D4E303E00678ABA /* UpdateVibrationNotificationEvent.swift in Sources */,
 				AA84F0182D4BBE7C00678ABA /* PhoneVisibilityScreenInteractor.swift in Sources */,

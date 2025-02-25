@@ -8,19 +8,23 @@
 import UIKit
 import Combine
 
+// MARK: - UIUsersSearchViewController
 final class UIUsersSearchViewController: UIViewController {
     
+    // MARK: - Properties
     private let usersTableView: UITableView = UITableView()
+    private let limit = 10
     private var users: [ProfileSettingsModels.ProfileUserData] = []
     private var isLoading = false
     private var currentPage = 1
-    private let limit = 10
     private var lastQuery: String?
     let searchTextPublisher = PassthroughSubject<String, Never>()
     private var cancellable = Set<AnyCancellable>()
+    var onUserSelected: ((ProfileSettingsModels.ProfileUserData) -> Void)?
     
     let interactor: SearchInteractor
     
+    // MARK: - Initialization
     init(interactor: SearchInteractor) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -35,12 +39,14 @@ final class UIUsersSearchViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .white
         configureSearchTableView()
         bindSearch()
     }
     
+    // MARK: - Search Table View Configuration
     private func configureSearchTableView() {
         view.addSubview(usersTableView)
         usersTableView.delegate = self
@@ -52,6 +58,7 @@ final class UIUsersSearchViewController: UIViewController {
         usersTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
+    // MARK: - Searching methods
     private func bindSearch() {
         searchTextPublisher
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
@@ -106,6 +113,7 @@ final class UIUsersSearchViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension UIUsersSearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
@@ -117,7 +125,13 @@ extension UIUsersSearchViewController: UITableViewDelegate, UITableViewDataSourc
         cell.textLabel?.text = "\(user.name) @\(user.username)"
         return cell
     }
-    // пагинация
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedUser = users[indexPath.row]
+        onUserSelected?(selectedUser)
+    }
+
+    // Pagination
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
