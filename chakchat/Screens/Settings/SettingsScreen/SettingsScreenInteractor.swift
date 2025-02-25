@@ -61,6 +61,19 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         }
     }
     
+    func loadPhotoByURL(_ url: URL, completion: @escaping (Result<UIImage, any Error>) -> Void) {
+        worker.loadPhoto(url) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                completion(.success(image))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    
     // MARK: - User Data Showing
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData) {
         os_log("Passed user data in settings screen to presenter", log: logger, type: .default)
@@ -73,31 +86,34 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         presenter.showNewUserData(data)
     }
     
+    func showNewPhoto(_ photo: URL?) {
+        os_log("Passed new photo in settings screen to presenter", log: logger, type: .default)
+        presenter.showNewPhoto(photo)
+    }
+    
+    
     // MARK: - User Data Changed Event Handling
     private func subscribeToEvents() {
         eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
             self?.handleUserDataChangedEvent(event)
         }.store(in: &cancellables)
+        eventSubscriber.subscribe(UpdatePhotoEvent.self) { [weak self] event in
+            self?.handlePhotoChangedEvent(event)
+        }.store(in: &cancellables)
     }
-    
-    func unpackPhotoByUrl(_ url: URL) -> UIImage? {
-        print(url.path)
-        if FileManager.default.fileExists(atPath: url.path) {
-            if let image = UIImage(contentsOfFile: url.path) {
-                return image
-            }
-            return nil
-        }
-        return nil
-    }
-    
+        
     func handleUserDataChangedEvent(_ event: UpdateProfileDataEvent) {
         os_log("Handled user data changes in settings screen", log: logger, type: .default)
         let newUserData = ProfileSettingsModels.ChangeableProfileUserData(name: event.newNickname,
                                                                        username: event.newUsername,
-                                                                       photo: event.newPhoto,
                                                                        dateOfBirth: event.newBirth)
         showNewUserData(newUserData)
+    }
+    
+    func handlePhotoChangedEvent(_ event: UpdatePhotoEvent) {
+        os_log("Handled photo changes event in settings screen", log: logger, type: .default)
+        let newPhoto = event.newPhoto
+        showNewPhoto(newPhoto)
     }
     
     // MARK: - Routing

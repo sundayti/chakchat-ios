@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 21.01.2025.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - SettingsScreenWorker
 final class SettingsScreenWorker: SettingsScreenWorkerLogic {
@@ -36,6 +36,29 @@ final class SettingsScreenWorker: SettingsScreenWorkerLogic {
             case .failure(let failure):
                 completion(.failure(failure))
             }
+        }
+    }
+    
+    func loadPhoto(_ url: URL, completion: @escaping (Result<UIImage, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(APIError.noData))
+                return
+            }
+            
+            guard let image = UIImage(data: data) else {
+                completion(.failure(APIError.invalidResponse))
+                return
+            }
+            ImageCacheManager.shared.saveImage(image, for: url as NSURL)
+            completion(.success(image))
         }
     }
 }
