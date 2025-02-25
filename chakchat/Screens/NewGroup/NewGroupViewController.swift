@@ -151,7 +151,7 @@ final class NewGroupViewController: UIViewController {
         let image = UIImage.imageWithText(
             text: LocalizationManager.shared.localizedString(for: title),
             size: CGSize(width: Constants.imageViewSize, height: Constants.imageViewSize),
-            backgroundColor: .white,
+            backgroundColor: Colors.background,
             textColor: Colors.lightOrange,
             borderColor: Colors.lightOrange,
             borderWidth: Constants.imageBorderWidth

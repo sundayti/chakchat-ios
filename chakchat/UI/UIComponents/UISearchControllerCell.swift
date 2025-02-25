@@ -93,7 +93,7 @@ final class UISearchControllerCell: UITableViewCell {
     private func configureName() {
         contentView.addSubview(name)
         name.font = Fonts.systemR20
-        name.textColor = .black
+        name.textColor = Colors.text
         name.pinCenterY(contentView)
         name.pinLeft(userPhoto.trailingAnchor, Constants.picX)
     }

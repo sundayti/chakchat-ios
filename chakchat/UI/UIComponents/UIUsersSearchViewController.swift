@@ -41,7 +41,7 @@ final class UIUsersSearchViewController: UIViewController {
     
     // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.background
         configureSearchTableView()
         usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
         bindSearch()
