@@ -92,7 +92,7 @@ final class SettingsScreenViewController: UIViewController {
                     case .success(let image):
                         iconImageView.image = image
                         iconImageView.layer.cornerRadius = 40
-                    case .failure(let failure):
+                    case .failure(_):
                         print("Failed to download file")
                     }
                 }

@@ -28,7 +28,7 @@ final class UserProfileScreenViewController: UIViewController {
     private var nameLabel: UILabel = UILabel()
     private var iconImageView: UIImageView = UIImageView()
     private var userTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
-    let config = UIImage.SymbolConfiguration(pointSize: Constants.iconSize, weight: .light, scale: .default)
+    private let config = UIImage.SymbolConfiguration(pointSize: Constants.iconSize, weight: .light, scale: .default)
     private var userTableViewData: [(title: String, value: String)] = [
         (LocalizationManager.shared.localizedString(for: "username"), ""),
         (LocalizationManager.shared.localizedString(for: "phone"), ""),
