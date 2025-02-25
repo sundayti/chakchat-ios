@@ -7,23 +7,21 @@
 
 import UIKit
 import Combine
-
+/// параметр имеет префикс temp => это вынужденная мера для решения проблем со стабами
+/// потом этого параметра не будет
 // MARK: - ProfileSettingsBusinessLogic
 protocol ProfileSettingsScreenBusinessLogic {
     func backToSettingsMenu()
     func backToRegistration()
-    func saveNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData)
+    func putNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData)
     func loadUserData()
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
     func checkUsername(_ username: String,
                        completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func uploadFile(_ image: UIImage, completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void)
+    func putProfilePhoto(_ photoID: UUID, _ tempURL: URL)
     
     func signOut()
-    
-    func unpackPhotoByUrl(_ url: URL) -> UIImage?
-    
-    func saveImage(_ image: UIImage) -> URL?
-    func uploadImage(_ fileURL: URL, _ fileName: String, _ mimeType: String)
 }
 
 // MARK: - ProfileSettingsPresentationLogic
@@ -32,15 +30,15 @@ protocol ProfileSettingsScreenPresentationLogic {
 }
 
 protocol ProfileSettingsScreenWorkerLogic {
-    func updateUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func putUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     func getUserData() -> ProfileSettingsModels.ProfileUserData
-    func saveImageURL(_ url: URL)
     func checkUsername(_ username: String, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     
     func signOut(completion: @escaping (Result<Void, Error>) -> Void)
     
-    func uploadImage(_ fileURL: URL,
+    func uploadImage(_ fileData: Data,
                      _ fileName: String,
                      _ mimeType: String,
-                     completion: @escaping (Result<Void, Error>) -> Void)
+                     completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void)
+    func putProfilePhoto(_ photoID: UUID, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }

@@ -26,7 +26,14 @@ enum ProfileSettingsModels {
     struct ChangeableProfileUserData: Codable {
         var name: String
         var username: String
-        var photo: URL?
         var dateOfBirth: String?
+    }
+    
+    struct NewPhotoRequest: Codable {
+        let photoID: UUID
+        
+        enum CodingKeys: String, CodingKey {
+            case photoID = "photo_id"
+        }
     }
 }

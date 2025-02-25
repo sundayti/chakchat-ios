@@ -51,6 +51,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
             }
         }
     }
+    
     func handleError(_ error: Error) {
         _ = errorHandler.handleError(error)
     }

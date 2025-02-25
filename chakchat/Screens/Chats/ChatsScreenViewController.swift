@@ -162,6 +162,7 @@ final class UsersSearchViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         configureSearchTableView()
+        usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 70, bottom: 0, right: 5)
         bindSearch()
     }
     
@@ -173,28 +174,30 @@ final class UsersSearchViewController: UIViewController {
         usersTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 0)
         usersTableView.pinLeft(view.safeAreaLayoutGuide.leadingAnchor, 0)
         usersTableView.pinRight(view.safeAreaLayoutGuide.trailingAnchor, 0)
-        usersTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        usersTableView.register(UISearchControllerCell.self, forCellReuseIdentifier: "SearchControllerCell")
     }
     
     private func bindSearch() {
         searchTextPublisher
-            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            //.debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .removeDuplicates()
-            .print("Datastream")
+            .print("Datastream/search")
             .sink { [weak self] query in
                 self?.startNewSearch(query)
             }.store(in: &cancellable)
     }
     
+    
     private func startNewSearch(_ query: String) {
+        users = []
+        usersTableView.reloadData()
+        
         guard !query.isEmpty else {
-            users = []
-            usersTableView.reloadData()
             return
         }
+        
         currentPage = 1
         lastQuery = query
-        users = []
         fetchUsers(query, currentPage)
     }
 
@@ -216,11 +219,11 @@ final class UsersSearchViewController: UIViewController {
             isLoading = false
             switch result {
             case .success(let response):
+                self.users = response.users.filter { user in
+                    user.name.lowercased().contains(query.lowercased()) ||
+                    user.username.lowercased().contains(query.lowercased())
+                }
                 DispatchQueue.main.async {
-                    self.users = response.users.filter { user in
-                        user.name.lowercased().contains(query.lowercased()) ||
-                        user.username.lowercased().contains(query.lowercased())
-                    }
                     self.usersTableView.reloadData()
                 }
             case .failure(let failure):
@@ -236,10 +239,16 @@ extension UsersSearchViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchControllerCell", for: indexPath) as? UISearchControllerCell else {
+            return UITableViewCell()
+        }
         let user = users[indexPath.row]
-        cell.textLabel?.text = "\(user.name) @\(user.username)"
+        cell.configure(user.photo, user.name)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     // пагинация
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -15,8 +15,17 @@ enum ChatsAssembly {
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ChatsScreenPresenter()
         let userService = UserService()
-        let worker = ChatsScreenWorker(keychainManager: context.keychainManager, userService: userService)
-        let interactor = ChatsScreenInteractor(presenter: presenter, worker: worker, logger: context.logger, errorHandler: context.errorHandler, keychainManager: context.keychainManager)
+        let worker = ChatsScreenWorker(
+            keychainManager: context.keychainManager,
+            userService: userService
+        )
+        let interactor = ChatsScreenInteractor(
+            presenter: presenter,
+            worker: worker,
+            logger: context.logger,
+            errorHandler: context.errorHandler,
+            keychainManager: context.keychainManager
+        )
         interactor.onRouteToSettings = { [weak coordinator] in
             coordinator?.showSettingsScreen()
         }

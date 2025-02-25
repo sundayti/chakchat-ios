@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 21.01.2025.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - ChatsScreenWorker
 final class ChatsScreenWorker: ChatsScreenWorkerLogic {
@@ -20,8 +20,9 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     }
     
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
-        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        //guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         print("Request to server")
+        let accessToken: String = "supersecretaccesstoken1"
         userService.sendGetUsersRequest(name, username, page, limit, accessToken) { [weak self] result in
             guard self != nil else { return }
             switch result {
