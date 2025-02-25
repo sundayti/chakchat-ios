@@ -1,28 +1,23 @@
 //
-//  NewMessageInteractor.swift
+//  NewGroupInteractor.swift
 //  chakchat
 //
-//  Created by лизо4ка курунок on 24.02.2025.
+//  Created by лизо4ка курунок on 25.02.2025.
 //
 
 import Foundation
 
-// MARK: - NewMessageInteractor
-final class NewMessageInteractor: NewMessageBusinessLogic {
+// MARK: - NewGroupInteractor
+final class NewGroupInteractor: NewGroupBusinessLogic {
     
     // MARK: - Properties
-    private let presenter: NewMessagePresentationLogic
-    private let worker: NewMessageWorkerLogic
+    private let presenter: NewGroupPresentationLogic
+    private let worker: NewGroupWorkerLogic
     private let errorHandler: ErrorHandlerLogic
-    var onRouteToChatsScreen: (() -> Void)?
     var onRouteToNewMessageScreen: (() -> Void)?
     
     // MARK: - Initialization
-    init(
-        presenter: NewMessagePresentationLogic,
-        worker: NewMessageWorkerLogic,
-        errorHandler: ErrorHandlerLogic
-    ) {
+    init(presenter: NewGroupPresentationLogic, worker: NewGroupWorkerLogic, errorHandler: ErrorHandlerLogic) {
         self.presenter = presenter
         self.worker = worker
         self.errorHandler = errorHandler
@@ -45,12 +40,9 @@ final class NewMessageInteractor: NewMessageBusinessLogic {
     }
     
     // MARK: - Routing
-    func backToChatsScreen() {
-        onRouteToChatsScreen?()
-    }
-    
-    func newGroupRoute() {
+    func backToNewMessageScreen() {
         onRouteToNewMessageScreen?()
     }
 }
+
 

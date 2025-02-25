@@ -1,14 +1,14 @@
 //
-//  NewMessageWorker.swift
+//  NewGroupWorker.swift
 //  chakchat
 //
-//  Created by лизо4ка курунок on 24.02.2025.
+//  Created by лизо4ка курунок on 25.02.2025.
 //
 
 import Foundation
 
-// MARK: - NewMessageWorker
-final class NewMessageWorker: NewMessageWorkerLogic {
+// MARK: - NewGroupWorker
+final class NewGroupWorker: NewGroupWorkerLogic {
     
     // MARK: - Properties
     private let userService: UserServiceProtocol

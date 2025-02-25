@@ -13,7 +13,6 @@ final class NewMessageViewController: UIViewController {
     // MARK: - Constants
     private enum Constants {
         static let arrowLabel: String = "arrow.left"
-        static let searchPlaceholder: String = LocalizationManager.shared.localizedString(for: "search")
         static let newGroupButtonStartTop: CGFloat = -10
         static let newGroupButtonEndTop: CGFloat = 0
         static let newGroupButtonHorizontal: CGFloat = 10
@@ -91,7 +90,7 @@ final class NewMessageViewController: UIViewController {
     private func configureSearchController() {
         searchController.delegate = self
         navigationItem.searchController = searchController
-        searchController.searchBar.placeholder = Constants.searchPlaceholder
+        searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "search")
         searchController.searchBar.autocapitalizationType = .none
         searchController.searchBar.autocorrectionType = .no
         searchController.obscuresBackgroundDuringPresentation = false
@@ -126,7 +125,7 @@ final class NewMessageViewController: UIViewController {
     
     @objc
     private func newGroupButtonPressed() {
-        // go to new group screen
+        interactor.newGroupRoute()
     }
 }
 

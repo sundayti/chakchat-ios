@@ -166,4 +166,9 @@ final class AppCoordinator {
         navigationController.pushViewController(newMessageVC, animated: true)
     }
 
+    // MARK: - New group Screen Showing
+    func showNewGroupScreen() {
+        let newGroupVC = NewGroupAssembly.build(with: mainAppContext, coordinator: self)
+        navigationController.pushViewController(newGroupVC, animated: true)
+    }
 }

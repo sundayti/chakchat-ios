@@ -18,6 +18,9 @@ enum NewMessageAssembly {
         interactor.onRouteToChatsScreen = { [weak coordinator] in
             coordinator?.popScreen()
         }
+        interactor.onRouteToNewMessageScreen = { [weak coordinator] in
+            coordinator?.showNewGroupScreen()
+        }
         let view = NewMessageViewController(interactor: interactor)
         presenter.view = view
         return view
