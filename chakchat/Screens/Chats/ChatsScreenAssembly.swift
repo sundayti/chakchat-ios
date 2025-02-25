@@ -29,6 +29,10 @@ enum ChatsAssembly {
         interactor.onRouteToSettings = { [weak coordinator] in
             coordinator?.showSettingsScreen()
         }
+        interactor.onRouteToNewMessage = { [weak coordinator] in
+            coordinator?.showNewMessageScreen()
+        }
+        
         let view = ChatsScreenViewController(interactor: interactor)
         presenter.view = view
         

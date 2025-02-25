@@ -8,10 +8,9 @@
 import UIKit
 
 // MARK: - ChatsScreenBusinessLogic
-protocol ChatsScreenBusinessLogic {
+protocol ChatsScreenBusinessLogic: SearchInteractor {
     func routeToSettingsScreen()
-    func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void)
-    func handleError(_ error: Error)
+    func routeToNewMessageScreen()
 }
 
 // MARK: - ChatsScreenPresentationLogic
@@ -28,4 +27,10 @@ protocol ChatsScreenWorkerLogic {
         _ limit: Int,
         completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
+}
+
+protocol SearchInteractor {
+    func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void)
+    
+    func handleError(_ error: Error)
 }
