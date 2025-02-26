@@ -1,5 +1,5 @@
 //
-//  GroupChatService.swift
+//  SecretGroupChatService.swift
 //  chakchat
 //
 //  Created by Кирилл Исаев on 26.02.2025.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class GroupChatService: GroupChatServiceProtocol {
+final class SecretGroupChatService: SecretGroupChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.GroupChat.CreateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretGroupChat.Response>, any Error>) -> Void
     ) {
-        let endpoint = MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue
+        let endpoint = MessaginServiceEndpoints.SecretGroupChatEndpoints.secretGroupChat.rawValue
         let idempotencyKey = UUID().uuidString
         
         let body = try? JSONEncoder().encode(request)
@@ -31,9 +31,9 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ chatID: UUID,
         _ request: ChatsModels.GroupChat.UpdateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretGroupChat.Response>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)"
+        let endpoint = "\(MessaginServiceEndpoints.SecretGroupChatEndpoints.secretGroupChat.rawValue)/\(chatID)"
         
         let body = try? JSONEncoder().encode(request)
         
@@ -50,7 +50,7 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ accessToken: String,
         completion: @escaping (Result<SuccessResponse<EmptyResponse>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)"
+        let endpoint = "\(MessaginServiceEndpoints.SecretGroupChatEndpoints.secretGroupChat.rawValue)/\(chatID)"
         
         let headers = [
             "Authorization": "Bearer \(accessToken)",
@@ -64,9 +64,9 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ chatID: UUID,
         _ memberID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretGroupChat.Response>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/member/\(memberID)"
+        let endpoint = "\(MessaginServiceEndpoints.SecretGroupChatEndpoints.secretGroupChat.rawValue)/\(chatID)/member/\(memberID)"
         
         let headers = [
             "Authorization": "Bearer \(accessToken)",
@@ -80,9 +80,9 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ chatID: UUID,
         _ memberID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretGroupChat.Response>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/member/\(memberID)"
+        let endpoint = "\(MessaginServiceEndpoints.SecretGroupChatEndpoints.secretGroupChat.rawValue)/\(chatID)/member/\(memberID)"
         
         let headers = [
             "Authorization": "Bearer \(accessToken)",
@@ -96,9 +96,9 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ request: ChatsModels.GroupChat.PhotoUpdateRequest,
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretGroupChat.Response>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/photo"
+        let endpoint = "\(MessaginServiceEndpoints.SecretGroupChatEndpoints.secretGroupChat.rawValue)/\(chatID)/photo"
         
         let body = try? JSONEncoder().encode(request)
         
@@ -113,9 +113,9 @@ final class GroupChatService: GroupChatServiceProtocol {
     func sendDeletePhotoRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretGroupChat.Response>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/photo"
+        let endpoint = "\(MessaginServiceEndpoints.SecretGroupChatEndpoints.secretGroupChat.rawValue)/\(chatID)/photo"
         
         let headers = [
             "Authorization": "Bearer \(accessToken)",
