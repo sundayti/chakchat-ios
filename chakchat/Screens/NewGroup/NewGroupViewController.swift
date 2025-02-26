@@ -35,7 +35,8 @@ final class NewGroupViewController: UIViewController {
     private var shouldAnimateEmptyButton = false
     private let usersTableView: UITableView = UITableView()
     private var iconImageView: UIImageView = UIImageView()
-    private let groupNameTextField: UITextField = UITextField()
+    private let groupLabel: UILabel = UILabel()
+    private let groupTextField: UITextField = UITextField()
 
     
     // MARK: - Initialization
@@ -51,6 +52,9 @@ final class NewGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillLayoutSubviews() {
@@ -75,6 +79,7 @@ final class NewGroupViewController: UIViewController {
         configureSearchController()
         configureEmptyButton()
         configureIconImageView()
+        configureGroupTextFiled()
         configureTableView()
     }
     
@@ -133,21 +138,20 @@ final class NewGroupViewController: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.pinTop(iconImageView.bottomAnchor, Constants.tableTop)
+        tableView.pinTop(groupTextField.bottomAnchor, Constants.tableTop)
         tableView.pinBottom(view, Constants.tableBottom)
         tableView.pinLeft(view, Constants.tableHorizontal)
         tableView.pinRight(view, Constants.tableHorizontal)
         tableView.separatorInset = .zero
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UISearchControllerCell.self, forCellReuseIdentifier: "SearchControllerCell")
     }
     
     // MARK: - Icon ImageView Configuration
     private func configureIconImageView(title: String = "new_group") {
-        
         let image = UIImage.imageWithText(
             text: LocalizationManager.shared.localizedString(for: title),
             size: CGSize(width: Constants.imageViewSize, height: Constants.imageViewSize),
-            backgroundColor: .white,
+            backgroundColor: Colors.background,
             textColor: Colors.lightOrange,
             borderColor: Colors.lightOrange,
             borderWidth: Constants.imageBorderWidth
@@ -165,6 +169,30 @@ final class NewGroupViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
         iconImageView.addGestureRecognizer(tapGesture)
     }
+    
+    // MARK: - Group Text Field Configuration
+    private func configureGroupTextFiled() {
+        view.addSubview(groupTextField)
+        groupTextField.pinTop(iconImageView.bottomAnchor, 10)
+        groupTextField.pinCenterX(view.centerXAnchor)
+        groupTextField.sizeToFit()
+        groupTextField.placeholder = LocalizationManager.shared.localizedString(for: "group_name")
+        groupTextField.font = Fonts.systemR18
+        groupTextField.autocorrectionType = .no
+        groupTextField.spellCheckingType = .no
+        groupTextField.autocapitalizationType = .none
+        groupTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        
+        let underlineLayer = UIView()
+        underlineLayer.setHeight(1)
+        underlineLayer.backgroundColor = UIColor.systemGray5
+        groupTextField.addSubview(underlineLayer)
+        underlineLayer.pinBottom(groupTextField.bottomAnchor, 0)
+        underlineLayer.pinLeft(groupTextField.leadingAnchor, 0)
+        underlineLayer.pinRight(groupTextField.trailingAnchor, 0)
+    }
+
     
     // MARK: - Updating iconImageView after picking pic
     private func addPickedImage(_ image: UIImage) {
@@ -217,6 +245,26 @@ final class NewGroupViewController: UIViewController {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        // updating textAligment
+        DispatchQueue.main.async {
+            let isEmpty = textField.text?.isEmpty == true
+            textField.textAlignment = isEmpty ? .left : .center
+            
+            if isEmpty {
+                textField.text = " "
+                textField.text = ""
+            }
+        }
+    }
+
 }
 
 // MARK: - UISearchResultsUpdating
@@ -243,14 +291,21 @@ extension NewGroupViewController: UISearchControllerDelegate {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 // TODO: make pretty cells here and everywhere where searchBar is.
 extension NewGroupViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchControllerCell", for: indexPath) as? UISearchControllerCell else {
+            return UITableViewCell()
+        }
         let user = users[indexPath.row]
-        cell.textLabel?.text = "\(user.name) @\(user.username)"
+        cell.configure(user.photo, user.name)
         return cell
     }
 }

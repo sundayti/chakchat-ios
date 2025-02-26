@@ -9,9 +9,11 @@ import UIKit
 
 extension UIColor {
     static func random() -> UIColor {
-        return UIColor(displayP3Red: .random(in: (0...1)),
-                       green: .random(in: (0...1)),
-                       blue: .random(in: (0...1)),
-                       alpha: 1)
+        let minBrightness: CGFloat = 0.5
+        let red = CGFloat.random(in: minBrightness...1)
+        let green = CGFloat.random(in: minBrightness...1)
+        let blue = CGFloat.random(in: minBrightness...1)
+        
+        return UIColor(displayP3Red: red, green: green, blue: blue, alpha: 1)
     }
 }

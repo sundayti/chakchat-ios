@@ -63,7 +63,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     
     func loadPhotoByURL(_ url: URL, completion: @escaping (Result<UIImage, any Error>) -> Void) {
         worker.loadPhoto(url) { [weak self] result in
-            guard let self = self else { return }
+            guard self != nil else { return }
             switch result {
             case .success(let image):
                 completion(.success(image))

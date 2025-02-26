@@ -7,8 +7,10 @@
 
 import UIKit
 
+// MARK: - ShimmerView
 final class ShimmerView: UIView {
-    //MARK: - Constants
+    
+    // MARK: - Constants
     enum Constants {
         static let firstGradientColor: CGColor = UIColor(white: 0.65, alpha: 1.0).cgColor
         static let secondGradientColor: CGColor = UIColor(white: 0.75, alpha: 1.0).cgColor
@@ -26,11 +28,11 @@ final class ShimmerView: UIView {
         static let animationDuration = 0.9
     }
     
-    //MARK: - Variables
+    // MARK: - Properties
     var gradientColorOne : CGColor = Constants.firstGradientColor
     var gradientColorTwo : CGColor = Constants.secondGradientColor
     
-    //MARK: - Public methods
+    // MARK: - Public methods
     func addGradientLayer() -> CAGradientLayer {
         
         let gradientLayer = CAGradientLayer()
@@ -60,7 +62,7 @@ final class ShimmerView: UIView {
         let gradientLayer = addGradientLayer()
         let animation = addAnimation()
         
-        gradientLayer.cornerRadius = 25
+        gradientLayer.cornerRadius = 20
         gradientLayer.add(animation, forKey: animation.keyPath)
     }
 }

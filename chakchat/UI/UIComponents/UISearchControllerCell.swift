@@ -7,13 +7,31 @@
 
 import UIKit
 
+// MARK: - UISearchControllerCell
 final class UISearchControllerCell: UITableViewCell {
     
+    // MARK: - Constants
     static let cellIdentifier: String = "SearchControllerCell"
     
+    private enum Constants {
+        static let size: CGFloat = 40
+        static let radius: CGFloat = 20
+        static let picX: CGFloat = 10
+        static let picY: CGFloat = 10
+        static let borderWidth: CGFloat = 5
+    }
+    
+    // MARK: - Properties
     private let name: UILabel = UILabel()
     private let userPhoto: UIImageView = UIImageView()
-    private let shimmerLayer: ShimmerView = ShimmerView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+    private let shimmerLayer: ShimmerView = ShimmerView(
+        frame: CGRect(
+            x: Constants.picX,
+            y: Constants.picY,
+            width: Constants.size,
+            height: Constants.size
+        )
+    )
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,41 +50,55 @@ final class UISearchControllerCell: UITableViewCell {
             loadImage(from: url)
         } else {
             shimmerLayer.isHidden = true
-            self.userPhoto.image = UIImage(systemName: "camera.circle")
+            let color = UIColor.random()
+            let image = UIImage.imageWithText(
+                text: LocalizationManager.shared.localizedString(for: name),
+                size: CGSize(width: Constants.size, height: Constants.size),
+                backgroundColor: Colors.background,
+                textColor: color,
+                borderColor: color,
+                borderWidth: Constants.borderWidth
+            )
+            
+            self.userPhoto.image = image
         }
     }
     
+    // MARK: - Cell Configuration
     func configureCell() {
         configureShimmerView()
         configurePhoto()
         configureName()
     }
     
+    // MARK: - Shimmer View Configuration
     private func configureShimmerView() {
         contentView.addSubview(shimmerLayer)
-        shimmerLayer.layer.cornerRadius = 25
+        shimmerLayer.layer.cornerRadius = Constants.radius
         shimmerLayer.startAnimating()
     }
     
+    // MARK: - Photo Configuration
     private func configurePhoto() {
         contentView.addSubview(userPhoto)
-        userPhoto.tintColor = UIColor.random()
-        userPhoto.layer.cornerRadius = 25
+        userPhoto.layer.cornerRadius = Constants.radius
         userPhoto.layer.masksToBounds = true
         userPhoto.pinCenterY(contentView)
-        userPhoto.pinLeft(contentView.leadingAnchor, 10)
-        userPhoto.setWidth(50)
-        userPhoto.setHeight(50)
+        userPhoto.pinLeft(contentView.leadingAnchor, Constants.picX)
+        userPhoto.setWidth(Constants.size)
+        userPhoto.setHeight(Constants.size)
     }
     
+    // MARK: - Name Configuration
     private func configureName() {
         contentView.addSubview(name)
-        name.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        name.textColor = .black
+        name.font = Fonts.systemR20
+        name.textColor = Colors.text
         name.pinCenterY(contentView)
-        name.pinLeft(userPhoto.trailingAnchor, 10)
+        name.pinLeft(userPhoto.trailingAnchor, Constants.picX)
     }
     
+    // MARK: - Image Loading
     private func loadImage(from imageURL: URL) {
         if let cachedImage = ImageCacheManager.shared.getImage(for: imageURL as NSURL) {
             self.shimmerLayer.isHidden = true

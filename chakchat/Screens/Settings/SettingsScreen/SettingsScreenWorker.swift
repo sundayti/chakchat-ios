@@ -40,10 +40,10 @@ final class SettingsScreenWorker: SettingsScreenWorkerLogic {
     }
     
     func loadPhoto(_ url: URL, completion: @escaping (Result<UIImage, any Error>) -> Void) {
-        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else {
+        guard (keychainManager.getString(key: KeychainManager.keyForSaveAccessToken)) != nil else {
             return
         }
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        _ = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return

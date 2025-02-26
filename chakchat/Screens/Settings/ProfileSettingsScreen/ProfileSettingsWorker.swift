@@ -62,7 +62,7 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ProfileSettingsModels.NewPhotoRequest(photoID: photoID)
         userService.sendPutPhotoRequest(request, accessToken) { [weak self] result in
-            guard let self = self else { return }
+            guard self != nil else { return }
             switch result {
             case .success(let successResponse):
                 //self.userDefaultsManager.saveUserData(successResponse.data)
