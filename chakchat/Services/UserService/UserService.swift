@@ -8,8 +8,20 @@
 import Foundation
 import Combine
 
-/// пока что здесь закомменчены настоящие реализации запроса к серверу и работают только моки
+/// пока что здесь закомменчены настоящие реализации запроса к серверу и работают только стабы
 final class UserService: UserServiceProtocol {
+ 
+    func sendGetUserRequest(_ userID: UUID, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void) {
+        let endpoint = "\(UserServiceEndpoints.user.rawValue)\(userID)"
+        
+        let headers = [
+            "Authorization": "Bearer \(accessToken)",
+            "Content-Type": "application/json"
+        ]
+        
+        Sender.send(endpoint: endpoint, method: .get, headers: headers, completion: completion)
+    }
+    
     func sendGetMeRequest(_ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void) {
 //        let endpoint = UserServiceEndpoints.me.rawValue
 //        
@@ -224,6 +236,36 @@ final class UserService: UserServiceProtocol {
                 )
             )
         )
+    }
+    
+    func sendDeletePhotoRequest(_ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, any Error>) -> Void) {
+//        let endpoint = UserServiceEndpoints.photo.rawValue
+//        
+//        let headers = [
+//            "Authorization": "Bearer \(accessToken)",
+//            "Content-Type": "application/json"
+//        ]
+//        
+//        Sender.send(endpoint: endpoint, method: .delete, headers: headers, completion: completion)
+        completion(
+            .success(
+                SuccessResponse<ProfileSettingsModels.ProfileUserData>(
+                    data: ProfileSettingsModels.ProfileUserData(
+                        id: UUID(),
+                        name: "PhotoDeleted",
+                        username: "PhotoDeleted",
+                        phone: "79776002211",
+                        photo: nil,
+                        dateOfBirth: "29.08.2003"
+                    )
+                )
+            )
+        )
+    }
+    
+    func DONTSENDIT(completion: @escaping (Result<SuccessResponse<EmptyResponse>, any Error>) -> Void) {
+        let endpoint = UserServiceEndpoints.teapot.rawValue
+        Sender.send(endpoint: endpoint, method: .get, completion: completion)
     }
 }
 

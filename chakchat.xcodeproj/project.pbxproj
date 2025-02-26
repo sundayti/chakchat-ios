@@ -161,6 +161,14 @@
 		AAB300B52D6DA9B900BECA3B /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300B42D6DA9B900BECA3B /* UIColor+Random.swift */; };
 		AAB300BA2D6DEA8900BECA3B /* UIShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300B92D6DEA8900BECA3B /* UIShimmerView.swift */; };
 		AAB300BC2D6E043C00BECA3B /* UpdatePhotoEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300BB2D6E043C00BECA3B /* UpdatePhotoEvent.swift */; };
+		AAB300C02D6EF97600BECA3B /* GroupChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300BF2D6EF97600BECA3B /* GroupChatService.swift */; };
+		AAB300C22D6EF98100BECA3B /* GroupChatServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300C12D6EF98100BECA3B /* GroupChatServiceProtocol.swift */; };
+		AAB300C42D6EF9C100BECA3B /* MessaginServiceEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300C32D6EF9C100BECA3B /* MessaginServiceEndpoints.swift */; };
+		AAB300C62D6F00DA00BECA3B /* ChatsScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300C52D6F00DA00BECA3B /* ChatsScreenModels.swift */; };
+		AAB300C92D6F0A6D00BECA3B /* PersonalChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300C82D6F0A6D00BECA3B /* PersonalChatService.swift */; };
+		AAB300CB2D6F0A7900BECA3B /* PersonalChatServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300CA2D6F0A7900BECA3B /* PersonalChatServiceProtocol.swift */; };
+		AAB300CE2D6F0E4300BECA3B /* SecretPersonalChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300CD2D6F0E4300BECA3B /* SecretPersonalChatService.swift */; };
+		AAB300D02D6F0E4C00BECA3B /* SecretPersonalChatServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300CF2D6F0E4C00BECA3B /* SecretPersonalChatServiceProtocol.swift */; };
 		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
 		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 		E11D350F2D40C3F400A698EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350E2D40C3F400A698EA /* Colors.swift */; };
@@ -398,6 +406,14 @@
 		AAB300B42D6DA9B900BECA3B /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
 		AAB300B92D6DEA8900BECA3B /* UIShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIShimmerView.swift; sourceTree = "<group>"; };
 		AAB300BB2D6E043C00BECA3B /* UpdatePhotoEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePhotoEvent.swift; sourceTree = "<group>"; };
+		AAB300BF2D6EF97600BECA3B /* GroupChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatService.swift; sourceTree = "<group>"; };
+		AAB300C12D6EF98100BECA3B /* GroupChatServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatServiceProtocol.swift; sourceTree = "<group>"; };
+		AAB300C32D6EF9C100BECA3B /* MessaginServiceEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessaginServiceEndpoints.swift; sourceTree = "<group>"; };
+		AAB300C52D6F00DA00BECA3B /* ChatsScreenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenModels.swift; sourceTree = "<group>"; };
+		AAB300C82D6F0A6D00BECA3B /* PersonalChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChatService.swift; sourceTree = "<group>"; };
+		AAB300CA2D6F0A7900BECA3B /* PersonalChatServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChatServiceProtocol.swift; sourceTree = "<group>"; };
+		AAB300CD2D6F0E4300BECA3B /* SecretPersonalChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPersonalChatService.swift; sourceTree = "<group>"; };
+		AAB300CF2D6F0E4C00BECA3B /* SecretPersonalChatServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretPersonalChatServiceProtocol.swift; sourceTree = "<group>"; };
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -538,6 +554,7 @@
 				AA7BADEC2D3FA0440030AC82 /* ChatsScreenWorker.swift */,
 				AA7BADE62D3F9FB80030AC82 /* ChatsScreenPresenter.swift */,
 				AA7BADE82D3F9FDF0030AC82 /* ChatsScreenViewController.swift */,
+				AAB300C52D6F00DA00BECA3B /* ChatsScreenModels.swift */,
 				AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */,
 			);
 			path = Chats;
@@ -919,6 +936,7 @@
 		AA9B62372D2D75050064CB23 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AAB300BD2D6EF89D00BECA3B /* MessagingService */,
 				E19609FB2D627E43008E27C0 /* FileStorageService */,
 				AA07A66F2D5C897300CFE124 /* UserService */,
 				AAA839F32D65B95200C870A4 /* IdentityService */,
@@ -986,6 +1004,7 @@
 				AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */,
 				AA07A6742D5CA17B00CFE124 /* UserServiceEndpoints.swift */,
 				AAA839E12D62522F00C870A4 /* FileStorageEndpoints.swift */,
+				AAB300C32D6EF9C100BECA3B /* MessaginServiceEndpoints.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -1058,6 +1077,43 @@
 				AAB300B02D6CDE5F00BECA3B /* ImageCacheManager.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		AAB300BD2D6EF89D00BECA3B /* MessagingService */ = {
+			isa = PBXGroup;
+			children = (
+				AAB300C72D6F0A5E00BECA3B /* PersonalChat */,
+				AAB300CC2D6F0E2F00BECA3B /* SecretPersonalChat */,
+				AAB300BE2D6EF95C00BECA3B /* GroupChat */,
+			);
+			path = MessagingService;
+			sourceTree = "<group>";
+		};
+		AAB300BE2D6EF95C00BECA3B /* GroupChat */ = {
+			isa = PBXGroup;
+			children = (
+				AAB300BF2D6EF97600BECA3B /* GroupChatService.swift */,
+				AAB300C12D6EF98100BECA3B /* GroupChatServiceProtocol.swift */,
+			);
+			path = GroupChat;
+			sourceTree = "<group>";
+		};
+		AAB300C72D6F0A5E00BECA3B /* PersonalChat */ = {
+			isa = PBXGroup;
+			children = (
+				AAB300C82D6F0A6D00BECA3B /* PersonalChatService.swift */,
+				AAB300CA2D6F0A7900BECA3B /* PersonalChatServiceProtocol.swift */,
+			);
+			path = PersonalChat;
+			sourceTree = "<group>";
+		};
+		AAB300CC2D6F0E2F00BECA3B /* SecretPersonalChat */ = {
+			isa = PBXGroup;
+			children = (
+				AAB300CD2D6F0E4300BECA3B /* SecretPersonalChatService.swift */,
+				AAB300CF2D6F0E4C00BECA3B /* SecretPersonalChatServiceProtocol.swift */,
+			);
+			path = SecretPersonalChat;
 			sourceTree = "<group>";
 		};
 		E19609A92D608CF3008E27C0 /* Resources */ = {
@@ -1380,6 +1436,7 @@
 				AA84F02E2D4BEF1800678ABA /* BirthVisibilityScreenInteractor.swift in Sources */,
 				AA1C0E3A2D43A5D7008E47D8 /* EventManager.swift in Sources */,
 				AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */,
+				AAB300D02D6F0E4C00BECA3B /* SecretPersonalChatServiceProtocol.swift in Sources */,
 				AA84F0222D4BBEC300678ABA /* PhoneVisibilityScreenViewController.swift in Sources */,
 				AA1C0E3C2D43ACED008E47D8 /* UpdateProfileDataEvent.swift in Sources */,
 				AA9B62342D2D71A30064CB23 /* PhoneValidator.swift in Sources */,
@@ -1393,6 +1450,7 @@
 				E19609DB2D60E90A008E27C0 /* LanguageViewController.swift in Sources */,
 				E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */,
 				E1960A732D6E181A008E27C0 /* UIImage+Letters.swift in Sources */,
+				AAB300CE2D6F0E4300BECA3B /* SecretPersonalChatService.swift in Sources */,
 				AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */,
 				AA84F04B2D4D0C0B00678ABA /* NotificationCell.swift in Sources */,
 				AA07A6752D5CA17B00CFE124 /* UserServiceEndpoints.swift in Sources */,
@@ -1452,9 +1510,11 @@
 				E1960A2F2D6B79D1008E27C0 /* HelpInteractor.swift in Sources */,
 				AA84F0532D4D0C5D00678ABA /* NotificationScreenPresenter.swift in Sources */,
 				E135ED482D54C273006CE143 /* UIDateButton.swift in Sources */,
+				AAB300CB2D6F0A7900BECA3B /* PersonalChatServiceProtocol.swift in Sources */,
 				AA22CD7B2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift in Sources */,
 				AA84F0322D4BEF2700678ABA /* BirthVisibilityScreenWorker.swift in Sources */,
 				AA84F01C2D4BBEA800678ABA /* PhoneVisibilityScreenWorker.swift in Sources */,
+				AAB300C62D6F00DA00BECA3B /* ChatsScreenModels.swift in Sources */,
 				E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */,
 				AA84F0242D4BC55100678ABA /* VisibilityCell.swift in Sources */,
 				E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */,
@@ -1475,6 +1535,7 @@
 				AA84F0552D4D0C6900678ABA /* NotificationScreenViewController.swift in Sources */,
 				E1960A1E2D6B4998008E27C0 /* CacheAssembly.swift in Sources */,
 				AAB300BC2D6E043C00BECA3B /* UpdatePhotoEvent.swift in Sources */,
+				AAB300C02D6EF97600BECA3B /* GroupChatService.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
 				E1960A5E2D6CE42C008E27C0 /* UIUsersSearchViewController.swift in Sources */,
@@ -1491,6 +1552,7 @@
 				AAB300B32D6DA7E900BECA3B /* UISearchControllerCell.swift in Sources */,
 				E1960A4B2D6BE159008E27C0 /* BlackListInteractor.swift in Sources */,
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
+				AAB300C92D6F0A6D00BECA3B /* PersonalChatService.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
 				E1960A502D6BE62A008E27C0 /* NewMessageAssembly.swift in Sources */,
 				E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */,
@@ -1520,6 +1582,7 @@
 				E1960A542D6BE653008E27C0 /* NewMessageProtocols.swift in Sources */,
 				AA9B626B2D2FD2470064CB23 /* SignupPresenter.swift in Sources */,
 				AA1C0E452D43C974008E47D8 /* ProfileSettingsPresenter.swift in Sources */,
+				AAB300C42D6EF9C100BECA3B /* MessaginServiceEndpoints.swift in Sources */,
 				AA9B62362D2D72E30064CB23 /* SendCodeWorker.swift in Sources */,
 				AA9B620A2D2D47CB0064CB23 /* SceneDelegate.swift in Sources */,
 				AAA5F3E42D3959C800B9D50E /* MockErrorHandler.swift in Sources */,
@@ -1565,6 +1628,7 @@
 				AA87FC6F2D55039B00E8D066 /* UserProfileScreenWorker.swift in Sources */,
 				AA9B62802D3018CB0064CB23 /* SignupContext.swift in Sources */,
 				E1960A672D6DE51E008E27C0 /* NewGroupProtocols.swift in Sources */,
+				AAB300C22D6EF98100BECA3B /* GroupChatServiceProtocol.swift in Sources */,
 				AA9B62A12D32DFC60064CB23 /* StateMachine.swift in Sources */,
 				E19609EA2D61FFF2008E27C0 /* LocalizationManager.swift in Sources */,
 				E1960A492D6BE148008E27C0 /* BlackListProtocols.swift in Sources */,
