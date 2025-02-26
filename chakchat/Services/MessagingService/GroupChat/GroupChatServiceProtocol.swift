@@ -24,7 +24,7 @@ protocol GroupChatServiceProtocol {
     func sendDeleteChatRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<EmptyResponse>, Error>) -> Void
     )
     
     func sendAddMemberRequest(

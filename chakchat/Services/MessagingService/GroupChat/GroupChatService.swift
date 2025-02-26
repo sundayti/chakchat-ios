@@ -48,7 +48,7 @@ final class GroupChatService: GroupChatServiceProtocol {
     func sendDeleteChatRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<EmptyResponse>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)"
         
