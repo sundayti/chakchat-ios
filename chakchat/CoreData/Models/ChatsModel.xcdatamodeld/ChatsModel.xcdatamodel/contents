@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ChatData" representedClassName="ChatData" syncable="YES">
+        <attribute name="chatID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="chatPhoto" optional="YES" attributeType="URI"/>
+        <attribute name="lastUpdateID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="secret" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="chatsData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChatsData" inverseName="chats" inverseEntity="ChatsData"/>
+        <relationship name="previews" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Preview" inverseName="chatData" inverseEntity="Preview"/>
+    </entity>
+    <entity name="ChatsData" representedClassName="ChatsData" syncable="YES">
+        <relationship name="chats" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChatData" inverseName="chatsData" inverseEntity="ChatData"/>
+    </entity>
+    <entity name="Content" representedClassName="Content" isAbstract="YES" syncable="YES">
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="preview" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Preview" inverseName="contents" inverseEntity="Preview"/>
+    </entity>
+    <entity name="FileContent" representedClassName="FileContent" parentEntity="Content" syncable="YES">
+        <attribute name="file" optional="YES" attributeType="Binary"/>
+        <attribute name="forwarded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="replyTo" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="reactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Reaction" inverseName="fileContent" inverseEntity="Reaction"/>
+    </entity>
+    <entity name="Preview" representedClassName="Preview" syncable="YES">
+        <attribute name="chatID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="senderID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="updateID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="chatData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChatData" inverseName="previews" inverseEntity="ChatData"/>
+        <relationship name="contents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Content" inverseName="preview" inverseEntity="Content"/>
+    </entity>
+    <entity name="Reaction" representedClassName="Reaction" parentEntity="Content" syncable="YES">
+        <relationship name="fileContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FileContent" inverseName="reactions" inverseEntity="FileContent"/>
+        <relationship name="reactionContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReactionContent" inverseName="reactionship" inverseEntity="ReactionContent"/>
+        <relationship name="textContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TextContent" inverseName="reactions" inverseEntity="TextContent"/>
+    </entity>
+    <entity name="ReactionContent" representedClassName="ReactionContent" syncable="YES">
+        <attribute name="messageID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="reaction" optional="YES" attributeType="String"/>
+        <relationship name="reactionship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Reaction" inverseName="reactionContent" inverseEntity="Reaction"/>
+    </entity>
+    <entity name="TextContent" representedClassName="TextContent" parentEntity="Content" syncable="YES">
+        <attribute name="forwarded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="replyTo" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="reactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Reaction" inverseName="textContent" inverseEntity="Reaction"/>
+    </entity>
+</model>
