@@ -39,7 +39,7 @@ enum ChatsModels {
             let updateID: Int64
             let chatID: UUID
             let senderID: UUID
-            let createdAt: String
+            let createdAt: Date
             let content: Content?
             
             enum CodingKeys: String, CodingKey {
@@ -51,27 +51,76 @@ enum ChatsModels {
             }
         }
         
-        struct Content: Codable {
-            let file: SuccessModels.UploadResponse?
-            let text: String?
-            let replyTo: UUID
-            let forwarded: Bool
-            let reactions: [Reaction]
+        enum Content: Codable {
+            case text(TextContent)
+            case file(FileContent)
+            case reaction(Reaction)
             
             enum CodingKeys: String, CodingKey {
-                case file = "file"
+                case text
+                case file
+                case reaction
+            }
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                if let textContent = try container.decodeIfPresent(TextContent.self, forKey: .text) {
+                    self = .text(textContent)
+                } else if let fileContent = try container.decodeIfPresent(FileContent.self, forKey: .file) {
+                    self = .file(fileContent)
+                } else if let reactionContent = try container.decodeIfPresent(Reaction.self, forKey: .reaction) {
+                    self = .reaction(reactionContent)
+                } else {
+                    throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Unknown content type"))
+                }
+            }
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                switch self {
+                case .text(let textContent):
+                    try container.encode(textContent, forKey: .text)
+                case .file(let fileContent):
+                    try container.encode(fileContent, forKey: .file)
+                case .reaction(let reactionContent):
+                    try container.encode(reactionContent, forKey: .reaction)
+                }
+            }
+        }
+        
+        struct TextContent: Codable {
+            let text: String
+            let replyTo: UUID
+            let forwarded: Bool
+            let reactions: [Reaction]?
+            
+            enum CodingKeys: String, CodingKey {
                 case text = "text"
                 case replyTo = "reply_to"
                 case forwarded = "forwarded"
                 case reactions = "reactions"
             }
         }
-                
+        
+        struct FileContent: Codable {
+            let file: SuccessModels.UploadResponse
+            let replyTo: UUID
+            let forwarded: Bool
+            let reactions: [Reaction]?
+            
+            enum CodingKeys: String, CodingKey {
+                case file
+                case replyTo = "reply_to"
+                case forwarded
+                case reactions
+            }
+        }
+        
         struct Reaction: Codable {
             let updateID: Int64
             let chatID: UUID
             let senderID: UUID
-            let createdAt: String
+            let createdAt: Date
             let content: ReactionContent
             
             enum CodingKeys: String, CodingKey {

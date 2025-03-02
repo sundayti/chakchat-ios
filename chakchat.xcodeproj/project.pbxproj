@@ -177,6 +177,25 @@
 		AAB300E02D6F337200BECA3B /* UpdateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300DF2D6F337200BECA3B /* UpdateServiceProtocol.swift */; };
 		AAB300E32D6F4EFC00BECA3B /* SecretUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300E22D6F4EFC00BECA3B /* SecretUpdateService.swift */; };
 		AAB300E52D6F4F0300BECA3B /* SecretUpdateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300E42D6F4F0300BECA3B /* SecretUpdateServiceProtocol.swift */; };
+		AAB301DC2D7201AC00BECA3B /* ChatsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */; };
+		AAB302002D72075E00BECA3B /* CoreDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB301FF2D72075E00BECA3B /* CoreDataManagerProtocol.swift */; };
+		AAB302022D72076400BECA3B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302012D72076400BECA3B /* CoreDataManager.swift */; };
+		AAB3021D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3020D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift */; };
+		AAB3021E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3020E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift */; };
+		AAB3021F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3020F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift */; };
+		AAB302202D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302102D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift */; };
+		AAB302212D72176B00BECA3B /* FileContent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302112D72176B00BECA3B /* FileContent+CoreDataClass.swift */; };
+		AAB302222D72176B00BECA3B /* FileContent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302122D72176B00BECA3B /* FileContent+CoreDataProperties.swift */; };
+		AAB302232D72176B00BECA3B /* TextContent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302132D72176B00BECA3B /* TextContent+CoreDataClass.swift */; };
+		AAB302242D72176B00BECA3B /* TextContent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302142D72176B00BECA3B /* TextContent+CoreDataProperties.swift */; };
+		AAB302252D72176B00BECA3B /* ChatData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302152D72176B00BECA3B /* ChatData+CoreDataClass.swift */; };
+		AAB302262D72176B00BECA3B /* ChatData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302162D72176B00BECA3B /* ChatData+CoreDataProperties.swift */; };
+		AAB302272D72176B00BECA3B /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302172D72176B00BECA3B /* Reaction+CoreDataClass.swift */; };
+		AAB302282D72176B00BECA3B /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302182D72176B00BECA3B /* Reaction+CoreDataProperties.swift */; };
+		AAB302292D72176B00BECA3B /* Preview+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302192D72176B00BECA3B /* Preview+CoreDataClass.swift */; };
+		AAB3022A2D72176B00BECA3B /* Preview+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3021A2D72176B00BECA3B /* Preview+CoreDataProperties.swift */; };
+		AAB3022B2D72176B00BECA3B /* Content+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3021B2D72176B00BECA3B /* Content+CoreDataClass.swift */; };
+		AAB3022C2D72176B00BECA3B /* Content+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3021C2D72176B00BECA3B /* Content+CoreDataProperties.swift */; };
 		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
 		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 		E11D350F2D40C3F400A698EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350E2D40C3F400A698EA /* Colors.swift */; };
@@ -430,6 +449,26 @@
 		AAB300DF2D6F337200BECA3B /* UpdateServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateServiceProtocol.swift; sourceTree = "<group>"; };
 		AAB300E22D6F4EFC00BECA3B /* SecretUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretUpdateService.swift; sourceTree = "<group>"; };
 		AAB300E42D6F4F0300BECA3B /* SecretUpdateServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretUpdateServiceProtocol.swift; sourceTree = "<group>"; };
+		AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatsModel.xcdatamodel; sourceTree = "<group>"; };
+		AAB301FF2D72075E00BECA3B /* CoreDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerProtocol.swift; sourceTree = "<group>"; };
+		AAB302012D72076400BECA3B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		AAB3020D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatsData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB3020E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatsData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB3020F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReactionContent+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB302102D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReactionContent+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB302112D72176B00BECA3B /* FileContent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileContent+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB302122D72176B00BECA3B /* FileContent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileContent+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB302132D72176B00BECA3B /* TextContent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextContent+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB302142D72176B00BECA3B /* TextContent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextContent+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB302152D72176B00BECA3B /* ChatData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB302162D72176B00BECA3B /* ChatData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB302172D72176B00BECA3B /* Reaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reaction+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB302182D72176B00BECA3B /* Reaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB302192D72176B00BECA3B /* Preview+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB3021A2D72176B00BECA3B /* Preview+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB3021B2D72176B00BECA3B /* Content+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAB3021C2D72176B00BECA3B /* Content+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB302402D744DC600BECA3B /* ChatsModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ChatsModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -885,6 +924,7 @@
 				AA9B62372D2D75050064CB23 /* Services */,
 				AA9B62542D2EDF700064CB23 /* Networking */,
 				AA9B623F2D2EC0010064CB23 /* Keychain */,
+				AAB301D82D72019300BECA3B /* CoreData */,
 				AA7BAE3B2D40E87E0030AC82 /* UserDefaults */,
 				AA9B621D2D2D5E650064CB23 /* Screens */,
 				AA9B62302D2D71580064CB23 /* Validators */,
@@ -1170,6 +1210,56 @@
 				AAB300E42D6F4F0300BECA3B /* SecretUpdateServiceProtocol.swift */,
 			);
 			path = SecretUpdate;
+			sourceTree = "<group>";
+		};
+		AAB301D82D72019300BECA3B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AAB301FE2D72074A00BECA3B /* CoreDataManager */,
+				AAB301FD2D72055900BECA3B /* GeneratedModels */,
+				AAB301D92D72019B00BECA3B /* Models */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		AAB301D92D72019B00BECA3B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AAB301FD2D72055900BECA3B /* GeneratedModels */ = {
+			isa = PBXGroup;
+			children = (
+				AAB3020D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift */,
+				AAB3020E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift */,
+				AAB3020F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift */,
+				AAB302102D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift */,
+				AAB302112D72176B00BECA3B /* FileContent+CoreDataClass.swift */,
+				AAB302122D72176B00BECA3B /* FileContent+CoreDataProperties.swift */,
+				AAB302132D72176B00BECA3B /* TextContent+CoreDataClass.swift */,
+				AAB302142D72176B00BECA3B /* TextContent+CoreDataProperties.swift */,
+				AAB302152D72176B00BECA3B /* ChatData+CoreDataClass.swift */,
+				AAB302162D72176B00BECA3B /* ChatData+CoreDataProperties.swift */,
+				AAB302172D72176B00BECA3B /* Reaction+CoreDataClass.swift */,
+				AAB302182D72176B00BECA3B /* Reaction+CoreDataProperties.swift */,
+				AAB302192D72176B00BECA3B /* Preview+CoreDataClass.swift */,
+				AAB3021A2D72176B00BECA3B /* Preview+CoreDataProperties.swift */,
+				AAB3021B2D72176B00BECA3B /* Content+CoreDataClass.swift */,
+				AAB3021C2D72176B00BECA3B /* Content+CoreDataProperties.swift */,
+			);
+			path = GeneratedModels;
+			sourceTree = "<group>";
+		};
+		AAB301FE2D72074A00BECA3B /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				AAB302012D72076400BECA3B /* CoreDataManager.swift */,
+				AAB301FF2D72075E00BECA3B /* CoreDataManagerProtocol.swift */,
+			);
+			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 		E19609A92D608CF3008E27C0 /* Resources */ = {
@@ -1597,6 +1687,22 @@
 				AAB300C02D6EF97600BECA3B /* GroupChatService.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
+				AAB3021D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift in Sources */,
+				AAB3021E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift in Sources */,
+				AAB3021F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift in Sources */,
+				AAB302202D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift in Sources */,
+				AAB302212D72176B00BECA3B /* FileContent+CoreDataClass.swift in Sources */,
+				AAB302222D72176B00BECA3B /* FileContent+CoreDataProperties.swift in Sources */,
+				AAB302232D72176B00BECA3B /* TextContent+CoreDataClass.swift in Sources */,
+				AAB302242D72176B00BECA3B /* TextContent+CoreDataProperties.swift in Sources */,
+				AAB302252D72176B00BECA3B /* ChatData+CoreDataClass.swift in Sources */,
+				AAB302262D72176B00BECA3B /* ChatData+CoreDataProperties.swift in Sources */,
+				AAB302272D72176B00BECA3B /* Reaction+CoreDataClass.swift in Sources */,
+				AAB302282D72176B00BECA3B /* Reaction+CoreDataProperties.swift in Sources */,
+				AAB302292D72176B00BECA3B /* Preview+CoreDataClass.swift in Sources */,
+				AAB3022A2D72176B00BECA3B /* Preview+CoreDataProperties.swift in Sources */,
+				AAB3022B2D72176B00BECA3B /* Content+CoreDataClass.swift in Sources */,
+				AAB3022C2D72176B00BECA3B /* Content+CoreDataProperties.swift in Sources */,
 				E1960A5E2D6CE42C008E27C0 /* UIUsersSearchViewController.swift in Sources */,
 				AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */,
 				E19609FD2D627E9B008E27C0 /* FileStorageService.swift in Sources */,
@@ -1668,6 +1774,7 @@
 				AA87FC772D5503BD00E8D066 /* UserProfileScreenProtocols.swift in Sources */,
 				E1960A142D6A3169008E27C0 /* AppThemeCell.swift in Sources */,
 				AA9B628D2D3149B60064CB23 /* ApiErrorTypes.swift in Sources */,
+				AAB302022D72076400BECA3B /* CoreDataManager.swift in Sources */,
 				AA9B626D2D2FD25A0064CB23 /* SignupViewController.swift in Sources */,
 				AA84F0122D4BB6A200678ABA /* BlackListCell.swift in Sources */,
 				AA87FCBC2D56312600E8D066 /* UserProfileCell.swift in Sources */,
@@ -1687,6 +1794,7 @@
 				AA1C0E362D43A0D5008E47D8 /* EventPublisherProtocol.swift in Sources */,
 				AA9B62862D303E330064CB23 /* StartAssembly.swift in Sources */,
 				E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */,
+				AAB301DC2D7201AC00BECA3B /* ChatsModel.xcdatamodeld in Sources */,
 				AA87FC6F2D55039B00E8D066 /* UserProfileScreenWorker.swift in Sources */,
 				AA9B62802D3018CB0064CB23 /* SignupContext.swift in Sources */,
 				E1960A672D6DE51E008E27C0 /* NewGroupProtocols.swift in Sources */,
@@ -1699,6 +1807,7 @@
 				AAB300DA2D6F2FF500BECA3B /* SecretGroupChatService.swift in Sources */,
 				E1960A5A2D6CADA2008E27C0 /* UINewGroupButton.swift in Sources */,
 				AA84F04D2D4D0C3600678ABA /* NotificationScreenAssembly.swift in Sources */,
+				AAB302002D72075E00BECA3B /* CoreDataManagerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2011,6 +2120,21 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AAB302402D744DC600BECA3B /* ChatsModel 2.xcdatamodel */,
+				AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */,
+			);
+			currentVersion = AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */;
+			name = ChatsModel.xcdatamodeld;
+			path = "/Users/mrdr/Desktop/chakchat-ios/chakchat/CoreData/Models/ChatsModel.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AA9B61FC2D2D47CB0064CB23 /* Project object */;
 }
