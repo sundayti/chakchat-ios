@@ -17,6 +17,7 @@ protocol UserDefaultsManagerProtocol {
     func saveUsername(_ username: String)
     func savePhone(_ phone: String)
     func saveBirth(_ birth: String?)
+    func saveCreatedTime(_ creadetAt: Date)
     func saveOnlineStatus(_ online: String)
     func saveRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
     func saveGeneralNotificationStatus(_ generalNotificationStatus: Bool)
@@ -32,6 +33,7 @@ protocol UserDefaultsManagerProtocol {
     func loadUsername() -> String
     func loadPhone() -> String
     func loadBirth() -> String?
+    func loadCreatedTime() -> Date
     func loadOnlineStatus() -> String
     func loadRestrictions() -> ConfidentialitySettingsModels.ConfidentialityUserData
     func loadGeneralNotificationStatus() -> Bool

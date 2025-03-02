@@ -40,7 +40,8 @@ final class UserService: UserServiceProtocol {
                         username: "Mockusername",
                         phone: "79776002210",
                         photo: nil,
-                        dateOfBirth: "21.05.2025"
+                        dateOfBirth: "21.05.2025",
+                        createdAt: Date()
                     )
                 )
             )
@@ -69,7 +70,8 @@ final class UserService: UserServiceProtocol {
                         username: "NewMockusername",
                         phone: "79776002211",
                         photo: nil,
-                        dateOfBirth: "19.05.2025"
+                        dateOfBirth: "19.05.2025",
+                        createdAt: Date()
                     )
                 )
             )
@@ -153,15 +155,15 @@ final class UserService: UserServiceProtocol {
                     SuccessResponse<ProfileSettingsModels.Users>(
                         data: ProfileSettingsModels.Users(
                             users: [
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kirill", username: "mrdr", phone: "79776002210", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "29.08.2005"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Fedor", username: "yeezus", phone: "79651838086", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.05.2005"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Vanya", username: "mrdr", phone: "79167723490", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "25.02.2005"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Yulia", username: "kykx", phone: "79772722390", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "29.08.2005"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kolya", username: "kolya", phone: "79410422300", photo: nil, dateOfBirth: "23.12.2005"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Liza", username: "lzkgmr", phone: "79289120023", photo: nil, dateOfBirth: "18.04.2003"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Asshat", username: "justpuice", phone: "79238926740", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.11.2005"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Vlad", username: "nepomny", phone: "79223926740", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "02.06.2005"),
-                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Bulat", username: "sunyysh", phone: "79223924740", photo: nil, dateOfBirth: "12.10.2005"),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kirill", username: "mrdr", phone: "79776002210", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "29.08.2005", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Fedor", username: "yeezus", phone: "79651838086", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.05.2005", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kolya", username: "nepony", phone: "79651838086", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.05.2005", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Yulia", username: "kykx", phone: "79772722390", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "29.08.2005", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Kolya", username: "nepony", phone: "79651838086", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.05.2005", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Liza", username: "lzkgmr", phone: "79289120023", photo: nil, dateOfBirth: "18.04.2003", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Asshat", username: "justpuice", phone: "79238926740", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "13.11.2005", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Vlad", username: "nepomny", phone: "79223926740", photo: URL(string: "https://storage.yandexcloud.net/demo-chakchat-yandex-storage/a55e2929-35a2-4611-9359-519d5577de6c"), dateOfBirth: "02.06.2005", createdAt: Date()),
+                                ProfileSettingsModels.ProfileUserData(id: UUID(), name: "Bulat", username: "sunyysh", phone: "79223924740", photo: nil, dateOfBirth: "12.10.2005", createdAt: Date()),
                             ]
                         )
                     )
@@ -193,7 +195,8 @@ final class UserService: UserServiceProtocol {
                             username: "Mockusername",
                             phone: "79776002210",
                             photo: nil,
-                            dateOfBirth: "29.08.2005"
+                            dateOfBirth: "29.08.2005",
+                            createdAt: Date()
                         )
                     )
                 )
@@ -231,7 +234,8 @@ final class UserService: UserServiceProtocol {
                         username: "",
                         phone: "",
                         photo: nil,
-                        dateOfBirth: nil
+                        dateOfBirth: nil,
+                        createdAt: Date()
                     )
                 )
             )
@@ -256,7 +260,8 @@ final class UserService: UserServiceProtocol {
                         username: "PhotoDeleted",
                         phone: "79776002211",
                         photo: nil,
-                        dateOfBirth: "29.08.2003"
+                        dateOfBirth: "29.08.2003",
+                        createdAt: Date()
                     )
                 )
             )
