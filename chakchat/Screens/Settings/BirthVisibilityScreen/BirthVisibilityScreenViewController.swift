@@ -24,8 +24,7 @@ final class BirthVisibilityScreenViewController: UIViewController {
         [(LocalizationManager.shared.localizedString(for: "everyone")),
          (LocalizationManager.shared.localizedString(for: "only_me")),
          (LocalizationManager.shared.localizedString(for: "specified"))],
-        [(LocalizationManager.shared.localizedString(for: "never_show")),
-         (LocalizationManager.shared.localizedString(for: "always_show"))]
+        [(LocalizationManager.shared.localizedString(for: "users_list")),]
     ]
     let interactor: BirthVisibilityScreenBusinessLogic
     
@@ -90,13 +89,8 @@ final class BirthVisibilityScreenViewController: UIViewController {
     // Edits the second section depending on what is selected in the first
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
-        case 0:
-            birthVisibilityData[1] = [(LocalizationManager.shared.localizedString(for: "never_show"))]
-        case 1:
-            birthVisibilityData[1] = [(LocalizationManager.shared.localizedString(for: "never_show")),
-                                      (LocalizationManager.shared.localizedString(for: "always_show"))]
         case 2:
-            birthVisibilityData[1] = [(LocalizationManager.shared.localizedString(for: "always_show"))]
+            birthVisibilityData[1] = [(LocalizationManager.shared.localizedString(for: "users_list"))]
         default:
             break
         }
@@ -153,7 +147,11 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     
     // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return birthVisibilityData[section].count
+        if section == 0 {
+            return birthVisibilityData[section].count
+        } else {
+            return (selectedIndex!.row == 2) ? birthVisibilityData[section].count : 0
+        }
     }
     
     // MARK: - Configuration and returning the cell for the specified index
@@ -170,8 +168,10 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExceptionsCell.cellIdentifier, for: indexPath) as? ExceptionsCell else {
                 return UITableViewCell()
             }
-            let item = birthVisibilityData[indexPath.section][indexPath.row]
-            cell.configure(title: item)
+            if selectedIndex!.row == 2 {
+                let item = birthVisibilityData[indexPath.section][indexPath.row]
+                cell.configure(title: item)
+            }
             return cell
         }
     }
@@ -180,12 +180,17 @@ extension BirthVisibilityScreenViewController: UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
-        // вот эта штучка ответственна за то, где именно будет располагаться заголовок относительно секции
+        // where exactly the title will be located relative to the section
         label.frame = CGRect.init(x: 10, y: 10, width: headerView.frame.width-10, height: headerView.frame.height-10)
         switch section {
         case 0:
             label.text = LocalizationManager.shared.localizedString(for: "who_can_see_birth")
         case 1:
+            if let selected = selectedIndex?.row {
+                if selected != 2 {
+                    break
+                }
+            }
             label.text = LocalizationManager.shared.localizedString(for: "exceptions")
         default:
             label.text = nil
