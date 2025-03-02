@@ -143,7 +143,8 @@ final class UserService: UserServiceProtocol {
                         username: "",
                         phone: "",
                         photo: nil,
-                        dateOfBirth: nil
+                        dateOfBirth: nil,
+                        createdAt: Date()
                     )
                 )
             )
@@ -168,7 +169,8 @@ final class UserService: UserServiceProtocol {
                         username: "PhotoDeleted",
                         phone: "79776002211",
                         photo: nil,
-                        dateOfBirth: "29.08.2003"
+                        dateOfBirth: "29.08.2003",
+                        createdAt: Date()
                     )
                 )
             )
