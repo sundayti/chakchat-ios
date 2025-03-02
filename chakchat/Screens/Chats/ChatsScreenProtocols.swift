@@ -9,6 +9,8 @@ import UIKit
 
 // MARK: - ChatsScreenBusinessLogic
 protocol ChatsScreenBusinessLogic: SearchInteractor {
+    func loadMeData()
+    func loadMeRestrictions()
     func routeToSettingsScreen()
     func routeToNewMessageScreen()
 }
@@ -20,6 +22,9 @@ protocol ChatsScreenPresentationLogic {
 
 // MARK: - ChatsScreenWorkerLogic
 protocol ChatsScreenWorkerLogic {
+    func loadMeData(competion: @escaping (Result<Void, Error>) -> Void)
+    func loadMeRestrictions(completion: @escaping (Result<Void, Error>) -> Void)
+    
     func fetchUsers(
         _ name: String?,
         _ username: String?,

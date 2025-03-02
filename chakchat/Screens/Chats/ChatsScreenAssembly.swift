@@ -17,7 +17,9 @@ enum ChatsAssembly {
         let userService = UserService()
         let worker = ChatsScreenWorker(
             keychainManager: context.keychainManager,
-            userService: userService
+            userDefaultManager: context.userDefaultsManager,
+            userService: userService,
+            logger: context.logger
         )
         let interactor = ChatsScreenInteractor(
             presenter: presenter,
