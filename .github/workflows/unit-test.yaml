@@ -28,6 +28,9 @@ jobs:
             swift package resolve
           fi
 
+      - name: Clean DerivedData
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData/
+
       - name: Run Unit Tests
         run: |
           mkdir -p Config
