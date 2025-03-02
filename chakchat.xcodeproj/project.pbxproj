@@ -468,6 +468,7 @@
 		AAB3021A2D72176B00BECA3B /* Preview+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AAB3021B2D72176B00BECA3B /* Content+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AAB3021C2D72176B00BECA3B /* Content+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAB302402D744DC600BECA3B /* ChatsModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ChatsModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -2124,6 +2125,7 @@
 		AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				AAB302402D744DC600BECA3B /* ChatsModel 2.xcdatamodel */,
 				AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */,
 			);
 			currentVersion = AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */;
