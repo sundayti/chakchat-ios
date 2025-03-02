@@ -25,18 +25,9 @@ final class SettingsScreenWorker: SettingsScreenWorkerLogic {
         self.keychainManager = keychainManager
     }
     
-    func getUserData(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
-        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        userService.sendGetMeRequest(accessToken) { [weak self] result in
-            guard let self = self else {return}
-            switch result {
-            case .success(let response):
-                self.userDefaultsManager.saveUserData(response.data)
-                completion(.success(response.data))
-            case .failure(let failure):
-                completion(.failure(failure))
-            }
-        }
+    func getUserData() -> ProfileSettingsModels.ProfileUserData {
+        let userData = userDefaultsManager.loadUserData()
+        return userData
     }
     
     func loadPhoto(_ url: URL, completion: @escaping (Result<UIImage, any Error>) -> Void) {

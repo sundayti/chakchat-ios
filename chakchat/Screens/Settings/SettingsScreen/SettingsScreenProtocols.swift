@@ -38,6 +38,6 @@ protocol SettingsScreenPresentationLogic {
 
 // MARK: - SettingsScreenWorkerLogic
 protocol SettingsScreenWorkerLogic {
-    func getUserData(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func getUserData() -> ProfileSettingsModels.ProfileUserData
     func loadPhoto(_ url: URL, completion: @escaping (Result<UIImage, Error>) -> Void)
 }
