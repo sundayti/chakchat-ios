@@ -19,6 +19,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let usernameKey = "userUsername"
     private let phoneKey = "userPhone"
     private let birthKey = "birthKey"
+    private let createdAtKey = "createdAtKey"
     private let onlineKey = "onlineKey"
     private let photoUrlKey = "photoUrlKey"
     private let photoMetadataKey = "photoMetadataKey"
@@ -59,6 +60,10 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     
     func saveBirth(_ birth: String?) {
         UserDefaults.standard.set(birth, forKey: birthKey)
+    }
+    
+    func saveCreatedTime(_ creadetAt: Date) {
+        UserDefaults.standard.set(creadetAt, forKey: createdAtKey)
     }
     
     func saveOnlineStatus(_ online: String) {
@@ -102,19 +107,22 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         let username = loadUsername()
         let phone = loadPhone()
         let dateOfBirth = loadBirth()
+        let createdAt = loadCreatedTime()
         if let photoURL = loadPhotoURL() {
             return ProfileSettingsModels.ProfileUserData(id: id,
                                                          name: nickname,
                                                          username: username, phone: phone,
                                                          photo: photoURL,
-                                                         dateOfBirth: dateOfBirth)
+                                                         dateOfBirth: dateOfBirth,
+                                                         createdAt: createdAt)
         }
         return ProfileSettingsModels.ProfileUserData(id: id,
                                                      name: nickname,
                                                      username: username,
                                                      phone: phone,
                                                      photo: nil,
-                                                     dateOfBirth: dateOfBirth
+                                                     dateOfBirth: dateOfBirth,
+                                                     createdAt: createdAt
         )
     }
     
@@ -156,6 +164,17 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
             return birth
         }
         return nil
+    }
+    
+    func loadCreatedTime() -> Date {
+        let isoFormatter = ISO8601DateFormatter()
+        guard let createdAtString = UserDefaults.standard.string(forKey: createdAtKey) else {
+            return Date()
+        }
+        if let savedDate = isoFormatter.date(from: createdAtString) {
+            return savedDate
+        }
+        return Date()
     }
     
     func loadOnlineStatus() -> String {
