@@ -35,7 +35,9 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         if let photoPath = userData.photo {
             savePhotoURL(photoPath)
         }
-        saveBirth(userData.dateOfBirth)
+        if let birth = userData.dateOfBirth {
+            saveBirth(birth)
+        }
     }
     
     func saveId(_ id: UUID) {

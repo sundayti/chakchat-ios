@@ -250,9 +250,6 @@ final class ProfileSettingsViewController: UIViewController {
             .flatMap { [weak self] username -> AnyPublisher<Result<ProfileSettingsModels.ProfileUserData, Error>, Never> in
                 guard let self = self else { return Empty().eraseToAnyPublisher() }
                 self.activityIndicator.startAnimating()
-                print(self.activityIndicator.frame)
-                print(self.activityIndicator.isAnimating)
-                print(self.activityIndicator.isHidden)
                 self.usernameIndicator.image = nil
                 return Future { promise in
                     self.interactor.checkUsername(username) { result in

@@ -78,7 +78,6 @@ final class Sender: SenderLogic {
         }
         task.resume()
     }
-
 }
 
 // MARK: - SuccessResponse

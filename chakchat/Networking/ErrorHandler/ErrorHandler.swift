@@ -12,6 +12,15 @@ final class ErrorHandler: ErrorHandlerLogic {
     
     // MARK: - Constants
     private let serverErrorMessage: String = "Server error."
+    private let keychainManager: KeychainManagerBusinessLogic
+    private let identityService: IdentityServiceProtocol
+    
+    init(keychainManager: KeychainManagerBusinessLogic,
+         identityService: IdentityServiceProtocol
+    ) {
+        self.keychainManager = keychainManager
+        self.identityService = identityService
+    }
     
     // MARK: - Handle Error Method
     func handleError(_ error: Error) -> ErrorId {
@@ -140,10 +149,12 @@ final class ErrorHandler: ErrorHandlerLogic {
             
         case ApiErrorType.unauthorized.rawValue:
             print("Error: Unauthorized access.")
+            handleAccessTokenAbsence()
             return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.accessTokenExpired.rawValue:
             print("Error: Access token expired.")
+            handleAccessTokenAbsence()
             return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
             
         case ApiErrorType.notFound.rawValue:
@@ -167,4 +178,20 @@ final class ErrorHandler: ErrorHandlerLogic {
             return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
         }
     }
+    
+    func handleAccessTokenAbsence() {
+        guard let refreshToken = keychainManager.getString(key: KeychainManager.keyForSaveRefreshToken) else { return }
+        identityService.sendRefreshTokensRequest(RefreshRequest(refreshToken: refreshToken)) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let keys):
+                _ = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken, value: keys.data.accessToken)
+                _ = self.keychainManager.save(key: KeychainManager.keyForSaveRefreshToken, value: keys.data.refreshToken)
+            case .failure(let failure):
+                _ = handleError(failure)
+            }
+        }
+    }
 }
+
+
