@@ -1,5 +1,3 @@
-name: Test Swift Code
-
 name: Unit Tests
 
 on:
@@ -35,11 +33,11 @@ jobs:
           path: ~/.swiftpm
           key: swiftpm-${{ runner.os }}-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
-            swiftpm-${{ runner.os }}-        
+            swiftpm-${{ runner.os }}-
 
       - name: Run Unit Tests
         run: |
-	  rm -rf ~/Library/Developer/Xcode/DerivedData/
+          rm -rf ~/Library/Developer/Xcode/DerivedData/
           mkdir -p Config
           echo "" > Config/config.xcconfig
           xcodebuild test \
@@ -51,48 +49,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: build/Logs/Teston:
-  push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  test:
-    name: Run Unit Tests
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Xcode
-        run: |
-          sudo xcode-select -switch /Applications/Xcode_15.3.app
-          xcodebuild -version
-
-      - name: Install dependencies (if using Swift Package Manager)
-        run: |
-          if [ -f "Package.swift" ]; then
-            swift package resolve
-          fi
-
-      - name: Clean DerivedData
-        run: rm -rf ~/Library/Developer/Xcode/DerivedData/
-
-      - name: Run Unit Tests
-        run: |
-          mkdir -p Config
-          echo "" > Config/config.xcconfig
-          xcodebuild test \
-          -scheme chakchat \
-          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.4' 
-
-      - name: Upload test result logs (optional)
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
           path: build/Logs/Test
-
