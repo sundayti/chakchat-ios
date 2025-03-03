@@ -14,14 +14,24 @@ final class MainAppContext: MainAppContextProtocol {
     let errorHandler: ErrorHandlerLogic
     let userDefaultsManager: UserDefaultsManagerProtocol
     let eventManager: (EventPublisherProtocol & EventSubscriberProtocol)
+    let coreDataManager: CoreDataManagerProtocol
     var state: AppState
     let logger: OSLog
     
-    init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultsManager: UserDefaultsManagerProtocol, eventManager: EventPublisherProtocol & EventSubscriberProtocol, state: AppState, logger: OSLog) {
+    init(
+        keychainManager: KeychainManagerBusinessLogic,
+        errorHandler: ErrorHandlerLogic,
+        userDefaultsManager: UserDefaultsManagerProtocol,
+        eventManager: EventPublisherProtocol & EventSubscriberProtocol,
+        coreDataManager: CoreDataManagerProtocol,
+        state: AppState,
+        logger: OSLog
+    ) {
         self.keychainManager = keychainManager
         self.errorHandler = errorHandler
         self.userDefaultsManager = userDefaultsManager
         self.eventManager = eventManager
+        self.coreDataManager = coreDataManager
         self.state = state
         self.logger = logger
     }

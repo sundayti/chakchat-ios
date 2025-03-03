@@ -16,6 +16,7 @@ final class NewMessageInteractor: NewMessageBusinessLogic {
     private let errorHandler: ErrorHandlerLogic
     var onRouteToChatsScreen: (() -> Void)?
     var onRouteToNewMessageScreen: (() -> Void)?
+    var onRouteToUser: ((ProfileSettingsModels.ProfileUserData) -> Void)?
     
     // MARK: - Initialization
     init(
@@ -38,6 +39,10 @@ final class NewMessageInteractor: NewMessageBusinessLogic {
                 completion(.failure(failure))
             }
         }
+    }
+    
+    func routeToUser(_ userData: ProfileSettingsModels.ProfileUserData) {
+        onRouteToUser?(userData)
     }
     
     func handleError(_ error: Error) {
