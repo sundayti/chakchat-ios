@@ -13,13 +13,23 @@ enum NewMessageAssembly {
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = NewMessagePresenter()
         let userService = UserService()
-        let worker = NewMessageWorker(userService: userService, keychainManager: context.keychainManager)
-        let interactor = NewMessageInteractor(presenter: presenter, worker: worker, errorHandler: context.errorHandler)
+        let worker = NewMessageWorker(
+            userService: userService,
+            keychainManager: context.keychainManager
+        )
+        let interactor = NewMessageInteractor(
+            presenter: presenter,
+            worker: worker,
+            errorHandler: context.errorHandler
+        )
         interactor.onRouteToChatsScreen = { [weak coordinator] in
             coordinator?.popScreen()
         }
         interactor.onRouteToNewMessageScreen = { [weak coordinator] in
             coordinator?.showNewGroupScreen()
+        }
+        interactor.onRouteToUser = { [weak coordinator] userData in
+            coordinator?.showUserProfileScreen(userData)
         }
         let view = NewMessageViewController(interactor: interactor)
         presenter.view = view

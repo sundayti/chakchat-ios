@@ -43,7 +43,7 @@ final class UIUsersSearchViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = Colors.background
         configureSearchTableView()
-        usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
+        usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 5)
         bindSearch()
     }
     
@@ -135,6 +135,7 @@ extension UIUsersSearchViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let selectedUser = users[indexPath.row]
         onUserSelected?(selectedUser)
     }

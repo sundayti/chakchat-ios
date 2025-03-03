@@ -10,6 +10,7 @@ import Foundation
 // MARK: - NewMessageBusinessLogic
 protocol NewMessageBusinessLogic: SearchInteractor {
     func backToChatsScreen()
+    func routeToUser(_ userData: ProfileSettingsModels.ProfileUserData)
     func newGroupRoute()
 }
 

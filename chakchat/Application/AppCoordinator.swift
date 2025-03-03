@@ -18,7 +18,6 @@ final class AppCoordinator {
     private let signupContext: SignupContextProtocol
     private let mainAppContext: MainAppContextProtocol
 
-    // MARK: - Initialization
     init(window: UIWindow) {
         self.window = window
         self.navigationController = UINavigationController()
@@ -32,6 +31,7 @@ final class AppCoordinator {
                                              errorHandler: signupContext.errorHandler,
                                              userDefaultsManager: signupContext.userDefaultsManager,
                                              eventManager: EventManager(),
+                                             coreDataManager: CoreDataManager(),
                                              state: AppState._default,
                                              logger: signupContext.logger)
     }
@@ -164,6 +164,11 @@ final class AppCoordinator {
     func showNewMessageScreen() {
         let newMessageVC = NewMessageAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(newMessageVC, animated: true)
+    }
+    
+    func showUserProfileScreen(_ userData: ProfileSettingsModels.ProfileUserData) {
+        let userProfileVC = UserProfileAssembly.build(mainAppContext, coordinator: self, userData: userData)
+        navigationController.pushViewController(userProfileVC, animated: true)
     }
 
     // MARK: - New group Screen Showing
