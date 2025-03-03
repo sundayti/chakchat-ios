@@ -16,7 +16,7 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     private let userData: ProfileSettingsModels.ProfileUserData
     private let logger: OSLog
     
-    var onRouteToChat: (() -> Void)?
+    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData) -> Void)?
     var onRouteBack: (() -> Void)?
     
     init(
@@ -38,7 +38,7 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     }
     
     func routeToChat() {
-        onRouteToChat?()
+        onRouteToChat?(userData)
     }
     
     func switchNotification() {
