@@ -23,6 +23,14 @@ final class CoreDataManager: CoreDataManagerProtocol {
         CoreDataStack.shared.saveContext(for: "UserModel")
     }
     
+    func createUsers(_ usersData: ProfileSettingsModels.Users) {
+        let context = CoreDataStack.shared.viewContext(for: "UserModel")
+        for userData in usersData.users {
+            createUser(userData)
+        }
+        CoreDataStack.shared.saveContext(for: "UserModel")
+    }
+    
     func fetchUsers() -> [User] {
         let context = CoreDataStack.shared.viewContext(for: "UserModel")
         let request: NSFetchRequest<User> = User.fetchRequest()
