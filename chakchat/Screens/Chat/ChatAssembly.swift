@@ -1,5 +1,5 @@
 //
-//  UserProfileAssembly.swift
+//  ChatAssembly.swift
 //  chakchat
 //
 //  Created by Кирилл Исаев on 03.03.2025.
@@ -7,28 +7,27 @@
 
 import UIKit
 
-enum UserProfileAssembly {
+enum ChatAssembly {
     static func build(_ context: MainAppContextProtocol, coordinator: AppCoordinator, userData: ProfileSettingsModels.ProfileUserData) -> UIViewController {
-        let presenter = UserProfilePresenter()
+        let presenter = ChatPresenter()
+        let personalChatService = PersonalChatService()
         let updateService = UpdateService()
-        let worker = UserProfileWorker(
+        let worker = ChatWorker(
             keychainManager: context.keychainManager,
-            messagingService: updateService
+            coreDataManager: context.coreDataManager,
+            personalChatService: personalChatService,
+            updateService: updateService
         )
-        let interactor = UserProfileInteractor(
+        let interactor = ChatInteractor(
             presenter: presenter,
             worker: worker,
             errorHandler: context.errorHandler,
-            userData: userData,
             logger: context.logger
         )
         interactor.onRouteBack = { [weak coordinator] in
             coordinator?.popScreen()
         }
-        interactor.onRouteToChat = { [weak coordinator] userData in
-            coordinator?.showChatScreen(userData)
-        }
-        let view = UserProfileViewController(interactor: interactor)
+        let view = ChatViewController(interactor: interactor)
         presenter.view = view
         return view
     }

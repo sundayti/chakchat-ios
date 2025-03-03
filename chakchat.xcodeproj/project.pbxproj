@@ -206,6 +206,12 @@
 		AAB302552D75BC5500BECA3B /* UserProfileProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302542D75BC5500BECA3B /* UserProfileProtocols.swift */; };
 		AAB302572D75BC5E00BECA3B /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302562D75BC5E00BECA3B /* UserProfileViewController.swift */; };
 		AAB302592D75BC6D00BECA3B /* UserProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302582D75BC6D00BECA3B /* UserProfileWorker.swift */; };
+		AAB302692D7615A300BECA3B /* ChatAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302682D7615A300BECA3B /* ChatAssembly.swift */; };
+		AAB3026B2D7615AA00BECA3B /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3026A2D7615AA00BECA3B /* ChatInteractor.swift */; };
+		AAB3026D2D7615B500BECA3B /* ChatWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3026C2D7615B500BECA3B /* ChatWorker.swift */; };
+		AAB3026F2D7615BE00BECA3B /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3026E2D7615BE00BECA3B /* ChatPresenter.swift */; };
+		AAB302712D7615C700BECA3B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302702D7615C700BECA3B /* ChatViewController.swift */; };
+		AAB302732D7615CF00BECA3B /* ChatProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302722D7615CF00BECA3B /* ChatProtocols.swift */; };
 		E11D350B2D40009F00A698EA /* UIErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350A2D40009F00A698EA /* UIErrorLabel.swift */; };
 		E11D350D2D409DB000A698EA /* UIFont+LoadCustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */; };
 		E11D350F2D40C3F400A698EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11D350E2D40C3F400A698EA /* Colors.swift */; };
@@ -489,6 +495,12 @@
 		AAB302542D75BC5500BECA3B /* UserProfileProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileProtocols.swift; sourceTree = "<group>"; };
 		AAB302562D75BC5E00BECA3B /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		AAB302582D75BC6D00BECA3B /* UserProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileWorker.swift; sourceTree = "<group>"; };
+		AAB302682D7615A300BECA3B /* ChatAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAssembly.swift; sourceTree = "<group>"; };
+		AAB3026A2D7615AA00BECA3B /* ChatInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInteractor.swift; sourceTree = "<group>"; };
+		AAB3026C2D7615B500BECA3B /* ChatWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWorker.swift; sourceTree = "<group>"; };
+		AAB3026E2D7615BE00BECA3B /* ChatPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPresenter.swift; sourceTree = "<group>"; };
+		AAB302702D7615C700BECA3B /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		AAB302722D7615CF00BECA3B /* ChatProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatProtocols.swift; sourceTree = "<group>"; };
 		E11D350A2D40009F00A698EA /* UIErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIErrorLabel.swift; sourceTree = "<group>"; };
 		E11D350C2D409DB000A698EA /* UIFont+LoadCustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+LoadCustomFont.swift"; sourceTree = "<group>"; };
 		E11D350E2D40C3F400A698EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -959,6 +971,7 @@
 		AA9B621D2D2D5E650064CB23 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				AAB302672D76159400BECA3B /* Chat */,
 				AAB3024D2D75BBFC00BECA3B /* UserProfile */,
 				E1960A612D6DE4D7008E27C0 /* NewGroup */,
 				E1960A4E2D6BE5F4008E27C0 /* NewMessage */,
@@ -1300,6 +1313,19 @@
 			path = UserProfile;
 			sourceTree = "<group>";
 		};
+		AAB302672D76159400BECA3B /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				AAB302682D7615A300BECA3B /* ChatAssembly.swift */,
+				AAB3026A2D7615AA00BECA3B /* ChatInteractor.swift */,
+				AAB3026C2D7615B500BECA3B /* ChatWorker.swift */,
+				AAB3026E2D7615BE00BECA3B /* ChatPresenter.swift */,
+				AAB302702D7615C700BECA3B /* ChatViewController.swift */,
+				AAB302722D7615CF00BECA3B /* ChatProtocols.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		E19609A92D608CF3008E27C0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1632,6 +1658,7 @@
 				AA84F02C2D4BEF1000678ABA /* BirthVisibilityScreenAssembly.swift in Sources */,
 				AA9B62692D2FD2390064CB23 /* SignupInteractor.swift in Sources */,
 				E1960A562D6BE66B008E27C0 /* NewMessageInteractor.swift in Sources */,
+				AAB302712D7615C700BECA3B /* ChatViewController.swift in Sources */,
 				E19609EC2D620004008E27C0 /* LocalizationManagerProtocols.swift in Sources */,
 				E19609DB2D60E90A008E27C0 /* LanguageViewController.swift in Sources */,
 				E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */,
@@ -1652,6 +1679,7 @@
 				AAB3024B2D74DCCC00BECA3B /* ChatsModel.xcdatamodeld in Sources */,
 				AA1C0E382D43A232008E47D8 /* UserDefaultsManagerProtocol.swift in Sources */,
 				AA1C0E3E2D43C452008E47D8 /* EventSubscriberProtocol.swift in Sources */,
+				AAB3026D2D7615B500BECA3B /* ChatWorker.swift in Sources */,
 				AA1C0E4B2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift in Sources */,
 				E1960A652D6DE50D008E27C0 /* NewGroupPresenter.swift in Sources */,
 				AA92EC612D381B8D007DEC76 /* Constants.swift in Sources */,
@@ -1720,6 +1748,7 @@
 				E1960A312D6B79F4008E27C0 /* HelpViewController.swift in Sources */,
 				AAB300D32D6F283F00BECA3B /* ChatsService.swift in Sources */,
 				AAB302462D74AF1700BECA3B /* User+CoreDataClass.swift in Sources */,
+				AAB3026B2D7615AA00BECA3B /* ChatInteractor.swift in Sources */,
 				AAB302472D74AF1700BECA3B /* User+CoreDataProperties.swift in Sources */,
 				E1960A522D6BE63A008E27C0 /* NewMessagePresenter.swift in Sources */,
 				AA92EC6C2D39329F007DEC76 /* MockSender.swift in Sources */,
@@ -1768,6 +1797,7 @@
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
 				E1960A502D6BE62A008E27C0 /* NewMessageAssembly.swift in Sources */,
 				E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */,
+				AAB3026F2D7615BE00BECA3B /* ChatPresenter.swift in Sources */,
 				E1960A172D6A35D4008E27C0 /* ThemeManager.swift in Sources */,
 				AA84F0512D4D0C4600678ABA /* NotificationScreenWorker.swift in Sources */,
 				E1960A632D6DE4FF008E27C0 /* NewGroupAssembly.swift in Sources */,
@@ -1775,6 +1805,7 @@
 				AAB300AF2D6CDC1400BECA3B /* ImageCacheProtocol.swift in Sources */,
 				AAB302572D75BC5E00BECA3B /* UserProfileViewController.swift in Sources */,
 				AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */,
+				AAB302732D7615CF00BECA3B /* ChatProtocols.swift in Sources */,
 				E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */,
 				AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */,
 				AA7BADF42D3FC9F40030AC82 /* SettingsScreenAssembly.swift in Sources */,
@@ -1787,6 +1818,7 @@
 				AA84F0302D4BEF1F00678ABA /* BirthVisibilityScreenPresenter.swift in Sources */,
 				AA84F0032D4912D300678ABA /* ConfidentialityScreenWorker.swift in Sources */,
 				AA9B622F2D2D6CB90064CB23 /* SendCodeProtocols.swift in Sources */,
+				AAB302692D7615A300BECA3B /* ChatAssembly.swift in Sources */,
 				E1960A2D2D6B79C6008E27C0 /* HelpProtocols.swift in Sources */,
 				AA87FC6D2D55038900E8D066 /* UserProfileScreenInteractor.swift in Sources */,
 				AAB300DC2D6F2FFC00BECA3B /* SecretGroupChatServiceProtocol.swift in Sources */,

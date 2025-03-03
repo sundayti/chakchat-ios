@@ -104,6 +104,7 @@ final class UserProfileViewController: UIViewController {
         }
         
         let chatButton = createButton("message.fill")
+        chatButton.addTarget(self, action: #selector(chatButtonPressed), for: .touchUpInside)
         let notificationButton = createButton("bell.badge.fill")
         let secretChatButton = createButton("lock.fill")
         let searchButton = createButton("magnifyingglass")
@@ -136,6 +137,10 @@ final class UserProfileViewController: UIViewController {
         userDataTable.backgroundColor = view.backgroundColor
         userDataTable.rowHeight = UITableView.automaticDimension
         userDataTable.estimatedRowHeight = 60
+    }
+    
+    @objc private func chatButtonPressed() {
+        interactor.routeToChat()
     }
     
     @objc private func backButtonPressed() {
