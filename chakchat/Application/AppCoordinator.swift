@@ -170,6 +170,11 @@ final class AppCoordinator {
         let userProfileVC = UserProfileAssembly.build(mainAppContext, coordinator: self, userData: userData)
         navigationController.pushViewController(userProfileVC, animated: true)
     }
+    
+    func showChatScreen(_ userData: ProfileSettingsModels.ProfileUserData) {
+        let chatVC = ChatAssembly.build(mainAppContext, coordinator: self, userData: userData)
+        navigationController.pushViewController(chatVC, animated: true)
+    }
 
     // MARK: - New group Screen Showing
     func showNewGroupScreen() {

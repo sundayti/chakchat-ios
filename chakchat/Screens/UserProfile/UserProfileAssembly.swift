@@ -25,8 +25,8 @@ enum UserProfileAssembly {
         interactor.onRouteBack = { [weak coordinator] in
             coordinator?.popScreen()
         }
-        interactor.onRouteToChat = { [weak coordinator] in
-            print("Создание экрана чата...")
+        interactor.onRouteToChat = { [weak coordinator] userData in
+            coordinator?.showChatScreen(userData)
         }
         let view = UserProfileViewController(interactor: interactor)
         presenter.view = view
