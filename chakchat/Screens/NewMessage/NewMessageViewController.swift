@@ -22,7 +22,7 @@ final class NewMessageViewController: UIViewController {
     // MARK: - Properties
     private let interactor: NewMessageBusinessLogic
     private let titleLabel: UILabel = UILabel()
-    private let searchController: UISearchController
+    private var searchController: UISearchController = UISearchController()
     private let newGroupButton: UINewGroupButton = UINewGroupButton()
     private let tableView: UITableView = UITableView()
     private var newGroupButtonTopConstraint: NSLayoutConstraint!
@@ -31,7 +31,6 @@ final class NewMessageViewController: UIViewController {
     // MARK: - Initialization
     init(interactor: NewMessageBusinessLogic) {
         self.interactor = interactor
-        searchController = UISearchController(searchResultsController: UIUsersSearchViewController(interactor: interactor))
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -88,6 +87,11 @@ final class NewMessageViewController: UIViewController {
     
     // MARK: - Search Controller Configuration
     private func configureSearchController() {
+        let searchResultsController = UIUsersSearchViewController(interactor: interactor)
+        searchResultsController.onUserSelected = { [weak self] user in
+            self?.handleSelectedUser(user)
+        }
+        searchController = UISearchController(searchResultsController: searchResultsController)
         searchController.delegate = self
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
@@ -116,6 +120,10 @@ final class NewMessageViewController: UIViewController {
             self.newGroupButtonTopConstraint.constant = constant
             self.view.layoutIfNeeded()
         }
+    }
+    
+    private func handleSelectedUser(_ userData: ProfileSettingsModels.ProfileUserData) {
+        interactor.routeToUser(userData)
     }
     
     // MARK: - Actions

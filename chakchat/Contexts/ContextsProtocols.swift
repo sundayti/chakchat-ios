@@ -21,6 +21,7 @@ protocol SignupContextProtocol: AnyObject, CommonContextProtocol {
 
 protocol MainAppContextProtocol: AnyObject, CommonContextProtocol {
     var eventManager: (EventPublisherProtocol & EventSubscriberProtocol) { get }
+    var coreDataManager: CoreDataManagerProtocol { get }
     var state: AppState { get set }
 }
 

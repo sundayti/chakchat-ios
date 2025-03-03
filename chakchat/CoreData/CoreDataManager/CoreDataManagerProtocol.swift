@@ -9,6 +9,7 @@ import Foundation
 
 protocol CoreDataManagerProtocol {
     func createUser(_ userData: ProfileSettingsModels.ProfileUserData)
+    func createUsers(_ usersData: ProfileSettingsModels.Users)
     func fetchUsers() -> [User]
     func deleteUser(_ user: User)
     func deleteAllUsers()

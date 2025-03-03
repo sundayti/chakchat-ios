@@ -19,6 +19,7 @@ enum ChatsAssembly {
             keychainManager: context.keychainManager,
             userDefaultManager: context.userDefaultsManager,
             userService: userService,
+            coreDataManager: context.coreDataManager,
             logger: context.logger
         )
         let interactor = ChatsScreenInteractor(

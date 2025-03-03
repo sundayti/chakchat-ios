@@ -12,16 +12,19 @@ import OSLog
 final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     private let keychainManager: KeychainManagerBusinessLogic
     private let userDefaultManager: UserDefaultsManagerProtocol
+    private let coreDataManager: CoreDataManagerProtocol
     private let userService: UserServiceProtocol
     private let logger: OSLog
     
     init(keychainManager: KeychainManagerBusinessLogic,
          userDefaultManager: UserDefaultsManagerProtocol,
          userService: UserServiceProtocol,
+         coreDataManager: CoreDataManagerProtocol,
          logger: OSLog
     ) {
         self.keychainManager = keychainManager
         self.userDefaultManager = userDefaultManager
+        self.coreDataManager = coreDataManager
         self.userService = userService
         self.logger = logger
     }
@@ -57,12 +60,11 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
         userService.sendGetUsersRequest(name, username, page, limit, accessToken) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let users):
+            case .success(let response):
                 os_log("Fetching users completed", log: self.logger, type: .default)
-                completion(.success(users.data))
+                coreDataManager.createUsers(response.data)
+                completion(.success(response.data))
             case .failure(let failure):
-                os_log("Fetching users failed:\n", log: self.logger, type: .fault)
-                print(failure)
                 completion(.failure(failure))
             }
         }
