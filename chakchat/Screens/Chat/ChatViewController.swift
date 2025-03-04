@@ -13,7 +13,7 @@ final class ChatViewController: UIViewController {
         static let navigationItemHeight: CGFloat = 44
     }
     
-    let interactor: ChatBusinessLogic
+    private let interactor: ChatBusinessLogic
     private let messageInputView = MessageInputView()
     private let titleStackView: UIStackView = UIStackView()
     private let iconImageView: UIImageView = UIImageView()
@@ -105,6 +105,7 @@ final class ChatViewController: UIViewController {
     
     private func configureMessageView() {
         view.addSubview(messageInputView)
+        messageInputView.interactor = interactor
         messageInputView.pinLeft(view.leadingAnchor, 8)
         messageInputView.pinRight(view.trailingAnchor, 8)
         messageInputView.setHeight(50)
@@ -126,6 +127,7 @@ final class ChatViewController: UIViewController {
 
 class MessageInputView: UIView {
     private let textField = UITextField()
+    weak var interactor: ChatBusinessLogic?
     private let sendButton = UIButton()
     var bottomConstraint: NSLayoutConstraint!
     
@@ -227,7 +229,7 @@ class MessageInputView: UIView {
     
     @objc private func sendMessage() {
         guard let text = textField.text, !text.isEmpty else { return }
-        print("Sending message:", text)
+        interactor?.sendTextMessage(text)
         textField.text = nil
         sendButton.alpha = 0
     }

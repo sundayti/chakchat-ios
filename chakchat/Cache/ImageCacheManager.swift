@@ -11,6 +11,8 @@ final class ImageCacheManager: ImageCacheProtocol {
     
     static let shared = ImageCacheManager()
     
+    private init() {}
+    
     private let cache = NSCache<NSURL, UIImage>()
     
     func getImage(for url: NSURL) -> UIImage? {

@@ -45,6 +45,10 @@ final class ChatInteractor: ChatBusinessLogic {
         }
     }
     
+    func sendTextMessage(_ message: String) {
+        worker.sendTextMessage(message)
+    }
+    
     func passUserData() {
         presenter.passUserData(userData)
     }
