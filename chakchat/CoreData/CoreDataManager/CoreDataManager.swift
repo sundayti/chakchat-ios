@@ -24,7 +24,6 @@ final class CoreDataManager: CoreDataManagerProtocol {
     }
     
     func createUsers(_ usersData: ProfileSettingsModels.Users) {
-        let context = CoreDataStack.shared.viewContext(for: "UserModel")
         for userData in usersData.users {
             createUser(userData)
         }

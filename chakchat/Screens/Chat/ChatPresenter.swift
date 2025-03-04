@@ -9,4 +9,8 @@ import UIKit
 
 final class ChatPresenter: ChatPresentationLogic {
     weak var view: ChatViewController?
+    
+    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+        view?.configureWithData(userData)
+    }
 }

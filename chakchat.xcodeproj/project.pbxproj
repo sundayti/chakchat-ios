@@ -1293,8 +1293,8 @@
 		AAB301FE2D72074A00BECA3B /* CoreDataManager */ = {
 			isa = PBXGroup;
 			children = (
-				AAB302482D74B35500BECA3B /* CoreDataStack.swift */,
 				AAB302012D72076400BECA3B /* CoreDataManager.swift */,
+				AAB302482D74B35500BECA3B /* CoreDataStack.swift */,
 				AAB301FF2D72075E00BECA3B /* CoreDataManagerProtocol.swift */,
 			);
 			path = CoreDataManager;

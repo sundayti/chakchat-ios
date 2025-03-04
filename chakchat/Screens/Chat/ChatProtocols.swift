@@ -10,10 +10,11 @@ import Foundation
 protocol ChatBusinessLogic {
     func routeBack()
     func createChat(_ memberID: UUID)
+    func passUserData()
 }
 
 protocol ChatPresentationLogic {
-    
+    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData)
 }
 
 protocol ChatWorkerLogic {
