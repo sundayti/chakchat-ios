@@ -2210,7 +2210,7 @@
 			);
 			currentVersion = AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */;
 			name = ChatsModel.xcdatamodeld;
-			path = "/Users/mrdr/Desktop/chakchat-ios/chakchat/CoreData/Models/ChatsModel.xcdatamodeld";
+			path = "ChatsModel.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
@@ -2221,7 +2221,7 @@
 			);
 			currentVersion = AAB302422D74AD3700BECA3B /* UserModel.xcdatamodel */;
 			name = UserModel.xcdatamodeld;
-			path = "/Users/mrdr/Desktop/chakchat-ios/chakchat/CoreData/Models/UserModel.xcdatamodeld";
+			path = "UserModel.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
