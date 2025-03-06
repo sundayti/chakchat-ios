@@ -140,7 +140,7 @@ final class UserProfileViewController: UIViewController {
     }
     
     @objc private func chatButtonPressed() {
-        interactor.routeToChat()
+        interactor.searchForExistingChat()
     }
     
     @objc private func backButtonPressed() {

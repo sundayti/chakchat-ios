@@ -58,6 +58,10 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         }
     }
     
+    func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent) {
+        print("Handling will be implemented soon")
+    }
+    
     func handleError(_ error: Error) {
         _ = errorHandler.handleError(error)
     }

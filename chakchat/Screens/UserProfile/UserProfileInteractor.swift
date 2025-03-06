@@ -16,7 +16,7 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     private let userData: ProfileSettingsModels.ProfileUserData
     private let logger: OSLog
     
-    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData) -> Void)?
+    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, Bool) -> Void)?
     var onRouteBack: (() -> Void)?
     
     init(
@@ -37,8 +37,13 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         presenter.passUserData(userData)
     }
     
-    func routeToChat() {
-        onRouteToChat?(userData)
+    func routeToChat(_ isChatExisting: Bool) {
+        onRouteToChat?(userData, isChatExisting)
+    }
+    
+    func searchForExistingChat() {
+        let isChatExisting = worker.searchForExistingChat(userData.id)
+        routeToChat(isChatExisting)
     }
     
     func switchNotification() {

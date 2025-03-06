@@ -12,7 +12,9 @@ enum UserProfileAssembly {
         let presenter = UserProfilePresenter()
         let updateService = UpdateService()
         let worker = UserProfileWorker(
+            userDefaultsManager: context.userDefaultsManager,
             keychainManager: context.keychainManager,
+            coreDataManager: context.coreDataManager,
             messagingService: updateService
         )
         let interactor = UserProfileInteractor(
@@ -25,8 +27,8 @@ enum UserProfileAssembly {
         interactor.onRouteBack = { [weak coordinator] in
             coordinator?.popScreen()
         }
-        interactor.onRouteToChat = { [weak coordinator] userData in
-            coordinator?.showChatScreen(userData)
+        interactor.onRouteToChat = { [weak coordinator] userData, isChatExisting in
+            coordinator?.showChatScreen(userData, isChatExisting)
         }
         let view = UserProfileViewController(interactor: interactor)
         presenter.view = view

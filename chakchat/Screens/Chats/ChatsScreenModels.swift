@@ -154,15 +154,17 @@ enum ChatsModels {
         
         struct Response: Codable {
             let chatID: UUID
-            let memberID: UUID
+            let members: [UUID]
             let blocked: Bool
             let blockedBy: [UUID]?
+            let createdAt: Date
             
             enum CodingKeys: String, CodingKey {
                 case chatID = "chat_id"
-                case memberID = "member_id"
+                case members = "members"
                 case blocked = "blocked"
                 case blockedBy = "blocked_by"
+                case createdAt = "created_at"
             }
         }
     }

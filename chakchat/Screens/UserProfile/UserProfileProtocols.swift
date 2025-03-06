@@ -8,7 +8,9 @@
 import Foundation
 
 protocol UserProfileBusinessLogic {
-    func routeToChat()
+    func routeToChat(_ isChatExisting: Bool)
+    func searchForExistingChat()
+    
     func switchNotification()
     func passUserData()
     func searchMessages()
@@ -22,4 +24,6 @@ protocol UserProfilePresentationLogic {
 protocol UserProfileWorkerLogic {
     func searchMessages()
     func switchNotification()
+    func searchForExistingChat(_ memberID: UUID) -> Bool
+    func getMyID() -> UUID
 }

@@ -11,6 +11,7 @@ import UIKit
 protocol ChatsScreenBusinessLogic: SearchInteractor {
     func routeToSettingsScreen()
     func routeToNewMessageScreen()
+    func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent)
 }
 
 // MARK: - ChatsScreenPresentationLogic
