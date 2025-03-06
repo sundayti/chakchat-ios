@@ -27,3 +27,14 @@ extension PersonalChat {
 extension PersonalChat : Identifiable {
 
 }
+
+extension PersonalChat {
+    func getMembers() -> [UUID] {
+        guard let membersData = self.members else { return [] }
+        let decoder = JSONDecoder()
+        if let members = try? decoder.decode([UUID].self, from: membersData) {
+            return members
+        }
+        return []
+    }
+}

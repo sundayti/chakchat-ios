@@ -5,6 +5,6 @@
         <attribute name="blockedBy" optional="YES" attributeType="Binary"/>
         <attribute name="chatID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="memberID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="members" optional="YES" attributeType="Binary"/>
     </entity>
 </model>

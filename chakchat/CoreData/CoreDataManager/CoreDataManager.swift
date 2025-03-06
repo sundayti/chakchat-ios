@@ -10,6 +10,33 @@ import CoreData
 
 final class CoreDataManager: CoreDataManagerProtocol {
     
+    func createPersonalChat(_ chatData: ChatsModels.PersonalChat.Response) {
+        let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
+        let chat = PersonalChat(context: context)
+        chat.chatID = chatData.chatID
+        chat.members = try? JSONEncoder().encode(chatData.members)
+        chat.blocked = chatData.blocked
+        chat.blockedBy = try? JSONEncoder().encode(chatData.blockedBy)
+        CoreDataStack.shared.saveContext(for: "PersonalChatModel")
+    }
+    
+    func fetchChatByMembers(_ myID: UUID, _ memberID: UUID) -> PersonalChat? {
+        let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
+        let fetchRequest: NSFetchRequest<PersonalChat> = PersonalChat.fetchRequest()
+        do {
+            let chats = try context.fetch(fetchRequest)
+            for chat in chats {
+                let members = chat.getMembers()
+                if members.contains(myID) && members.contains(memberID) {
+                    return chat
+                }
+            }
+        } catch {
+            print("Failed to fetch chat: \(error)")
+        }
+        return nil
+    }
+    
     func createUser(_ userData: ProfileSettingsModels.ProfileUserData) {
         let context = CoreDataStack.shared.viewContext(for: "UserModel")
         let user = User(context: context)

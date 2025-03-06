@@ -36,6 +36,10 @@
 		AA1C0E4B2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */; };
 		AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */; };
 		AA22CD7B2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */; };
+		AA2781492D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA2781472D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld */; };
+		AA2781542D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */; };
+		AA2781552D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */; };
+		AA2781582D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -320,6 +324,10 @@
 		AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityServiceEndpoints.swift; sourceTree = "<group>"; };
+		AA2781482D79F60F0049ACAF /* PersonalChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalChat.xcdatamodel; sourceTree = "<group>"; };
+		AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonalChat+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonalChat+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedPersonalChatEvent.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -605,6 +613,7 @@
 				AA84F0622D4E307000678ABA /* ProfileEvent */,
 				AA84F0602D4E304300678ABA /* ConfidentialityEvent */,
 				AA84F0612D4E305300678ABA /* NotificationEvent */,
+				AA2781562D7A0B990049ACAF /* ChatEvents */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -631,6 +640,14 @@
 				AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */,
 			);
 			path = ProfileSettingsScreen;
+			sourceTree = "<group>";
+		};
+		AA2781562D7A0B990049ACAF /* ChatEvents */ = {
+			isa = PBXGroup;
+			children = (
+				AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */,
+			);
+			path = ChatEvents;
 			sourceTree = "<group>";
 		};
 		AA7BADDF2D3F9E2F0030AC82 /* Chats */ = {
@@ -1261,6 +1278,7 @@
 			children = (
 				AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */,
 				AAB302412D74AD3700BECA3B /* UserModel.xcdatamodeld */,
+				AA2781472D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1268,6 +1286,8 @@
 		AAB301FD2D72055900BECA3B /* GeneratedModels */ = {
 			isa = PBXGroup;
 			children = (
+				AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */,
+				AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */,
 				AAB302442D74AF1700BECA3B /* User+CoreDataClass.swift */,
 				AAB302452D74AF1700BECA3B /* User+CoreDataProperties.swift */,
 				AAB3020D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift */,
@@ -1663,6 +1683,8 @@
 				E19609DB2D60E90A008E27C0 /* LanguageViewController.swift in Sources */,
 				E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */,
 				E1960A732D6E181A008E27C0 /* UIImage+Letters.swift in Sources */,
+				AA2781542D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift in Sources */,
+				AA2781552D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift in Sources */,
 				AAB300CE2D6F0E4300BECA3B /* SecretPersonalChatService.swift in Sources */,
 				AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */,
 				AA84F04B2D4D0C0B00678ABA /* NotificationCell.swift in Sources */,
@@ -1763,6 +1785,7 @@
 				AAB300C02D6EF97600BECA3B /* GroupChatService.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
+				AA2781492D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld in Sources */,
 				AAB3021D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift in Sources */,
 				AAB3021E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift in Sources */,
 				AAB3021F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift in Sources */,
@@ -1838,6 +1861,7 @@
 				AA7BADE72D3F9FB80030AC82 /* ChatsScreenPresenter.swift in Sources */,
 				AAB300E02D6F337200BECA3B /* UpdateServiceProtocol.swift in Sources */,
 				E135ED422D4E7D06006CE143 /* UIProfileTextField.swift in Sources */,
+				AA2781582D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift in Sources */,
 				AA9B62202D2D5F790064CB23 /* StartViewController.swift in Sources */,
 				E1960A6D2D6DE555008E27C0 /* NewGroupWorker.swift in Sources */,
 				AA87FC712D5503A300E8D066 /* UserProfileScreenPresenter.swift in Sources */,
@@ -2202,6 +2226,16 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
+		AA2781472D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AA2781482D79F60F0049ACAF /* PersonalChat.xcdatamodel */,
+			);
+			currentVersion = AA2781482D79F60F0049ACAF /* PersonalChat.xcdatamodel */;
+			path = PersonalChatModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
@@ -2209,8 +2243,7 @@
 				AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */,
 			);
 			currentVersion = AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */;
-			name = ChatsModel.xcdatamodeld;
-			path = "ChatsModel.xcdatamodeld";
+			path = ChatsModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
@@ -2220,8 +2253,7 @@
 				AAB302422D74AD3700BECA3B /* UserModel.xcdatamodel */,
 			);
 			currentVersion = AAB302422D74AD3700BECA3B /* UserModel.xcdatamodel */;
-			name = UserModel.xcdatamodeld;
-			path = "UserModel.xcdatamodeld";
+			path = UserModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

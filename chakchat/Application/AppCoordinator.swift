@@ -171,8 +171,8 @@ final class AppCoordinator {
         navigationController.pushViewController(userProfileVC, animated: true)
     }
     
-    func showChatScreen(_ userData: ProfileSettingsModels.ProfileUserData) {
-        let chatVC = ChatAssembly.build(mainAppContext, coordinator: self, userData: userData)
+    func showChatScreen(_ userData: ProfileSettingsModels.ProfileUserData, _ isChatExisting: Bool) {
+        let chatVC = ChatAssembly.build(mainAppContext, coordinator: self, userData: userData, existing: isChatExisting)
         navigationController.pushViewController(chatVC, animated: true)
     }
 
