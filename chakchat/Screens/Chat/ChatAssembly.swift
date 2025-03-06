@@ -21,6 +21,7 @@ enum ChatAssembly {
         let interactor = ChatInteractor(
             presenter: presenter,
             worker: worker,
+            userData: userData,
             errorHandler: context.errorHandler,
             logger: context.logger
         )

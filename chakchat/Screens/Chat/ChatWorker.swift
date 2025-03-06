@@ -39,4 +39,8 @@ final class ChatWorker: ChatWorkerLogic {
             }
         }
     }
+    
+    func sendTextMessage(_ message: String) {
+        print("Sended message: \(message)")
+    }
 }
