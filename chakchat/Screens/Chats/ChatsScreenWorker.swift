@@ -24,9 +24,27 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     ) {
         self.keychainManager = keychainManager
         self.userDefaultManager = userDefaultManager
-        self.userService = userService
         self.coreDataManager = coreDataManager
+        self.userService = userService
         self.logger = logger
+    }
+    
+    func loadChats() -> [ChatsModels.PersonalChat.Response]? {
+        var result: [ChatsModels.PersonalChat.Response] = []
+        if let chats = coreDataManager.fetchChats() {
+            for chat in chats {
+                guard let members = try? JSONDecoder().decode([UUID].self, from: chat.members) else { continue }
+                let chatResponse = ChatsModels.PersonalChat.Response(
+                    chatID: chat.chatID,
+                    members: members,
+                    blocked: chat.blocked,
+                    blockedBy: try? JSONDecoder().decode([UUID]?.self, from: chat.blockedBy ?? Data()),
+                    createdAt: chat.createdAt
+                )
+                result.append(chatResponse)
+            }
+        }
+        return result
     }
     
     func loadMeData(competion: @escaping (Result<Void, Error>) -> Void) {
@@ -56,9 +74,7 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     }
     
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
-        //guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        print("Request to server")
-        let accessToken: String = "supersecretaccesstoken1"
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         userService.sendGetUsersRequest(name, username, page, limit, accessToken) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -68,6 +84,22 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
                 completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))
+            }
+        }
+    }
+    
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        let myID = userDefaultManager.loadID()
+        for usr in users where usr != myID {
+            userService.sendGetUserRequest(usr, accessToken) { [weak self] result in
+                guard self != nil else { return }
+                switch result {
+                case .success(let response):
+                    completion(.success(response.data))
+                case .failure(let failure):
+                    completion(.failure(failure))
+                }
             }
         }
     }

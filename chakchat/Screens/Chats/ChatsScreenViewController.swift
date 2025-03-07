@@ -33,6 +33,8 @@ final class ChatsScreenViewController: UIViewController {
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var settingButton: UIButton = UIButton(type: .system)
     private lazy var newChatButton: UIButton = UIButton(type: .system)
+    private let chatsTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var chatsData: [ChatsModels.PersonalChat.Response]? = []
     private let searchController: UISearchController
     private let interactor: ChatsScreenBusinessLogic
     
@@ -48,9 +50,26 @@ final class ChatsScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        self.interactor.loadMeData()
+        self.interactor.loadMeRestrictions()
+        //self.interactor.loadChats()
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
+    }
+    
+    public func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
+        chatsData?.append(chatData)
+        DispatchQueue.main.async {
+            self.chatsTableView.reloadData()
+        }
+    }
+    
+    public func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
+        chatsData = chats
+        DispatchQueue.main.async {
+            self.chatsTableView.reloadData()
+        }
     }
     
     // MARK: - UI Configuration
@@ -63,6 +82,7 @@ final class ChatsScreenViewController: UIViewController {
         configureNewChatButton()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newChatButton)
         configureSearchController()
+        configureChatsTableView()
     }
     
     // MARK: - Title Label Configuration
@@ -82,6 +102,7 @@ final class ChatsScreenViewController: UIViewController {
         searchController.searchBar.autocorrectionType = .no
         searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
         definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     // MARK: - Settings Button Configuration
@@ -106,6 +127,18 @@ final class ChatsScreenViewController: UIViewController {
         newChatButton.contentHorizontalAlignment = .fill
         newChatButton.contentVerticalAlignment = .fill
         newChatButton.addTarget(self, action: #selector(plusButtonPressed), for: .touchUpInside)
+    }
+    
+    private func configureChatsTableView() {
+        view.addSubview(chatsTableView)
+        chatsTableView.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
+        chatsTableView.pinHorizontal(view)
+        chatsTableView.pinBottom(view.bottomAnchor, 0)
+        chatsTableView.backgroundColor = .white
+        chatsTableView.delegate = self
+        chatsTableView.dataSource = self
+        chatsTableView.register(ChatCell.self, forCellReuseIdentifier: "ChatCell")
+        chatsTableView.separatorInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 5)
     }
     
     // MARK: - Actions
@@ -134,5 +167,42 @@ extension ChatsScreenViewController: UISearchResultsUpdating {
         if let searchText = searchController.searchBar.text {
             searchVC.searchTextPublisher.send(searchText)
         }
+    }
+}
+
+extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let chatsData {
+            return chatsData.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
+            return UITableViewCell()
+        }
+        if let item = chatsData?[indexPath.row] {
+            interactor.getUserDataByID(item.members) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let data):
+                    cell.configure(data.photo, data.name)
+                case .failure(let failure):
+                    interactor.handleError(failure)
+                }
+            }
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }

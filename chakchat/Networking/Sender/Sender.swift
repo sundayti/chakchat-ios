@@ -56,7 +56,8 @@ final class Sender: SenderLogic {
                 completion(.failure(APIError.noData))
                 return
             }
-            
+            let jsonString = String(data: data, encoding: .utf8)
+            print(jsonString as Any)
             switch httpResponse.statusCode {
             case 200:
                 do {
@@ -78,7 +79,6 @@ final class Sender: SenderLogic {
         }
         task.resume()
     }
-
 }
 
 // MARK: - SuccessResponse

@@ -57,7 +57,7 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
             guard let self = self else {return}
             switch result {
             case .success(_):
-                os_log("/me/put complete", log: logger, type: .info)
+                os_log("Uploading user data complete", log: logger, type: .info)
                 let updateProfileDataEvent = UpdateProfileDataEvent(
                     newNickname: newUserData.name,
                     newUsername: newUserData.username,
@@ -66,8 +66,9 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
                 os_log("Published event in profile settings screen", log: logger, type: .default)
                 eventPublisher.publish(event: updateProfileDataEvent)
             case .failure(let failure):
-                os_log("/me/put failed", log: logger, type: .info)
                 _ = self.errorHandler.handleError(failure)
+                os_log("Uploading user data failed:\n", log: logger, type: .fault)
+                print(failure)
             }
         }
         os_log("Routed to settings menu screen", log: logger, type: .default)
@@ -88,6 +89,8 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
                 completion(.success(fileMetaData))
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
+                os_log("Uploading user image failed:\n", log: logger, type: .fault)
+                print(failure)
             }
         }
     }
@@ -101,17 +104,23 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
                 self.eventPublisher.publish(event: updatePhotoEvent)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
+                os_log("Failed to upload photo:\n", log: logger, type: .fault)
+                print(failure)
             }
         }
     }
     
     func checkUsername(_ username: String, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         worker.checkUsername(username) { [weak self] result in
-            guard self != nil else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let data):
+                os_log("Checking for username completed", log: logger, type: .default)
                 completion(.success(data))
             case .failure(let failure):
+                os_log("Checking for username failed:\n", log: logger, type: .fault)
+                _ = errorHandler.handleError(failure)
+                print(failure)
                 completion(.failure(failure))
             }
         }
@@ -126,6 +135,8 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
                 backToRegistration()
             case .failure(let failure):
                 _ = self.errorHandler.handleError(failure)
+                os_log("Failed to signout:\n", log: logger, type: .fault)
+                print(failure)
             }
         }
     }

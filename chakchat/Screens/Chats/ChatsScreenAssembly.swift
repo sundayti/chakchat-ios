@@ -27,6 +27,7 @@ enum ChatsAssembly {
             worker: worker,
             logger: context.logger,
             errorHandler: context.errorHandler,
+            eventSubscriber: context.eventManager,
             keychainManager: context.keychainManager
         )
         interactor.onRouteToSettings = { [weak coordinator] in

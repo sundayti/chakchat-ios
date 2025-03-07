@@ -16,7 +16,7 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     private let userData: ProfileSettingsModels.ProfileUserData
     private let logger: OSLog
     
-    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData) -> Void)?
+    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, Bool) -> Void)?
     var onRouteBack: (() -> Void)?
     
     init(
@@ -37,8 +37,58 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         presenter.passUserData(userData)
     }
     
-    func routeToChat() {
-        onRouteToChat?(userData)
+    func blockChat() {
+        worker.blockChat(userData.id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                os_log("Chat with id:%@ is blocked", log: logger, type: .default, data.chatID as CVarArg)
+                // событие по блокировке чата
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to block chat with %@", log: logger, type: .fault, userData.id as CVarArg)
+                print(failure)
+            }
+        }
+    }
+    
+    func unblockChat() {
+        worker.unblockChat(userData.id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let success):
+                os_log("Chat with id:%@ is unblocked", log: logger, type: .default, userData.id as CVarArg)
+                // событие по разблокировке чата
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to unblock chat with %@", log: logger, type: .fault, userData.id as CVarArg)
+                print(failure)
+            }
+        }
+    }
+    
+    func deleteChat(_ deleteMode: DeleteMode) {
+        worker.deleteChat(userData.id, deleteMode) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                os_log("Chat with id:%@ is deleted", log: logger, type: .default, userData.id as CVarArg)
+                // событие по удалению чата
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to delete chat with %@", log: logger, type: .fault, userData.id as CVarArg)
+                print(failure)
+            }
+        }
+    }
+    
+    func routeToChat(_ isChatExisting: Bool) {
+        onRouteToChat?(userData, isChatExisting)
+    }
+    
+    func searchForExistingChat() {
+        let isChatExisting = worker.searchForExistingChat(userData.id)
+        routeToChat(isChatExisting)
     }
     
     func switchNotification() {

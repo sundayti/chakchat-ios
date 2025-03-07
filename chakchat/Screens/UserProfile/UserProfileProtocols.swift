@@ -8,7 +8,14 @@
 import Foundation
 
 protocol UserProfileBusinessLogic {
-    func routeToChat()
+    func routeToChat(_ isChatExisting: Bool)
+    func searchForExistingChat()
+    
+    func blockChat()
+    func unblockChat()
+    
+    func deleteChat(_ deleteMode: DeleteMode)
+    
     func switchNotification()
     func passUserData()
     func searchMessages()
@@ -22,4 +29,12 @@ protocol UserProfilePresentationLogic {
 protocol UserProfileWorkerLogic {
     func searchMessages()
     func switchNotification()
+    
+    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
+    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
+    
+    func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, Error>) -> Void)
+    
+    func searchForExistingChat(_ memberID: UUID) -> Bool
+    func getMyID() -> UUID
 }

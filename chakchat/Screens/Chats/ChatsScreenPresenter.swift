@@ -11,4 +11,12 @@ import Foundation
 final class ChatsScreenPresenter: ChatsScreenPresentationLogic {
     
     weak var view: ChatsScreenViewController?
+    
+    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
+        view?.addNewChat(chatData)
+    }
+    
+    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
+        view?.showChats(chats)
+    }
 }

@@ -38,7 +38,7 @@ final class SignupInteractor: SignupBusinessLogic {
     func sendSignupRequest(_ name: String, _ username: String) {
         os_log("Send signup request to server", log: logger, type: .info)
         guard let signupKey = worker.getSignupCode() else {
-            os_log("Can't find signup key in keychain storage", log: logger, type: .error)
+            os_log("Can't find signup key in keychain storage", log: logger, type: .fault)
             return
         }
         

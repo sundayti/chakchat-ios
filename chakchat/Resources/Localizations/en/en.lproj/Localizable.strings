@@ -53,8 +53,7 @@
 "who_can_see_birth" = "Who can see my birthday date?";
 "exceptions" = "Exceptions";
 "specified" = "Specified";
-"never_show" = "Never show";
-"always_show" = "Always show";
+"users_list" = "Users list";
 "add" = "Add";
 "sound" = "Sound";
 "vibration" = "Vibration";
@@ -74,3 +73,10 @@
 "who_would_you_add" = "Who would you like to add?";
 "create" = "Create";
 "group_name" = "Group name";
+"block_chat" = "Block chat";
+"delete_chat" = "Delete chat";
+"choose_option" = "Choose option";
+"are_you_sure_block" = "Are you sure you want to block this chat?";
+"for_whom" = "For whom to delete a chat?";
+"delete_for_me" = "Delete for me";
+"delete_for_both" = "Delete for both";

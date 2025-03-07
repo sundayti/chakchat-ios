@@ -8,7 +8,7 @@
 import UIKit
 
 enum ChatAssembly {
-    static func build(_ context: MainAppContextProtocol, coordinator: AppCoordinator, userData: ProfileSettingsModels.ProfileUserData) -> UIViewController {
+    static func build(_ context: MainAppContextProtocol, coordinator: AppCoordinator, userData: ProfileSettingsModels.ProfileUserData, existing: Bool) -> UIViewController {
         let presenter = ChatPresenter()
         let personalChatService = PersonalChatService()
         let updateService = UpdateService()
@@ -22,6 +22,8 @@ enum ChatAssembly {
             presenter: presenter,
             worker: worker,
             userData: userData,
+            eventPublisher: context.eventManager,
+            isChatExisting: existing,
             errorHandler: context.errorHandler,
             logger: context.logger
         )
