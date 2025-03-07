@@ -16,5 +16,5 @@ enum IdentityServiceEndpoints: String {
     
     case signinCodeEndpoint = "/api/identity/v1.0/signin/send-phone-code"
     case signinEndpoint = "/api/identity/v1.0/signin"
-    case refreshEndpoint = "/api/identity/v1.0/signin/refresh-token"
+    case refreshEndpoint = "/api/identity/v1.0/refresh-token"
 }

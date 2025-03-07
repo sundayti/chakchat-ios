@@ -18,9 +18,9 @@ extension PersonalChat {
 
     @NSManaged public var blocked: Bool
     @NSManaged public var blockedBy: Data?
-    @NSManaged public var chatID: UUID?
-    @NSManaged public var createdAt: Date?
-    @NSManaged public var members: Data?
+    @NSManaged public var chatID: UUID
+    @NSManaged public var createdAt: Date
+    @NSManaged public var members: Data
 
 }
 
@@ -30,9 +30,8 @@ extension PersonalChat : Identifiable {
 
 extension PersonalChat {
     func getMembers() -> [UUID] {
-        guard let membersData = self.members else { return [] }
         let decoder = JSONDecoder()
-        if let members = try? decoder.decode([UUID].self, from: membersData) {
+        if let members = try? decoder.decode([UUID].self, from: self.members) {
             return members
         }
         return []
