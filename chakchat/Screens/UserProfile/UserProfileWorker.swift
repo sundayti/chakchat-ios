@@ -7,13 +7,17 @@
 
 import UIKit
 
+// MARK: - UserProfileWorker
 final class UserProfileWorker: UserProfileWorkerLogic {
+    
+    // MARK: - Properties
     private let userDefaultsManager: UserDefaultsManagerProtocol
     private let keychainManager: KeychainManagerBusinessLogic
     private let coreDataManager: CoreDataManagerProtocol
     private let personalChatService: PersonalChatServiceProtocol
     private let messagingService: UpdateServiceProtocol
     
+    // MARK: - Initialization
     init(
         userDefaultsManager: UserDefaultsManagerProtocol,
         keychainManager: KeychainManagerBusinessLogic,
@@ -27,6 +31,8 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         self.personalChatService = personalChatService
         self.messagingService = messagingService
     }
+    
+    // MARK: - Searching for Existing Chat
     // return true if chat exists else false
     func searchForExistingChat(_ memberID: UUID) -> Bool {
         let myID = getMyID()
@@ -34,11 +40,13 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         return chat != nil ? true : false
     }
     
+    // MARK: - Getting ID
     func getMyID() -> UUID {
         let myID = userDefaultsManager.loadID()
         return myID
     }
 
+    // MARK: - Blocking Chat
     func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
         let myID = getMyID()
         guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
@@ -58,6 +66,7 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         }
     }
     
+    // MARK: - Unblocking Chat
     func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
         let myID = getMyID()
         guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
@@ -78,6 +87,7 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         }
     }
     
+    // MARK: - Deleting Chat
     func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, any Error>) -> Void) {
         let myID = getMyID()
         guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {

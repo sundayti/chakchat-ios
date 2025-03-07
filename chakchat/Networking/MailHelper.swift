@@ -76,7 +76,11 @@ class MailHelper: NSObject, MFMailComposeViewControllerDelegate {
             viewController.present(mailComposer, animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: Constants.errorAlertTitle, message: Constants.errorDuringSendingMessage, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .cancel, handler: nil)
+
             alert.addAction(UIAlertAction(title: Constants.errorButtonText, style: .default, handler: nil))
+            alert.addAction(cancelAction)
             viewController.present(alert, animated: true, completion: nil)
         }
     }

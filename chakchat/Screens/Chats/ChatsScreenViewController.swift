@@ -134,7 +134,7 @@ final class ChatsScreenViewController: UIViewController {
         chatsTableView.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
         chatsTableView.pinHorizontal(view)
         chatsTableView.pinBottom(view.bottomAnchor, 0)
-        chatsTableView.backgroundColor = .white
+        chatsTableView.backgroundColor = Colors.background
         chatsTableView.delegate = self
         chatsTableView.dataSource = self
         chatsTableView.register(ChatCell.self, forCellReuseIdentifier: "ChatCell")
