@@ -18,11 +18,13 @@ final class KeychainManager: KeychainManagerBusinessLogic {
     
     // MARK: - Saving Methods
     // for verification code and other data with UUID type
+    @discardableResult
     func save(key: String, value: UUID) -> Bool {
         return save(key: key, value: value.uuidString)
     }
     
     // for phone and other data with string type
+    @discardableResult
     func save(key: String, value: String) -> Bool {
         
         guard let data = value.data(using: .utf8) else { return false }

@@ -53,8 +53,7 @@
 "who_can_see_birth" = "Who can see my birthday date?";
 "exceptions" = "Exceptions";
 "specified" = "Specified";
-"never_show" = "Never show";
-"always_show" = "Always show";
+"users_list" = "Users list";
 "add" = "Add";
 "sound" = "Sound";
 "vibration" = "Vibration";

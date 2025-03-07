@@ -24,8 +24,8 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     ) {
         self.keychainManager = keychainManager
         self.userDefaultManager = userDefaultManager
-        self.userService = userService
         self.coreDataManager = coreDataManager
+        self.userService = userService
         self.logger = logger
     }
     
@@ -56,9 +56,7 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     }
     
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
-        //guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        print("Request to server")
-        let accessToken: String = "supersecretaccesstoken1"
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         userService.sendGetUsersRequest(name, username, page, limit, accessToken) { [weak self] result in
             guard let self = self else { return }
             switch result {

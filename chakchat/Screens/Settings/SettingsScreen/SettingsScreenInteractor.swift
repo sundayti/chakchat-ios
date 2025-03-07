@@ -47,18 +47,9 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     
     // MARK: - User Data Loading
     func loadUserData() {
-        os_log("Loaded user data in settings screen", log: logger, type: .default)
-        worker.getUserData { [weak self] result in
-            guard let self = self else {return}
-            switch result {
-            case .success(let userData):
-                os_log("/me/get complete", log: logger, type: .info)
-                self.showUserData(userData)
-            case .failure(let failure):
-                os_log("/me/get failed", log: logger, type: .info)
-                _ = self.errorHandler.handleError(failure)
-            }
-        }
+        os_log("Loading user data from userDefaults", log: logger, type: .default)
+        let userData = worker.getUserData()
+        showUserData(userData)
     }
     
     func loadPhotoByURL(_ url: URL, completion: @escaping (Result<UIImage, any Error>) -> Void) {

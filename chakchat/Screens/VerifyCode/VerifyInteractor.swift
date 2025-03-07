@@ -42,7 +42,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
         
         if (state == SignupState.signin) {
             guard let key = worker.getVerifyCode(KeychainManager.keyForSaveSigninCode) else {
-                os_log("Can't find verify key in keychain storage", log: logger, type: .error)
+                os_log("Can't find verify key in keychain storage", log: logger, type: .fault)
                 return
             }
 
@@ -59,7 +59,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
             }
         } else if (state == SignupState.signupVerifyCode) {
             guard let key = worker.getVerifyCode(KeychainManager.keyForSaveSignupCode) else {
-                os_log("Can't find verify key in keychain storage", log: logger, type: .error)
+                os_log("Can't find verify key in keychain storage", log: logger, type: .fault)
                 return
             }
             

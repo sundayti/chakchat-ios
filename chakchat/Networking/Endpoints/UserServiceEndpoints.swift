@@ -10,7 +10,7 @@ import Foundation
 /// {parameter} после этого слеша
 enum UserServiceEndpoints: String {
     case user = "/api/user/v1.0/user/"
-    case username = "api/user/v1.0/user/username/"
+    case username = "/api/user/v1.0/user/username/"
     case users = "/api/user/v1.0/users"
     
     case me = "/api/user/v1.0/me"

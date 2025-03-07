@@ -102,7 +102,7 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
     
     func checkUsername(_ username: String, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        userService.sendGetUsernameRequst(username, accessToken) { [weak self] result in
+        userService.sendGetUsernameRequest(username, accessToken) { [weak self] result in
             guard self != nil else { return }
             switch result {
             case .success(let response):

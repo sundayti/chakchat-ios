@@ -54,6 +54,46 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         onRouteToNewMessage?()
     }
     
+    func loadMeData() {
+        os_log("Fetching for user data", log: logger, type: .default)
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.worker.loadMeData() { result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(_):
+                        os_log("Loaded user data", log: self.logger, type: .default)
+                        break
+                    case .failure(let failure):
+                        _ = self.errorHandler.handleError(failure)
+                        os_log("Failure in fetching user data:\n", log: self.logger, type: .fault)
+                        print(failure)
+                    }
+                }
+            }
+        }
+    }
+    
+    func loadMeRestrictions() {
+        os_log("Fetching for user restrictions", log: logger, type: .default)
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.worker.loadMeRestrictions { result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(_):
+                        os_log("Loaded user restrictions", log: self.logger, type: .default)
+                        break
+                    case .failure(let failure):
+                        _ = self.errorHandler.handleError(failure)
+                        os_log("Failure in fetching user restrictions:\n", log: self.logger, type: .fault)
+                        print(failure)
+                    }
+                }
+            }
+        }
+    }
+    
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
         worker.fetchUsers(name, username, page, limit) { [weak self] result in
             guard self != nil else { return }
@@ -105,5 +145,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     
     func handleError(_ error: Error) {
         _ = errorHandler.handleError(error)
+        os_log("Failed:\n", log: logger, type: .fault)
+        print(error)
     }
 }

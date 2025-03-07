@@ -21,12 +21,16 @@ final class AppCoordinator {
     init(window: UIWindow) {
         self.window = window
         self.navigationController = UINavigationController()
-        self.signupContext = SignupContext(keychainManager: KeychainManager(),
-                                           errorHandler: ErrorHandler(),
-                                           userDefaultsManager: UserDefaultsManager(),
+        let keychainManager = KeychainManager()
+        let identityService = IdentityService()
+        let userDefaultsManager = UserDefaultsManager()
+        let errorHandler = ErrorHandler(keychainManager: keychainManager, identityService: identityService)
+        self.signupContext = SignupContext(keychainManager: keychainManager,
+                                           errorHandler: errorHandler,
+                                           userDefaultsManager: userDefaultsManager,
                                            state: SignupState._default,
                                            logger: OSLog(subsystem: "com.chakchat.mainlog", category: "MainLog"))
-        
+        let eventManager = EventManager()
         self.mainAppContext = MainAppContext(keychainManager: signupContext.keychainManager,
                                              errorHandler: signupContext.errorHandler,
                                              userDefaultsManager: signupContext.userDefaultsManager,
