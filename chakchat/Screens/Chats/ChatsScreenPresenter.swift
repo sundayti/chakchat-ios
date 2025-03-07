@@ -15,4 +15,8 @@ final class ChatsScreenPresenter: ChatsScreenPresentationLogic {
     func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
         view?.addNewChat(chatData)
     }
+    
+    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
+        view?.showChats(chats)
+    }
 }

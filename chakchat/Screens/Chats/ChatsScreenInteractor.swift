@@ -113,8 +113,14 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     }
     
     func loadChats() {
-        print("Загрузили чаты")
+        let chats = worker.loadChats()
+        showChats(chats)
     }
+    
+    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
+        presenter.showChats(chats)
+    }
+    
     
     func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent) {
         let chatData = ChatsModels.PersonalChat.Response(

@@ -34,7 +34,7 @@ final class ChatsScreenViewController: UIViewController {
     private lazy var settingButton: UIButton = UIButton(type: .system)
     private lazy var newChatButton: UIButton = UIButton(type: .system)
     private let chatsTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var chatsData: [ChatsModels.PersonalChat.Response] = []
+    private var chatsData: [ChatsModels.PersonalChat.Response]? = []
     private let searchController: UISearchController
     private let interactor: ChatsScreenBusinessLogic
     
@@ -52,13 +52,21 @@ final class ChatsScreenViewController: UIViewController {
     override func viewDidLoad() {
         self.interactor.loadMeData()
         self.interactor.loadMeRestrictions()
+        //self.interactor.loadChats()
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
     }
     
     public func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
-        chatsData.append(chatData)
+        chatsData?.append(chatData)
+        DispatchQueue.main.async {
+            self.chatsTableView.reloadData()
+        }
+    }
+    
+    public func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
+        chatsData = chats
         DispatchQueue.main.async {
             self.chatsTableView.reloadData()
         }
@@ -169,27 +177,32 @@ extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatsData.count
+        if let chatsData {
+            return chatsData.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
             return UITableViewCell()
         }
-        let item = chatsData[indexPath.row]
-        interactor.getUserDataByID(item.members) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                cell.configure(data.photo, data.name)
-            case .failure(let failure):
-                interactor.handleError(failure)
+        if let item = chatsData?[indexPath.row] {
+            interactor.getUserDataByID(item.members) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let data):
+                    cell.configure(data.photo, data.name)
+                case .failure(let failure):
+                    interactor.handleError(failure)
+                }
             }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 100
     }
 }
