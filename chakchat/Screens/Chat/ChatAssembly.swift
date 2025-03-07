@@ -22,6 +22,7 @@ enum ChatAssembly {
             presenter: presenter,
             worker: worker,
             userData: userData,
+            eventPublisher: context.eventManager,
             isChatExisting: existing,
             errorHandler: context.errorHandler,
             logger: context.logger

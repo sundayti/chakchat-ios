@@ -7,6 +7,7 @@
 
 import UIKit
 import OSLog
+import Combine
 
 // MARK: - ChatsScreenInteractor
 final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
@@ -16,7 +17,10 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     private let worker: ChatsScreenWorkerLogic
     private let logger: OSLog
     private let errorHandler: ErrorHandlerLogic
+    private let eventSubscriber: EventSubscriberProtocol
     private let keychainManager: KeychainManagerBusinessLogic
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var onRouteToSettings: (() -> Void)?
     var onRouteToNewMessage: (() -> Void)?
@@ -25,14 +29,18 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     init(presenter: ChatsScreenPresentationLogic, 
          worker: ChatsScreenWorkerLogic,
          logger: OSLog,
-         errorHandler: ErrorHandlerLogic, 
+         errorHandler: ErrorHandlerLogic,
+         eventSubscriber: EventSubscriberProtocol,
          keychainManager: KeychainManagerBusinessLogic
     ) {
         self.presenter = presenter
         self.worker = worker
         self.logger = logger
         self.errorHandler = errorHandler
+        self.eventSubscriber = eventSubscriber
         self.keychainManager = keychainManager
+        
+        subscribeToEvents()
     }
     
     // MARK: - Routing
@@ -58,8 +66,41 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         }
     }
     
+    private func subscribeToEvents() {
+        eventSubscriber.subscribe(CreatedPersonalChatEvent.self) { [weak self] event in
+            self?.handleChatCreatingEvent(event)
+        }.store(in: &cancellables)
+    }
+    
+    func loadChats() {
+        print("Загрузили чаты")
+    }
+    
     func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent) {
-        print("Handling will be implemented soon")
+        let chatData = ChatsModels.PersonalChat.Response(
+            chatID: event.chatID,
+            members: event.members,
+            blocked: event.blocked,
+            blockedBy: event.blockedBy,
+            createdAt: event.createdAt
+        )
+        addNewChat(chatData)
+    }
+    
+    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
+        presenter.addNewChat(chatData)
+    }
+    
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void) {
+        worker.getUserDataByID(users) { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
     }
     
     func handleError(_ error: Error) {

@@ -40,6 +40,7 @@
 		AA2781542D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */; };
 		AA2781552D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */; };
 		AA2781582D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */; };
+		AA27815B2D7AE2300049ACAF /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27815A2D7AE2300049ACAF /* ChatCell.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -328,6 +329,7 @@
 		AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonalChat+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonalChat+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedPersonalChatEvent.swift; sourceTree = "<group>"; };
+		AA27815A2D7AE2300049ACAF /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -650,9 +652,18 @@
 			path = ChatEvents;
 			sourceTree = "<group>";
 		};
+		AA2781592D7AE2200049ACAF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AA27815A2D7AE2300049ACAF /* ChatCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		AA7BADDF2D3F9E2F0030AC82 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				AA2781592D7AE2200049ACAF /* Cells */,
 				AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */,
 				AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */,
 				AA7BADEC2D3FA0440030AC82 /* ChatsScreenWorker.swift */,
@@ -1843,6 +1854,7 @@
 				AA9B622F2D2D6CB90064CB23 /* SendCodeProtocols.swift in Sources */,
 				AAB302692D7615A300BECA3B /* ChatAssembly.swift in Sources */,
 				E1960A2D2D6B79C6008E27C0 /* HelpProtocols.swift in Sources */,
+				AA27815B2D7AE2300049ACAF /* ChatCell.swift in Sources */,
 				AA87FC6D2D55038900E8D066 /* UserProfileScreenInteractor.swift in Sources */,
 				AAB300DC2D6F2FFC00BECA3B /* SecretGroupChatServiceProtocol.swift in Sources */,
 				AA9B62432D2EC4840064CB23 /* KeychainManagerProtocol.swift in Sources */,

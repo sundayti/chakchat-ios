@@ -11,12 +11,15 @@ import UIKit
 protocol ChatsScreenBusinessLogic: SearchInteractor {
     func routeToSettingsScreen()
     func routeToNewMessageScreen()
+    func loadChats()
     func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent)
+    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response)
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }
 
 // MARK: - ChatsScreenPresentationLogic
 protocol ChatsScreenPresentationLogic {
-    
+    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response)
 }
 
 // MARK: - ChatsScreenWorkerLogic
@@ -28,6 +31,7 @@ protocol ChatsScreenWorkerLogic {
         _ limit: Int,
         completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }
 
 protocol SearchInteractor {

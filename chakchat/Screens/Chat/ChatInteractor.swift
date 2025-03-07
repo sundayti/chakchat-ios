@@ -12,6 +12,7 @@ final class ChatInteractor: ChatBusinessLogic {
     private let presenter: ChatPresentationLogic
     private let worker: ChatWorkerLogic
     private let userData: ProfileSettingsModels.ProfileUserData
+    private let eventPublisher: EventPublisherProtocol
     private let isChatExisting: Bool
     private let errorHandler: ErrorHandlerLogic
     private let logger: OSLog
@@ -22,6 +23,7 @@ final class ChatInteractor: ChatBusinessLogic {
         presenter: ChatPresentationLogic,
         worker: ChatWorkerLogic,
         userData: ProfileSettingsModels.ProfileUserData,
+        eventPublisher: EventPublisherProtocol,
         isChatExisting: Bool,
         errorHandler: ErrorHandlerLogic,
         logger: OSLog
@@ -29,6 +31,7 @@ final class ChatInteractor: ChatBusinessLogic {
         self.presenter = presenter
         self.worker = worker
         self.userData = userData
+        self.eventPublisher = eventPublisher
         self.isChatExisting = isChatExisting
         self.errorHandler = errorHandler
         self.logger = logger
@@ -38,9 +41,17 @@ final class ChatInteractor: ChatBusinessLogic {
         worker.createChat(memberID) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(_):
+            case .success(let data):
                 os_log("Chat created", log: logger, type: .default)
                 // если blocked == true, то показываем пользователю об этом.
+                let event = CreatedPersonalChatEvent(
+                    chatID: data.chatID,
+                    members: data.members,
+                    blocked: data.blocked,
+                    blockedBy: data.blockedBy,
+                    createdAt: data.createdAt
+                )
+                eventPublisher.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to create chat:\n", log: logger, type: .fault)

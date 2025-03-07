@@ -71,4 +71,20 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
             }
         }
     }
+    
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        let myID = userDefaultManager.loadID()
+        for usr in users where usr != myID {
+            userService.sendGetUserRequest(usr, accessToken) { [weak self] result in
+                guard self != nil else { return }
+                switch result {
+                case .success(let response):
+                    completion(.success(response.data))
+                case .failure(let failure):
+                    completion(.failure(failure))
+                }
+            }
+        }
+    }
 }
