@@ -11,17 +11,20 @@ final class UserProfileWorker: UserProfileWorkerLogic {
     private let userDefaultsManager: UserDefaultsManagerProtocol
     private let keychainManager: KeychainManagerBusinessLogic
     private let coreDataManager: CoreDataManagerProtocol
+    private let personalChatService: PersonalChatServiceProtocol
     private let messagingService: UpdateServiceProtocol
     
     init(
         userDefaultsManager: UserDefaultsManagerProtocol,
         keychainManager: KeychainManagerBusinessLogic,
         coreDataManager: CoreDataManagerProtocol,
+        personalChatService: PersonalChatServiceProtocol,
         messagingService: UpdateServiceProtocol
     ) {
         self.userDefaultsManager = userDefaultsManager
         self.keychainManager = keychainManager
         self.coreDataManager = coreDataManager
+        self.personalChatService = personalChatService
         self.messagingService = messagingService
     }
     // return true if chat exists else false
@@ -34,6 +37,64 @@ final class UserProfileWorker: UserProfileWorkerLogic {
     func getMyID() -> UUID {
         let myID = userDefaultsManager.loadID()
         return myID
+    }
+
+    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
+        let myID = getMyID()
+        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
+            completion(.failure(NSError(domain: "Chat does not exist", code: 1)))
+            return
+        }
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        personalChatService.sendBlockChatRequest(chatID, accessToken) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.coreDataManager.updateChat(response.data)
+                completion(.success(response.data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
+        let myID = getMyID()
+        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
+            completion(.failure(NSError(domain: "Chat does not exist", code: 1)))
+            return
+        }
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        personalChatService.sendUnblockRequest(chatID, accessToken) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.coreDataManager.updateChat(response.data)
+                completion(.success(response.data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+            
+        }
+    }
+    
+    func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, any Error>) -> Void) {
+        let myID = getMyID()
+        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
+            completion(.failure(NSError(domain: "Chat does not exist", code: 1)))
+            return
+        }
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        personalChatService.sendDeleteChatRequest(chatID, deleteMode, accessToken) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.coreDataManager.deleteChat(chatID)
+                completion(.success(response.data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
     }
     
     func searchMessages() {
