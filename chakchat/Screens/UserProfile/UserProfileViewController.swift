@@ -108,19 +108,61 @@ final class UserProfileViewController: UIViewController {
         let notificationButton = createButton("bell.badge.fill")
         let secretChatButton = createButton("lock.fill")
         let searchButton = createButton("magnifyingglass")
+        let optionsButton = createButton("ellipsis")
         
         buttonStackView.addArrangedSubview(chatButton)
         buttonStackView.addArrangedSubview(notificationButton)
         buttonStackView.addArrangedSubview(secretChatButton)
         buttonStackView.addArrangedSubview(searchButton)
+        buttonStackView.addArrangedSubview(optionsButton)
         
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 10
-        buttonStackView.setWidth(306)
+        buttonStackView.setWidth(385)
         buttonStackView.setHeight(69)
         buttonStackView.pinTop(nicknameLabel.bottomAnchor, 25)
         buttonStackView.pinCenterX(view)
+        
+        let blockAction = UIAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), image: UIImage(systemName: "pause.fill")) { _ in
+            self.showBlockConfirmation()
+        }
+        let deleteAction = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_chat"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
+            self.showBlockDeletion()
+        }
+        let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [blockAction, deleteAction])
+        optionsButton.menu = menu
+        optionsButton.showsMenuAsPrimaryAction = true
+    }
+    
+    private func showBlockConfirmation() {
+        let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: "block_chat"), message: LocalizationManager.shared.localizedString(for: "are_you_sure_block"), preferredStyle: .alert)
+  
+        let blockAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), style: .destructive) { _ in
+            self.blockChat()
+        }
+        let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .cancel, handler: nil)
+        
+        alert.addAction(blockAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showBlockDeletion() {
+        let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: "delete_chat"), message: LocalizationManager.shared.localizedString(for: "for_whom"), preferredStyle: .alert)
+  
+        let onlyMeAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "delete_for_me"), style: .default) { _ in
+            self.deleteChatForMe()
+        }
+        let bothAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "delete_for_both"), style: .destructive) { _ in
+            self.deleteCharForBoth()
+        }
+        
+        alert.addAction(onlyMeAction)
+        alert.addAction(bothAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     private func configureUserDataTable() {
@@ -137,6 +179,18 @@ final class UserProfileViewController: UIViewController {
         userDataTable.backgroundColor = view.backgroundColor
         userDataTable.rowHeight = UITableView.automaticDimension
         userDataTable.estimatedRowHeight = 60
+    }
+    
+    private func blockChat() {
+        interactor.blockChat()
+    }
+    
+    private func deleteChatForMe() {
+        interactor.deleteChat(DeleteMode.onlyMe)
+    }
+    
+    private func deleteCharForBoth() {
+        interactor.deleteChat(DeleteMode.all)
     }
     
     @objc private func chatButtonPressed() {
