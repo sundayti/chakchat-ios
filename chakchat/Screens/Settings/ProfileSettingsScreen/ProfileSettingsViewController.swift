@@ -319,10 +319,10 @@ final class ProfileSettingsViewController: UIViewController {
     
     @objc
     private func iconImageViewTapped() {
-        // TODO: added screen with setting image
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
     }
     
@@ -373,7 +373,7 @@ final class ProfileSettingsViewController: UIViewController {
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[.originalImage] as? UIImage {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             interactor.uploadFile(pickedImage) { [weak self] result in
                 switch result {
                 case .success(let metaData):
