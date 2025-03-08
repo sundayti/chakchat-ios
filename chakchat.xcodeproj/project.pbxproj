@@ -282,6 +282,7 @@
 		E1960A6D2D6DE555008E27C0 /* NewGroupWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6C2D6DE555008E27C0 /* NewGroupWorker.swift */; };
 		E1960A6F2D6E0286008E27C0 /* UINewGroupTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */; };
 		E1960A732D6E181A008E27C0 /* UIImage+Letters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A722D6E181A008E27C0 /* UIImage+Letters.swift */; };
+		E1960A802D7C684D008E27C0 /* UIUserProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A7F2D7C6841008E27C0 /* UIUserProfileButton.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -576,6 +577,7 @@
 		E1960A6C2D6DE555008E27C0 /* NewGroupWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupWorker.swift; sourceTree = "<group>"; };
 		E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINewGroupTitleLabel.swift; sourceTree = "<group>"; };
 		E1960A722D6E181A008E27C0 /* UIImage+Letters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Letters.swift"; sourceTree = "<group>"; };
+		E1960A7F2D7C6841008E27C0 /* UIUserProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUserProfileButton.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -902,6 +904,7 @@
 		AA92EC5D2D381B4A007DEC76 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				E1960A7F2D7C6841008E27C0 /* UIUserProfileButton.swift */,
 				AA92EC5E2D381B5E007DEC76 /* UIChakChatStackView.swift */,
 				AA92EC622D382057007DEC76 /* UIGradientButton.swift */,
 				E11D350A2D40009F00A698EA /* UIErrorLabel.swift */,
@@ -1803,6 +1806,7 @@
 				AAB302202D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift in Sources */,
 				AAB302212D72176B00BECA3B /* FileContent+CoreDataClass.swift in Sources */,
 				AAB302222D72176B00BECA3B /* FileContent+CoreDataProperties.swift in Sources */,
+				E1960A802D7C684D008E27C0 /* UIUserProfileButton.swift in Sources */,
 				AAB302232D72176B00BECA3B /* TextContent+CoreDataClass.swift in Sources */,
 				AAB302242D72176B00BECA3B /* TextContent+CoreDataProperties.swift in Sources */,
 				AAB302252D72176B00BECA3B /* ChatData+CoreDataClass.swift in Sources */,
@@ -2141,7 +2145,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2171,7 +2175,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

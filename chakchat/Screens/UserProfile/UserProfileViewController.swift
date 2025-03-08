@@ -20,8 +20,8 @@ final class UserProfileViewController: UIViewController {
         static let nicknameTop: CGFloat = 10
         static let arrowName: String = "arrow.left"
         static let borderRadius: CGFloat = 10
-        static let buttonStackView: CGFloat = 10
-        static let buttonWidth: CGFloat = 385
+        static let buttonStackView: CGFloat = 7
+        static let buttonWidth: CGFloat = 390
         static let buttonHeigth: CGFloat = 50
         static let buttonTop: CGFloat = 25
         static let userTableHorizontal: CGFloat = -15
@@ -139,22 +139,23 @@ final class UserProfileViewController: UIViewController {
     // MARK: - Button Stack View Configuration
     private func configureButtonStackView() {
         view.addSubview(buttonStackView)
-        let createButton: (String) -> UIButton = { systemName in
-            let button = UIButton(type: .system)
+        let createButton: (String, String) -> UIButton = { systemName, title in
+            let button = UIUserProfileButton()
+            button.configure(withSymbol: systemName, title: title)
             button.backgroundColor = Colors.userButtons
-            button.setImage(UIImage(systemName: systemName), for: .normal)
             button.tintColor = .orange
             button.setTitleColor(.orange, for: .normal)
             button.layer.cornerRadius = Constants.borderRadius
+            
             return button
         }
         
-        let chatButton = createButton("message.fill")
+        let chatButton = createButton("message.fill", "chat")
         chatButton.addTarget(self, action: #selector(chatButtonPressed), for: .touchUpInside)
-        let notificationButton = createButton("bell.badge.fill")
-        let secretChatButton = createButton("key.fill")
-        let searchButton = createButton("magnifyingglass")
-        let optionsButton = createButton("ellipsis")
+        let notificationButton = createButton("bell.badge.fill", "sound")
+        let secretChatButton = createButton("key.fill", "secret chat")
+        let searchButton = createButton("magnifyingglass", "search")
+        let optionsButton = createButton("ellipsis", "more")
         
         buttonStackView.addArrangedSubview(chatButton)
         buttonStackView.addArrangedSubview(notificationButton)
