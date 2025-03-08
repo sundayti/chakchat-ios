@@ -80,3 +80,8 @@
 "for_whom" = "For whom to delete a chat?";
 "delete_for_me" = "Delete for me";
 "delete_for_both" = "Delete for both";
+"chat_l" = "chat";
+"sound_l" = "sound";
+"secret_chat_l" = "secret chat";
+"search_l" = "search";
+"more_l" = "more";

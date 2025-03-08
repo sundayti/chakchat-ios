@@ -15,7 +15,7 @@ final class UIUserProfileButton: UIButton {
         static let imageTop: CGFloat = 5
         static let imageSize: CGFloat = 24
         static let titleTop: CGFloat = 1
-        static let titleBottom: CGFloat = 2
+        static let titleBottom: CGFloat = 5
     }
     
     // MARK: - Properties

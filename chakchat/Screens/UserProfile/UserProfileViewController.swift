@@ -150,12 +150,17 @@ final class UserProfileViewController: UIViewController {
             return button
         }
         
-        let chatButton = createButton("message.fill", "chat")
+        let chatButton = createButton("message.fill",
+                                      LocalizationManager.shared.localizedString(for: "chat_l"))
         chatButton.addTarget(self, action: #selector(chatButtonPressed), for: .touchUpInside)
-        let notificationButton = createButton("bell.badge.fill", "sound")
-        let secretChatButton = createButton("key.fill", "secret chat")
-        let searchButton = createButton("magnifyingglass", "search")
-        let optionsButton = createButton("ellipsis", "more")
+        let notificationButton = createButton("bell.badge.fill",
+                                              LocalizationManager.shared.localizedString(for: "sound_l"))
+        let secretChatButton = createButton("key.fill",
+                                            LocalizationManager.shared.localizedString(for: "secret_chat_l"))
+        let searchButton = createButton("magnifyingglass",
+                                        LocalizationManager.shared.localizedString(for: "search_l"))
+        let optionsButton = createButton("ellipsis",
+                                         LocalizationManager.shared.localizedString(for: "more_l"))
         
         buttonStackView.addArrangedSubview(chatButton)
         buttonStackView.addArrangedSubview(notificationButton)
