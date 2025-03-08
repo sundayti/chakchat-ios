@@ -78,7 +78,8 @@ final class MessageInputView: UIView {
         addSubview(textField)
         
         textField.pinLeft(leadingAnchor, Constants.textFieldLeading)
-        textField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: Constants.textFieldTrailing).isActive = true
+        textField.pinRight(sendButton.leadingAnchor, Constants.textFieldTrailing)
+//        textField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: Constants.textFieldTrailing).isActive = true
         textField.pinTop(topAnchor, Constants.textFieldVertical)
         textField.pinBottom(bottomAnchor, Constants.textFieldVertical)
     }

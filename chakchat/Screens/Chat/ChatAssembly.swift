@@ -7,7 +7,9 @@
 
 import UIKit
 
+// MARK: - ChatAssembly
 enum ChatAssembly {
+    
     static func build(_ context: MainAppContextProtocol, coordinator: AppCoordinator, userData: ProfileSettingsModels.ProfileUserData, existing: Bool) -> UIViewController {
         let presenter = ChatPresenter()
         let personalChatService = PersonalChatService()

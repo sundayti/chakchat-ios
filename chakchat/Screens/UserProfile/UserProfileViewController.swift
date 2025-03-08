@@ -66,7 +66,7 @@ final class UserProfileViewController: UIViewController {
         if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             let color = UIColor.random()
             let image = UIImage.imageWithText(
-                text: LocalizationManager.shared.localizedString(for: nicknameLabel.text ?? ""),
+                text: nicknameLabel.text ?? "",
                 size: CGSize(width: Constants.configSize, height: Constants.configSize),
                 backgroundColor: Colors.backgroundSettings,
                 textColor: color,
@@ -81,7 +81,7 @@ final class UserProfileViewController: UIViewController {
     func configureWithUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         let color = UIColor.random()
         let image = UIImage.imageWithText(
-            text: LocalizationManager.shared.localizedString(for: userData.name),
+            text: userData.name,
             size: CGSize(width: Constants.configSize, height: Constants.configSize),
             backgroundColor: Colors.backgroundSettings,
             textColor: color,
@@ -104,12 +104,23 @@ final class UserProfileViewController: UIViewController {
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = Colors.backgroundSettings
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+
+        configureBackButton()
         configureIconImageView()
         configureInitials()
         configureButtonStackView()
         configureUserDataTable()
+    }
+    
+    // MARK: - Back Button Configuration
+    private func configureBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Icon Image View Configuration

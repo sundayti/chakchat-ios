@@ -7,12 +7,16 @@
 
 import Foundation
 
+// MARK: - ChatWorker
 final class ChatWorker: ChatWorkerLogic {
+    
+    // MARK: - Properties
     private let keychainManager: KeychainManagerBusinessLogic
     private let coreDataManager: CoreDataManagerProtocol
     private let personalChatService: PersonalChatServiceProtocol
     private let updateService: UpdateServiceProtocol
     
+    // MARK: - Initialization
     init(
         keychainManager: KeychainManagerBusinessLogic,
         coreDataManager: CoreDataManagerProtocol,
@@ -25,6 +29,7 @@ final class ChatWorker: ChatWorkerLogic {
         self.updateService = updateService
     }
     
+    // MARK: - Chat Creating
     func createChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ChatsModels.PersonalChat.CreateRequest(memberID: memberID)
@@ -40,6 +45,7 @@ final class ChatWorker: ChatWorkerLogic {
         }
     }
     
+    // MARK: - Text Message Sending 
     func sendTextMessage(_ message: String) {
         print("Sended message: \(message)")
     }
