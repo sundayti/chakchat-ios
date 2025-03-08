@@ -283,6 +283,7 @@
 		E1960A6F2D6E0286008E27C0 /* UINewGroupTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */; };
 		E1960A732D6E181A008E27C0 /* UIImage+Letters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A722D6E181A008E27C0 /* UIImage+Letters.swift */; };
 		E1960A802D7C684D008E27C0 /* UIUserProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A7F2D7C6841008E27C0 /* UIUserProfileButton.swift */; };
+		E1960A822D7C8010008E27C0 /* UIMessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1960A812D7C8010008E27C0 /* UIMessageInputView.swift */; };
 		E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -578,6 +579,7 @@
 		E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINewGroupTitleLabel.swift; sourceTree = "<group>"; };
 		E1960A722D6E181A008E27C0 /* UIImage+Letters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Letters.swift"; sourceTree = "<group>"; };
 		E1960A7F2D7C6841008E27C0 /* UIUserProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUserProfileButton.swift; sourceTree = "<group>"; };
+		E1960A812D7C8010008E27C0 /* UIMessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMessageInputView.swift; sourceTree = "<group>"; };
 		E19D641B2D5E3EA600C73CAF /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
 		E1F904432D445D0D001B2468 /* UIDeletableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeletableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -918,6 +920,7 @@
 				E1960A592D6CADA2008E27C0 /* UINewGroupButton.swift */,
 				E1960A5D2D6CE42C008E27C0 /* UIUsersSearchViewController.swift */,
 				E1960A6E2D6E0286008E27C0 /* UINewGroupTitleLabel.swift */,
+				E1960A812D7C8010008E27C0 /* UIMessageInputView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1833,6 +1836,7 @@
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AAB300C92D6F0A6D00BECA3B /* PersonalChatService.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
+				E1960A822D7C8010008E27C0 /* UIMessageInputView.swift in Sources */,
 				E1960A502D6BE62A008E27C0 /* NewMessageAssembly.swift in Sources */,
 				E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */,
 				AAB3026F2D7615BE00BECA3B /* ChatPresenter.swift in Sources */,
