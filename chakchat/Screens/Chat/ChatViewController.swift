@@ -7,12 +7,26 @@
 
 import UIKit
 
+// MARK: - ChatViewController
 final class ChatViewController: UIViewController {
     
+    // MARK: - Constants
     enum Constants {
         static let navigationItemHeight: CGFloat = 44
+        static let borderWidth: CGFloat = 5
+        static let cornerRadius: CGFloat = 22
+        static let spacing: CGFloat = 12
+        static let stackViewWidth: CGFloat = 300
+        static let arrowName: String = "arrow.left"
+        static let separatorTop: CGFloat = 10
+        static let separatorHeight: CGFloat = 1
+        static let separatorHorizontal: CGFloat = 0
+        static let messageInputViewHorizontal: CGFloat = 8
+        static let messageInputViewHeigth: CGFloat = 50
+        static let messageInputViewBottom: CGFloat = 0
     }
     
+    // MARK: - Properties
     private let interactor: ChatBusinessLogic
     private let messageInputView = MessageInputView()
     private let titleStackView: UIStackView = UIStackView()
@@ -21,6 +35,7 @@ final class ChatViewController: UIViewController {
     private let separator: UIView = UIView()
     private var tapGesture: UITapGestureRecognizer?
     
+    // MARK: - Initialization
     init(interactor: ChatBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -36,33 +51,48 @@ final class ChatViewController: UIViewController {
         interactor.passUserData()
     }
     
-    public func configureWithData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    // MARK: - Changing image color
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            let color = UIColor.random()
+            let image = UIImage.imageWithText(
+                text: nicknameLabel.text ?? "",
+                size: CGSize(width: Constants.navigationItemHeight, height:  Constants.navigationItemHeight),
+                backgroundColor: Colors.background,
+                textColor: color,
+                borderColor: color,
+                borderWidth: Constants.borderWidth
+            )
+            iconImageView.image = image
+        }
+    }
+    
+    // MARK: - Data Configuration
+    func configureWithData(_ userData: ProfileSettingsModels.ProfileUserData) {
         let color = UIColor.random()
         let image = UIImage.imageWithText(
-            text: LocalizationManager.shared.localizedString(for: userData.name),
+            text: userData.name,
             size: CGSize(width: Constants.navigationItemHeight, height:  Constants.navigationItemHeight),
             backgroundColor: Colors.background,
             textColor: color,
             borderColor: color,
-            borderWidth: 5
+            borderWidth: Constants.borderWidth
         )
         iconImageView.image = image
         if let photoURL = userData.photo {
             iconImageView.image = ImageCacheManager.shared.getImage(for: photoURL as NSURL)
-            iconImageView.layer.cornerRadius = 22
+            iconImageView.layer.cornerRadius = Constants.cornerRadius
         }
         nicknameLabel.text = userData.name
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
-        view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = Colors.text
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture?.delegate = self
-        if let tapGesture = tapGesture {
-            view.addGestureRecognizer(tapGesture)
-        }
+        view.backgroundColor = Colors.background
+        
+        configureBackButton()
         configureIconImageView()
         configureNicknameLabel()
         configureTitleStackView()
@@ -70,52 +100,74 @@ final class ChatViewController: UIViewController {
         configureMessageView()
     }
     
+    // MARK: - Back Button Configuration
+    private func configureBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
+        
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture?.delegate = self
+        if let tapGesture = tapGesture {
+            view.addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    // MARK: - Icon Image View Configuration
     private func configureIconImageView() {
-        iconImageView.layer.cornerRadius = 22
+        iconImageView.layer.cornerRadius = Constants.cornerRadius
         iconImageView.clipsToBounds = true
         iconImageView.setWidth(Constants.navigationItemHeight)
         iconImageView.setHeight(Constants.navigationItemHeight)
     }
     
+    // MARK: - Nuckname Label Configuration
     private func configureNicknameLabel() {
         nicknameLabel.font = Fonts.systemSB20
         nicknameLabel.textColor = Colors.text
     }
     
+    // MARK: - Title Stack View Configuration
     private func configureTitleStackView() {
         titleStackView.addArrangedSubview(iconImageView)
         titleStackView.addArrangedSubview(nicknameLabel)
         titleStackView.axis = .horizontal
-        titleStackView.spacing = 12
+        titleStackView.spacing = Constants.spacing
         titleStackView.setHeight(Constants.navigationItemHeight)
-        titleStackView.setWidth(300)
+        titleStackView.setWidth(Constants.stackViewWidth)
         navigationItem.titleView = titleStackView
         navigationController?.navigationBar.layoutIfNeeded()
     }
     
+    // MARK: - Separator Configuration
     private func configureSeparator() {
         view.addSubview(separator)
         separator.backgroundColor = .orange
-        separator.setHeight(1)
-        separator.pinTop(view.safeAreaLayoutGuide.topAnchor, 10)
-        separator.pinLeft(view.leadingAnchor, 0)
-        separator.pinRight(view.trailingAnchor, 0)
+        separator.setHeight(Constants.separatorHeight)
+        separator.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.separatorTop)
+        separator.pinLeft(view.leadingAnchor, Constants.separatorHorizontal)
+        separator.pinRight(view.trailingAnchor, Constants.separatorHorizontal)
     }
     
-    
+    // MARK: - Message View Configuration
     private func configureMessageView() {
         view.addSubview(messageInputView)
         messageInputView.interactor = interactor
-        messageInputView.pinLeft(view.leadingAnchor, 8)
-        messageInputView.pinRight(view.trailingAnchor, 8)
-        messageInputView.setHeight(50)
+        messageInputView.pinLeft(view.leadingAnchor, Constants.messageInputViewHorizontal)
+        messageInputView.pinRight(view.trailingAnchor, Constants.messageInputViewHorizontal)
+        messageInputView.setHeight(Constants.messageInputViewHeigth)
         messageInputView.bottomConstraint = messageInputView.bottomAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-            constant: 0
+            constant: Constants.messageInputViewBottom
         )
         messageInputView.bottomConstraint.isActive = true
     }
     
+    // MARK: - Actions
     @objc private func backButtonPressed() {
         interactor.routeBack()
     }
@@ -125,132 +177,7 @@ final class ChatViewController: UIViewController {
     }
 }
 
-class MessageInputView: UIView {
-    private let textField = UITextField()
-    weak var interactor: ChatBusinessLogic?
-    private let sendButton = UIButton()
-    var bottomConstraint: NSLayoutConstraint!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureUI()
-        configureKeyboardObservers()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureUI() {
-        backgroundColor = .systemGray6
-        layer.cornerRadius = 18
-        
-        textField.placeholder = "Type here..."
-        textField.delegate = self
-        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textField.autocorrectionType = .no
-        textField.autocapitalizationType = .none
-        
-        sendButton.setImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
-        sendButton.tintColor = .systemBlue
-        sendButton.alpha = 0
-        sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
-        
-        addSubview(textField)
-        addSubview(sendButton)
-        
-        textField.pinLeft(leadingAnchor, 16)
-        textField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: -8).isActive = true
-        textField.pinTop(topAnchor, 8)
-        textField.pinBottom(bottomAnchor, 8)
-        
-        sendButton.pinRight(trailingAnchor, 8)
-        sendButton.pinCenterY(centerYAnchor)
-        sendButton.setWidth(40)
-        sendButton.setHeight(40)
-        sendButton.imageView?.setWidth(40)
-        sendButton.imageView?.setHeight(40)
-    }
-    
-    private func configureKeyboardObservers() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-    }
-    
-    @objc private func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
-        
-        let keyboardHeight = keyboardFrame.cgRectValue.height
-        bottomConstraint?.constant = -keyboardHeight
-        
-        UIView.animate(withDuration: duration) {
-            self.superview?.layoutIfNeeded()
-        }
-    }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
-        
-        bottomConstraint?.constant = 0
-        
-        UIView.animate(withDuration: duration) {
-            self.superview?.layoutIfNeeded()
-        }
-    }
-    
-    @objc private func textFieldDidChange() {
-        let hasText = !(textField.text?.isEmpty ?? true)
-        if hasText {
-            UIView.animate(withDuration: 0.2) {
-                self.sendButton.alpha = 1
-            }
-            if #available(iOS 17.0, *) {
-                sendButton.imageView?.addSymbolEffect(.appear)
-            }
-        } else {
-            UIView.animate(withDuration: 0.2) {
-                self.sendButton.alpha = 0
-            }
-        }
-    }
-    
-    @objc private func sendMessage() {
-        guard let text = textField.text, !text.isEmpty else { return }
-        interactor?.sendTextMessage(text)
-        textField.text = nil
-        sendButton.alpha = 0
-    }
-}
-
-extension MessageInputView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        DispatchQueue.main.async {
-            let newPosition = textField.endOfDocument
-            textField.selectedTextRange = textField.textRange(from: newPosition, to: newPosition)
-        }
-        sendButton.alpha = textField.text?.isEmpty == false ? 1 : 0
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textField.clearsOnInsertion = false
-        textField.clearsOnBeginEditing = false
-        return true
-    }
-}
-
+// MARK: - UIGestureRecognizerDelegate
 extension ChatViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchPoint = touch.location(in: view)

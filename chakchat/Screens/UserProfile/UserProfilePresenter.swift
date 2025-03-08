@@ -7,7 +7,9 @@
 
 import UIKit
 
+// MARK: - UserProfilePresenter
 final class UserProfilePresenter: UserProfilePresentationLogic {
+    
     weak var view: UserProfileViewController?
     
     func passUserData(_ userData: ProfileSettingsModels.ProfileUserData) {

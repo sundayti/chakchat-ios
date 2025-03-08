@@ -7,7 +7,9 @@
 
 import UIKit
 
+// MARK: - UserProfileAssembly
 enum UserProfileAssembly {
+    
     static func build(_ context: MainAppContextProtocol, coordinator: AppCoordinator, userData: ProfileSettingsModels.ProfileUserData) -> UIViewController {
         let presenter = UserProfilePresenter()
         let updateService = UpdateService()

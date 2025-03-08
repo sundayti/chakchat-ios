@@ -7,7 +7,9 @@
 
 import UIKit
 
+// MARK: - ChatPresenter
 final class ChatPresenter: ChatPresentationLogic {
+    
     weak var view: ChatViewController?
     
     func passUserData(_ userData: ProfileSettingsModels.ProfileUserData) {

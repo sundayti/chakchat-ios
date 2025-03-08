@@ -34,4 +34,6 @@ enum Colors {
     static let footer: UIColor = UIColor(named: "FooterColor") ?? .systemGray5
     // Used for alerts
     static let picker: UIColor = UIColor(named: "PickerColor") ?? .tertiaryLabel
+    // Used for user buttons
+    static let userButtons: UIColor = UIColor(named: "UserButtonColor") ?? .systemGray6
 }

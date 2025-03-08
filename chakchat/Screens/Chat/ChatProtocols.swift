@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - ChatBusinessLogic
 protocol ChatBusinessLogic: AnyObject {
     func routeBack()
     func createChat(_ memberID: UUID)
@@ -14,10 +15,12 @@ protocol ChatBusinessLogic: AnyObject {
     func sendTextMessage(_ message: String)
 }
 
+// MARK: - ChatPresentationLogic
 protocol ChatPresentationLogic {
     func passUserData(_ userData: ProfileSettingsModels.ProfileUserData)
 }
 
+// MARK: - ChatWorkerLogic
 protocol ChatWorkerLogic {
     func createChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
     func sendTextMessage(_ message: String)

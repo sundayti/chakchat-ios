@@ -76,7 +76,13 @@
 "block_chat" = "Заблокировать чат";
 "delete_chat" = "Удалить чат";
 "choose_option" = "Выберите опцию";
-"are_you_sure_block" = "Вы уверенны что хотите удалить чат?";
+"are_you_sure_block" = "Вы уверены, что хотите удалить чат?";
 "for_whom" = "Для кого удалить чат?";
 "delete_for_me" = "Удалить для меня";
-"delete_for_both" = "Удалить для обоих";
+"delete_for_both" = "Удалить для всех";
+"chat_l" = "чат";
+"sound_l" = "звук";
+"secret_chat_l" = "секрет. чат";
+"search_l" = "поиск";
+"more_l" = "ещё";
+"type_here" = "Пишите здесь...";
