@@ -56,6 +56,8 @@ final class ProfileSettingsViewController: UIViewController {
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     private var selectedDate: Date?
     private var imageURL: URL?
+    private let isNicknameCorrect = CurrentValueSubject<Bool, Never>(true)
+    private let isApplyEnabled = CurrentValueSubject<Bool, Never>(true)
     
     // MARK: - Initialization
     init(interactor: ProfileSettingsScreenBusinessLogic) {
@@ -124,6 +126,7 @@ final class ProfileSettingsViewController: UIViewController {
     private func configureApplyButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "apply"), style: .plain, target: self, action: #selector(applyButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
+        navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     // MARK: - Icon ImageView Configuration
@@ -173,7 +176,8 @@ final class ProfileSettingsViewController: UIViewController {
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
-        activityIndicator.pinCenter(usernameTextField)
+        activityIndicator.pinCenterY(usernameTextField)
+        activityIndicator.pinRight(usernameTextField.trailingAnchor, 20)
         
         usernameIndicator.image = nil
         usernameIndicator.pinCenterY(usernameTextField)
@@ -243,42 +247,97 @@ final class ProfileSettingsViewController: UIViewController {
     }
     
     private func bindDynamicCheck() {
+        let validator = SignupDataValidator()
+        let nicknamePublisher = nameTextField.textField.textPublisher
+        
+        let isNameInputValid = nicknamePublisher
+            .map { text in
+                return validator.validateName(text)
+            }
+        
+        isNameInputValid
+            .sink { [weak self] isValid in
+                self?.isNicknameCorrect.send(isValid)
+                self?.nameIndicator.image = isValid
+                ? UIImage(systemName: "checkmark.circle.fill")
+                : UIImage(systemName: "xmark.circle.fill")
+                
+                self?.nameTextField.layer.borderColor = isValid
+                ? CGColor(red: 0, green: 255, blue: 0, alpha: 1)
+                : CGColor(red: 255, green: 0, blue: 0, alpha: 1)
+                
+                self?.nameIndicator.tintColor = isValid
+                ? .systemGreen
+                : .systemRed
+    
+            }.store(in: &cancellables)
+        
         usernameTextField.textField.textPublisher
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .removeDuplicates()
-            .filter { !$0.isEmpty }
-            .flatMap { [weak self] username -> AnyPublisher<Result<ProfileSettingsModels.ProfileUserData, Error>, Never> in
-                guard let self = self else { return Empty().eraseToAnyPublisher() }
-                self.activityIndicator.startAnimating()
-                self.usernameIndicator.image = nil
-                return Future { promise in
-                    self.interactor.checkUsername(username) { result in
-                        switch result {
-                        case .success(let userData):
-                            promise(.success(.success(userData)))
-                        case .failure(let failure):
-                            promise(.success(.failure(failure)))
-                        }
+            .handleEvents(receiveOutput: { [weak self] username in
+                guard let self = self else { return }
+                let isUsernameValid = validator.validateUsername(username)
+                DispatchQueue.main.async {
+                    if !isUsernameValid {
+                        self.usernameIndicator.image = UIImage(systemName: "xmark.circle.fill")
+                        self.usernameIndicator.tintColor = .systemRed
+                        self.activityIndicator.stopAnimating()
+                        self.isApplyEnabled.send(false)
+                    } else {
+                        self.usernameIndicator.image = nil
                     }
                 }
+            })
+            .filter { [validator] username in
+                validator.validateUsername(username)
+            }
+            .flatMap { [weak self] username -> AnyPublisher<Result<ProfileSettingsModels.ProfileUserData, Error>, Never> in
+                guard let self = self else { return Empty().eraseToAnyPublisher() }
+                DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating()
+                    self.usernameIndicator.isHidden = true
+                }
+                
+                return Future { promise in
+                    self.interactor.checkUsername(username) { result in
+                        promise(.success(result))
+                    }
+                }
+                .handleEvents(receiveCompletion: { _ in
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                        self.usernameIndicator.isHidden = false
+                    }
+                })
                 .eraseToAnyPublisher()
             }
             .receive(on: RunLoop.main)
             .sink { [weak self] result in
                 self?.activityIndicator.stopAnimating()
+                self?.usernameIndicator.isHidden = false
                 switch result {
                 case .success(_):
                     self?.usernameIndicator.image = UIImage(systemName:  "xmark.circle.fill")
                     self?.usernameIndicator.tintColor = .systemRed
+                    self?.isApplyEnabled.send(false)
                 case .failure(let error):
                     if let err = error as? APIErrorResponse {
-                        if err.errorType == ApiErrorType.userNotFound.rawValue {
+                        if err.errorType == ApiErrorType.notFound.rawValue {
                             self?.usernameIndicator.image = UIImage(systemName: "checkmark.circle.fill")
                             self?.usernameIndicator.tintColor = .systemGreen
+                            self?.isApplyEnabled.send(true)
                         }
                     }
                 }
             }.store(in: &cancellables)
+        
+        Publishers.CombineLatest(isNicknameCorrect, isApplyEnabled)
+            .map { $0 && $1 }
+            .sink { [weak self] isEnabled in
+                self?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Actions
