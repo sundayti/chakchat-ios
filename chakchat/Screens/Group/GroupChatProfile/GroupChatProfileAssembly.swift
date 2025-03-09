@@ -12,7 +12,8 @@ enum GroupChatProfileAssembly {
         let presenter = GroupChatProfilePresenter()
         let groupService = GroupChatService()
         let worker = GroupChatProfileWorker(
-            keychainManager: context.keychainManager,
+            keychainManager: context.keychainManager, 
+            userDefaultsManager: context.userDefaultsManager,
             groupService: groupService,
             coreDataManager: context.coreDataManager
         )

@@ -71,7 +71,7 @@ final class GroupChatProfileViewController: UIViewController {
     }
     
     // MARK: - User Data Configuration
-    func configureWithUserData(_ chatData: ChatsModels.GroupChat.Response) {
+    func configureWithUserData(_ chatData: ChatsModels.GroupChat.Response, _ isAdmin: Bool) {
         let color = UIColor.random()
         let image = UIImage.imageWithText(
             text: chatData.name,
@@ -87,6 +87,14 @@ final class GroupChatProfileViewController: UIViewController {
             iconImageView.layer.cornerRadius = Constants.cornerRadius
         }
         groupNameLabel.text = chatData.name
+        if isAdmin {
+            configureEditButton()
+            let optionsButton = createButton("ellipsis",
+                                             LocalizationManager.shared.localizedString(for: "more_l"))
+            createMenu(optionsButton)
+        } else {
+            buttonStackView.setWidth(230)
+        }
     }
     
     // MARK: - UI Configuration
@@ -109,6 +117,11 @@ final class GroupChatProfileViewController: UIViewController {
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
         swipeGesture.direction = .right
         view.addGestureRecognizer(swipeGesture)
+    }
+    
+    private func configureEditButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "edit"), style: .plain, target: self, action: #selector(editButtonPressed))
+        navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
     // MARK: - Icon Image View Configuration
@@ -138,30 +151,16 @@ final class GroupChatProfileViewController: UIViewController {
     // MARK: - Button Stack View Configuration
     private func configureButtonStackView() {
         view.addSubview(buttonStackView)
-        let createButton: (String, String) -> UIButton = { systemName, title in
-            let button = UIUserProfileButton()
-            button.configure(withSymbol: systemName, title: title)
-            button.backgroundColor = Colors.userButtons
-            button.tintColor = .orange
-            button.setTitleColor(.orange, for: .normal)
-            button.layer.cornerRadius = Constants.borderRadius
-            
-            return button
-        }
-        
         let notificationButton = createButton("bell.badge.fill",
                                               LocalizationManager.shared.localizedString(for: "sound_l"))
         let secretChatButton = createButton("key.fill",
                                             LocalizationManager.shared.localizedString(for: "secret_chat_l"))
         let searchButton = createButton("magnifyingglass",
                                         LocalizationManager.shared.localizedString(for: "search_l"))
-        let optionsButton = createButton("ellipsis",
-                                         LocalizationManager.shared.localizedString(for: "more_l"))
         
         buttonStackView.addArrangedSubview(notificationButton)
         buttonStackView.addArrangedSubview(secretChatButton)
         buttonStackView.addArrangedSubview(searchButton)
-        buttonStackView.addArrangedSubview(optionsButton)
         
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
@@ -170,6 +169,58 @@ final class GroupChatProfileViewController: UIViewController {
         buttonStackView.setHeight(Constants.buttonHeigth)
         buttonStackView.pinTop(groupNameLabel.bottomAnchor, Constants.buttonTop)
         buttonStackView.pinCenterX(view)
+    }
+    
+    private func createMenu(_ optionsButton: UIButton) {
+        let addMember = UIAction(title: LocalizationManager.shared.localizedString(for: "add_member"), image: UIImage(systemName: "lock.fill")) { _ in
+            self.addMember()
+        }
+        let deleteMember = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_member"), image: UIImage(systemName: "person.crop.circle.fill.badge.plus"), attributes: .destructive) { _ in
+            self.deleteMember()
+        }
+        let deleteGroup = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_group"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
+            self.deleteGroup()
+        }
+        let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [addMember])
+        optionsButton.menu = menu
+        optionsButton.showsMenuAsPrimaryAction = true
+    }
+    
+    private func showDisclaimer() {
+        let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: "delete_group"), message: LocalizationManager.shared.localizedString(for: "are_you_sure_delete"), preferredStyle: .alert)
+        let blockAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), style: .destructive) { _ in
+            self.deleteGroup()
+        }
+        let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .cancel, handler: nil)
+        alert.addAction(blockAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func createButton(_ systemName: String, _ title: String) -> UIButton {
+        let button = UIUserProfileButton()
+        button.configure(withSymbol: systemName, title: title)
+        button.backgroundColor = Colors.userButtons
+        button.tintColor = .orange
+        button.setTitleColor(.orange, for: .normal)
+        button.layer.cornerRadius = Constants.borderRadius
+        return button
+    }
+    // will be implemented soon
+    private func addMember() {
+        print("Added member")
+    }
+    // will be implemented soon
+    private func deleteMember() {
+        print("Deleted member")
+    }
+    
+    private func deleteGroup() {
+        interactor.deleteGroup()
+    }
+    
+    @objc private func editButtonPressed() {
+        interactor.routeToEdit()
     }
     
     @objc private func backButtonPressed() {

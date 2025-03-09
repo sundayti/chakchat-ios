@@ -9,15 +9,18 @@ import Foundation
 
 final class GroupChatProfileWorker: GroupChatProfileWorkerLogic {
     private let keychainManager: KeychainManagerBusinessLogic
+    private let userDefaultsManager: UserDefaultsManagerProtocol
     private let groupService: GroupChatServiceProtocol
     private let coreDataManager: CoreDataManagerProtocol
     
     init(
         keychainManager: KeychainManagerBusinessLogic,
+        userDefaultsManager: UserDefaultsManagerProtocol,
         groupService: GroupChatServiceProtocol,
         coreDataManager: CoreDataManagerProtocol
     ) {
         self.keychainManager = keychainManager
+        self.userDefaultsManager = userDefaultsManager
         self.groupService = groupService
         self.coreDataManager = coreDataManager
     }
@@ -61,5 +64,10 @@ final class GroupChatProfileWorker: GroupChatProfileWorkerLogic {
                 completion(.failure(failure))
             }
         }
+    }
+    
+    func getMyID() -> UUID {
+        let myID = userDefaultsManager.loadID()
+        return myID
     }
 }

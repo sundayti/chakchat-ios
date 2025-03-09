@@ -18,6 +18,7 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
     private let logger: OSLog
     
     var onRouteToChatMenu: (() -> Void)?
+    var onRouteToEdit: ((GroupProfileEditModels.ProfileData) -> Void)?
     var onRouteBack: (() -> Void)?
     
     init(
@@ -37,7 +38,9 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
     }
     
     func passChatData() {
-        presenter.passChatData(chatData)
+        let myID = getMyID()
+        let isAdmin = myID == chatData.adminID
+        presenter.passChatData(chatData, isAdmin)
     }
     
     func deleteGroup() {
@@ -87,11 +90,25 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
         }
     }
     
+    func routeToEdit() {
+        let dataToEdit = GroupProfileEditModels.ProfileData(
+            name: chatData.name,
+            description: chatData.description,
+            photoURL: chatData.groupPhoto
+        )
+        onRouteToEdit?(dataToEdit)
+    }
+    
     func routeToChatMenu() {
         onRouteToChatMenu?()
     }
     
     func routeBack() {
         onRouteBack?()
+    }
+    
+    private func getMyID() -> UUID {
+        let myID = worker.getMyID()
+        return myID
     }
 }

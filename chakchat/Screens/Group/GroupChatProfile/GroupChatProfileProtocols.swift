@@ -15,11 +15,12 @@ protocol GroupChatProfileBusinessLogic {
     func deleteMember(_ memberID: UUID)
     
     func routeToChatMenu()
+    func routeToEdit()
     func routeBack()
 }
 
 protocol GroupChatProfilePresentationLogic {
-    func passChatData(_ chatData: ChatsModels.GroupChat.Response)
+    func passChatData(_ chatData: ChatsModels.GroupChat.Response, _ isAdmin: Bool)
 }
 
 protocol GroupChatProfileWorkerLogic {
@@ -37,4 +38,5 @@ protocol GroupChatProfileWorkerLogic {
         _ memberID: UUID,
         completion: @escaping (Result<ChatsModels.GroupChat.Response, Error>) -> Void
     )
+    func getMyID() -> UUID
 }
