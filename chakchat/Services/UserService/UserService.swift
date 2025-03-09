@@ -35,7 +35,7 @@ final class UserService: UserServiceProtocol {
             .success(
                 SuccessResponse<ProfileSettingsModels.ProfileUserData>(
                     data: ProfileSettingsModels.ProfileUserData(
-                        id: UUID(uuidString: "8D5DF9D0-B64E-4807-A49E-3A861F7BAD14") ?? UUID(),
+                        id: UUID(uuidString: "2ED634A9-4DA0-46ED-B1FD-9CC266523CFD") ?? UUID(),
                         name: "Kirill",
                         username: "mrdr",
                         phone: "79776002210",

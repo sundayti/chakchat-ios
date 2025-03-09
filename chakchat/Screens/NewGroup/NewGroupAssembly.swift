@@ -18,6 +18,7 @@ enum NewGroupAssembly {
             userService: userService,
             groupChatService: groupChatService,
             keychainManager: context.keychainManager,
+            userDefaultsManager: context.userDefaultsManager,
             coreDataManager: context.coreDataManager
         )
         let interactor = NewGroupInteractor(
