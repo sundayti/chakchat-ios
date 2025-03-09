@@ -43,7 +43,7 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         subscribeToEvents()
     }
     
-    // MARK: - User Data
+    // MARK: - Public Methods
     func loadUserData() {
         os_log("Loaded user data in confidentiality settings screen", log: logger, type: .default)
         worker.getUserData { [weak self] result in
@@ -58,7 +58,6 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
     }
     
     
-    // MARK: - User Data Showing
     func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Passed user data in confidentiality settings screen to presenter", log: logger, type: .default)
         presenter.showUserData(userRestrictions)
@@ -69,7 +68,6 @@ final class ConfidentialityScreenInteractor: ConfidentialityScreenBusinessLogic 
         presenter.showOnlineRestriction(onlineRestriction)
     }
     
-    // MARK: - New User Data Showing
     func showNewUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Passed new user data in confidentiality settings screen to presenter", log: logger, type: .default)
         presenter.showNewUserData(userRestrictions)

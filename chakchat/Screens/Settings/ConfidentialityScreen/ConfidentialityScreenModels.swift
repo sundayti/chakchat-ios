@@ -15,7 +15,6 @@ enum ConfidentialitySettingsModels {
     }
 }
 
-// MARK: - ConfidentialityState
 struct ConfidentialityDetails: Codable {
     let openTo: String // everyone, only_me, specified
     let specifiedUsers: [UUID]?

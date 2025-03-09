@@ -63,7 +63,6 @@ final class HelpViewController: UIViewController {
         configureTableView()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -73,7 +72,6 @@ final class HelpViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Title Label Configure
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
@@ -81,7 +79,6 @@ final class HelpViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
-    // MARK: - Version Label Configuration
     private func configureVersionLabel() {
         if let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             view.addSubview(versionLabel)
@@ -95,7 +92,6 @@ final class HelpViewController: UIViewController {
         }
     }
     
-    // MARK: - ChakChat Label Configuration
     private func configureChakChatLabel() {
         view.addSubview(chakchatLabel)
         chakchatLabel.text = "ChakChat"
@@ -110,7 +106,6 @@ final class HelpViewController: UIViewController {
         }
     }
     
-    // MARK: - Table View Configuration
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.delegate = self
@@ -124,7 +119,7 @@ final class HelpViewController: UIViewController {
         tableView.backgroundColor = view.backgroundColor
     }
     
-    // MARK: - Open FAQ
+    // MARK: - Supporting Methods
     private func FAQ() {
         // TODO: add link to FAQ
         if let url = URL(string: "https://github.com/chakchat/chakchat-ios/blob/main/Docs") {
@@ -144,7 +139,6 @@ final class HelpViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension HelpViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - Table Header Configuration
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         
@@ -167,22 +161,18 @@ extension HelpViewController: UITableViewDelegate, UITableViewDataSource {
         return headerView
     }
     
-    // MARK: - Setting Space between Sections
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     
-    // MARK: - Setting Number of Sections
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    // MARK: - Number of lines in Section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].count
     }
     
-    // MARK: - Configuration and returning the cell for the specified index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let helpCell = tableView.dequeueReusableCell(withIdentifier: HelpCell.cellIdentifier, for: indexPath) as? HelpCell
         else {
@@ -192,8 +182,7 @@ extension HelpViewController: UITableViewDelegate, UITableViewDataSource {
         helpCell.configure(with: item)
         return helpCell
     }
-    
-    // MARK: - Defining the behavior when a cell is clicked
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {

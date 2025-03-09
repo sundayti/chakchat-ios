@@ -63,21 +63,18 @@ final class ChatCell: UITableViewCell {
         }
     }
     
-    // MARK: - Cell Configuration
     func configureCell() {
         configureShimmerView()
         configurePhoto()
         configureName()
     }
     
-    // MARK: - Shimmer View Configuration
     private func configureShimmerView() {
         contentView.addSubview(shimmerLayer)
         shimmerLayer.layer.cornerRadius = Constants.radius
         shimmerLayer.startAnimating()
     }
     
-    // MARK: - Photo Configuration
     private func configurePhoto() {
         contentView.addSubview(iconImageView)
         iconImageView.layer.cornerRadius = Constants.radius
@@ -88,7 +85,6 @@ final class ChatCell: UITableViewCell {
         iconImageView.setHeight(Constants.size)
     }
     
-    // MARK: - Name Configuration
     private func configureName() {
         contentView.addSubview(nicknameLabel)
         nicknameLabel.font = Fonts.systemR20
@@ -97,7 +93,7 @@ final class ChatCell: UITableViewCell {
         nicknameLabel.pinLeft(iconImageView.trailingAnchor, Constants.picX)
     }
     
-    // MARK: - Image Loading
+    // MARK: - Supporting Methods
     private func loadImage(from imageURL: URL) {
         if let cachedImage = ImageCacheManager.shared.getImage(for: imageURL as NSURL) {
             self.shimmerLayer.isHidden = true

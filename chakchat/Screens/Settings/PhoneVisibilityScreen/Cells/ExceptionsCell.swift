@@ -42,14 +42,12 @@ final class ExceptionsCell: UITableViewCell {
         optionLabel.text = title
     }
     
-    // MARK: - Cell Configuration
     private func configureCell() {
         configureOptionLabel()
         configureChevronImageView()
         configureAddLabel()
     }
     
-    // MARK: - Option Label Configuration
     private func configureOptionLabel() {
         contentView.addSubview(optionLabel)
         optionLabel.font = Fonts.systemR16
@@ -58,7 +56,6 @@ final class ExceptionsCell: UITableViewCell {
         optionLabel.pinLeft(contentView.leadingAnchor, Constants.optionLabelLeading)
     }
     
-    // MARK: Chevron ImageView Configuration
     private func configureChevronImageView() {
         contentView.addSubview(chevronImageView)
         chevronImageView.contentMode = .scaleAspectFill
@@ -70,7 +67,6 @@ final class ExceptionsCell: UITableViewCell {
         chevronImageView.setHeight(Constants.chevronSize)
     }
     
-    // MARK: - Add Label Configuration
     private func configureAddLabel() {
         contentView.addSubview(addLabel)
         addLabel.font = Fonts.systemR16

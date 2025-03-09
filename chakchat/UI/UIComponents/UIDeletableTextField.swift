@@ -28,7 +28,7 @@ final class UIDeletableTextField: UITextField {
         }
     }
     
-    // MARK: - Shake Animation and Changing color
+    // MARK: - Animation
     func shakeAndChangeColor() {
         let shakeAnimation = CABasicAnimation(keyPath: Constants.keyPath)
         shakeAnimation.duration = Constants.duration
@@ -48,7 +48,7 @@ final class UIDeletableTextField: UITextField {
         }
     }
     
-    // MARK: - Get Previous Text Field
+    // MARK: - Private methods
     private func getPreviousTextField() -> UITextField? {
         let currentTag = self.tag
         let previousTag = currentTag - 1

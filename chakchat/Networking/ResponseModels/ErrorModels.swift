@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - APIErrorResponse Models
+// MARK: - ErrorModels
 struct APIErrorResponse: Codable, Error {
     let errorType: String
     let errorMessage: String
@@ -20,7 +20,6 @@ struct APIErrorResponse: Codable, Error {
     }
 }
 
-// MARK: - ErrorDetail Models
 struct ErrorDetail: Codable {
     let field: String
     let message: String

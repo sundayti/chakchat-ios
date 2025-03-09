@@ -11,7 +11,6 @@ import UIKit
 // MARK: - VerifyAssembly
 enum VerifyAssembly {
     
-    // MARK: - Assembly Method
     static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         
         let presenter = VerifyPresenter()

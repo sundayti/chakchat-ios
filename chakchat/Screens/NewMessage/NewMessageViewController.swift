@@ -67,7 +67,6 @@ final class NewMessageViewController: UIViewController {
         configureNewGroupButton()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -77,7 +76,6 @@ final class NewMessageViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Title Label Configure
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
@@ -85,7 +83,6 @@ final class NewMessageViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
-    // MARK: - Search Controller Configuration
     private func configureSearchController() {
         let searchResultsController = UIUsersSearchViewController(interactor: interactor)
         searchResultsController.onUserSelected = { [weak self] user in
@@ -103,7 +100,6 @@ final class NewMessageViewController: UIViewController {
         definesPresentationContext = true
     }
     
-    // MARK: - New Group Configuration
     private func configureNewGroupButton() {
         view.addSubview(newGroupButton)
         newGroupButton.pinLeft(view, Constants.newGroupButtonHorizontal)
@@ -114,7 +110,7 @@ final class NewMessageViewController: UIViewController {
         newGroupButton.addTarget(self, action: #selector(newGroupButtonPressed), for: .touchUpInside)
     }
     
-    // MARK: - New Group Button Animation
+    // MARK: - Supporting Methods
     private func animateNewGroupButton(constant: CGFloat) {
         UIView.animate(withDuration: 0.3) {
             self.newGroupButtonTopConstraint.constant = constant
@@ -138,6 +134,7 @@ final class NewMessageViewController: UIViewController {
     }
 }
 
+// MARK: - UISearchResultsUpdating
 extension NewMessageViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchVC = searchController.searchResultsController as? UIUsersSearchViewController else { return }
@@ -147,6 +144,7 @@ extension NewMessageViewController: UISearchResultsUpdating {
     }
 }
 
+// MARK: - UISearchControllerDelegate
 extension NewMessageViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         shouldAnimateNewGroupButton = true

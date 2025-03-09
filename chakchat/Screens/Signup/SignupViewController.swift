@@ -108,7 +108,7 @@ final class SignupViewController: UIViewController {
     }
 
     
-    // MARK: - Show Error as label
+    // MARK: - Public Methods
     func showError(_ message: String?) {
         if message != nil {
             errorLabel.showError(message)
@@ -126,14 +126,12 @@ final class SignupViewController: UIViewController {
         bindDynamicCheck()
     }
     
-    // MARK: - ChakChat Configuration
     private func configureChakChatStackView() {
         view.addSubview(chakchatStackView)
         chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
         chakchatStackView.pinCenterX(view)
     }
     
-    // MARK: - Name Text Field Configuration
     private func configureNameTextField() {
         view.addSubview(nameTextField)
         nameTextField.addSubview(nameIndicator)
@@ -168,7 +166,6 @@ final class SignupViewController: UIViewController {
         nameTextField.autocapitalizationType = .none
     }
     
-    // MARK: - Username Text Field Configuration
     private func configureUsernameTextField() {
         view.addSubview(usernameTextField)
         usernameTextField.addSubview(usernameIndicator)
@@ -204,7 +201,6 @@ final class SignupViewController: UIViewController {
         usernameTextField.autocapitalizationType = .none
     }
     
-    // MARK: - Input Button Configuration
     private func configureInputButton() {
         view.addSubview(sendGradientButton)
         sendGradientButton.pinCenterX(view)
@@ -217,15 +213,14 @@ final class SignupViewController: UIViewController {
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
-    // MARK: - Error Label Configuration
     private func configurateErrorLabel() {
         view.addSubview(errorLabel)
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(chakchatStackView.bottomAnchor, Constants.errorLabelTop)
     }
     
-    // MARK: - Text Field Changing color
-    func changeColor(_ field: UITextField) {
+    // MARK: - Supporting Methods
+    private func changeColor(_ field: UITextField) {
         let originalColor = field.layer.borderColor
         UIView.animate(withDuration: Constants.colorDuration, animations: {
             field.layer.borderColor = Colors.orange.cgColor

@@ -52,7 +52,6 @@ final class UIDateButton : UIView {
         configureButton()
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         addSubview(titleLabel)
         titleLabel.text = Constants.titleText
@@ -62,8 +61,7 @@ final class UIDateButton : UIView {
         titleLabel.pinTop(self.topAnchor, Constants.titleTop)
         titleLabel.pinLeft(self.leadingAnchor, Constants.leading)
     }
-    
-    // MARK: - Button Configuration
+
     private func configureButton() {
         addSubview(button)
         button.contentHorizontalAlignment = .left        

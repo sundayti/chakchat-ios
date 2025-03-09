@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIColor {
+    
     static func random() -> UIColor {
         let minBrightness: CGFloat = 0.5
         let red = CGFloat.random(in: minBrightness...1)

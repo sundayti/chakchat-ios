@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+// MARK: - FileStorageService
 final class FileStorageService: FileStorageServiceProtocol {
     
     func sendFileUploadRequest(_ fileData: Data, _ fileName: String, _ mimeType: String, _ accessToken: String, completion: @escaping (Result<SuccessResponse<SuccessModels.UploadResponse>, Error>) -> Void) {
@@ -169,6 +170,7 @@ final class FileStorageService: FileStorageServiceProtocol {
     }
 }
 
+// MARK: - Models
 enum FileStorageRequest {
     struct UploadInit: Codable {
         let fileName: String

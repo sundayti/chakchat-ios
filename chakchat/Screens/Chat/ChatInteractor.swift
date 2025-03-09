@@ -41,7 +41,7 @@ final class ChatInteractor: ChatBusinessLogic {
         self.logger = logger
     }
     
-    // MARK: - Chat Creating
+    // MARK: - Public Methods
     func createChat(_ memberID: UUID) {
         worker.createChat(memberID) { [weak self] result in
             guard let self = self else { return }
@@ -65,7 +65,6 @@ final class ChatInteractor: ChatBusinessLogic {
         }
     }
     
-    // MARK: - Text Message Sending
     func sendTextMessage(_ message: String) {
         if !isChatExisting {
             createChat(userData.id)
@@ -73,7 +72,6 @@ final class ChatInteractor: ChatBusinessLogic {
         worker.sendTextMessage(message)
     }
     
-    // MARK: - Passing User data
     func passUserData() {
         presenter.passUserData(userData)
     }

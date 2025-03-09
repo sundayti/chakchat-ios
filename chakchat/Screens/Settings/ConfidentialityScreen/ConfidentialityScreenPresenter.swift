@@ -13,7 +13,7 @@ final class ConfidentialityScreenPresenter: ConfidentialityScreenPresentationLog
     // MARK: - Properties
     weak var view: ConfidentialityScreenViewController?
     
-    // MARK: - User Data Showing
+    // MARK: - Public Methods
     func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         view?.configureSections(userRestrictions)
     }
@@ -22,7 +22,6 @@ final class ConfidentialityScreenPresenter: ConfidentialityScreenPresentationLog
         view?.configureOnlineStatus(onlineRestriction)
     }
     
-    // MARK: - New User Data Showing
     func showNewUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         view?.updateVisibilityStatus(userRestrictions)
     }

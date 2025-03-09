@@ -28,6 +28,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
     private let audioNotificationKey = "audioNotification"
     private let vibrationNotificationKey = "vibrationNotification"
     
+    // MARK: - Public Methods
     func saveUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         saveId(userData.id)
         saveNickname(userData.name)
@@ -45,17 +46,14 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         UserDefaults.standard.set(id.uuidString, forKey: idKey)
     }
     
-    // MARK: - Nickname Saving
     func saveNickname(_ nickname: String) {
         UserDefaults.standard.set(nickname, forKey: nicknameKey)
     }
     
-    // MARK: - Username Saving
     func saveUsername(_ username: String) {
         UserDefaults.standard.set(username, forKey: usernameKey)
     }
     
-    // MARK: - Phone Saving
     func savePhone(_ phone: String) {
         UserDefaults.standard.set(phone, forKey: phoneKey)
     }
@@ -137,7 +135,7 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         }
         return UUID()
     }
-    // MARK: - Nickname Loading
+
     func loadNickname() -> String {
         guard let nickname = UserDefaults.standard.string(forKey: nicknameKey) else {
             return "Default"
@@ -145,7 +143,6 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         return nickname
     }
     
-    // MARK: - Username Loading
     func loadUsername() -> String {
         guard let username = UserDefaults.standard.string(forKey: usernameKey) else {
             return "Default"
@@ -153,7 +150,6 @@ final class UserDefaultsManager: UserDefaultsManagerProtocol {
         return username
     }
     
-    // MARK: - Phone Loading
     func loadPhone() -> String {
         guard let phone = UserDefaults.standard.string(forKey: phoneKey) else {
             return "Default"

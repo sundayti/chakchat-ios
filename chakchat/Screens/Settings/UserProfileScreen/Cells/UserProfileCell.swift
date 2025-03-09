@@ -50,21 +50,18 @@ final class UserProfileCell: UITableViewCell {
         self.titleLabel.text = title
         self.valueLabel.text = value
     }
-    
-    // MARK: - Cell Configuration
+
     private func configureCell() {
         configureTitleLabel()
         configureValueLabel()
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         contentView.addSubview(titleLabel)
         titleLabel.pinTop(contentView, Constants.titleLabelTop)
         titleLabel.pinLeft(contentView.leadingAnchor, Constants.titleLabelLeading)
     }
     
-    // MARK: - Value Label Configuration
     private func configureValueLabel() {
         contentView.addSubview(valueLabel)
         valueLabel.pinTop(titleLabel.bottomAnchor, Constants.valueLabelTop)

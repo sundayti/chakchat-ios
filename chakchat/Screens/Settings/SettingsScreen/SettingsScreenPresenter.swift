@@ -9,10 +9,11 @@ import Foundation
 
 // MARK: - SettingsScreenPresenter
 final class SettingsScreenPresenter: SettingsScreenPresentationLogic {
+    
     // MARK: - Properties
     weak var view: SettingsScreenViewController?
     
-    // MARK: - User Data Showing
+    // MARK: - Public Methods
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData) {
         view?.configureUserData(data)
     }

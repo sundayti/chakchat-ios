@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - UpdateAudioNotificationEvent
 final class UpdateAudioNotificationEvent: Event {
+    
     var newAudioNotificationStatus: Bool
     
     init(newAudioNotificationStatus: Bool) {

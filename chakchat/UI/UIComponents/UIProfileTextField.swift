@@ -40,12 +40,11 @@ final class UIProfileTextField : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setting Text
+    // MARK: - Public Methods
     func setText(_ text: String?) {
         textField.text = text
     }
     
-    // MARK: - Getting Text
     func getText() -> String? {
         return textField.text
     }
@@ -62,7 +61,6 @@ final class UIProfileTextField : UIView {
         configureBottomLine()
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel(title: String) {
         addSubview(titleLabel)
         titleLabel.text = LocalizationManager.shared.localizedString(for: title)
@@ -72,7 +70,6 @@ final class UIProfileTextField : UIView {
         titleLabel.textColor = UIColor.lightGray
     }
     
-    // MARK: - Text Field Configuration
     private func configureTextField(placeholder: String, isEditable: Bool) {
         addSubview(textField)
         textField.pinTop(titleLabel.bottomAnchor, Constants.textTop)
@@ -86,7 +83,6 @@ final class UIProfileTextField : UIView {
         textField.autocapitalizationType = .none
     }
     
-    // MARK: - Bottom Line Configuration
     private func configureBottomLine() {
         addSubview(bottomLine)
         bottomLine.pinLeft(self.leadingAnchor, Constants.leading)

@@ -20,7 +20,7 @@
         }
       ],
       "color" : {
-        "platform" : "visionos",
+        "platform" : "ios",
         "reference" : "systemGray6Color"
       },
       "idiom" : "universal"

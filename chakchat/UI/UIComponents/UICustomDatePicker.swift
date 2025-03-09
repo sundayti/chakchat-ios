@@ -52,6 +52,7 @@ final class UICustomDatePicker : UIView {
         configure()
     }
 
+    // MARK: - Configuration
     private func configure() {
         backgroundColor = Colors.blackout
         configureFrame()
@@ -61,7 +62,6 @@ final class UICustomDatePicker : UIView {
         configureOKButton()
     }
     
-    // MARK: - Frame Configuration
     private func configureFrame() {
         addSubview(frameView)
         frameView.layer.cornerRadius = Constants.frameCornerRadius
@@ -75,7 +75,6 @@ final class UICustomDatePicker : UIView {
         frameView.setWidth(Constants.frameWidth)
     }
     
-    // MARK: - Title Configuration
     private func configurateTitle() {
         frameView.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB16
@@ -86,7 +85,6 @@ final class UICustomDatePicker : UIView {
         titleLabel.pinCenterX(frameView)
     }
     
-    // MARK: - DatePicker Configuration
     private func configureDatePicker() {
         frameView.addSubview(datePicker)
         datePicker.preferredDatePickerStyle = .inline
@@ -99,7 +97,6 @@ final class UICustomDatePicker : UIView {
         datePicker.pinCenterX(frameView)
     }
     
-    // MARK: - Reset Button Configuration
     private func configureResetButton() {
         frameView.addSubview(resetButton)
         resetButton.setTitle(LocalizationManager.shared.localizedString(for: "reset"), for: .normal)
@@ -110,8 +107,7 @@ final class UICustomDatePicker : UIView {
         resetButton.pinLeft(frameView, Constants.buttonX)
         resetButton.setHeight(Constants.buttonHeight)
     }
-    
-    // MARK: - OK Button Configuration
+
     private func configureOKButton() {
         frameView.addSubview(okButton)
         okButton.setTitle(Constants.okTitle, for: .normal)

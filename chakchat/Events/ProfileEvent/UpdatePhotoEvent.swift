@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - UpdatePhotoEvent
 final class UpdatePhotoEvent: Event {
     
     let newPhoto: URL?

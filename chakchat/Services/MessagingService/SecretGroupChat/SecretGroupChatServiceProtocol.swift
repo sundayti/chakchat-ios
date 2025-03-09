@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - SecretGroupChatServiceProtocol
 protocol SecretGroupChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.GroupChat.CreateRequest,

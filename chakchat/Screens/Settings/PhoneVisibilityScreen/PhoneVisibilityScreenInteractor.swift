@@ -37,19 +37,17 @@ final class PhoneVisibilityScreenInteractor: PhoneVisibilityScreenBusinessLogic 
         self.userRestrictionsSnap = userRestrictionsSnap
     }
     
-    // MARK: - User Data Loading
+    // MARK: - Public Methods
     func loadUserRestrictions() {
         os_log("Loaded user data in phone visibility screen", log: logger, type: .default)
         showUserRestrictions(userRestrictionsSnap)
     }
     
-    // MARK: - User Data Showing
     func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Passed user data in phone visibility screen to presenter", log: logger, type: .default)
         presenter.showUserRestrictions(userRestrictions)
     }
     
-    // MARK: - New Data Saving
     func saveNewRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         os_log("Saved new data in phone visibility screen", log: logger, type: .default)
         worker.saveNewRestrictions(userRestrictions)

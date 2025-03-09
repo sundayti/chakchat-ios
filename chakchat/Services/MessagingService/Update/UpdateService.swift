@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - UpdateService
 final class UpdateService: UpdateServiceProtocol {
     
     private let baseAPI: String = "/api/messaging/v1.0/"

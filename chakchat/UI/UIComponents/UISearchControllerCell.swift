@@ -1,10 +1,3 @@
-//
-//  UISearchBarCell.swift
-//  chakchat
-//
-//  Created by Кирилл Исаев on 25.02.2025.
-//
-
 import UIKit
 
 // MARK: - UISearchControllerCell
@@ -19,6 +12,8 @@ final class UISearchControllerCell: UITableViewCell {
         static let picX: CGFloat = 10
         static let picY: CGFloat = 10
         static let borderWidth: CGFloat = 5
+        static let buttonSize: CGFloat = 24
+        static let buttonPadding: CGFloat = 16
     }
     
     // MARK: - Properties
@@ -32,6 +27,8 @@ final class UISearchControllerCell: UITableViewCell {
             height: Constants.size
         )
     )
+    private let deleteButton: UIButton = UIButton(type: .system)
+    var deleteAction: (() -> Void)?
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -44,8 +41,10 @@ final class UISearchControllerCell: UITableViewCell {
     }
     
     // MARK: - Configuration
-    func configure(_ image: URL?, _ name: String) {
+    func configure(_ image: URL?, _ name: String, deletable: Bool) {
         self.name.text = name
+        deleteButton.isHidden = !deletable
+        
         if let url = image {
             loadImage(from: url)
         } else {
@@ -68,17 +67,16 @@ final class UISearchControllerCell: UITableViewCell {
     func configureCell() {
         configureShimmerView()
         configurePhoto()
+        configureDeleteButton()
         configureName()
     }
     
-    // MARK: - Shimmer View Configuration
     private func configureShimmerView() {
         contentView.addSubview(shimmerLayer)
         shimmerLayer.layer.cornerRadius = Constants.radius
         shimmerLayer.startAnimating()
     }
-    
-    // MARK: - Photo Configuration
+
     private func configurePhoto() {
         contentView.addSubview(userPhoto)
         userPhoto.layer.cornerRadius = Constants.radius
@@ -89,13 +87,29 @@ final class UISearchControllerCell: UITableViewCell {
         userPhoto.setHeight(Constants.size)
     }
     
-    // MARK: - Name Configuration
     private func configureName() {
         contentView.addSubview(name)
         name.font = Fonts.systemR20
         name.textColor = Colors.text
         name.pinCenterY(contentView)
         name.pinLeft(userPhoto.trailingAnchor, Constants.picX)
+        name.pinRight(deleteButton.leadingAnchor, Constants.picX)
+    }
+    
+    private func configureDeleteButton() {
+        contentView.addSubview(deleteButton)
+        deleteButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        deleteButton.tintColor = .red
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        deleteButton.pinCenterY(contentView)
+        deleteButton.pinRight(contentView.trailingAnchor, Constants.buttonPadding)
+        deleteButton.setWidth(Constants.buttonSize)
+        deleteButton.setHeight(Constants.buttonSize)
+    }
+    
+    // MARK: - Delete Button Action
+    @objc private func deleteButtonTapped() {
+        deleteAction?()
     }
     
     // MARK: - Image Loading

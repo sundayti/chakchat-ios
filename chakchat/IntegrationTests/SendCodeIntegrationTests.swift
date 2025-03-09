@@ -20,7 +20,7 @@ final class SendCodeIntegrationTests: XCTestCase {
     var mockErrorHandler: MockErrorHandler?
     var interactor: SendCodeInteractor?
 
-    // MARK: - Set Up With Error
+    // MARK: - Override Methods
     override func setUpWithError() throws {
         mockSender = MockSender()
         mockSendCodeService = MockIdentityService()
@@ -45,7 +45,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         interactor = sendCodeInteractor
     }
 
-    // MARK: - Tear Down Wirh Error
     override func tearDownWithError() throws {
         mockSender = nil
         mockSendCodeService = nil
@@ -54,7 +53,7 @@ final class SendCodeIntegrationTests: XCTestCase {
         interactor = nil
     }
 
-    // MARK: - Test Success
+    // MARK: - Tests
     func testSuccess() throws {
         let uuid = UUID()
         mockSender?.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
@@ -73,7 +72,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test Internal Error
     func testInternalError() throws {
         mockSender?.result = .failure(
             APIErrorResponse(
@@ -106,7 +104,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test Invalid URL
     func testInvalidURL() throws {
         mockSender?.result = .failure(APIError.invalidURL)
         mockSendCodeService?.result = .failure(APIError.invalidURL)
@@ -130,7 +127,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         
     }
     
-    // MARK: - Test Invalid Request
     func testInvalidRequest() throws {
         mockSender?.result = .failure(APIError.invalidRequest)
         mockSendCodeService?.result = .failure(APIError.invalidRequest)
@@ -152,7 +148,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test No Data
     func testNoData() throws {
         mockSender?.result = .failure(APIError.noData)
         mockSendCodeService?.result = .failure(APIError.noData)
@@ -174,7 +169,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test Invalid Json
     func testInvalidJson() throws {
         mockSender?.result = .failure(ApiErrorType.invalidJson)
         mockSendCodeService?.result = .failure(ApiErrorType.invalidJson)
@@ -196,7 +190,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test Validation Error
     func testValidationError() throws {
         mockSender?.result = .failure(ApiErrorType.validationFailed)
         mockSendCodeService?.result = .failure(ApiErrorType.validationFailed)
@@ -218,7 +211,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test Keychaing Save Error
     func testKeychaingSaveError() throws {
         let uuid = UUID()
         mockSender?.result = .success(Data("{\"signupKey\": \"\(uuid)\"}".utf8))
@@ -241,7 +233,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test User Already Exists
     func testUserAlreadyExists() throws {
         mockSender?.result = .failure(ApiErrorType.userAlreadyExists)
         mockSendCodeService?.result = .failure(ApiErrorType.userAlreadyExists)
@@ -263,7 +254,6 @@ final class SendCodeIntegrationTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    // MARK: - Test Send Code Freq Exceeded
     func testSendCodeFreqExceeded() throws {
         mockSender?.result = .failure(ApiErrorType.sendCodeFreqExceeded)
         mockSendCodeService?.result = .failure(ApiErrorType.sendCodeFreqExceeded)

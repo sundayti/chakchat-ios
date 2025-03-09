@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - SettingsScreenBusinessLogic
+// MARK: - SettingsScreen Protocols
 protocol SettingsScreenBusinessLogic {
     func profileSettingsRoute()
     func confidentialitySettingsRoute()
@@ -29,14 +29,12 @@ protocol SettingsScreenBusinessLogic {
     func handlePhotoChangedEvent(_ event: UpdatePhotoEvent)
 }
 
-// MARK: - SettingsScreenPresentationLogic
 protocol SettingsScreenPresentationLogic {
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData)
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData)
     func showNewPhoto(_ photo: URL?)
 }
 
-// MARK: - SettingsScreenWorkerLogic
 protocol SettingsScreenWorkerLogic {
     func getUserData() -> ProfileSettingsModels.ProfileUserData
     func loadPhoto(_ url: URL, completion: @escaping (Result<UIImage, Error>) -> Void)

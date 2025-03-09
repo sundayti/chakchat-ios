@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+// MARK: - FileStorageServiceProtocols
 protocol FileStorageServiceProtocol {
     func sendFileUploadRequest(_ fileData: Data,
                                _ fileName: String,

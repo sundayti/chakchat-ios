@@ -57,8 +57,8 @@ final class UserProfileScreenViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    // MARK: - User Data Configuration/Updating
-    public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    // MARK: - Public Methods
+    func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         nameLabel.text = userData.name
         userTableViewData[0].value = userData.username
         userTableViewData[1].value = Format.number(userData.phone) ?? ""
@@ -72,7 +72,7 @@ final class UserProfileScreenViewController: UIViewController {
         }
     }
     
-    public func updateUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
+    func updateUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
         nameLabel.text = userData.name
         userTableViewData[0].value = userData.username
         if let birth = userData.dateOfBirth {
@@ -81,7 +81,7 @@ final class UserProfileScreenViewController: UIViewController {
         userTableView.reloadData()
     }
     
-    public func updatePhoto(_ photo: URL?) {
+    func updatePhoto(_ photo: URL?) {
         if let url = photo {
             let image = ImageCacheManager.shared.getImage(for: url as NSURL)
             iconImageView.image = image
@@ -104,7 +104,6 @@ final class UserProfileScreenViewController: UIViewController {
         configureProfileTableView()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -114,20 +113,17 @@ final class UserProfileScreenViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Edit Button Configuration
     private func configureEditButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "edit"), style: .plain, target: self, action: #selector(editButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
         titleLabel.text = LocalizationManager.shared.localizedString(for: "my_profile")
     }
     
-    // MARK: - Icon Configuration
     private func configureIcon() {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconSize)
@@ -142,7 +138,6 @@ final class UserProfileScreenViewController: UIViewController {
         iconImageView.image = gearImage
     }
     
-    // MARK: - Name Label Configuration
     private func configureNameLabel() {
         view.addSubview(nameLabel)
         nameLabel.font = Fonts.systemB20
@@ -152,7 +147,6 @@ final class UserProfileScreenViewController: UIViewController {
         nameLabel.pinCenterX(view)
     }
     
-    // MARK: - Profile Table Configuration
     private func configureProfileTableView() {
         view.addSubview(userTableView)
         userTableView.delegate = self

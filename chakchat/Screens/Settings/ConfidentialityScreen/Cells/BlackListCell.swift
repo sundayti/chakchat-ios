@@ -36,21 +36,20 @@ final class BlackListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Configuration
-    public func configure(icon: UIImage?, title: String, amount: String) {
+    // MARK: - Public Methods
+    func configure(icon: UIImage?, title: String, amount: String) {
         blackListIcon.image = icon
         blackListLabel.text = title
         blockedAmountLabel.text = amount
     }
     
-    // MARK: - Cell Configuration
+    // MARK: - Configuration
     private func configureCell() {
         configureBlackListIcon()
         configureBlackListLabel()
         configureBlockedAmountLabel()
     }
     
-    // MARK: - Black List Icon Configuration
     private func configureBlackListIcon() {
         contentView.addSubview(blackListIcon)
         blackListIcon.contentMode = .scaleAspectFill
@@ -61,7 +60,6 @@ final class BlackListCell: UITableViewCell {
         blackListIcon.setWidth(Constants.iconSize)
     }
     
-    // MARK: - Black List Label Configuration
     private func configureBlackListLabel() {
         contentView.addSubview(blackListLabel)
         blackListLabel.font = Fonts.systemR16
@@ -70,7 +68,6 @@ final class BlackListCell: UITableViewCell {
         blackListLabel.pinLeft(blackListIcon.trailingAnchor, Constants.blackListLabelLeading)
     }
     
-    // MARK: - Blocked Amount Label Configuration
     private func configureBlockedAmountLabel() {
         contentView.addSubview(blockedAmountLabel)
         blockedAmountLabel.font = Fonts.systemR16

@@ -11,7 +11,6 @@ import UIKit
 // MARK: - ConfidentialityScreenAssembly
 enum ConfidentialityScreenAssembly {
     
-    // MARK: - Confidentiality Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ConfidentialityScreenPresenter()
         let userService = UserService()

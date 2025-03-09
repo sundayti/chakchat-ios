@@ -20,6 +20,7 @@ final class NewGroupWorker: NewGroupWorkerLogic {
         self.keychainManager = keychainManager
     }
     
+    // MARK: - Public Methods
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         print("Request to server")

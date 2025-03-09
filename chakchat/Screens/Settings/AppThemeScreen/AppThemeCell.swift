@@ -32,18 +32,17 @@ final class AppThemeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Configuration
     func configure(title: String, isSelected: Bool) {
         themeLabel.text = title
         checkmarkImageView.isHidden = !isSelected
     }
     
-    // MARK: - Cell Configuration
     private func configureCell() {
         configureCheckmark()
         configureThemeLabel()
     }
     
-    // MARK: - Checkmark Configuartion
     private func configureCheckmark() {
         contentView.addSubview(checkmarkImageView)
         checkmarkImageView.image = UIImage(systemName: "checkmark")
@@ -53,7 +52,6 @@ final class AppThemeCell: UITableViewCell {
         checkmarkImageView.pinRight(contentView, Constants.currentOptionTrailing)
     }
     
-    // MARK: - Language Localized Label Configuartion
     private func configureThemeLabel() {
         contentView.addSubview(themeLabel)
         themeLabel.font = Fonts.systemR18

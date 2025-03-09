@@ -34,7 +34,7 @@ final class SignupInteractor: SignupBusinessLogic {
         self.logger = logger
     }
     
-    // MARK: - Signup Request
+    // MARK: - Public Methods
     func sendSignupRequest(_ name: String, _ username: String) {
         os_log("Send signup request to server", log: logger, type: .info)
         guard let signupKey = worker.getSignupCode() else {

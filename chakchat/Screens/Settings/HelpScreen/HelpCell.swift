@@ -40,12 +40,10 @@ final class HelpCell: UITableViewCell {
         self.label.text = title
     }
     
-    // MARK: - Cell Configuration
     private func configureCell() {
         configureLabel()
     }
     
-    // MARK: - Title Label Configuration
     private func configureLabel() {
         contentView.addSubview(label)
         label.pinCenterY(contentView)

@@ -19,7 +19,7 @@ final class AppThemeInteractor: AppThemeBusinessLogic {
         self.presenter = presenter
     }
     
-    // MARK: - Changing Theme
+    // MARK: - Public Methods
     func updateTheme(_ theme: AppTheme) {
         ThemeManager.shared.currentTheme = theme
     }

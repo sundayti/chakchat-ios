@@ -36,12 +36,11 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         self.logger = logger
     }
     
-    // MARK: - Passing User data
+    // MARK: - Public Methods
     func passUserData() {
         presenter.passUserData(userData)
     }
     
-    // MARK: - Blocking Chat
     func blockChat() {
         worker.blockChat(userData.id) { [weak self] result in
             guard let self = self else { return }
@@ -57,7 +56,6 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         }
     }
     
-    // MARK: - Unblocking Chat
     func unblockChat() {
         worker.unblockChat(userData.id) { [weak self] result in
             guard let self = self else { return }
@@ -73,7 +71,6 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         }
     }
     
-    // MARK: - Deleting Chat
     func deleteChat(_ deleteMode: DeleteMode) {
         worker.deleteChat(userData.id, deleteMode) { [weak self] result in
             guard let self = self else { return }
@@ -89,16 +86,6 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         }
     }
     
-    // MARK: - Routing
-    func routeToChat(_ isChatExisting: Bool) {
-        onRouteToChat?(userData, isChatExisting)
-    }
-    
-    func routeBack() {
-        onRouteBack?()
-    }
-    
-    // MARK: - Searching for Existing Chat
     func searchForExistingChat() {
         let isChatExisting = worker.searchForExistingChat(userData.id)
         routeToChat(isChatExisting)
@@ -111,5 +98,14 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     
     func searchMessages() {
         /// сделать через /{chatId}/update/message/search позже
+    }
+    
+    // MARK: - Routing
+    func routeToChat(_ isChatExisting: Bool) {
+        onRouteToChat?(userData, isChatExisting)
+    }
+    
+    func routeBack() {
+        onRouteBack?()
     }
 }

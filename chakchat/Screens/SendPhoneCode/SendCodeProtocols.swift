@@ -7,18 +7,16 @@
 
 import Foundation
 
-// MARK: - SendCodeBusinessLogic
+// MARK: - SendCodeProtocols
 protocol SendCodeBusinessLogic {
     func sendCodeRequest(_ request: SendCodeModels.SendCodeRequest)
     func successTransition(_ state: SignupState)
 }
 
-// MARK: - SendCodePresentationLogic
 protocol SendCodePresentationLogic {
     func showError(_ error: ErrorId)
 }
 
-// MARK: - SendCodeWorkerLogic
 protocol SendCodeWorkerLogic {
     func sendInRequest(_ request: SendCodeModels.SendCodeRequest,
                      completion: @escaping (Result<SignupState, Error>) -> Void)

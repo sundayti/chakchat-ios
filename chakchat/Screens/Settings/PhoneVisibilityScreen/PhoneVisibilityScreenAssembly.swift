@@ -11,7 +11,6 @@ import UIKit
 // MARK: - PhoneVisibilityScreenAssembly
 enum PhoneVisibilityScreenAssembly {
     
-    // MARK: - Phone Visibility Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = PhoneVisibilityScreenPresenter()
         let userService = UserService()

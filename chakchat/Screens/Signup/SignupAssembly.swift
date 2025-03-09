@@ -11,7 +11,6 @@ import UIKit
 // MARK: - SignupAssenbly
 enum SignupAssembly {
     
-    // MARK: - Assembly Method
     static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SignupPresenter()
         let identityService = IdentityService()

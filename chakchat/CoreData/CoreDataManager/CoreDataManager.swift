@@ -8,8 +8,10 @@
 import Foundation
 import CoreData
 
+// MARK: - CoreDataManager
 final class CoreDataManager: CoreDataManagerProtocol {
     
+    // MARK: - Public Methods
     func fetchChats() -> [PersonalChat]? {
         let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
         let fetchRequest: NSFetchRequest<PersonalChat> = PersonalChat.fetchRequest()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - ChatsScreenBusinessLogic
+// MARK: - ChatsScreen Protocols
 protocol ChatsScreenBusinessLogic: SearchInteractor {
     func loadMeData()
     func loadMeRestrictions()
@@ -20,13 +20,11 @@ protocol ChatsScreenBusinessLogic: SearchInteractor {
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }
 
-// MARK: - ChatsScreenPresentationLogic
 protocol ChatsScreenPresentationLogic {
     func addNewChat(_ chatData: ChatsModels.PersonalChat.Response)
     func showChats(_ chats: [ChatsModels.PersonalChat.Response]?)
 }
 
-// MARK: - ChatsScreenWorkerLogic
 protocol ChatsScreenWorkerLogic {
     func loadMeData(competion: @escaping (Result<Void, Error>) -> Void)
     func loadMeRestrictions(completion: @escaping (Result<Void, Error>) -> Void)
@@ -42,6 +40,7 @@ protocol ChatsScreenWorkerLogic {
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }
 
+// MARK: - SearchInteractor Protocol
 protocol SearchInteractor {
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void)
     

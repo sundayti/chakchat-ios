@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - ChatsService
 final class ChatsService: ChatsServiceProtocol {
+    
     func sendGetChatsRequest(
         _ accessToken: String,
         completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatsData>, any Error>) -> Void
