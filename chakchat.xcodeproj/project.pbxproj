@@ -47,6 +47,12 @@
 		AA2781642D7DA1630049ACAF /* GroupChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781632D7DA1630049ACAF /* GroupChatPresenter.swift */; };
 		AA2781662D7DA16C0049ACAF /* GroupChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781652D7DA16C0049ACAF /* GroupChatViewController.swift */; };
 		AA2781682D7DA1750049ACAF /* GroupChatProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781672D7DA1750049ACAF /* GroupChatProtocols.swift */; };
+		AA27816B2D7DB91A0049ACAF /* GroupChatProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27816A2D7DB91A0049ACAF /* GroupChatProfileAssembly.swift */; };
+		AA27816D2D7DB9220049ACAF /* GroupChatProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27816C2D7DB9220049ACAF /* GroupChatProfileInteractor.swift */; };
+		AA27816F2D7DB92B0049ACAF /* GroupChatProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27816E2D7DB92B0049ACAF /* GroupChatProfileWorker.swift */; };
+		AA2781712D7DB93C0049ACAF /* GroupChatProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781702D7DB93C0049ACAF /* GroupChatProfilePresenter.swift */; };
+		AA2781732D7DB9450049ACAF /* GroupChatProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781722D7DB9450049ACAF /* GroupChatProfileViewController.swift */; };
+		AA2781752D7DB94C0049ACAF /* GroupChatProfileProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781742D7DB94C0049ACAF /* GroupChatProfileProtocols.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -344,6 +350,12 @@
 		AA2781632D7DA1630049ACAF /* GroupChatPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatPresenter.swift; sourceTree = "<group>"; };
 		AA2781652D7DA16C0049ACAF /* GroupChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatViewController.swift; sourceTree = "<group>"; };
 		AA2781672D7DA1750049ACAF /* GroupChatProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProtocols.swift; sourceTree = "<group>"; };
+		AA27816A2D7DB91A0049ACAF /* GroupChatProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfileAssembly.swift; sourceTree = "<group>"; };
+		AA27816C2D7DB9220049ACAF /* GroupChatProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfileInteractor.swift; sourceTree = "<group>"; };
+		AA27816E2D7DB92B0049ACAF /* GroupChatProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfileWorker.swift; sourceTree = "<group>"; };
+		AA2781702D7DB93C0049ACAF /* GroupChatProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfilePresenter.swift; sourceTree = "<group>"; };
+		AA2781722D7DB9450049ACAF /* GroupChatProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfileViewController.swift; sourceTree = "<group>"; };
+		AA2781742D7DB94C0049ACAF /* GroupChatProfileProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfileProtocols.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -689,6 +701,19 @@
 			path = GroupChat;
 			sourceTree = "<group>";
 		};
+		AA2781692D7DB9070049ACAF /* GroupChatProfile */ = {
+			isa = PBXGroup;
+			children = (
+				AA27816A2D7DB91A0049ACAF /* GroupChatProfileAssembly.swift */,
+				AA27816C2D7DB9220049ACAF /* GroupChatProfileInteractor.swift */,
+				AA27816E2D7DB92B0049ACAF /* GroupChatProfileWorker.swift */,
+				AA2781702D7DB93C0049ACAF /* GroupChatProfilePresenter.swift */,
+				AA2781722D7DB9450049ACAF /* GroupChatProfileViewController.swift */,
+				AA2781742D7DB94C0049ACAF /* GroupChatProfileProtocols.swift */,
+			);
+			path = GroupChatProfile;
+			sourceTree = "<group>";
+		};
 		AA7BADDF2D3F9E2F0030AC82 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,6 +1055,7 @@
 		AA9B621D2D2D5E650064CB23 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				AA2781692D7DB9070049ACAF /* GroupChatProfile */,
 				AA27815C2D7DA13B0049ACAF /* GroupChat */,
 				AAB302672D76159400BECA3B /* Chat */,
 				AAB3024D2D75BBFC00BECA3B /* UserProfile */,
@@ -1743,6 +1769,7 @@
 				AA9B628F2D3152570064CB23 /* Sender.swift in Sources */,
 				AAA839F72D65B9E800C870A4 /* IdentityService.swift in Sources */,
 				AA7BAE3D2D40E8920030AC82 /* UserDefaultsManager.swift in Sources */,
+				AA27816D2D7DB9220049ACAF /* GroupChatProfileInteractor.swift in Sources */,
 				AAB3024B2D74DCCC00BECA3B /* ChatsModel.xcdatamodeld in Sources */,
 				AA1C0E382D43A232008E47D8 /* UserDefaultsManagerProtocol.swift in Sources */,
 				AA1C0E3E2D43C452008E47D8 /* EventSubscriberProtocol.swift in Sources */,
@@ -1806,6 +1833,7 @@
 				AAB300C62D6F00DA00BECA3B /* ChatsScreenModels.swift in Sources */,
 				E1F904442D445D0D001B2468 /* UIDeletableTextField.swift in Sources */,
 				AA84F0242D4BC55100678ABA /* VisibilityCell.swift in Sources */,
+				AA2781752D7DB94C0049ACAF /* GroupChatProfileProtocols.swift in Sources */,
 				E11D351A2D439F3300A698EA /* UIPhoneNumberTextField.swift in Sources */,
 				E1960A6B2D6DE53F008E27C0 /* NewGroupViewController.swift in Sources */,
 				AA9B62462D2EC77F0064CB23 /* VerifyAssembly.swift in Sources */,
@@ -1863,6 +1891,7 @@
 				E1960A222D6B49E8008E27C0 /* CacheProtocols.swift in Sources */,
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
 				AAB300B32D6DA7E900BECA3B /* UISearchControllerCell.swift in Sources */,
+				AA27816F2D7DB92B0049ACAF /* GroupChatProfileWorker.swift in Sources */,
 				E1960A4B2D6BE159008E27C0 /* BlackListInteractor.swift in Sources */,
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AAB300C92D6F0A6D00BECA3B /* PersonalChatService.swift in Sources */,
@@ -1879,6 +1908,7 @@
 				AAB302572D75BC5E00BECA3B /* UserProfileViewController.swift in Sources */,
 				AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */,
 				AAB302732D7615CF00BECA3B /* ChatProtocols.swift in Sources */,
+				AA2781732D7DB9450049ACAF /* GroupChatProfileViewController.swift in Sources */,
 				E11D35112D40C95F00A698EA /* UIViewController+Alert.swift in Sources */,
 				AA9B62082D2D47CB0064CB23 /* AppDelegate.swift in Sources */,
 				AA7BADF42D3FC9F40030AC82 /* SettingsScreenAssembly.swift in Sources */,
@@ -1935,11 +1965,13 @@
 				AA84F0122D4BB6A200678ABA /* BlackListCell.swift in Sources */,
 				AA87FCBC2D56312600E8D066 /* UserProfileCell.swift in Sources */,
 				AA84F0382D4BEF4500678ABA /* BirthVisibilityScreenProtocols.swift in Sources */,
+				AA2781712D7DB93C0049ACAF /* GroupChatProfilePresenter.swift in Sources */,
 				AA9B624E2D2EC7C50064CB23 /* VerifyViewController.swift in Sources */,
 				AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */,
 				AAB302512D75BC3800BECA3B /* UserProfilePresenter.swift in Sources */,
 				E19609DF2D60E928008E27C0 /* LanguageProtocols.swift in Sources */,
 				AA84F0592D4D0C8300678ABA /* NotificationScreenProtocols.swift in Sources */,
+				AA27816B2D7DB91A0049ACAF /* GroupChatProfileAssembly.swift in Sources */,
 				E1960A2B2D6B79B6008E27C0 /* HelpPresenter.swift in Sources */,
 				AA1C0E412D43C927008E47D8 /* ProfileSettingsAssembly.swift in Sources */,
 				AA9B62672D2FD22B0064CB23 /* SignupAssembly.swift in Sources */,
