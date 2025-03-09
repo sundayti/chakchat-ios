@@ -9,4 +9,8 @@ import Foundation
 
 final class GroupProfileEditPresenter: GroupProfileEditPresentationLogic {
     weak var view: GroupProfileEditViewController?
+    
+    func passChatData(_ chatData: GroupProfileEditModels.ProfileData) {
+        view?.configureWithData(chatData)
+    }
 }

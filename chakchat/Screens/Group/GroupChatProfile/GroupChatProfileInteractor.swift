@@ -92,6 +92,7 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
     
     func routeToEdit() {
         let dataToEdit = GroupProfileEditModels.ProfileData(
+            chatID: chatData.id,
             name: chatData.name,
             description: chatData.description,
             photoURL: chatData.groupPhoto

@@ -9,6 +9,7 @@ import Foundation
 
 enum GroupProfileEditModels {
     struct ProfileData {
+        let chatID: UUID
         let name: String
         let description: String?
         let photoURL: URL?

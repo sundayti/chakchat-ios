@@ -22,9 +22,14 @@ final class GroupProfileEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        interactor.passChatData()
+    }
+    
+    public func configureWithData(_ chatData: GroupProfileEditModels.ProfileData) {
+        print("Configure")
     }
     
     private func configureUI() {
-        
+        print("Configure")
     }
 }

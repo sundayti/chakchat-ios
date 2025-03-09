@@ -179,7 +179,7 @@ final class GroupChatProfileViewController: UIViewController {
             self.deleteMember()
         }
         let deleteGroup = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_group"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
-            self.deleteGroup()
+            self.showDisclaimer()
         }
         let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [addMember])
         optionsButton.menu = menu

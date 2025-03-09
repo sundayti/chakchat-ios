@@ -25,6 +25,9 @@ enum GroupChatProfileAssembly {
             eventPublisher: context.eventManager,
             logger: context.logger
         )
+        interactor.onRouteToEdit = { [weak coordinator] chatData in
+            coordinator?.showGroupProfileEditScreen(chatData)
+        }
         interactor.onRouteToChatMenu = { [weak coordinator] in
             coordinator?.finishSignupFlow()
         }
