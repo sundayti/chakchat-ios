@@ -35,21 +35,24 @@ final class GroupProfileEditInteractor: GroupProfileEditBusinessLogic {
     }
     
     func passChatData() {
-        onRouteBack?()
+        presenter.passChatData(chatData)
     }
     
     func updateChat(_ name: String, _ description: String?) {
-        worker.updateChat(chatData.chatID, name, description) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                // делаем ивент связанный с обновлением данных чата
-                os_log("Updated data at group chat with id: %@", log: logger, type: .default, chatData.chatID as CVarArg)
-                self.routeBack()
-            case .failure(let failure):
-                _ = self.errorHandler.handleError(failure)
-                os_log("Failed to update data at group chat with id: %@", log: logger, type: .fault, chatData.chatID as CVarArg)
-                print(failure)
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.worker.updateChat(self.chatData.chatID, name, description) { result in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(_):
+                        os_log("Updated group (%@) data", log: logger, type: .default, chatData.chatID as CVarArg)
+                        self.routeBack()
+                    case .failure(let failure):
+                        _ = errorHandler.handleError(failure)
+                        os_log("Failed to update group (%@) data", log: logger, type: .default, chatData.chatID as CVarArg)
+                        print(failure)
+                    }
+                }
             }
         }
     }
@@ -79,10 +82,6 @@ final class GroupProfileEditInteractor: GroupProfileEditBusinessLogic {
         }
     }
     
-    func routeBack() {
-        onRouteBack?()
-    }
-    
     private func uploadFile(_ image: UIImage, completion: @escaping (Result<SuccessModels.UploadResponse, any Error>) -> Void) {
         os_log("Started saving image in profile setting screen", log: logger, type: .default)
         guard let data = image.jpegData(compressionQuality: 0.0) else {
@@ -99,5 +98,9 @@ final class GroupProfileEditInteractor: GroupProfileEditBusinessLogic {
                 completion(.failure(failure))
             }
         }
+    }
+    
+    func routeBack() {
+        onRouteBack?()
     }
 }
