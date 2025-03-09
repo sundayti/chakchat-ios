@@ -12,12 +12,36 @@ final class NewGroupWorker: NewGroupWorkerLogic {
     
     // MARK: - Properties
     private let userService: UserServiceProtocol
+    private let groupChatService: GroupChatServiceProtocol
     private let keychainManager: KeychainManagerBusinessLogic
+    private let coreDataManager: CoreDataManagerProtocol
     
     // MARK: - Initialization
-    init(userService: UserServiceProtocol, keychainManager: KeychainManagerBusinessLogic) {
+    init(
+        userService: UserServiceProtocol,
+        groupChatService: GroupChatServiceProtocol,
+        keychainManager: KeychainManagerBusinessLogic,
+        coreDataManager: CoreDataManagerProtocol
+    ) {
         self.userService = userService
+        self.groupChatService = groupChatService
         self.keychainManager = keychainManager
+        self.coreDataManager = coreDataManager
+    }
+    
+    func createGroupChat(_ name: String, _ description: String?, _ members: [UUID], completion: @escaping (Result<ChatsModels.GroupChat.Response, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        let request = ChatsModels.GroupChat.CreateRequest(name: name, description: description, members: members)
+        groupChatService.sendCreateChatRequest(request, accessToken) { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(let response):
+                // сохраняем в coreData
+                completion(.success(response.data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
     }
     
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {

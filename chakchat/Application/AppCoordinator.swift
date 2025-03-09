@@ -167,7 +167,7 @@ final class AppCoordinator {
     // MARK: - New message Screen Showing
     func showNewMessageScreen() {
         let newMessageVC = NewMessageAssembly.build(with: mainAppContext, coordinator: self)
-        navigationController.pushViewController(newMessageVC, animated: true)
+        navigationController.setViewControllers([newMessageVC], animated: true)
     }
     
     func showUserProfileScreen(_ userData: ProfileSettingsModels.ProfileUserData) {
@@ -184,5 +184,10 @@ final class AppCoordinator {
     func showNewGroupScreen() {
         let newGroupVC = NewGroupAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(newGroupVC, animated: true)
+    }
+    
+    func showGroupChatScreen(_ chatData: ChatsModels.GroupChat.Response) {
+        let groupChatVC = GroupChatAssembly.build(with: mainAppContext, coordinator: self, chatData)
+        navigationController.setViewControllers([groupChatVC], animated: true)
     }
 }

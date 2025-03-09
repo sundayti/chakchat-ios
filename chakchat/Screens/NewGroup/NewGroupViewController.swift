@@ -234,7 +234,16 @@ final class NewGroupViewController: UIViewController {
     
     @objc
     private func createButtonPressed() {
-        // Creating group
+        guard let name = groupTextField.text else {
+            print("Type name for group!")
+            return
+        }
+        let members = users.map { $0.id }
+        if members.count == 0 {
+            print("Choose at least one member")
+            return
+        }
+        interactor.createGroupChat(name, nil, members)
     }
     
     @objc

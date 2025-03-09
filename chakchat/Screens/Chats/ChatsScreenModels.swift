@@ -190,13 +190,13 @@ enum ChatsModels {
     enum GroupChat {
         struct CreateRequest: Codable {
             let name: String
-            let description: String
+            let description: String?
             let members: [UUID]
         }
         
         struct UpdateRequest: Codable {
             let name: String
-            let description: String
+            let description: String?
         }
         
         struct PhotoUpdateRequest: Codable {
@@ -209,7 +209,7 @@ enum ChatsModels {
         struct Response: Codable {
             let id: UUID
             let name: String
-            let description: String
+            let description: String?
             let members: [UUID]
             let createdAt: String
             let adminID: UUID
@@ -231,7 +231,7 @@ enum ChatsModels {
         struct Response: Codable {
             let id: UUID
             let name: String
-            let description: String
+            let description: String?
             let members: [UUID]
             let createdAt: String
             let adminID: UUID
