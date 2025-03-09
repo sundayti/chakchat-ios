@@ -43,7 +43,6 @@ final class UIUsersSearchViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = Colors.background
         configureSearchTableView()
-        usersTableView.separatorInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 5)
         bindSearch()
     }
     
@@ -56,6 +55,7 @@ final class UIUsersSearchViewController: UIViewController {
         usersTableView.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 0)
         usersTableView.pinLeft(view.safeAreaLayoutGuide.leadingAnchor, 0)
         usersTableView.pinRight(view.safeAreaLayoutGuide.trailingAnchor, 0)
+        usersTableView.separatorInset = .zero
         usersTableView.register(UISearchControllerCell.self, forCellReuseIdentifier: "SearchControllerCell")
     }
     
@@ -126,7 +126,7 @@ extension UIUsersSearchViewController: UITableViewDelegate, UITableViewDataSourc
             return UITableViewCell()
         }
         let user = users[indexPath.row]
-        cell.configure(user.photo, user.name)
+        cell.configure(user.photo, user.name, deletable: false)
         return cell
     }
     

@@ -239,10 +239,10 @@ final class NewGroupViewController: UIViewController {
     
     @objc
     private func iconImageViewTapped() {
-        // TODO: added screen with setting image
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
     }
     
@@ -305,7 +305,15 @@ extension NewGroupViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let user = users[indexPath.row]
-        cell.configure(user.photo, user.name)
+        cell.configure(user.photo, user.name, deletable: true)
+        cell.selectionStyle = .none
+        cell.deleteAction = { [weak self] in
+            self?.users.remove(at: indexPath.row)
+            self?.titleLabel.updateCounter(self?.users.count ?? 0)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+        }
+        
         return cell
     }
 }
@@ -313,7 +321,7 @@ extension NewGroupViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension NewGroupViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[.originalImage] as? UIImage {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             addPickedImage(pickedImage)
         }
         picker.dismiss(animated: true, completion: nil)
