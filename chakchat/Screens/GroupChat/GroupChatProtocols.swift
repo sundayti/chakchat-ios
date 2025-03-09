@@ -7,14 +7,15 @@
 
 import Foundation
 
-protocol GroupChatBusinessLogic {
-    
+protocol GroupChatBusinessLogic: SendingMessagesProtocol {
+    func routeBack()
+    func passChatData()
 }
 
 protocol GroupChatPresentationLogic {
-    
+    func passChatData(_ chatData: ChatsModels.GroupChat.Response)
 }
 
 protocol GroupChatWorkerLogic {
-    
+    func sendTextMessage(_ message: String)
 }

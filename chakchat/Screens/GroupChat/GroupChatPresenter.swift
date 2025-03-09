@@ -9,4 +9,8 @@ import UIKit
 
 final class GroupChatPresenter: GroupChatPresentationLogic {
     weak var view: GroupChatViewController?
+    
+    func passChatData(_ chatData: ChatsModels.GroupChat.Response) {
+        view?.configureWithData(chatData)
+    }
 }
