@@ -13,7 +13,8 @@ enum GroupChatProfileAssembly {
         let groupService = GroupChatService()
         let worker = GroupChatProfileWorker(
             keychainManager: context.keychainManager,
-            groupService: groupService
+            groupService: groupService,
+            coreDataManager: context.coreDataManager
         )
         let interactor = GroupChatProfileInteractor(
             presenter: presenter,
