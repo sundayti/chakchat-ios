@@ -30,7 +30,7 @@ final class AppCoordinator {
                                            userDefaultsManager: userDefaultsManager,
                                            state: SignupState._default,
                                            logger: OSLog(subsystem: "com.chakchat.mainlog", category: "MainLog"))
-        _ = EventManager()
+        
         self.mainAppContext = MainAppContext(keychainManager: signupContext.keychainManager,
                                              errorHandler: signupContext.errorHandler,
                                              userDefaultsManager: signupContext.userDefaultsManager,

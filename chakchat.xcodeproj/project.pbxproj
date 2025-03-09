@@ -53,6 +53,13 @@
 		AA2781712D7DB93C0049ACAF /* GroupChatProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781702D7DB93C0049ACAF /* GroupChatProfilePresenter.swift */; };
 		AA2781732D7DB9450049ACAF /* GroupChatProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781722D7DB9450049ACAF /* GroupChatProfileViewController.swift */; };
 		AA2781752D7DB94C0049ACAF /* GroupChatProfileProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781742D7DB94C0049ACAF /* GroupChatProfileProtocols.swift */; };
+		AA2781792D7DE1B50049ACAF /* GroupProfileEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781782D7DE1B50049ACAF /* GroupProfileEditAssembly.swift */; };
+		AA27817B2D7DE1BE0049ACAF /* GroupProfileEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27817A2D7DE1BE0049ACAF /* GroupProfileEditInteractor.swift */; };
+		AA27817D2D7DE1C90049ACAF /* GroupProfileEditWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27817C2D7DE1C90049ACAF /* GroupProfileEditWorker.swift */; };
+		AA27817F2D7DE1D10049ACAF /* GroupProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27817E2D7DE1D10049ACAF /* GroupProfileEditPresenter.swift */; };
+		AA2781812D7DE1DA0049ACAF /* GroupProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781802D7DE1DA0049ACAF /* GroupProfileEditViewController.swift */; };
+		AA2781832D7DE1E10049ACAF /* GroupProfileEditProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781822D7DE1E10049ACAF /* GroupProfileEditProtocols.swift */; };
+		AA2781852D7DE3770049ACAF /* GroupProfileEditModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781842D7DE3770049ACAF /* GroupProfileEditModels.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -356,6 +363,13 @@
 		AA2781702D7DB93C0049ACAF /* GroupChatProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfilePresenter.swift; sourceTree = "<group>"; };
 		AA2781722D7DB9450049ACAF /* GroupChatProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfileViewController.swift; sourceTree = "<group>"; };
 		AA2781742D7DB94C0049ACAF /* GroupChatProfileProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatProfileProtocols.swift; sourceTree = "<group>"; };
+		AA2781782D7DE1B50049ACAF /* GroupProfileEditAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditAssembly.swift; sourceTree = "<group>"; };
+		AA27817A2D7DE1BE0049ACAF /* GroupProfileEditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditInteractor.swift; sourceTree = "<group>"; };
+		AA27817C2D7DE1C90049ACAF /* GroupProfileEditWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditWorker.swift; sourceTree = "<group>"; };
+		AA27817E2D7DE1D10049ACAF /* GroupProfileEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditPresenter.swift; sourceTree = "<group>"; };
+		AA2781802D7DE1DA0049ACAF /* GroupProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditViewController.swift; sourceTree = "<group>"; };
+		AA2781822D7DE1E10049ACAF /* GroupProfileEditProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditProtocols.swift; sourceTree = "<group>"; };
+		AA2781842D7DE3770049ACAF /* GroupProfileEditModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditModels.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -714,6 +728,30 @@
 			path = GroupChatProfile;
 			sourceTree = "<group>";
 		};
+		AA2781762D7DE16F0049ACAF /* GroupChatProfileEdit */ = {
+			isa = PBXGroup;
+			children = (
+				AA2781782D7DE1B50049ACAF /* GroupProfileEditAssembly.swift */,
+				AA27817A2D7DE1BE0049ACAF /* GroupProfileEditInteractor.swift */,
+				AA27817C2D7DE1C90049ACAF /* GroupProfileEditWorker.swift */,
+				AA27817E2D7DE1D10049ACAF /* GroupProfileEditPresenter.swift */,
+				AA2781802D7DE1DA0049ACAF /* GroupProfileEditViewController.swift */,
+				AA2781842D7DE3770049ACAF /* GroupProfileEditModels.swift */,
+				AA2781822D7DE1E10049ACAF /* GroupProfileEditProtocols.swift */,
+			);
+			path = GroupChatProfileEdit;
+			sourceTree = "<group>";
+		};
+		AA2781772D7DE1820049ACAF /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				AA2781762D7DE16F0049ACAF /* GroupChatProfileEdit */,
+				AA2781692D7DB9070049ACAF /* GroupChatProfile */,
+				AA27815C2D7DA13B0049ACAF /* GroupChat */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
 		AA7BADDF2D3F9E2F0030AC82 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
@@ -1055,8 +1093,7 @@
 		AA9B621D2D2D5E650064CB23 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				AA2781692D7DB9070049ACAF /* GroupChatProfile */,
-				AA27815C2D7DA13B0049ACAF /* GroupChat */,
+				AA2781772D7DE1820049ACAF /* Group */,
 				AAB302672D76159400BECA3B /* Chat */,
 				AAB3024D2D75BBFC00BECA3B /* UserProfile */,
 				E1960A612D6DE4D7008E27C0 /* NewGroup */,
@@ -1730,6 +1767,7 @@
 				AA07A67B2D5E596500CFE124 /* OnlineVisibilityScreenModels.swift in Sources */,
 				AAB300BA2D6DEA8900BECA3B /* UIShimmerView.swift in Sources */,
 				AA1C0E432D43C968008E47D8 /* ProfileSettingsInteractor.swift in Sources */,
+				AA2781852D7DE3770049ACAF /* GroupProfileEditModels.swift in Sources */,
 				E1960A202D6B49C4008E27C0 /* CachePresenter.swift in Sources */,
 				AA2781602D7DA1540049ACAF /* GroupChatInteractor.swift in Sources */,
 				AA84F0652D53672B00678ABA /* ContextsProtocols.swift in Sources */,
@@ -1796,6 +1834,7 @@
 				AA7BADF82D3FCA360030AC82 /* SettingsScreenPresenter.swift in Sources */,
 				AA7BAE032D3FD1900030AC82 /* SettingsMenuCell.swift in Sources */,
 				AA84F0672D53680E00678ABA /* MainAppContext.swift in Sources */,
+				AA27817D2D7DE1C90049ACAF /* GroupProfileEditWorker.swift in Sources */,
 				E1960A692D6DE52B008E27C0 /* NewGroupInteractor.swift in Sources */,
 				AA84F0432D4CD88500678ABA /* OnlineVisibilityScreenProtocols.swift in Sources */,
 				E1960A0A2D6A2B54008E27C0 /* AppThemePresenter.swift in Sources */,
@@ -1862,6 +1901,7 @@
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
 				AA2781492D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld in Sources */,
 				AAB3021D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift in Sources */,
+				AA2781792D7DE1B50049ACAF /* GroupProfileEditAssembly.swift in Sources */,
 				AAB3021E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift in Sources */,
 				AAB3021F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift in Sources */,
 				AAB302202D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift in Sources */,
@@ -1887,6 +1927,7 @@
 				AA9B627B2D3004850064CB23 /* SignupWorker.swift in Sources */,
 				AA9B62592D2EDF9F0064CB23 /* ErrorModels.swift in Sources */,
 				AA2781662D7DA16C0049ACAF /* GroupChatViewController.swift in Sources */,
+				AA27817B2D7DE1BE0049ACAF /* GroupProfileEditInteractor.swift in Sources */,
 				AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */,
 				E1960A222D6B49E8008E27C0 /* CacheProtocols.swift in Sources */,
 				AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */,
@@ -1896,6 +1937,7 @@
 				AA7BADFE2D3FCA610030AC82 /* SettingsScreenProtocols.swift in Sources */,
 				AAB300C92D6F0A6D00BECA3B /* PersonalChatService.swift in Sources */,
 				AA9B62412D2EC0170064CB23 /* KeychainManager.swift in Sources */,
+				AA2781812D7DE1DA0049ACAF /* GroupProfileEditViewController.swift in Sources */,
 				E1960A822D7C8010008E27C0 /* UIMessageInputView.swift in Sources */,
 				E1960A502D6BE62A008E27C0 /* NewMessageAssembly.swift in Sources */,
 				E1960A262D6B4A2A008E27C0 /* CacheViewController.swift in Sources */,
@@ -1954,6 +1996,7 @@
 				E1960A582D6BE69E008E27C0 /* NewMessageViewController.swift in Sources */,
 				AA84F0472D4CD89800678ABA /* OnlineVisibilityScreenViewController.swift in Sources */,
 				AAB300B52D6DA9B900BECA3B /* UIColor+Random.swift in Sources */,
+				AA27817F2D7DE1D10049ACAF /* GroupProfileEditPresenter.swift in Sources */,
 				E1960A472D6BE13C008E27C0 /* BlackListPresenter.swift in Sources */,
 				E19609D92D60E8F6008E27C0 /* LanguagePresenter.swift in Sources */,
 				AAB300D52D6F284700BECA3B /* ChatsServiceProtocol.swift in Sources */,
@@ -1980,6 +2023,7 @@
 				AA84F0262D4BC57C00678ABA /* ExceptionsCell.swift in Sources */,
 				AA9B622D2D2D6CAE0064CB23 /* SendCodeModels.swift in Sources */,
 				E1960A0E2D6A2B9E008E27C0 /* AppThemeProtocols.swift in Sources */,
+				AA2781832D7DE1E10049ACAF /* GroupProfileEditProtocols.swift in Sources */,
 				AA1C0E362D43A0D5008E47D8 /* EventPublisherProtocol.swift in Sources */,
 				AA9B62862D303E330064CB23 /* StartAssembly.swift in Sources */,
 				E135ED3E2D4CF59E006CE143 /* Fonts.swift in Sources */,
