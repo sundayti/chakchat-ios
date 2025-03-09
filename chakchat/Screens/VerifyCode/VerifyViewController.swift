@@ -47,7 +47,7 @@ final class VerifyViewController: UIViewController {
         static let resendButtonShortCount: Int = 11
     }
     
-    // MARK: - Fields
+    // MARK: - Properties
     private var interactor: VerifyBusinessLogic
     private var textFields: [UITextField] = []
     private var inputDescriptionText: String = LocalizationManager.shared.localizedString(for: "we_sent_code")
@@ -107,7 +107,7 @@ final class VerifyViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    // MARK: - Show Phone
+    // MARK: - Public methods
     func showPhone(_ phone: String) {
         guard let prettyPhone = Format.number(phone) else {
             return
@@ -118,7 +118,6 @@ final class VerifyViewController: UIViewController {
     }
     
     // TODO: локализировать ошибки
-    // MARK: - Show Error as label
     func showError(_ message: String?) {
         if message != nil {
             errorLabel.showError(message)
@@ -128,7 +127,6 @@ final class VerifyViewController: UIViewController {
         }
     }
     
-    // MARK: - Show Timer and Hide Resend Button
     func hideResendButton() {
         resendButton.isHidden = true
         timerLabel.isHidden = false
@@ -136,16 +134,6 @@ final class VerifyViewController: UIViewController {
         timerLabel.text = timeLabelText + "\n\(formatTime(Int(timerDuration)))"
         remainingTime = timerDuration
         startCountdown()
-    }
-    
-    // MARK: - Back Button Configuration
-    private func configureBackButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.backButtonName), style: .plain, target: self, action: #selector(backButtonPressed))
-        navigationItem.leftBarButtonItem?.tintColor = Colors.text
-        // Adding returning to previous screen with swipe.
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
-        swipeGesture.direction = .right
-        view.addGestureRecognizer(swipeGesture)
     }
     
     // MARK: - Incorrect Code Handling Method
@@ -178,14 +166,21 @@ final class VerifyViewController: UIViewController {
         configureResendButton()
     }
     
-    // MARK: - ChakChat Configuration
+    private func configureBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.backButtonName), style: .plain, target: self, action: #selector(backButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = Colors.text
+        // Adding returning to previous screen with swipe.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(backButtonPressed))
+        swipeGesture.direction = .right
+        view.addGestureRecognizer(swipeGesture)
+    }
+    
     private func configureChakChatStackView() {
         view.addSubview(chakchatStackView)
         chakchatStackView.pinCenterX(view)
         chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
     }
     
-    // MARK: - Input Hint Label Configuration
     private func configureInputHintLabel() {
         view.addSubview(inputHintLabel)
         inputHintLabel.text = LocalizationManager.shared.localizedString(for: "enter_the_code")
@@ -193,8 +188,7 @@ final class VerifyViewController: UIViewController {
         inputHintLabel.pinCenterX(view)
         inputHintLabel.pinTop(chakchatStackView.bottomAnchor, Constants.inputHintLabelTopAnchor)
     }
-    
-    // MARK: - Input Description Configuration
+  
     private func configureInputDescriptionLabel() {
         view.addSubview(inputDescriptionLabel)
         inputDescriptionLabel.textAlignment = .center
@@ -205,7 +199,6 @@ final class VerifyViewController: UIViewController {
         inputDescriptionLabel.pinTop(inputHintLabel.bottomAnchor, Constants.inputDescriptionTop)
     }
     
-    // MARK: - Digits StackView Configuration
     private func configureDigitsStackView() {
         view.addSubview(digitsStackView)
         digitsStackView.axis = .horizontal
@@ -233,14 +226,12 @@ final class VerifyViewController: UIViewController {
         digitsStackView.pinRight(view.trailingAnchor, Constants.digitsStackViewTrailing)
     }
     
-    // MARK: - Error Label Configuration
     private func configureErrorLabel() {
         view.addSubview(errorLabel)
         errorLabel.pinCenterX(view)
         errorLabel.pinTop(digitsStackView.bottomAnchor, Constants.errorLabelTop)
     }
-    
-    // MARK: - Timer Label Configuration
+
     private func configureTimerLabel() {
         view.addSubview(timerLabel)
         timerLabel.pinCenterX(view)
@@ -253,7 +244,6 @@ final class VerifyViewController: UIViewController {
         startCountdown()
     }
     
-    // MARK: - Resend Button Configuration
     private func configureResendButton() {
         view.addSubview(resendButton)
         resendButton.pinCenterX(view)
@@ -282,7 +272,6 @@ final class VerifyViewController: UIViewController {
         return true
     }
     
-    // MARK: - Get Code From Text Fields Method
     private func getCodeFromTextFields() -> String {
         var code: String = ""
         
@@ -297,15 +286,13 @@ final class VerifyViewController: UIViewController {
         return code
     }
     
-    // MARK: - Format Time
     private func formatTime(_ totalSeconds: Int) -> String {
         let minutes = totalSeconds / 60
         let seconds = totalSeconds % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    // MARK: - Start Countdown
-    func startCountdown() {
+    private func startCountdown() {
         countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateLabel), userInfo: nil, repeats: true)
     }
     
@@ -348,7 +335,8 @@ final class VerifyViewController: UIViewController {
         }
     }
     
-    @objc func updateLabel() {
+    @objc
+    func updateLabel() {
         remainingTime -= 1
         if remainingTime > 0 {
             timerLabel.text = timeLabelText + "\n\(formatTime(Int(remainingTime)))"
@@ -358,7 +346,8 @@ final class VerifyViewController: UIViewController {
         }
     }
 
-    @objc func hideLabel() {
+    @objc
+    func hideLabel() {
         UIView.animate(withDuration: 0.5, animations: {
             self.timerLabel.alpha = 0.0
         }) { _ in

@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - UpdateServiceProtocol
 protocol UpdateServiceProtocol {
     func sendGetUpdatesRequest(
         _ chatID: UUID,

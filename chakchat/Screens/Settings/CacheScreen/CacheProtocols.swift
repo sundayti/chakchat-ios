@@ -7,11 +7,10 @@
 
 import Foundation
 
-// MARK: - CacheBusinessLogic
+// MARK: - CacheProtocols
 protocol CacheBusinessLogic {
     func backToSettingsMenu()
 }
 
-// MARK: - CachePresentationLogic
 protocol CachePresentationLogic {
 }

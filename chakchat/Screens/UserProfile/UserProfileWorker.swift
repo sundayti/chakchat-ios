@@ -32,7 +32,7 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         self.messagingService = messagingService
     }
     
-    // MARK: - Searching for Existing Chat
+    // MARK: - Public Methods
     // return true if chat exists else false
     func searchForExistingChat(_ memberID: UUID) -> Bool {
         let myID = getMyID()
@@ -40,13 +40,11 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         return chat != nil ? true : false
     }
     
-    // MARK: - Getting ID
     func getMyID() -> UUID {
         let myID = userDefaultsManager.loadID()
         return myID
     }
 
-    // MARK: - Blocking Chat
     func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
         let myID = getMyID()
         guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
@@ -66,7 +64,6 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         }
     }
     
-    // MARK: - Unblocking Chat
     func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
         let myID = getMyID()
         guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
@@ -87,7 +84,6 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         }
     }
     
-    // MARK: - Deleting Chat
     func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, any Error>) -> Void) {
         let myID = getMyID()
         guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {

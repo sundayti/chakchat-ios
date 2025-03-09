@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - ImageCacheManager
 final class ImageCacheManager: ImageCacheProtocol {
     
     static let shared = ImageCacheManager()

@@ -12,12 +12,11 @@ final class UserProfileScreenPresenter: UserProfileScreenPresentationLogic {
         
     weak var view: UserProfileScreenViewController?
     
-    // MARK: - User data showing
+    // MARK: - Public Methods
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         view?.configureUserData(userData)
     }
-    
-    // MARK: - New User Data showing
+
     func showNewUserData(_ userData: ProfileSettingsModels.ChangeableProfileUserData) {
         view?.updateUserData(userData)
     }

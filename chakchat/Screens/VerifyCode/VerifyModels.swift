@@ -10,7 +10,6 @@ import Foundation
 // MARK: - Verify Models
 enum VerifyModels {
     
-    // MARK: - Authorization Request Models
     struct VerifySigninRequest: Codable {
         let signinKey: UUID
         let code: String
@@ -21,7 +20,6 @@ enum VerifyModels {
         }
     }
     
-    // MARK: - Registration Request Models
     struct VerifySignupRequest: Codable {
         let signupKey: UUID
         let code: String
@@ -31,8 +29,7 @@ enum VerifyModels {
             case code = "code"
         }
     }
-    
-    // MARK: - Resend Code Request Models
+
     struct ResendCodeRequest: Codable {
         let phone: String
     }

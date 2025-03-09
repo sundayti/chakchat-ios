@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - IdentityServiceProtocols
 protocol IdentityServiceProtocol {
     func sendCodeRequest<Request: Codable, Response: Codable>(
         _ request: Request,

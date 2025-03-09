@@ -50,7 +50,6 @@ final class UIUserProfileButton: UIButton {
         titleLabelCustom.text = title
     }
     
-    // MARK: - View Configuration
     private func configureView() {
         addSubview(iconImageView)
         addSubview(titleLabelCustom)

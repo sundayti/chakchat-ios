@@ -17,7 +17,7 @@ final class UserProfileScreenWorker: UserProfileScreenWorkerLogic {
         self.userDefaultsManager = userDefaultsManager
     }
     
-    // MARK: - User Data Getting 
+    // MARK: - Public Methods
     func getUserData() -> ProfileSettingsModels.ProfileUserData {
         return userDefaultsManager.loadUserData()
     }

@@ -46,14 +46,14 @@ final class ConfidentialityScreenViewController: UIViewController {
         configureUI()
     }
     
-    // MARK: - Sections Configurations
-    public func configureSections(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+    // MARK: - Public Methods
+    func configureSections(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         confidentilitySection[0].1 = LocalizationManager.shared.localizedString(for: userRestrictions.phone.openTo)
         confidentilitySection[1].1 = LocalizationManager.shared.localizedString(for: userRestrictions.dateOfBirth.openTo)
     }
     
     // MARK: - Visibility Status Updating
-    public func updateVisibilityStatus(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
+    func updateVisibilityStatus(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         confidentilitySection[0].1 = LocalizationManager.shared.localizedString(for: userRestrictions.phone.openTo)
         confidentilitySection[1].1 = LocalizationManager.shared.localizedString(for: userRestrictions.dateOfBirth.openTo)
         confidentialitySettingsTable.reloadData()
@@ -61,11 +61,11 @@ final class ConfidentialityScreenViewController: UIViewController {
     // TODO: подумать, что делать с этим всем. Нужно конфигурировать вместе.
     /// проблема в том что Булат пока сам не знает, будем ли мы изменять видимость онлайн статуса или не будем
     /// пока сделаю такой костыль
-    public func configureOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
+    func configureOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
         confidentilitySection[2].1 = LocalizationManager.shared.localizedString(for: onlineRestriction.status)
     }
     
-    public func updateOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
+    func updateOnlineStatus(_ onlineRestriction: OnlineVisibilityStatus) {
         confidentilitySection[2].1 = LocalizationManager.shared.localizedString(for: onlineRestriction.status)
         confidentialitySettingsTable.reloadData()
     }
@@ -80,15 +80,13 @@ final class ConfidentialityScreenViewController: UIViewController {
         navigationItem.titleView = titleLabel
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB18
         titleLabel.text = LocalizationManager.shared.localizedString(for: "confidantiality")
         titleLabel.textAlignment = .center
     }
-    
-    // MARK: - Setting Table Configuration
+
     private func configureSettingsTable() {
         view.addSubview(confidentialitySettingsTable)
         confidentialitySettingsTable.delegate = self
@@ -103,7 +101,6 @@ final class ConfidentialityScreenViewController: UIViewController {
         confidentialitySettingsTable.backgroundColor = view.backgroundColor
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -123,17 +120,14 @@ final class ConfidentialityScreenViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    // MARK: - numberOfRowsInSection
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
     
-    // MARK: - Configuration and returning the cell for the specified index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ConfidentialityMenuCell.cellIdentifier, for: indexPath) as? ConfidentialityMenuCell else {
             return UITableViewCell()
@@ -143,7 +137,6 @@ extension ConfidentialityScreenViewController: UITableViewDelegate, UITableViewD
         return cell
     }
     
-    // MARK: - Defining the behavior when a cell is clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {

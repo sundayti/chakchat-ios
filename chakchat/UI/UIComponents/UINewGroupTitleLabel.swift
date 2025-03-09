@@ -39,7 +39,6 @@ final class UINewGroupTitleLabel: UIView {
         configureStackView()
     }
     
-    // MARK: - Title Configuration
     private func configureTitle() {
         titleLabel.font = Fonts.systemSB18
         titleLabel.textColor = Colors.text
@@ -47,7 +46,6 @@ final class UINewGroupTitleLabel: UIView {
         titleLabel.textAlignment = .center
     }
     
-    // MARK: - Subtitle (counter) configuration
     private func configureSubtitle() {
         subtitleLabel.font = Fonts.systemR12
         subtitleLabel.text = "\(currentUsers)/\(maxUsers)"
@@ -55,7 +53,6 @@ final class UINewGroupTitleLabel: UIView {
         subtitleLabel.textColor = .gray
     }
     
-    // MARK: - StackView Configuration
     private func configureStackView() {
         stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         addSubview(stackView)

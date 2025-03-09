@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import OSLog
 
+// MARK: - OSLogOutputStream
 struct OSLogOutputStream: TextOutputStream {
     let log: OSLog
     let level: OSLogType

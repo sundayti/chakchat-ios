@@ -44,14 +44,13 @@ final class KeychainManager: KeychainManagerBusinessLogic {
         return status == errSecSuccess
     }
     
-    // MARK: - UUID Getting Method
+    // MARK: - Public Methods
     // for verification code and other data with UUID type
     func getUUID(key: String) -> UUID? {
         guard let valueString = getString(key: key) else { return nil }
         return UUID(uuidString: valueString)
     }
     
-    // MARK: - String Getting Method
     // for phone and other data with string type
     func getString(key: String) -> String? {
         let query: [String: Any] = [
@@ -69,7 +68,6 @@ final class KeychainManager: KeychainManagerBusinessLogic {
         return valueString
     }
     
-    // MARK: - Deleting Method
     func delete(key: String) -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -85,7 +83,7 @@ final class KeychainManager: KeychainManagerBusinessLogic {
     }
 }
 
-// MARK: Keychain Models
+// MARK: - Keychain Models
 enum Keychain {
     enum KeychainError: Error {
         case saveError

@@ -36,7 +36,7 @@ final class VerifyInteractor: VerifyBusinessLogic {
         self.logger = logger
     }
     
-    // MARK: - Verification Request
+    // MARK: - Public Methods
     func sendVerificationRequest(_ code: String) {
         os_log("Sent code to server", log: logger, type: .info)
         
@@ -77,29 +77,11 @@ final class VerifyInteractor: VerifyBusinessLogic {
         }
     }
     
-    // MARK: - Routing
-    func routeToSignupScreen(_ state: SignupState) {
-        os_log("Routed to signup screen", log: logger, type: .default)
-        onRouteToSignupScreen?(state)
-    }
-    
-    func routeToChatScreen(_ state: SignupState) {
-        os_log("Routed to chat menu screen", log: logger, type: .default)
-        onRouteToChatScreen?(state)
-    }
-    
-    func routeToSendCodeScreen(_ state: SignupState) {
-        os_log("Routed to send code screen", log: logger, type: .default)
-        onRouteToSendCodeScreen?(state)
-    }
-    
-    // MARK: - Get Phone
     func getPhone() {
         let phone = worker.getPhone()
         presentor.showPhone(phone)
     }
     
-    // MARK: - Resend Code Request
     func resendCodeRequest(_ request: VerifyModels.ResendCodeRequest) {
         os_log("Sent resend code request to server", log: logger, type: .info)
         if (state == SignupState.signin) {
@@ -130,6 +112,21 @@ final class VerifyInteractor: VerifyBusinessLogic {
     }
     
     // MARK: - Routing
+    func routeToSignupScreen(_ state: SignupState) {
+        os_log("Routed to signup screen", log: logger, type: .default)
+        onRouteToSignupScreen?(state)
+    }
+    
+    func routeToChatScreen(_ state: SignupState) {
+        os_log("Routed to chat menu screen", log: logger, type: .default)
+        onRouteToChatScreen?(state)
+    }
+    
+    func routeToSendCodeScreen(_ state: SignupState) {
+        os_log("Routed to send code screen", log: logger, type: .default)
+        onRouteToSendCodeScreen?(state)
+    }
+    
     func successTransition() {
         presentor.hideResendButton()
     }

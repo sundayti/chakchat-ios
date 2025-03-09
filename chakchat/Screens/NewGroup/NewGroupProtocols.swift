@@ -7,16 +7,14 @@
 
 import Foundation
 
-// MARK: - NewGroupBusinessLogic
+// MARK: - NewGroupProtocols
 protocol NewGroupBusinessLogic: SearchInteractor {
     func backToNewMessageScreen()
 }
 
-// MARK: - NewGroupWorkerLogic
 protocol NewGroupPresentationLogic {
 }
 
-// MARK: - NewGroupWorkerLogic
 protocol NewGroupWorkerLogic {
     func fetchUsers(
         _ name: String?,

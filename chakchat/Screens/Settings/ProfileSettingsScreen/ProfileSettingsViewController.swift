@@ -74,8 +74,8 @@ final class ProfileSettingsViewController: UIViewController {
         interactor.loadUserData()
     }
     
-    // MARK: - User Data Configuration
-    public func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    // MARK: - Public Methods
+    func configureUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         nameTextField.setText(userData.name)
         usernameTextField.setText(userData.username)
         let formattedPhone = Format.number(userData.phone)
@@ -114,19 +114,16 @@ final class ProfileSettingsViewController: UIViewController {
         bindDynamicCheck()
     }
     
-    // MARK: - Cancel Button Configuration
     private func configureCancelButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .plain, target: self, action: #selector(cancelButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.lightOrange
     }
     
-    // MARK: - Apply Button Configuration
     private func configureApplyButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizationManager.shared.localizedString(for: "apply"), style: .plain, target: self, action: #selector(applyButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.lightOrange
     }
     
-    // MARK: - Icon ImageView Configuration
     private func configureIconImageView(_ image: UIImage?) {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconImageSize)
@@ -147,8 +144,7 @@ final class ProfileSettingsViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
         iconImageView.addGestureRecognizer(tapGesture)
     }
-    
-    // MARK: - Name Text Field Configuration
+
     private func configureNameTextField() {
         view.addSubview(nameTextField)
         nameTextField.addSubview(nameIndicator)
@@ -161,7 +157,6 @@ final class ProfileSettingsViewController: UIViewController {
         nameIndicator.pinRight(nameTextField.trailingAnchor, 20)
     }
     
-    // MARK: - Username Text Field Configuration
     private func configureUsernameTextField() {
         view.addSubview(usernameTextField)
         usernameTextField.addSubview(activityIndicator)
@@ -180,8 +175,7 @@ final class ProfileSettingsViewController: UIViewController {
         usernameIndicator.pinRight(usernameTextField.trailingAnchor, 20)
    
     }
-    
-    // MARK: - Phone Text Field Configuration
+ 
     private func configurePhoneTextField() {
         view.addSubview(phoneTextField)
         phoneTextField.pinTop(usernameTextField.bottomAnchor, Constants.phoneTop)
@@ -197,7 +191,6 @@ final class ProfileSettingsViewController: UIViewController {
         birthTextField.pinRight(view.trailingAnchor, Constants.birthTextFieldTrailing)
     }
     
-    // MARK: - Log Out Button Configuration
     private func configureLogOutButton() {
         logOutButton.setTitle(LocalizationManager.shared.localizedString(for: "log_out"), for: .normal)
         logOutButton.setTitleColor(.systemRed, for: .normal)
@@ -215,7 +208,6 @@ final class ProfileSettingsViewController: UIViewController {
         logOutButton.pinTop(dateButton.bottomAnchor, Constants.logOutButtonTop)
     }
     
-    // MARK: - Date Button Configuration
     private func configureDateButton() {
         view.addSubview(dateButton)
         dateButton.pinTop(phoneTextField.bottomAnchor, Constants.dateButtonTop)
@@ -225,7 +217,7 @@ final class ProfileSettingsViewController: UIViewController {
         dateButton.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
     }
     
-    // MARK: - User Profile Data Transfering
+    // MARK: - Supporting Methods
     private func transferUserProfileData() throws -> ProfileSettingsModels.ChangeableProfileUserData {
         guard let newNickname = nameTextField.getText() else {
             throw CriticalError.noData
@@ -343,6 +335,17 @@ final class ProfileSettingsViewController: UIViewController {
         }
     }
     
+    @objc
+    private func languageDidChange() {
+        navigationItem.rightBarButtonItem?.title = LocalizationManager.shared.localizedString(for: "apply")
+        navigationItem.leftBarButtonItem?.title = LocalizationManager.shared.localizedString(for: "cancel")
+        logOutButton.titleLabel?.text = LocalizationManager.shared.localizedString(for: "log_out")
+        nameTextField.localize()
+        usernameTextField.localize()
+        phoneTextField.localize()
+        birthTextField.localize()
+    }
+    
     // TODO: - Probably it is interactor logic
     private func handleDateSelection(_ date: Date?) {
         if let date = date {
@@ -356,17 +359,6 @@ final class ProfileSettingsViewController: UIViewController {
             selectedDate = nil
             birthTextField.setText(nil)
         }
-    }
-    
-    @objc
-    private func languageDidChange() {
-        navigationItem.rightBarButtonItem?.title = LocalizationManager.shared.localizedString(for: "apply")
-        navigationItem.leftBarButtonItem?.title = LocalizationManager.shared.localizedString(for: "cancel")
-        logOutButton.titleLabel?.text = LocalizationManager.shared.localizedString(for: "log_out")
-        nameTextField.localize()
-        usernameTextField.localize()
-        phoneTextField.localize()
-        birthTextField.localize()
     }
 }
 

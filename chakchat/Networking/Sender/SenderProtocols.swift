@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - SenderLogic
+// MARK: - SenderProtocols
 protocol SenderLogic {
     static func send<T: Codable>(endpoint: String,
                                  method: HTTPMethod,

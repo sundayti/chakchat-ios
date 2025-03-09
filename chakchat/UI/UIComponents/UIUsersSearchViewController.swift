@@ -46,7 +46,6 @@ final class UIUsersSearchViewController: UIViewController {
         bindSearch()
     }
     
-    // MARK: - Search TableView Configuration
     private func configureSearchTableView() {
         view.addSubview(usersTableView)
         usersTableView.delegate = self

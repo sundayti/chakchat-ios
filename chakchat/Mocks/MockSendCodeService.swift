@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - MockSendCodeService
 final class MockIdentityService<T>: IdentityServiceProtocol {
-    // MARK: - Properties
+    
     var result: Result<T, Error>?
     
     func sendCodeRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<SuccessResponse<Response>, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {

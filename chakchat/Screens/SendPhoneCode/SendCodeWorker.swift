@@ -21,7 +21,7 @@ final class SendCodeWorker: SendCodeWorkerLogic {
         self.userDefaultsManager = userDefaultsManager
     }
     
-    // MARK: - Authentication Requests
+    // MARK: - Public methods
     func sendInRequest(_ request: SendCodeModels.SendCodeRequest,
                      completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
@@ -56,7 +56,6 @@ final class SendCodeWorker: SendCodeWorkerLogic {
         }
     }
     
-    // MARK: - Registration Requests
     func sendUpRequest(_ request: SendCodeModels.SendCodeRequest,
                        completion: @escaping (Result<SignupState, Error>) -> Void) {
         identityService.sendCodeRequest(request,

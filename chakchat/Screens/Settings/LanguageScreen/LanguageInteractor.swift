@@ -19,7 +19,7 @@ final class LanguageInteractor: LanguageBusinessLogic {
         self.presenter = presenter
     }
     
-    // MARK: - Language Updating
+    // MARK: - Public Methods
     func updateLanguage(to languageCode: String, completion: @escaping () -> Void) {
         LocalizationManager.shared.setLanguage(languageCode) {
             completion()

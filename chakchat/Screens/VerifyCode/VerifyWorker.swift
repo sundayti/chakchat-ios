@@ -26,7 +26,7 @@ final class VerifyWorker: VerifyWorkerLogic {
         self.userDefaultsManager = userDefaultsManager
     }
     
-    // MARK: - Verification Request
+    // MARK: - Public Methods
     func sendVerificationRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<SignupState, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
         print("Send request to service")
         identityService.sendVerificationRequest(
@@ -50,15 +50,13 @@ final class VerifyWorker: VerifyWorkerLogic {
         }
     }
     
-    // MARK: - Verify Code Getting
     func getVerifyCode(_ key: String) -> UUID? {
         guard let savedKey = keychainManager.getUUID(key: key) else {
             return nil
         }
         return savedKey
     }
-    
-    // MARK: - Token Saving
+
     func saveToken(_ response: SuccessModels.Tokens,
                    completion: @escaping (Result<SignupState, Error>) -> Void) {
         var isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken,
@@ -77,13 +75,11 @@ final class VerifyWorker: VerifyWorkerLogic {
         }
     }
     
-    // MARK: - Get Phone
     func getPhone() -> String {
         let phone = userDefaultsManager.loadPhone()
         return phone
     }
     
-    // MARK: - SendIn Requests
     func resendInRequest(_ request: VerifyModels.ResendCodeRequest,
                      completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
@@ -108,7 +104,6 @@ final class VerifyWorker: VerifyWorkerLogic {
         }
     }
     
-    // MARK: - Registration Requests
     func resendUpRequest(_ request: VerifyModels.ResendCodeRequest,
                        completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")

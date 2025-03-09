@@ -120,14 +120,12 @@ final class SendCodeViewController: UIViewController {
         configurateErrorLabel()
     }
     
-    // MARK: - ChakChat Stack View Configuration
     private func configureChakChatStackView() {
         view.addSubview(chakchatStackView)
         chakchatStackView.pinTop(view.safeAreaLayoutGuide.topAnchor, UIConstants.chakchatStackViewTopAnchor)
         chakchatStackView.pinCenterX(view)
     }
     
-    // MARK: - Input Number Text Field Configuration
     private func configureInputNumberTextField() {
         view.addSubview(inputNumberTextField)
         inputNumberTextField.pinTop(chakchatStackView.bottomAnchor, Constants.inputNumberTextFieldTopAnchor)
@@ -135,7 +133,6 @@ final class SendCodeViewController: UIViewController {
         inputNumberTextField.delegate = self
     }
     
-    // MARK: - Input Button Configuration
     private func configureInputButton() {
         view.addSubview(sendGradientButton)
         sendGradientButton.pinCenterX(view)
@@ -153,7 +150,6 @@ final class SendCodeViewController: UIViewController {
         sendGradientButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
-    // MARK: - Countinuing Label Configuration
     private func configureCountinuingLabel() {
         view.addSubview(descriptionLabel)
         descriptionLabel.text = LocalizationManager.shared.localizedString(for: "agreement_with_prompt")
@@ -162,8 +158,7 @@ final class SendCodeViewController: UIViewController {
         descriptionLabel.pinBottom(termsLabel.topAnchor, Constants.descriptionLabelBottom)
         descriptionLabel.pinCenterX(view)
     }
-    
-    // MARK: - Terms View Configuration
+
     private func configureTermsView() {
         view.addSubview(termsLabel)
         let underlineAttributedString = NSAttributedString(string: "StringWithUnderLine", attributes: underlineAttribute)
@@ -181,7 +176,6 @@ final class SendCodeViewController: UIViewController {
         termsLabel.addGestureRecognizer(tapGesture)
     }
     
-    // MARK: - Error Label Configuration
     private func configurateErrorLabel() {
         view.addSubview(errorLabel)
         errorLabel.pinCenterX(view)

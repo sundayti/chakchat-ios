@@ -55,7 +55,6 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         navigationItem.titleView = titleLabel
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
@@ -63,7 +62,6 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -73,7 +71,6 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Phone Visibility Table Configuration
     private func configurePhoneVisibilityTable() {
         view.addSubview(phoneVisibilityTable)
         phoneVisibilityTable.delegate = self
@@ -88,7 +85,7 @@ final class PhoneVisibilityScreenViewController: UIViewController {
         phoneVisibilityTable.backgroundColor = view.backgroundColor
     }
     
-    // MARK: - Exceptions Section Updating
+    // MARK: - Supporting Methods
     // Edits the second section depending on what is selected in the first.
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
@@ -98,7 +95,8 @@ final class PhoneVisibilityScreenViewController: UIViewController {
             break
         }
     }
-    //TODO: - probably here i will take id of special users(if current user tapped "specified" option)
+    
+    // TODO: - probably here i will take id of special users(if current user tapped "specified" option)
     private func transferRestriction() -> String {
         if let selectedIndex {
             switch selectedIndex.row {
@@ -126,7 +124,6 @@ final class PhoneVisibilityScreenViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - Mark Current Option
     // Called during screen configuration to check the box depending on the data in the user defaults storage
     public func markCurrentOption(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         var rowIndex: Int
@@ -144,12 +141,10 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         selectedIndex = IndexPath(row: rowIndex, section: 0)
     }
     
-    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return phoneVisibilityData.count
     }
     
-    // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return phoneVisibilityData[section].count
@@ -158,7 +153,6 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         }
     }
     
-    // MARK: - Configuration and returning the cell for the specified index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: VisibilityCell.cellIdentifier, for: indexPath) as? VisibilityCell else {
@@ -180,7 +174,6 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         }
     }
     
-    // MARK: - Setting Header to each Section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
@@ -205,12 +198,10 @@ extension PhoneVisibilityScreenViewController: UITableViewDelegate, UITableViewD
         return headerView
     }
     
-    // MARK: - Setting space between different section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UIConstants.ConfidentialitySpaceBetweenSections
     }
     
-    // MARK: - Defining the behavior when a cell is clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {

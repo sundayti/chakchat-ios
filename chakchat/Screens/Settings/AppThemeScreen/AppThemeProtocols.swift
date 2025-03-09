@@ -7,12 +7,11 @@
 
 import Foundation
 
-// MARK: - AppThemeBusinessLogic
+// MARK: - AppTheme Protocols
 protocol AppThemeBusinessLogic {
     func backToSettingsMenu()
     func updateTheme(_ theme: AppTheme)
 }
 
-// MARK: - AppThemePresentationLogic
 protocol AppThemePresentationLogic {
 }

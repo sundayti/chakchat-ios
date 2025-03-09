@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - BirthVisibilityScreenBusinessLogic
+// MARK: - BirthVisibilityScreen Protocols
 protocol BirthVisibilityScreenBusinessLogic {
     /// тут все аналогично экрану PhoneVisibility
     func backToConfidentialityScreen(_ birthRestriction: String)
@@ -17,12 +17,10 @@ protocol BirthVisibilityScreenBusinessLogic {
     func saveNewRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
 }
 
-// MARK: - BirthVisibilityScreenPresentationLogic
 protocol BirthVisibilityScreenPresentationLogic {
     func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
 }
 
-// MARK: - BirthVisibilityScreenWorkerLogic
 protocol BirthVisibilityScreenWorkerLogic {
     func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData,
                                completion: @escaping (Result<Void, Error>) -> Void)

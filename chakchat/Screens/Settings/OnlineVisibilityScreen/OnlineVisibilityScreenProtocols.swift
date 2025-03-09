@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - OnlineVisibilityScreenBusinessLogic
+// MARK: - OnlineVisibilityScreen Protocols
 protocol OnlineVisibilityScreenBusinessLogic {
     func backToConfidentialityScreen(_ onlineRestriction: String)
     
@@ -16,12 +16,10 @@ protocol OnlineVisibilityScreenBusinessLogic {
     func saveNewRestrictions(_ onlineRestriction: OnlineVisibilityStatus)
 }
 
-// MARK: - OnlineVisibilityScreenPresentationsLogic
 protocol OnlineVisibilityScreenPresentationLogic {
     func showUserRestrictions(_ onlineRestriction: OnlineVisibilityStatus)
 }
 
-// MARK: - OnlineVisibilityScreenWorkerLogic
 protocol OnlineVisibilityScreenWorkerLogic {
     func saveNewRestrictions(_ newOnlineRestriction: OnlineVisibilityStatus)
 }

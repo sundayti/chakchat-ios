@@ -13,7 +13,7 @@ final class PhoneVisibilityScreenPresenter: PhoneVisibilityScreenPresentationLog
     // MARK: - Properties
     weak var view: PhoneVisibilityScreenViewController?
     
-    // MARK: - User Data Showing
+    // MARK: - Public Methods
     func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData) {
         view?.markCurrentOption(userRestrictions)
     }

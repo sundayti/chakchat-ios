@@ -27,22 +27,19 @@ class MailHelper: NSObject, MFMailComposeViewControllerDelegate {
     // MARK: - Initialization
     private override init() {}
 
-    // MARK: - Send Auto Error Email Method
+    // MARK: - Public Methods
     func sendAutoErrorEmail(message: String?, from viewController: UIViewController) {
         sendEmail(from: viewController, subject: Constants.subjectError, messageBody: configureMessage(errorMessage: message))
     }
     
-    // MARK: - Send Email with reporting a bug
     func sendUserBugEmail(from viewController: UIViewController) {
         sendEmail(from: viewController, subject: Constants.subjectBug, messageBody: configureMessage())
     }
     
-    // MARK: - Send Empty Email
     func sendEmptyEmail(from viewController: UIViewController) {
         sendEmail(from: viewController)
     }
 
-    // MARK: - Mail Compose Controller
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
 
@@ -60,7 +57,7 @@ class MailHelper: NSObject, MFMailComposeViewControllerDelegate {
         }
     }
     
-    // MARK: - Send Email
+    // MARK: - Supporting Methods
     private func sendEmail(from viewController: UIViewController, subject: String? = nil, messageBody: String? = nil) {
         if MFMailComposeViewController.canSendMail() {
             let mailComposer = MFMailComposeViewController()
@@ -85,7 +82,6 @@ class MailHelper: NSObject, MFMailComposeViewControllerDelegate {
         }
     }
     
-    // MARK: - Message Configuration
     private func configureMessage(errorMessage: String? = nil) -> String {
         var text = ""
         if let errorMessage {

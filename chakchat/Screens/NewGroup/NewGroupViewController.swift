@@ -83,7 +83,6 @@ final class NewGroupViewController: UIViewController {
         configureTableView()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.orange
@@ -92,20 +91,17 @@ final class NewGroupViewController: UIViewController {
         swipeGesture.direction = .right
         view.addGestureRecognizer(swipeGesture)
     }
-    
-    // MARK: - Create Button Configuration
+
     private func configureCreateButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.checkmarkLabel), style: .plain, target: self, action: #selector(createButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = Colors.orange
     }
     
-    // MARK: - Title Label Configure
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         navigationItem.titleView = titleLabel
     }
     
-    // MARK: - Search Controller Configuration
     private func configureSearchController() {
         let searchResultsController = UIUsersSearchViewController(interactor: interactor)
         searchResultsController.onUserSelected = { [weak self] user in
@@ -123,7 +119,6 @@ final class NewGroupViewController: UIViewController {
         definesPresentationContext = true
     }
     
-    // MARK: - New Group Configuration
     private func configureEmptyButton() {
         view.addSubview(emptyButton)
         emptyButton.pinLeft(view, 10)
@@ -133,7 +128,6 @@ final class NewGroupViewController: UIViewController {
         emptyButton.setHeight(0)
     }
     
-    // MARK: - Table Configuration
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.delegate = self
@@ -146,7 +140,6 @@ final class NewGroupViewController: UIViewController {
         tableView.register(UISearchControllerCell.self, forCellReuseIdentifier: "SearchControllerCell")
     }
     
-    // MARK: - Icon ImageView Configuration
     private func configureIconImageView(title: String = "new_group") {
         let image = UIImage.imageWithText(
             text: LocalizationManager.shared.localizedString(for: title),
@@ -170,7 +163,6 @@ final class NewGroupViewController: UIViewController {
         iconImageView.addGestureRecognizer(tapGesture)
     }
     
-    // MARK: - Group Text Field Configuration
     private func configureGroupTextFiled() {
         view.addSubview(groupTextField)
         groupTextField.pinTop(iconImageView.bottomAnchor, 10)
@@ -194,7 +186,7 @@ final class NewGroupViewController: UIViewController {
     }
 
     
-    // MARK: - Updating iconImageView after picking pic
+    // MARK: - Supporting Methods
     private func addPickedImage(_ image: UIImage) {
         iconImageView.setHeight(Constants.imageViewSize)
         iconImageView.setWidth(Constants.imageViewSize)
@@ -204,7 +196,6 @@ final class NewGroupViewController: UIViewController {
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
     }
     
-    // MARK: - Empty Button Animation.
     // we pin empty button to end of navigation bar and animate it when user tap to searchBar.
     // tableView is pinned to emptyButton so it is animated too.
     private func animateEmptyButton(constant: CGFloat) {
@@ -214,7 +205,6 @@ final class NewGroupViewController: UIViewController {
         }
     }
 
-    // MARK: - Handling user selected.
     private func handleSelectedUser(_ user: ProfileSettingsModels.ProfileUserData) {
         if users.contains(where: { $0.username == user.username }) {
             searchController.isActive = false

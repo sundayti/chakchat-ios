@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - NotificationScreenBusinessLogic
+// MARK: - NotificationScreen Protocols
 protocol NotificationScreenBusinessLogic {
     func backToSettingsMenu()
     
@@ -17,12 +17,10 @@ protocol NotificationScreenBusinessLogic {
     func updateNotififcationSettings(at indexPath: IndexPath, isOn: Bool)
 }
 
-// MARK: - NotificationScreenPresentationLogic
 protocol NotificationScreenPresentationLogic {
     func showUserData(_ userData: NotificationScreenModels.NotificationStatus)
 }
 
-// MARK: - NotificationScreenWorkerLogic
 protocol NotificationScreenWorkerLogic {
     func saveNewData(_ userData: NotificationScreenModels.NotificationStatus)
 }

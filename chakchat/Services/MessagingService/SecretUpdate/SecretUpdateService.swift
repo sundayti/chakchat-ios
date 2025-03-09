@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - SecretUpdateService
 final class SecretUpdateService: SecretUpdateServiceProtocol {
+    
     private let baseAPI: String = "/api/messaging/v1.0/"
     
     func sendTextMessageRequest(

@@ -11,7 +11,6 @@ struct ErrorId {
     var type: ErrorOutput
 }
 
-// MARK: - ErrorOutput
 enum ErrorOutput {
     case Alert
     case DisappearingLabel

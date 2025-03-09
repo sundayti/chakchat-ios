@@ -25,6 +25,7 @@ final class BirthVisibilityScreenWorker: BirthVisibilityScreenWorkerLogic {
         self.keychainManager = keychainManager
     }
     
+    // MARK: - Public Methods
     func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData, completion: @escaping (Result<Void, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         userService.sendPutRestrictionRequest(request, accessToken) { [weak self] result in

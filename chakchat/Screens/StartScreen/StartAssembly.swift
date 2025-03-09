@@ -11,7 +11,6 @@ import UIKit
 // MARK: - StartAssembly
 enum StartAssembly {
     
-    // MARK: - Assembly Method
     static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController{
         let view = StartViewController()
         

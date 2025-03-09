@@ -7,11 +7,10 @@
 
 import Foundation
 
-// MARK: - BlackListBusinessLogic
+// MARK: - BlackListProtocols
 protocol BlackListBusinessLogic {
     func backToConfidantialityScreen()
 }
 
-// MARK: - BlackListPresentationLogic
 protocol BlackListPresentationLogic {
 }

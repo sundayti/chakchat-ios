@@ -53,7 +53,6 @@ final class NotificationScreenViewController: UIViewController {
         interactor.loadUserData()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -63,7 +62,6 @@ final class NotificationScreenViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
@@ -71,7 +69,6 @@ final class NotificationScreenViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
-    // MARK: - Notification Table Configuration
     private func configureNotificationTable() {
         view.addSubview(notificationTableView)
         notificationTableView.delegate = self
@@ -95,7 +92,6 @@ final class NotificationScreenViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension NotificationScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - User Data Configuration
     func configureUserData(_ userData: NotificationScreenModels.NotificationStatus) {
         
         notificationTableView.layoutIfNeeded()

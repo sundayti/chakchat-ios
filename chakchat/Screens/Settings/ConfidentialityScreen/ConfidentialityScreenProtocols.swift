@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - ConfidentialityScreenBusinessLogic
+// MARK: - ConfidentialityScreen Protocols
 protocol ConfidentialityScreenBusinessLogic {
     func loadUserData()
     func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
@@ -24,7 +24,6 @@ protocol ConfidentialityScreenBusinessLogic {
     func routeToBlackListScreen()
 }
 
-// MARK: - ConfidentialityScreenPresentationLogic
 protocol ConfidentialityScreenPresentationLogic {
     func showUserData(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
     func showOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus)
@@ -32,7 +31,6 @@ protocol ConfidentialityScreenPresentationLogic {
     func showNewOnlineRestriction(_ onlineRestriction: OnlineVisibilityStatus)
 }
 
-// MARK: - ConfidentialityScreenWorkerLogic
 protocol ConfidentialityScreenWorkerLogic {
     func getUserData(completion: @escaping (Result<ConfidentialitySettingsModels.ConfidentialityUserData, Error>) -> Void)
 }

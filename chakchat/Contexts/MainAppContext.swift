@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+// MARK: - MainAppContext
 final class MainAppContext: MainAppContextProtocol {
 
     let keychainManager: KeychainManagerBusinessLogic

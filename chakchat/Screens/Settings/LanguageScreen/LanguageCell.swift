@@ -34,6 +34,7 @@ final class LanguageCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Configuration
     func configure(title: [String], isSelected: Bool, isLoading: Bool) {
         languageLocalizedLabel.text = title[0]
         languageLabel.text = title[1]
@@ -45,7 +46,6 @@ final class LanguageCell: UITableViewCell {
         }
     }
     
-    // MARK: - Cell Configuration
     private func configureCell() {
         configureCheckmark()
         configureLocalizedLanguageLabel()
@@ -53,7 +53,6 @@ final class LanguageCell: UITableViewCell {
         configureActivityIndicator()
     }
     
-    // MARK: - Checkmark Configuartion
     private func configureCheckmark() {
         contentView.addSubview(checkmarkImageView)
         checkmarkImageView.image = UIImage(systemName: "checkmark")
@@ -63,7 +62,6 @@ final class LanguageCell: UITableViewCell {
         checkmarkImageView.pinRight(contentView, Constants.currentOptionTrailing)
     }
     
-    // MARK: - Activity Indicatior Configuartion
     private func configureActivityIndicator() {
         contentView.addSubview(activityIndicator)
         activityIndicator.hidesWhenStopped = true
@@ -73,7 +71,6 @@ final class LanguageCell: UITableViewCell {
         activityIndicator.pinRight(contentView, Constants.currentOptionTrailing)
     }
     
-    // MARK: - Language Localized Label Configuartion
     private func configureLocalizedLanguageLabel() {
         contentView.addSubview(languageLocalizedLabel)
         languageLocalizedLabel.font = Fonts.systemR16
@@ -82,7 +79,6 @@ final class LanguageCell: UITableViewCell {
         languageLocalizedLabel.pinLeft(contentView, Constants.languageLeading)
     }
     
-    // MARK: - Language Label Configuartion
     private func configureLanguageLabel() {
         contentView.addSubview(languageLabel)
         languageLabel.font = Fonts.systemR12

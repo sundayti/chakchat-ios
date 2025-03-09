@@ -15,7 +15,7 @@ enum SignupState {
     case onChatsMenu
     case _default
 }
-// MARK: - AppState
+
 enum AppState {
     // implemented soon
     case _default

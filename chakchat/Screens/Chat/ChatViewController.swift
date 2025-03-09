@@ -69,7 +69,7 @@ final class ChatViewController: UIViewController {
         }
     }
     
-    // MARK: - Data Configuration
+    // MARK: - Public Methods
     func configureWithData(_ userData: ProfileSettingsModels.ProfileUserData) {
         let color = UIColor.random()
         let image = UIImage.imageWithText(
@@ -99,8 +99,7 @@ final class ChatViewController: UIViewController {
         configureSeparator()
         configureMessageView()
     }
-    
-    // MARK: - Back Button Configuration
+
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -117,7 +116,6 @@ final class ChatViewController: UIViewController {
         }
     }
     
-    // MARK: - Icon Image View Configuration
     private func configureIconImageView() {
         iconImageView.layer.cornerRadius = Constants.cornerRadius
         iconImageView.clipsToBounds = true
@@ -125,13 +123,11 @@ final class ChatViewController: UIViewController {
         iconImageView.setHeight(Constants.navigationItemHeight)
     }
     
-    // MARK: - Nuckname Label Configuration
     private func configureNicknameLabel() {
         nicknameLabel.font = Fonts.systemSB20
         nicknameLabel.textColor = Colors.text
     }
     
-    // MARK: - Title Stack View Configuration
     private func configureTitleStackView() {
         titleStackView.addArrangedSubview(iconImageView)
         titleStackView.addArrangedSubview(nicknameLabel)
@@ -143,7 +139,6 @@ final class ChatViewController: UIViewController {
         navigationController?.navigationBar.layoutIfNeeded()
     }
     
-    // MARK: - Separator Configuration
     private func configureSeparator() {
         view.addSubview(separator)
         separator.backgroundColor = .orange
@@ -153,7 +148,6 @@ final class ChatViewController: UIViewController {
         separator.pinRight(view.trailingAnchor, Constants.separatorHorizontal)
     }
     
-    // MARK: - Message View Configuration
     private func configureMessageView() {
         view.addSubview(messageInputView)
         messageInputView.interactor = interactor

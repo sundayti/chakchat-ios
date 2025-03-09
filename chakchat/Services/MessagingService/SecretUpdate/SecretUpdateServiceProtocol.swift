@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - SecretUpdateServiceProtocol
 protocol SecretUpdateServiceProtocol {
     func sendTextMessageRequest(
         _ request: ChatsModels.SecretUpdateModels.SendMessageRequest,

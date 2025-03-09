@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+// MARK: - ContextsProtocols
 protocol CommonContextProtocol: AnyObject {
     var keychainManager: KeychainManagerBusinessLogic { get }
     var errorHandler: ErrorHandlerLogic { get }

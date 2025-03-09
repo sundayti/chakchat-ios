@@ -29,7 +29,7 @@ final class ChatWorker: ChatWorkerLogic {
         self.updateService = updateService
     }
     
-    // MARK: - Chat Creating
+    // MARK: - Public Methods
     func createChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ChatsModels.PersonalChat.CreateRequest(memberID: memberID)
@@ -45,7 +45,6 @@ final class ChatWorker: ChatWorkerLogic {
         }
     }
     
-    // MARK: - Text Message Sending 
     func sendTextMessage(_ message: String) {
         print("Sended message: \(message)")
     }

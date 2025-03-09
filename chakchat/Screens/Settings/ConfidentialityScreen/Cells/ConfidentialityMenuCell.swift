@@ -33,19 +33,18 @@ final class ConfidentialityMenuCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Settings Configuration
-    public func configureSettings(title: String, status: String) {
+    // MARK: - Public Methods
+    func configureSettings(title: String, status: String) {
         settingLabel.text = title
         settingStatus.text = status
     }
     
-    // MARK: - Cell Configuration
+    // MARK: - Configuration
     private func configureCell() {
         configureSettingLabel()
         configureSettingStatus()
     }
     
-    // MARK: - Setting Label Configuration
     private func configureSettingLabel() {
         contentView.addSubview(settingLabel)
         settingLabel.tintColor = .black
@@ -54,7 +53,6 @@ final class ConfidentialityMenuCell: UITableViewCell {
         settingLabel.pinLeft(contentView.leadingAnchor, Constants.settingsLabelLeading)
     }
     
-    // MARK: - Setting Status Configuration
     private func configureSettingStatus() {
         contentView.addSubview(settingStatus)
         settingStatus.textColor = .gray

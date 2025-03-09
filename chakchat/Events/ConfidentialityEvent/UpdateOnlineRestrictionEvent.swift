@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - UpdateOnlineRestrictionEvent
 final class UpdateOnlineRestrictionEvent: Event {
+    
     var newOnline: String
     
     init(newOnline: String) {

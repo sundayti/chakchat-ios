@@ -10,7 +10,6 @@ import Foundation
 // MARK: - Signup Models
 enum SignupModels {
     
-    // MARK: - Request Models
     struct SignupRequest: Codable {
         let signupKey: UUID
         let name: String

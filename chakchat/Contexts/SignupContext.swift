@@ -11,14 +11,12 @@ import OSLog
 // MARK: - SignupContext
 final class SignupContext: SignupContextProtocol {
         
-    // MARK: - Properties
     let keychainManager: KeychainManagerBusinessLogic
     let errorHandler: ErrorHandlerLogic
     let userDefaultsManager: UserDefaultsManagerProtocol
     var state: SignupState
     let logger: OSLog
     
-    // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic, errorHandler: ErrorHandlerLogic, userDefaultsManager: UserDefaultsManagerProtocol, state: SignupState, logger: OSLog) {
         self.keychainManager = keychainManager
         self.errorHandler = errorHandler

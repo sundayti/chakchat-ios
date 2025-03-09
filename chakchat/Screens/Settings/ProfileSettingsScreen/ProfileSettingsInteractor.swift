@@ -37,20 +37,18 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
     }
     
 
-    // MARK: - User Data Loading
+    // MARK: - Public Methods
     func loadUserData() {
         os_log("Loaded user data in profile settings screen", log: logger, type: .default)
         let userData = worker.getUserData()
         showUserData(userData)
     }
     
-    // MARK: - User Data Showing
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         os_log("Passed user data in settigns screen to presenter", log: logger, type: .default)
         presenter.showUserData(userData)
     }
-    
-    // MARK: - New data Saving
+
     func putNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData) {
         os_log("Saved new data in profile settings screen", log: logger, type: .default)
         worker.putUserData(newUserData) { [weak self] result in

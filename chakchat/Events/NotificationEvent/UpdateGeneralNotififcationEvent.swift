@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - UpdateGeneralNotififcationEvent
 final class UpdateGeneralNotififcationEvent: Event {
+    
     var newGeneralNotififcationStatus: Bool
     
     init(newGeneralNotififcationStatus: Bool) {
