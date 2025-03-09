@@ -9,4 +9,8 @@ import Foundation
 
 final class GroupChatProfilePresenter: GroupChatProfilePresentationLogic {
     weak var view: GroupChatProfileViewController?
+    
+    func passChatData(_ chatData: ChatsModels.GroupChat.Response) {
+        view?.configureWithUserData(chatData)
+    }
 }
