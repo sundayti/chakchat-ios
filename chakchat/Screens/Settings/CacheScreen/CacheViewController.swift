@@ -41,7 +41,6 @@ final class CacheViewController: UIViewController {
         navigationItem.titleView = titleLabel
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -51,7 +50,6 @@ final class CacheViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Title Label Configure
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24

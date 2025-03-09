@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - UpdateVibrationNotificationEvent
 final class UpdateVibrationNotificationEvent: Event {
+    
     var newVibrationNotificationStatus: Bool
     
     init(newVibrationNotificationStatus: Bool) {

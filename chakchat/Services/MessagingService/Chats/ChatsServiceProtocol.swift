@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - ChatsServiceProtocol
 protocol ChatsServiceProtocol {
     func sendGetChatsRequest(
         _ accessToken: String,

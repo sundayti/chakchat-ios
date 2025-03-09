@@ -22,7 +22,7 @@ final class ErrorHandler: ErrorHandlerLogic {
         self.identityService = identityService
     }
     
-    // MARK: - Handle Error Method
+    // MARK: - Public Methods
     func handleError(_ error: Error) -> ErrorId {
         if error is Keychain.KeychainError {
             guard let keychainError = error as? Keychain.KeychainError else {
@@ -50,7 +50,21 @@ final class ErrorHandler: ErrorHandlerLogic {
         return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
     }
     
-    // MARK: - Handle Keychain Error Method
+    func handleAccessTokenAbsence() {
+        guard let refreshToken = keychainManager.getString(key: KeychainManager.keyForSaveRefreshToken) else { return }
+        identityService.sendRefreshTokensRequest(RefreshRequest(refreshToken: refreshToken)) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let keys):
+                _ = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken, value: keys.data.accessToken)
+                _ = self.keychainManager.save(key: KeychainManager.keyForSaveRefreshToken, value: keys.data.refreshToken)
+            case .failure(let failure):
+                _ = handleError(failure)
+            }
+        }
+    }
+    
+    // MARK: - Supporting Methods
     private func handleKeychainError(_ keychainError: Keychain.KeychainError) -> ErrorId {
         switch keychainError {
         case Keychain.KeychainError.saveError:
@@ -65,7 +79,6 @@ final class ErrorHandler: ErrorHandlerLogic {
         return ErrorId(message: nil, type: ErrorOutput.None)
     }
     
-    // MARK: - Handle Api Error Method
     private func handleApiError(_ apiError: APIError) -> ErrorId {
         switch apiError {
         case .invalidURL:
@@ -92,7 +105,6 @@ final class ErrorHandler: ErrorHandlerLogic {
         return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
     }
     
-    // MARK: - Handle Api Response Error Method
     private func handleApiResponseError(_ apiResponseError: APIErrorResponse) -> ErrorId {
         switch apiResponseError.errorType {
         case ApiErrorType.internalError.rawValue:
@@ -176,20 +188,6 @@ final class ErrorHandler: ErrorHandlerLogic {
         default:
             print("Error: An unknown error occurred.")
             return ErrorId(message: serverErrorMessage, type: ErrorOutput.Alert)
-        }
-    }
-    
-    func handleAccessTokenAbsence() {
-        guard let refreshToken = keychainManager.getString(key: KeychainManager.keyForSaveRefreshToken) else { return }
-        identityService.sendRefreshTokensRequest(RefreshRequest(refreshToken: refreshToken)) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let keys):
-                _ = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken, value: keys.data.accessToken)
-                _ = self.keychainManager.save(key: KeychainManager.keyForSaveRefreshToken, value: keys.data.refreshToken)
-            case .failure(let failure):
-                _ = handleError(failure)
-            }
         }
     }
 }

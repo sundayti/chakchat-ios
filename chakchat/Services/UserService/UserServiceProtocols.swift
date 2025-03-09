@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// MARK: - UserServiceProtocol
 protocol UserServiceProtocol {
     func sendGetUserRequest(_ userID: UUID, _ accessToken: String, completion: @escaping (Result<SuccessResponse<ProfileSettingsModels.ProfileUserData>, Error>) -> Void)
     

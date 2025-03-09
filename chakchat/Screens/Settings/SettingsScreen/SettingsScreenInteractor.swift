@@ -45,7 +45,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         subscribeToEvents()
     }
     
-    // MARK: - User Data Loading
+    // MARK: - Public Methods
     func loadUserData() {
         os_log("Loading user data from userDefaults", log: logger, type: .default)
         let userData = worker.getUserData()
@@ -64,14 +64,11 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
         }
     }
     
-    
-    // MARK: - User Data Showing
     func showUserData(_ data: ProfileSettingsModels.ProfileUserData) {
         os_log("Passed user data in settings screen to presenter", log: logger, type: .default)
         presenter.showUserData(data)
     }
-    
-    // MARK: - New User Data Showing
+
     func showNewUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData) {
         os_log("Passed new user data in settings screen to presenter", log: logger, type: .default)
         presenter.showNewUserData(data)
@@ -83,7 +80,7 @@ final class SettingsScreenInteractor: SettingsScreenBusinessLogic {
     }
     
     
-    // MARK: - User Data Changed Event Handling
+    // MARK: - Private Methods
     private func subscribeToEvents() {
         eventSubscriber.subscribe(UpdateProfileDataEvent.self) { [weak self] event in
             self?.handleUserDataChangedEvent(event)

@@ -14,7 +14,7 @@ final class ProfileSettingsPresenter: ProfileSettingsScreenPresentationLogic {
     // MARK: - Properties
     weak var view: ProfileSettingsViewController?
     
-    // MARK: - User Data Showing
+    // MARK: - Public Methods
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         view?.configureUserData(userData)
     }

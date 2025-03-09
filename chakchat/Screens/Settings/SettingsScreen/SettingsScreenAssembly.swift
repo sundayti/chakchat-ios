@@ -11,7 +11,6 @@ import UIKit
 // MARK: - SettingsScreenAssembly
 enum SettingsScreenAssembly {
     
-    // MARK: - Setting Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = SettingsScreenPresenter()
         let userService = UserService()

@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - IdentityService
 final class IdentityService: IdentityServiceProtocol {
     func sendCodeRequest<Request, Response>(_ request: Request, _ endpoint: String, _ responseType: Response.Type, completion: @escaping (Result<SuccessResponse<Response>, any Error>) -> Void) where Request : Decodable, Request : Encodable, Response : Decodable, Response : Encodable {
         let idempotencyKey = UUID().uuidString

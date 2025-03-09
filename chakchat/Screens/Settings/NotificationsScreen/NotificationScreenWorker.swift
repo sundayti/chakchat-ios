@@ -18,7 +18,7 @@ final class NotificationScreenWorker: NotificationScreenWorkerLogic {
         self.userDefaultsManager = userDefaultsManager
     }
     
-    // MARK: - New Data Saving
+    // MARK: - Public Methods
     func saveNewData(_ userData: NotificationScreenModels.NotificationStatus) {
         userDefaultsManager.saveGeneralNotificationStatus(userData.generalNotification)
         userDefaultsManager.saveAudioNotificationStatus(userData.audioNotification)

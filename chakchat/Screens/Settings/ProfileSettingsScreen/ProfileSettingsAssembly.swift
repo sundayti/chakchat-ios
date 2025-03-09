@@ -11,7 +11,6 @@ import UIKit
 // MARK: - ProfileSettingsAssembly
 enum ProfileSettingsAssembly {
     
-    // MARK: - Profile Setting Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ProfileSettingsPresenter()
         let meService = UserService()

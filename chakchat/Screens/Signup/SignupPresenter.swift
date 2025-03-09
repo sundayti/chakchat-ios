@@ -14,7 +14,7 @@ final class SignupPresenter: SignupPresentationLogic {
     // MARK: - Properties
     weak var view: SignupViewController?
     
-    // MARK: - Error Handling
+    // MARK: - Public Methods
     func showError(_ error: ErrorId) {
         switch error.type {
         case .Alert:
@@ -26,7 +26,6 @@ final class SignupPresenter: SignupPresentationLogic {
         }
     }
     
-    // MARK: - Alert Presentation
     func showAlert(_ message: String?) {
         view?.showAlert(message: message)
     }

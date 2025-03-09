@@ -45,7 +45,7 @@ final class NewGroupInteractor: NewGroupBusinessLogic {
             }
         }
     }
-    
+
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
         worker.fetchUsers(name, username, page, limit) { [weak self] result in
             guard self != nil else { return }

@@ -25,6 +25,7 @@ final class SettingsScreenWorker: SettingsScreenWorkerLogic {
         self.keychainManager = keychainManager
     }
     
+    // MARK: - Public Methods
     func getUserData() -> ProfileSettingsModels.ProfileUserData {
         let userData = userDefaultsManager.loadUserData()
         return userData

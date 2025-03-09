@@ -78,8 +78,8 @@ final class SettingsScreenViewController: UIViewController {
         configureUI()
     }
     
-    // MARK: - UserData Configuration
-    public func configureUserData(_ data: ProfileSettingsModels.ProfileUserData) {
+    // MARK: - Public Methods
+    func configureUserData(_ data: ProfileSettingsModels.ProfileUserData) {
         // if user already loaded his data
         if let imageURL = data.photo {
             if let image = ImageCacheManager.shared.getImage(for: imageURL as NSURL) {
@@ -103,12 +103,12 @@ final class SettingsScreenViewController: UIViewController {
     }
     
     // MARK: - UserData Update
-    public func updateUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData) {
+    func updateUserData(_ data: ProfileSettingsModels.ChangeableProfileUserData) {
         nicknameLabel.text = data.name
         usernameLabel.text = data.username
     }
     
-    public func updatePhoto(_ photo: URL?) {
+    func updatePhoto(_ photo: URL?) {
         if let url = photo {
             iconImageView.image = ImageCacheManager.shared.getImage(for: url as NSURL)
             iconImageView.layer.cornerRadius = 40
@@ -128,14 +128,12 @@ final class SettingsScreenViewController: UIViewController {
         configureSettingTableView()
     }
     
-    // MARK: - Settings Label Configuration
     private func configureSettingsLabel() {
         view.addSubview(settingsLabel)
         settingsLabel.font = Fonts.systemB24
         settingsLabel.text = LocalizationManager.shared.localizedString(for: "settings")
     }
-    
-    // MARK: - Back Button Configuration
+
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.backArrowSymbol), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -144,8 +142,7 @@ final class SettingsScreenViewController: UIViewController {
         swipeGesture.direction = .right
         view.addGestureRecognizer(swipeGesture)
     }
-    
-    // MARK: - Icon ImageView Configuration
+
     private func configureIconImageView(_ image: UIImage?) {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconImageSize)
@@ -161,7 +158,6 @@ final class SettingsScreenViewController: UIViewController {
         iconImageView.image = image ?? gearImage
     }
     
-    // MARK: - Settings TableView Configuration
     private func configureSettingTableView() {
         view.addSubview(settingsTableView)
         settingsTableView.delegate = self
@@ -175,7 +171,6 @@ final class SettingsScreenViewController: UIViewController {
         settingsTableView.backgroundColor = view.backgroundColor
     }
     
-    // MARK: - Nickname Label Confguration
     private func configureNicknameLabel(_ nickname: String) {
         view.addSubview(nicknameLabel)
         nicknameLabel.pinCenterX(view)
@@ -183,8 +178,7 @@ final class SettingsScreenViewController: UIViewController {
         nicknameLabel.font = Fonts.systemSB20
         nicknameLabel.text = nickname
     }
-    
-    // MARK: - Data StackView Configuration
+
     private func configureDataStackView(_ username: String?, _ phone: String?) {
         view.addSubview(phoneLabel)
         view.addSubview(usernameLabel)
@@ -241,7 +235,6 @@ final class SettingsScreenViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - Table Header Configuration
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: Constants.tableHeaderX, y: Constants.tableHeaderY, width: tableView.frame.width, height: Constants.tableHeaderHeight))
         
@@ -271,22 +264,18 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         return headerView
     }
     
-    // MARK: - Setting Space between Sections
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return Constants.spaceBetweenSections
     }
-    
-    // MARK: - Setting Number of Sections
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
-    
-    // MARK: - Number of lines in Section
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].count
     }
-    
-    // MARK: - Configuration and returning the cell for the specified index
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let settingsCell = tableView.dequeueReusableCell(withIdentifier: SettingsMenuCell.cellIdentifier, for: indexPath) as? SettingsMenuCell
         else {
@@ -296,8 +285,7 @@ extension SettingsScreenViewController: UITableViewDelegate, UITableViewDataSour
         settingsCell.configure(with: item.0, with: item.1)
         return settingsCell
     }
-    
-    // MARK: - Defining the behavior when a cell is clicked
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {

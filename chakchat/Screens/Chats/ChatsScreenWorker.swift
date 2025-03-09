@@ -10,12 +10,15 @@ import OSLog
 
 // MARK: - ChatsScreenWorker
 final class ChatsScreenWorker: ChatsScreenWorkerLogic {
+    
+    // MARK: - Properties
     private let keychainManager: KeychainManagerBusinessLogic
     private let userDefaultManager: UserDefaultsManagerProtocol
     private let coreDataManager: CoreDataManagerProtocol
     private let userService: UserServiceProtocol
     private let logger: OSLog
     
+    // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic,
          userDefaultManager: UserDefaultsManagerProtocol,
          userService: UserServiceProtocol,
@@ -29,6 +32,7 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
         self.logger = logger
     }
     
+    // MARK: - Public Methods
     func loadChats() -> [ChatsModels.PersonalChat.Response]? {
         var result: [ChatsModels.PersonalChat.Response] = []
         if let chats = coreDataManager.fetchChats() {

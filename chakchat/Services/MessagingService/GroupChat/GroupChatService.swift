@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - GroupChatService
 final class GroupChatService: GroupChatServiceProtocol {
+    
     func sendCreateChatRequest(
         _ request: ChatsModels.GroupChat.CreateRequest,
         _ accessToken: String,

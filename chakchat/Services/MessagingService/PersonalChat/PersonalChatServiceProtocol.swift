@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - PersonalChatServiceProtocol
 protocol PersonalChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.PersonalChat.CreateRequest,

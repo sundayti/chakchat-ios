@@ -19,17 +19,15 @@ final class HelpInteractor: HelpBusinessLogic {
         self.presenter = presenter
     }
     
-    // MARK: - Send Mail about error
+    // MARK: - Public Methods
     func sendErrorMail(_ view: UIViewController) {
         MailHelper.shared.sendUserBugEmail(from: view)
     }
     
-    // MARK: - Send Empty Mail
     func sendEmptyMail(_ view: UIViewController) {
         MailHelper.shared.sendEmptyEmail(from: view)
     }
     
-    // MARK: - Open AppStore to review
     func reviewInAppStore() {
         // TODO: add appID
         let appID = "698255242"

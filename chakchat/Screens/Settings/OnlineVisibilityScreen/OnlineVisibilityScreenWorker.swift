@@ -18,6 +18,7 @@ final class OnlineVisibilityScreenWorker: OnlineVisibilityScreenWorkerLogic {
         self.userDeafultsManager = userDeafultsManager
     }
     
+    // MARK: - Public Methods
     func saveNewRestrictions(_ newOnlineRestriction: OnlineVisibilityStatus) {
         userDeafultsManager.saveOnlineStatus(newOnlineRestriction.status)
     }

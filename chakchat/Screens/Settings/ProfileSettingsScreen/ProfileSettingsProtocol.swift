@@ -9,7 +9,7 @@ import UIKit
 import Combine
 /// параметр имеет префикс temp => это вынужденная мера для решения проблем со стабами
 /// потом этого параметра не будет
-// MARK: - ProfileSettingsBusinessLogic
+// MARK: - ProfileSettings Protocol
 protocol ProfileSettingsScreenBusinessLogic {
     func backToSettingsMenu()
     func backToRegistration()
@@ -24,7 +24,6 @@ protocol ProfileSettingsScreenBusinessLogic {
     func signOut()
 }
 
-// MARK: - ProfileSettingsPresentationLogic
 protocol ProfileSettingsScreenPresentationLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
 }

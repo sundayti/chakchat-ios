@@ -45,23 +45,21 @@ final class NotificationCell: UITableViewCell {
         return switchButton.point(inside: newPoint, with: event)
     }
     
-    // MARK: - Configuration
-    public func configure(title: String) {
+    // MARK: - Public Methods
+    func configure(title: String) {
         notificationLabel.text = title
     }
     
-    // MARK: - Switch Button Configuration
-    public func configureSwitch(isOn: Bool) {
+    func configureSwitch(isOn: Bool) {
         switchButton.isOn = isOn
     }
     
-    // MARK: - Cell Configuration
+    // MARK: - Configuration
     private func configureCell() {
         configureNotificationLabel()
         configureSwitchButton()
     }
     
-    // MARK: - Notification Label Configuration
     private func configureNotificationLabel() {
         contentView.addSubview(notificationLabel)
         notificationLabel.font = Fonts.systemR16
@@ -70,7 +68,6 @@ final class NotificationCell: UITableViewCell {
         notificationLabel.pinLeft(contentView.leadingAnchor, Constants.notificationLabelLeading)
     }
     
-    // MARK: - Switch Button Configuration
     private func configureSwitchButton() {
         contentView.addSubview(switchButton)
         switchButton.pinCenterY(contentView)

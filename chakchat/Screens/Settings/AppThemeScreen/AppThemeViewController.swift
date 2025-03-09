@@ -52,7 +52,6 @@ final class AppThemeViewController: UIViewController {
         markCurrentTheme()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowLabel), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -62,15 +61,13 @@ final class AppThemeViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Title Label Configure
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
         titleLabel.text = LocalizationManager.shared.localizedString(for: "app_theme")
         titleLabel.textAlignment = .center
     }
-    
-    // MARK: - App Theme Table Configuration
+
     private func configureThemeTable() {
         view.addSubview(appThemeTableView)
         appThemeTableView.delegate = self
@@ -84,7 +81,7 @@ final class AppThemeViewController: UIViewController {
         appThemeTableView.backgroundColor = view.backgroundColor
     }
     
-    // MARK: - Marking current app theme
+    // MARK: - Supporting Methods
     private func markCurrentTheme() {
         let currentTheme = ThemeManager.shared.currentTheme
         switch currentTheme {
@@ -107,17 +104,14 @@ final class AppThemeViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension AppThemeViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return themes.count
     }
     
-    // MARK: - Configuration and returning the cell for the specified index
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AppThemeCell.cellIdentifier, for: indexPath) as? AppThemeCell else {
             return UITableViewCell()
@@ -130,7 +124,6 @@ extension AppThemeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    // MARK: - Actions after selection.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 

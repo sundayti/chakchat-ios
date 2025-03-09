@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - UpdateRestrictionsEvent
 final class UpdateRestrictionsEvent: Event {
     
     var newPhone: ConfidentialityDetails

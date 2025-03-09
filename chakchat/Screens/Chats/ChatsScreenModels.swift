@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - ChatsModels
 enum ChatsModels {
     
     enum GeneralChatModel {

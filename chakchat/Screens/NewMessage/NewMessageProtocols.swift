@@ -7,18 +7,16 @@
 
 import Foundation
 
-// MARK: - NewMessageBusinessLogic
+// MARK: - NewMessageProtocols
 protocol NewMessageBusinessLogic: SearchInteractor {
     func backToChatsScreen()
     func routeToUser(_ userData: ProfileSettingsModels.ProfileUserData)
     func newGroupRoute()
 }
 
-// MARK: - NewMessagePresentationLogic
 protocol NewMessagePresentationLogic {
 }
 
-// MARK: - NewMessageWorkerLogic
 protocol NewMessageWorkerLogic {
     func fetchUsers(
         _ name: String?,

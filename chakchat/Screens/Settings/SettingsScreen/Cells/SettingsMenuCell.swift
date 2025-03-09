@@ -47,7 +47,6 @@ final class SettingsMenuCell: UITableViewCell {
         settingImageView.image = image
     }
         
-    // MARK: - Image Configuration
     private func configureImage() {
         contentView.addSubview(settingImageView)
         settingImageView.contentMode = .scaleAspectFill
@@ -58,7 +57,6 @@ final class SettingsMenuCell: UITableViewCell {
         settingImageView.setWidth(Constants.settingsImageSize)
     }
     
-    // MARK: - Setting Name Label Configuration
     private func configureSettingNameLabel() {
         contentView.addSubview(settingTitle)
         settingTitle.font = Fonts.systemR16
@@ -66,7 +64,6 @@ final class SettingsMenuCell: UITableViewCell {
         settingTitle.pinLeft(settingImageView.trailingAnchor, Constants.settingsLabelLeading)
     }
     
-    // MARK: - Chevron Button Con
     private func configureChevronButton() {
         contentView.addSubview(chevronButton)
         let config = UIImage.SymbolConfiguration(pointSize: Constants.chevronPointSize, weight: .regular, scale: .default)

@@ -22,7 +22,7 @@ final class SignupWorker: SignupWorkerLogic {
         self.identityService = identityService
     }
     
-    // MARK: - Request Sending
+    // MARK: - Public Methods
     func sendRequest(_ request: SignupModels.SignupRequest, completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
         
@@ -41,7 +41,6 @@ final class SignupWorker: SignupWorkerLogic {
         }
     }
     
-    // MARK: - Signup Code Getting
     func getSignupCode() -> UUID? {
         guard let savedSignupKey = keychainManager.getUUID(key: KeychainManager.keyForSaveSignupCode) else {
             return nil
@@ -49,7 +48,6 @@ final class SignupWorker: SignupWorkerLogic {
         return savedSignupKey
     }
     
-    // MARK: - Token Saving
     func saveToken(_ successResponse: SuccessModels.Tokens,
                    completion: @escaping (Result<SignupState, Error>) -> Void) {
         var isSaved = self.keychainManager.save(key: KeychainManager.keyForSaveAccessToken,

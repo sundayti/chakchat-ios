@@ -11,7 +11,6 @@ import UIKit
 // MARK: - SendCodeAssembly
 enum SendCodeAssembly {
     
-    // MARK: - Assembly Method
     static func build(with context: SignupContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         
         let presenter = SendCodePresenter()

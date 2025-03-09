@@ -7,18 +7,16 @@
 
 import Foundation
 
-// MARK: - NewGroupBusinessLogic
+// MARK: - NewGroupProtocols
 protocol NewGroupBusinessLogic: SearchInteractor {
     func backToNewMessageScreen()
     func routeToGroupChat(_ chatData: ChatsModels.GroupChat.Response)
     func createGroupChat(_ name: String, _ description: String?, _ members: [UUID])
 }
 
-// MARK: - NewGroupWorkerLogic
 protocol NewGroupPresentationLogic {
 }
 
-// MARK: - NewGroupWorkerLogic
 protocol NewGroupWorkerLogic {
     func fetchUsers(
         _ name: String?,

@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - OnlineVisibilityScreenModels
 struct OnlineVisibilityStatus {
     var status: String // "everyone", "only_me", "specified"
 }

@@ -52,7 +52,6 @@ final class StartViewController: UIViewController {
         configureTapLabel()
     }
     
-    // MARK: - Gradient Background Layer Configuration
     private func configureGradientBackgroundLayer() {
         gradientBackgroundLayer.colors = [
             Colors.orange.cgColor,
@@ -66,7 +65,6 @@ final class StartViewController: UIViewController {
         view.layer.insertSublayer(gradientBackgroundLayer, at: Constants.gradientSublayerAt)
     }
     
-    // MARK: - ChakChat Label Configuration
     private func configureStartMessengerLabel() {
         view.addSubview(chakLabel)
         view.addSubview(chatLabel)
@@ -87,7 +85,6 @@ final class StartViewController: UIViewController {
         chakchatStackView.pinCenter(view)
     }
     
-    // MARK: - Tap Label Configuration
     private func configureTapLabel() {
         view.addSubview(tapLabel)
         tapLabel.text = LocalizationManager.shared.localizedString(for: "tap_hint")

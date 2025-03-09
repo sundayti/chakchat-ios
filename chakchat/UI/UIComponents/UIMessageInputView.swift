@@ -50,7 +50,6 @@ final class MessageInputView: UIView {
         configureTextField()
     }
     
-    // MARK: - Send Button Configuration
     private func configureSendButton() {
         sendButton.setImage(UIImage(systemName: Constants.symbolName), for: .normal)
         sendButton.tintColor = .systemBlue
@@ -67,19 +66,16 @@ final class MessageInputView: UIView {
         sendButton.imageView?.setHeight(Constants.sendButtonSize)
     }
     
-    // MARK: - Text Field Configuration
     private func configureTextField() {
         textField.placeholder = LocalizationManager.shared.localizedString(for: "type_here")
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         
         addSubview(textField)
         
         textField.pinLeft(leadingAnchor, Constants.textFieldLeading)
-        textField.pinRight(sendButton.leadingAnchor, Constants.textFieldTrailing)
-//        textField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: Constants.textFieldTrailing).isActive = true
+        textField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: Constants.textFieldTrailing).isActive = true
         textField.pinTop(topAnchor, Constants.textFieldVertical)
         textField.pinBottom(bottomAnchor, Constants.textFieldVertical)
     }

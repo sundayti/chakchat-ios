@@ -34,7 +34,7 @@ class SendCodeInteractor: SendCodeBusinessLogic {
         self.logger = logger
     }
     
-    // MARK: - Code Request Handling
+    // MARK: - Public methods
     func sendCodeRequest(_ request: SendCodeModels.SendCodeRequest) {
         os_log("Sended get code request", log: logger, type: .info)
         worker.sendInRequest(request) { [weak self] result in

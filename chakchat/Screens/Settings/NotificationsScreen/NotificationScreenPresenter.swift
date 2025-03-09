@@ -14,7 +14,7 @@ final class NotificationScreenPresenter: NotificationScreenPresentationLogic {
     // MARK: - Properties
     weak var view: NotificationScreenViewController?
     
-    // MARK: - User Data Showing
+    // MARK: - Public Methods
     func showUserData(_ userData: NotificationScreenModels.NotificationStatus) {
         view?.configureUserData(userData)
     }

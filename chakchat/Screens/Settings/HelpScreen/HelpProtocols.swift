@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - HelpBusinessLogic
+// MARK: - HelpProtocols
 protocol HelpBusinessLogic {
     func backToSettingsMenu()
     func sendErrorMail(_ view: UIViewController)
@@ -15,6 +15,5 @@ protocol HelpBusinessLogic {
     func reviewInAppStore()
 }
 
-// MARK: - HelpPresentationLogic
 protocol HelpPresentationLogic {
 }

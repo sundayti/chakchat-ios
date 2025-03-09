@@ -25,7 +25,7 @@ final class ConfidentialityScreenWorker: ConfidentialityScreenWorkerLogic {
         self.keychainManager = keychainManager
     }
     
-    // MARK: - User Data Getting
+    // MARK: - Public Methods
     func getUserData(completion: @escaping (Result<ConfidentialitySettingsModels.ConfidentialityUserData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         userService.sendGetRestrictionRequest(accessToken) { [weak self] result in

@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - OnlineVisibilityScreenAssembly
 enum OnlineVisibilityScreenAssembly {
-    // MARK: - Online Visibility Screen Assembly Method
+
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = OnlineVisibilityScreenPresenter()
         let worker = OnlineVisibilityScreenWorker(userDeafultsManager: context.userDefaultsManager)

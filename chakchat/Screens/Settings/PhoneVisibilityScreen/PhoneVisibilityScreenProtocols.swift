@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - PhoneVisibilityScreenBusinessLogic
+// MARK: - PhoneVisibilityScreenProtocols
 protocol PhoneVisibilityScreenBusinessLogic {
     /// потом нужно сделать, чтобы параметр был не стринг, а ConfidentialityDetails,
     /// который касается изменения видимости номера телефона
@@ -19,12 +19,10 @@ protocol PhoneVisibilityScreenBusinessLogic {
     func saveNewRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
 }
 
-// MARK: - PhoneVisibilityScreenPresentationLogic
 protocol PhoneVisibilityScreenPresentationLogic {
     func showUserRestrictions(_ userRestrictions: ConfidentialitySettingsModels.ConfidentialityUserData)
 }
 
-// MARK: - PhoneVisibilityScreenWorkerLogic
 protocol PhoneVisibilityScreenWorkerLogic {
     func updateUserRestriction(_ request: ConfidentialitySettingsModels.ConfidentialityUserData,
                                completion: @escaping (Result<Void, Error>) -> Void)

@@ -77,7 +77,7 @@ final class UserProfileViewController: UIViewController {
         }
     }
     
-    // MARK: - User Data Configuration
+    // MARK: - Public Methods
     func configureWithUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         let color = UIColor.random()
         let image = UIImage.imageWithText(
@@ -112,7 +112,6 @@ final class UserProfileViewController: UIViewController {
         configureUserDataTable()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -123,7 +122,6 @@ final class UserProfileViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Icon Image View Configuration
     private func configureIconImageView() {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.imageViewSize)
@@ -138,7 +136,6 @@ final class UserProfileViewController: UIViewController {
         iconImageView.image = gearImage
     }
     
-    // MARK: - Initials Configuration
     private func configureInitials() {
         view.addSubview(nicknameLabel)
         nicknameLabel.font = Fonts.systemSB20
@@ -147,7 +144,6 @@ final class UserProfileViewController: UIViewController {
         nicknameLabel.pinCenterX(view)
     }
     
-    // MARK: - Button Stack View Configuration
     private func configureButtonStackView() {
         view.addSubview(buttonStackView)
         let createButton: (String, String) -> UIButton = { systemName, title in
@@ -198,7 +194,6 @@ final class UserProfileViewController: UIViewController {
         optionsButton.showsMenuAsPrimaryAction = true
     }
     
-    // MARK: - Block Confirmation Alert Showing
     private func showBlockConfirmation() {
         let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: "block_chat"), message: LocalizationManager.shared.localizedString(for: "are_you_sure_block"), preferredStyle: .alert)
   
@@ -213,7 +208,6 @@ final class UserProfileViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Deleting Chat Alert Showing
     private func showBlockDeletion() {
         let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: "delete_chat"), message: LocalizationManager.shared.localizedString(for: "for_whom"), preferredStyle: .alert)
   
@@ -232,7 +226,6 @@ final class UserProfileViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - User data Table Configuration
     private func configureUserDataTable() {
         view.addSubview(userDataTable)
         userDataTable.delegate = self

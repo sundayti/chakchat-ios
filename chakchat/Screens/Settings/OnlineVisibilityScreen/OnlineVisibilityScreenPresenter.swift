@@ -14,7 +14,7 @@ final class OnlineVisibilityScreenPresenter: OnlineVisibilityScreenPresentationL
     // MARK: - Properties
     weak var view: OnlineVisibilityScreenViewController?
     
-    // MARK: - User Data Showing
+    // MARK: - Public Methods
     func showUserRestrictions(_ onlineRestriction: OnlineVisibilityStatus) {
         view?.markCurrentOption(onlineRestriction)
     }

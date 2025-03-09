@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-// TODO: непонятно зачем нужен режим "specified"
 // MARK: - OnlineVisibilityScreenViewController
 final class OnlineVisibilityScreenViewController: UIViewController {
     
@@ -56,7 +55,6 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         configurePhoneVisibilityTable()
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
@@ -64,7 +62,6 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         titleLabel.textAlignment = .center
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -74,7 +71,6 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Phone Visibility Table Configuration
     private func configurePhoneVisibilityTable() {
         view.addSubview(onlineVisibilityTable)
         onlineVisibilityTable.delegate = self
@@ -88,7 +84,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         onlineVisibilityTable.backgroundColor = view.backgroundColor
     }
     
-    // MARK: - Exceptions Section Updating
+    // MARK: - Supporting Methods
     // Edits the second section depending on what is selected in the first.
     private func updateExceptionsSection() {
         switch selectedIndex?.row {
@@ -114,6 +110,7 @@ final class OnlineVisibilityScreenViewController: UIViewController {
         }
         return "everyone"
     }
+    
     // MARK: - Actions
     @objc
     private func backButtonPressed() {
@@ -125,7 +122,6 @@ final class OnlineVisibilityScreenViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // MARK: - Mark Current Option
     // Called during screen configuration to check the box depending on the data in the user defaults storage
     public func markCurrentOption(_ onlineRestriction: OnlineVisibilityStatus) {
         var rowIndex: Int
@@ -143,12 +139,10 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
         selectedIndex = IndexPath(row: rowIndex, section: 0)
     }
     
-    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return onlineVisibilityData.count
     }
-    
-    // MARK: - numberOfRowsInSection
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return onlineVisibilityData[section].count
@@ -156,8 +150,7 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
             return (selectedIndex!.row == 2) ? onlineVisibilityData[section].count : 0
         }
     }
-    
-    // MARK: - Configuration and returning the cell for the specified index
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: VisibilityCell.cellIdentifier, for: indexPath) as? VisibilityCell else {
@@ -179,7 +172,6 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
         }
     }
     
-    // MARK: - Setting Header to each Section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let label = UILabel()
@@ -204,12 +196,10 @@ extension OnlineVisibilityScreenViewController: UITableViewDelegate, UITableView
         return headerView
     }
     
-    // MARK: - Setting space between different section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UIConstants.ConfidentialitySpaceBetweenSections
     }
     
-    // MARK: - Defining the behavior when a cell is clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {

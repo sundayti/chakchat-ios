@@ -34,6 +34,7 @@ final class OnlineVisibilityScreenInteractor: OnlineVisibilityScreenBusinessLogi
         self.logger = logger
     }
     
+    // MARK: - Public Methods
     func loadUserRestrictions() {
         os_log("Loaded user data in online visibility screen", log: logger, type: .default)
         showUserRestrictions(onlineRestrictionSnap)

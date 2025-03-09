@@ -7,9 +7,10 @@
 
 import UIKit
 
+// MARK: - ImageCacheProtocol
 protocol ImageCacheProtocol {
+    
     func getImage(for url: NSURL) -> UIImage?
 
-    
     func saveImage(_ image: UIImage, for url: NSURL)
 }

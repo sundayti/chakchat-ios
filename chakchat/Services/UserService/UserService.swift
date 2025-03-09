@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// MARK: - UserService
 /// пока что здесь закомменчены настоящие реализации запроса к серверу и работают только стабы
 final class UserService: UserServiceProtocol {
  

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - UserProfileBusinessLogic
+// MARK: - UserProfileProtocols
 protocol UserProfileBusinessLogic {
     func routeToChat(_ isChatExisting: Bool)
     func searchForExistingChat()
@@ -23,12 +23,10 @@ protocol UserProfileBusinessLogic {
     func routeBack()
 }
 
-// MARK: - UserProfilePresentationLogic
 protocol UserProfilePresentationLogic {
     func passUserData(_ userData: ProfileSettingsModels.ProfileUserData)
 }
 
-// MARK: - UserProfileWorkerLogic
 protocol UserProfileWorkerLogic {
     func searchMessages()
     func switchNotification()

@@ -11,7 +11,6 @@ import UIKit
 // MARK: - ChatAssembly
 enum ChatsAssembly {
     
-    // MARK: - Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ChatsScreenPresenter()
         let userService = UserService()

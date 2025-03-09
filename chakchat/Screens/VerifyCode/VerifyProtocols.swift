@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - VerifyBusinessLogic
+// MARK: - Verify Protocols
 protocol VerifyBusinessLogic {
     func sendVerificationRequest(_ code: String)
     func routeToSignupScreen(_ state: SignupState)
@@ -17,14 +17,12 @@ protocol VerifyBusinessLogic {
     func getPhone()
 }
 
-// MARK: - VerifyPresentationLogic
 protocol VerifyPresentationLogic {
     func showError(_ error: ErrorId)
     func showPhone(_ phone: String)
     func hideResendButton()
 }
 
-// MARK: - VerifyWorkerLogic
 protocol VerifyWorkerLogic {
     func sendVerificationRequest<Request: Codable, Response: Codable>(
         _ request: Request,

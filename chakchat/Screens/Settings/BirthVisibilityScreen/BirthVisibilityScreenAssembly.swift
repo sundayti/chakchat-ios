@@ -11,7 +11,6 @@ import UIKit
 // MARK: - BirthVisibilityScreenAssembly
 enum BirthVisibilityScreenAssembly {
     
-    // MARK: - Birth Visibility Screen Assembly Method
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = BirthVisibilityScreenPresenter()
         let userService = UserService()

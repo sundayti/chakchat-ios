@@ -8,14 +8,17 @@
 import UIKit
 import Combine
 
+// MARK: - ProfileSettingsWorker
 final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
 
+    // MARK: - Properties
     private let userDefaultsManager: UserDefaultsManagerProtocol
     private let userService: UserServiceProtocol
     private let fileStorageService: FileStorageServiceProtocol
     private let identityService: IdentityServiceProtocol
     private let keychainManager: KeychainManagerBusinessLogic
     
+    // MARK: - Initialization
     init(userDefaultsManager: UserDefaultsManagerProtocol,
          meService: UserServiceProtocol,
          fileStorageService: FileStorageServiceProtocol,
@@ -29,6 +32,7 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
         self.keychainManager = keychainManager
     }
     
+    // MARK: - Public Methods
     func putUserData(_ request: ProfileSettingsModels.ChangeableProfileUserData, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         userService.sendPutMeRequest(request, accessToken) { [weak self] result in

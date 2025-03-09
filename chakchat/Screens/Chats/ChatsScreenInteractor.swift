@@ -54,6 +54,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         onRouteToNewMessage?()
     }
     
+    // MARK: - Public Methods
     func loadMeData() {
         os_log("Fetching for user data", log: logger, type: .default)
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in

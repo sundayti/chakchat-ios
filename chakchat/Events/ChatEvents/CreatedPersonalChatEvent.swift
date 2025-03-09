@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - CreatedPersonalChatEvent
 final class CreatedPersonalChatEvent: Event {
+    
     let chatID: UUID
     let members: [UUID]
     let blocked: Bool

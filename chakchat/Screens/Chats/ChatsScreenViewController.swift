@@ -58,14 +58,15 @@ final class ChatsScreenViewController: UIViewController {
         configureUI()
     }
     
-    public func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
+    // MARK: - Public Methods
+    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
         chatsData?.append(chatData)
         DispatchQueue.main.async {
             self.chatsTableView.reloadData()
         }
     }
     
-    public func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
+    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
         chatsData = chats
         DispatchQueue.main.async {
             self.chatsTableView.reloadData()
@@ -85,14 +86,12 @@ final class ChatsScreenViewController: UIViewController {
         configureChatsTableView()
     }
     
-    // MARK: - Title Label Configuration
     private func configureTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
         titleLabel.text = Constants.headerText
     }
     
-    // MARK: - Search Controller Configuration
     private func configureSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -105,7 +104,6 @@ final class ChatsScreenViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
-    // MARK: - Settings Button Configuration
     private func configureSettingsButton() {
         view.addSubview(settingButton)
         let config = UIImage.SymbolConfiguration(pointSize: Constants.symbolSize, weight: .light, scale: .default)
@@ -117,7 +115,6 @@ final class ChatsScreenViewController: UIViewController {
         settingButton.addTarget(self, action: #selector(settingButtonPressed), for: .touchUpInside)
     }
     
-    // MARK: - New Chat Button Configuration
     private func configureNewChatButton() {
         view.addSubview(newChatButton)
         let config = UIImage.SymbolConfiguration(pointSize: Constants.symbolSize, weight: .light, scale: .default)
@@ -161,6 +158,7 @@ final class ChatsScreenViewController: UIViewController {
     }
 }
 
+// MARK: - UISearchResultsUpdating
 extension ChatsScreenViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchVC = searchController.searchResultsController as? UIUsersSearchViewController else { return }
@@ -170,6 +168,7 @@ extension ChatsScreenViewController: UISearchResultsUpdating {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

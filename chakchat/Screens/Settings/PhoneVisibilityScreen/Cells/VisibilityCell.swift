@@ -41,13 +41,11 @@ final class VisibilityCell: UITableViewCell {
         currentOptionImageView.isHidden = !isSelected
     }
     
-    // MARK: - Cell Configuration
     private func configureCell() {
         configureCurrentOptionImageView()
         configureVisibilityOptionLabel()
     }
     
-    // MARK: - Current Option ImageView Configuration
     private func configureCurrentOptionImageView() {
         contentView.addSubview(currentOptionImageView)
         currentOptionImageView.contentMode = .scaleAspectFill
@@ -59,7 +57,6 @@ final class VisibilityCell: UITableViewCell {
         currentOptionImageView.pinRight(contentView, Constants.currentOptionTrailing)
     }
     
-    // MARK: - Visibility Option Label Configuration
     private func configureVisibilityOptionLabel() {
         contentView.addSubview(visibilityOptionLabel)
         visibilityOptionLabel.font = Fonts.systemR16
