@@ -15,6 +15,7 @@ final class AppCoordinator {
     // MARK: - Properties
     private let window: UIWindow
     private let navigationController: UINavigationController
+    private var mainChatVC: UIViewController?
     private let signupContext: SignupContextProtocol
     private let mainAppContext: MainAppContextProtocol
 
@@ -70,6 +71,7 @@ final class AppCoordinator {
     
     func finishSignupFlow() {
         let chatVC = CreateChatScreen()
+        mainChatVC = chatVC
         navigationController.setViewControllers([chatVC], animated: true)
     }
     
@@ -148,7 +150,12 @@ final class AppCoordinator {
     
     func showNewMessageScreen() {
         let newMessageVC = NewMessageAssembly.build(with: mainAppContext, coordinator: self)
-        navigationController.setViewControllers([newMessageVC], animated: true)
+        if let mainVC = mainChatVC {
+            navigationController.setViewControllers([mainVC, newMessageVC], animated: true)
+        } else {
+            let mainVC = CreateChatScreen()
+            navigationController.setViewControllers([mainVC, newMessageVC], animated: true)
+        }
     }
     
     func showUserProfileScreen(_ userData: ProfileSettingsModels.ProfileUserData) {
@@ -158,7 +165,12 @@ final class AppCoordinator {
     
     func showChatScreen(_ userData: ProfileSettingsModels.ProfileUserData, _ isChatExisting: Bool) {
         let chatVC = ChatAssembly.build(mainAppContext, coordinator: self, userData: userData, existing: isChatExisting)
-        navigationController.pushViewController(chatVC, animated: true)
+        if let mainVC = mainChatVC {
+            navigationController.setViewControllers([mainVC, chatVC], animated: true)
+        } else {
+            let mainVC = CreateChatScreen()
+            navigationController.setViewControllers([mainVC, chatVC], animated: true)
+        }
     }
 
     func showNewGroupScreen() {
@@ -168,7 +180,12 @@ final class AppCoordinator {
     
     func showGroupChatScreen(_ chatData: ChatsModels.GroupChat.Response) {
         let groupChatVC = GroupChatAssembly.build(with: mainAppContext, coordinator: self, chatData)
-        navigationController.setViewControllers([groupChatVC], animated: true)
+        if let mainVC = mainChatVC {
+            navigationController.setViewControllers([mainVC, groupChatVC], animated: true)
+        } else {
+            let mainVC = CreateChatScreen()
+            navigationController.setViewControllers([mainVC, groupChatVC], animated: true)
+        }
     }
     
     func showGroupProfileEditScreen(_ chatData: GroupProfileEditModels.ProfileData) {

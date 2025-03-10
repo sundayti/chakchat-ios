@@ -16,7 +16,7 @@ final class NewMessageInteractor: NewMessageBusinessLogic {
     private let errorHandler: ErrorHandlerLogic
     var onRouteToChatsScreen: (() -> Void)?
     var onRouteToNewMessageScreen: (() -> Void)?
-    var onRouteToUser: ((ProfileSettingsModels.ProfileUserData) -> Void)?
+    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, Bool) -> Void)?
     
     // MARK: - Initialization
     init(
@@ -42,10 +42,11 @@ final class NewMessageInteractor: NewMessageBusinessLogic {
         }
     }
     
-    func routeToUser(_ userData: ProfileSettingsModels.ProfileUserData) {
-        onRouteToUser?(userData)
+    func searchForExistingChat(_ userData: ProfileSettingsModels.ProfileUserData) {
+        let isChatExisting = worker.searchForExistingChat(userData.id)
+        routeToChat(userData, isChatExisting)
     }
-    
+
     func handleError(_ error: Error) {
         _ = errorHandler.handleError(error)
     }
@@ -53,6 +54,10 @@ final class NewMessageInteractor: NewMessageBusinessLogic {
     // MARK: - Routing
     func backToChatsScreen() {
         onRouteToChatsScreen?()
+    }
+    
+    func routeToChat(_ userData: ProfileSettingsModels.ProfileUserData, _ isChatExisting: Bool) {
+        onRouteToChat?(userData, false)
     }
     
     func newGroupRoute() {

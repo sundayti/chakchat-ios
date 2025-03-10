@@ -28,8 +28,10 @@ enum GroupChatProfileAssembly {
         interactor.onRouteToEdit = { [weak coordinator] chatData in
             coordinator?.showGroupProfileEditScreen(chatData)
         }
+        // интересно как это будет выглядеть
         interactor.onRouteToChatMenu = { [weak coordinator] in
-            coordinator?.finishSignupFlow()
+            coordinator?.popScreen()
+            coordinator?.popScreen()
         }
         interactor.onRouteBack = { [weak coordinator] in
             coordinator?.popScreen()

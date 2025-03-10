@@ -1599,10 +1599,10 @@
 			isa = PBXGroup;
 			children = (
 				E1960A4F2D6BE62A008E27C0 /* NewMessageAssembly.swift */,
-				E1960A512D6BE63A008E27C0 /* NewMessagePresenter.swift */,
 				E1960A552D6BE66B008E27C0 /* NewMessageInteractor.swift */,
-				E1960A572D6BE69E008E27C0 /* NewMessageViewController.swift */,
 				E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */,
+				E1960A512D6BE63A008E27C0 /* NewMessagePresenter.swift */,
+				E1960A572D6BE69E008E27C0 /* NewMessageViewController.swift */,
 				E1960A532D6BE653008E27C0 /* NewMessageProtocols.swift */,
 			);
 			path = NewMessage;

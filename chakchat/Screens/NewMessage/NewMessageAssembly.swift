@@ -15,7 +15,9 @@ enum NewMessageAssembly {
         let userService = UserService()
         let worker = NewMessageWorker(
             userService: userService,
-            keychainManager: context.keychainManager
+            keychainManager: context.keychainManager,
+            userDefaultsManager: context.userDefaultsManager,
+            coreDataManager: context.coreDataManager
         )
         let interactor = NewMessageInteractor(
             presenter: presenter,
@@ -28,8 +30,8 @@ enum NewMessageAssembly {
         interactor.onRouteToNewMessageScreen = { [weak coordinator] in
             coordinator?.showNewGroupScreen()
         }
-        interactor.onRouteToUser = { [weak coordinator] userData in
-            coordinator?.showUserProfileScreen(userData)
+        interactor.onRouteToChat = { [weak coordinator] userData, isChatExisting in
+            coordinator?.showChatScreen(userData, isChatExisting)
         }
         let view = NewMessageViewController(interactor: interactor)
         presenter.view = view
