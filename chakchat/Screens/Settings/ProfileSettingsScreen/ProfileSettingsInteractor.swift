@@ -108,6 +108,21 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
         }
     }
     
+    func deleteProfilePhoto() {
+        worker.deleteProfilePhoto() { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                let updatePhotoEvent = UpdatePhotoEvent(newPhoto: nil)
+                self.eventPublisher.publish(event: updatePhotoEvent)
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to delete photo:\n", log: logger, type: .fault)
+                print(failure)
+            }
+        }
+    }
+    
     func checkUsername(_ username: String, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         worker.checkUsername(username) { [weak self] result in
             guard let self = self else { return }
