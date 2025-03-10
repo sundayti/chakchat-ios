@@ -10,7 +10,12 @@ import UIKit
 // MARK: - UserProfileAssembly
 enum UserProfileAssembly {
     
-    static func build(_ context: MainAppContextProtocol, coordinator: AppCoordinator, userData: ProfileSettingsModels.ProfileUserData) -> UIViewController {
+    static func build(
+        _ context: MainAppContextProtocol,
+        coordinator: AppCoordinator,
+        userData: ProfileSettingsModels.ProfileUserData,
+        profileConfiguration: ProfileConfiguration
+    ) -> UIViewController {
         let presenter = UserProfilePresenter()
         let updateService = UpdateService()
         let personalChatService = PersonalChatService()
@@ -26,6 +31,7 @@ enum UserProfileAssembly {
             worker: worker,
             errorHandler: context.errorHandler,
             userData: userData,
+            profileConfiguration: profileConfiguration,
             logger: context.logger
         )
         interactor.onRouteBack = { [weak coordinator] in

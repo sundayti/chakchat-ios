@@ -17,10 +17,12 @@ final class ChatInteractor: ChatBusinessLogic {
     private let userData: ProfileSettingsModels.ProfileUserData
     private let eventPublisher: EventPublisherProtocol
     private let isChatExisting: Bool
+    private let isSecret: Bool
     private let errorHandler: ErrorHandlerLogic
     private let logger: OSLog
     
     var onRouteBack: (() -> Void)?
+    var onRouteToProfile: ((ProfileSettingsModels.ProfileUserData, ProfileConfiguration) -> Void)?
     
     // MARK: - Initialization
     init(
@@ -29,6 +31,7 @@ final class ChatInteractor: ChatBusinessLogic {
         userData: ProfileSettingsModels.ProfileUserData,
         eventPublisher: EventPublisherProtocol,
         isChatExisting: Bool,
+        isSecret: Bool,
         errorHandler: ErrorHandlerLogic,
         logger: OSLog
     ) {
@@ -37,6 +40,7 @@ final class ChatInteractor: ChatBusinessLogic {
         self.userData = userData
         self.eventPublisher = eventPublisher
         self.isChatExisting = isChatExisting
+        self.isSecret = isSecret
         self.errorHandler = errorHandler
         self.logger = logger
     }
@@ -79,5 +83,10 @@ final class ChatInteractor: ChatBusinessLogic {
     // MARK: - Routing
     func routeBack() {
         onRouteBack?()
+    }
+    
+    func routeToProfile() {
+        let profileConfiguration = ProfileConfiguration(isSecret: isSecret, fromGroupChat: false)
+        onRouteToProfile?(userData, profileConfiguration)
     }
 }

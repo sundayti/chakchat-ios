@@ -16,6 +16,7 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     private let worker: UserProfileWorkerLogic
     private let errorHandler: ErrorHandlerLogic
     private let userData: ProfileSettingsModels.ProfileUserData
+    private let profileConfiguration: ProfileConfiguration
     private let logger: OSLog
     
     var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, Bool) -> Void)?
@@ -27,18 +28,20 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         worker: UserProfileWorkerLogic,
         errorHandler: ErrorHandlerLogic,
         userData: ProfileSettingsModels.ProfileUserData,
+        profileConfiguration: ProfileConfiguration,
         logger: OSLog
     ) {
         self.presenter = presenter
         self.worker = worker
         self.errorHandler = errorHandler
         self.userData = userData
+        self.profileConfiguration = profileConfiguration
         self.logger = logger
     }
     
     // MARK: - Public Methods
     func passUserData() {
-        presenter.passUserData(userData)
+        presenter.passUserData(userData, profileConfiguration)
     }
     
     func blockChat() {

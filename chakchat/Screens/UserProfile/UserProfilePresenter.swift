@@ -9,10 +9,10 @@ import UIKit
 
 // MARK: - UserProfilePresenter
 final class UserProfilePresenter: UserProfilePresentationLogic {
-    
+        
     weak var view: UserProfileViewController?
-    
-    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
-        view?.configureWithUserData(userData)
+
+    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData, _ profileConfiguration: ProfileConfiguration) {
+        view?.configureWithUserData(userData, profileConfiguration)
     }
 }

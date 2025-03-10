@@ -10,6 +10,7 @@ import Foundation
 // MARK: - ChatBusinessLogic
 protocol ChatBusinessLogic: SendingMessagesProtocol {
     func routeBack()
+    func routeToProfile()
     func createChat(_ memberID: UUID)
     func passUserData()
 }

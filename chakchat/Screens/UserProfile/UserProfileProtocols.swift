@@ -24,7 +24,7 @@ protocol UserProfileBusinessLogic {
 }
 
 protocol UserProfilePresentationLogic {
-    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData)
+    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData, _ profileConfiguration: ProfileConfiguration)
 }
 
 protocol UserProfileWorkerLogic {

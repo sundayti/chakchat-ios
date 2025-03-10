@@ -158,11 +158,6 @@ final class AppCoordinator {
         }
     }
     
-    func showUserProfileScreen(_ userData: ProfileSettingsModels.ProfileUserData) {
-        let userProfileVC = UserProfileAssembly.build(mainAppContext, coordinator: self, userData: userData)
-        navigationController.pushViewController(userProfileVC, animated: true)
-    }
-    
     func showChatScreen(_ userData: ProfileSettingsModels.ProfileUserData, _ isChatExisting: Bool) {
         let chatVC = ChatAssembly.build(mainAppContext, coordinator: self, userData: userData, existing: isChatExisting)
         if let mainVC = mainChatVC {
@@ -171,6 +166,11 @@ final class AppCoordinator {
             let mainVC = CreateChatScreen()
             navigationController.setViewControllers([mainVC, chatVC], animated: true)
         }
+    }
+    
+    func showUserProfileScreen(_ userData: ProfileSettingsModels.ProfileUserData, _ profileConfiguration: ProfileConfiguration) {
+        let userProfileVC = UserProfileAssembly.build(mainAppContext, coordinator: self, userData: userData, profileConfiguration: profileConfiguration)
+        navigationController.pushViewController(userProfileVC, animated: true)
     }
 
     func showNewGroupScreen() {
