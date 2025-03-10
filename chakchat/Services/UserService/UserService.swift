@@ -103,7 +103,7 @@ final class UserService: UserServiceProtocol {
             "Authorization": "Bearer \(accessToken)",
             "Content-Type": "application/json"
         ]
-        
+        print(endpointWithQuery)
         Sender.send(endpoint: endpointWithQuery, method: .get, headers: headers, completion: completion)
     }
     /// нужен для поиска по username в бд, чтобы понимать, может ли пользователь использовать такой username или нет

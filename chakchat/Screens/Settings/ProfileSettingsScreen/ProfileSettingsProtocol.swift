@@ -18,8 +18,7 @@ protocol ProfileSettingsScreenBusinessLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
     func checkUsername(_ username: String,
                        completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
-    func uploadFile(_ image: UIImage, completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void)
-    func putProfilePhoto(_ photoID: UUID, _ tempURL: URL)
+    func putProfilePhoto(_ image: UIImage)
     func deleteProfilePhoto()
     func signOut()
 }

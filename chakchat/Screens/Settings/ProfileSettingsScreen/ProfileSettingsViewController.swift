@@ -343,6 +343,9 @@ final class ProfileSettingsViewController: UIViewController {
         do {
             let newData = try transferUserProfileData()
             interactor.putNewData(newData)
+            if let image = iconImageView.image {
+                interactor.putProfilePhoto(image)
+            }
         } catch CriticalError.noData {
             print("Critical error")
         } catch {
@@ -425,14 +428,6 @@ final class ProfileSettingsViewController: UIViewController {
 extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            interactor.uploadFile(pickedImage) { [weak self] result in
-                switch result {
-                case .success(let metaData):
-                    self?.interactor.putProfilePhoto(metaData.fileId, metaData.fileURL)
-                case .failure(_):
-                    os_log("Failed to upload file")
-                }
-            }
             iconImageView.image = pickedImage
             iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         }
