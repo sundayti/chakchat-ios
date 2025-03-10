@@ -69,8 +69,22 @@ final class ProfileSettingsWorker: ProfileSettingsScreenWorkerLogic {
             guard self != nil else { return }
             switch result {
             case .success(let successResponse):
-                //self.userDefaultsManager.saveUserData(successResponse.data)
+                self.userDefaultsManager.saveUserData(successResponse.data)
                 completion(.success(successResponse.data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func deleteProfilePhoto(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        userService.sendDeletePhotoRequest(accessToken) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.userDefaultsManager.saveUserData(response.data)
+                completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))
             }
