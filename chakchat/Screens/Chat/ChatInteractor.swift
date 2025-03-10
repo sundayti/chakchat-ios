@@ -45,26 +45,45 @@ final class ChatInteractor: ChatBusinessLogic {
         self.logger = logger
     }
     
+    func passUserData() {
+        presenter.passUserData(userData)
+    }
+    
     // MARK: - Public Methods
     func createChat(_ memberID: UUID) {
-        worker.createChat(memberID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                os_log("Chat created", log: logger, type: .default)
-                // если blocked == true, то показываем пользователю об этом.
-                let event = CreatedPersonalChatEvent(
-                    chatID: data.chatID,
-                    members: data.members,
-                    blocked: data.blocked,
-                    blockedBy: data.blockedBy,
-                    createdAt: data.createdAt
-                )
-                eventPublisher.publish(event: event)
-            case .failure(let failure):
-                _ = errorHandler.handleError(failure)
-                os_log("Failed to create chat:\n", log: logger, type: .fault)
-                print(failure)
+        if isSecret {
+            worker.createSecretChat(memberID) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let data):
+                    os_log("Secret chat with member(%@) created", log: logger, type: .default, memberID as CVarArg)
+                    // если blocked == true, то показываем пользователю об этом.
+                case .failure(let failure):
+                    _ = errorHandler.handleError(failure)
+                    os_log("Failed to create secret chat with member(%@):\n", log: logger, type: .fault, memberID as CVarArg)
+                    print(failure)
+                }
+            }
+        } else {
+            worker.createChat(memberID) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let data):
+                    os_log("Chat with member(%@) created", log: logger, type: .default, memberID as CVarArg)
+                    // если blocked == true, то показываем пользователю об этом.
+                    let event = CreatedPersonalChatEvent(
+                        chatID: data.chatID,
+                        members: data.members,
+                        blocked: data.blocked,
+                        blockedBy: data.blockedBy,
+                        createdAt: data.createdAt
+                    )
+                    eventPublisher.publish(event: event)
+                case .failure(let failure):
+                    _ = errorHandler.handleError(failure)
+                    os_log("Failed to create chat with member(%@):\n", log: logger, type: .fault, memberID as CVarArg)
+                    print(failure)
+                }
             }
         }
     }
@@ -76,8 +95,18 @@ final class ChatInteractor: ChatBusinessLogic {
         worker.sendTextMessage(message)
     }
     
-    func passUserData() {
-        presenter.passUserData(userData)
+    func setExpirationTime(_ expiration: String?) {
+        worker.setExpirationTime(userData.id, expiration) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                os_log("Setted expiration time with member(%@)", log: logger, type: .default, userData.id as CVarArg)
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to set expiration time with member(%@)", log: logger, type: .default, userData.id as CVarArg)
+                print(failure)
+            }
+        }
     }
     
     // MARK: - Routing

@@ -13,6 +13,7 @@ protocol ChatBusinessLogic: SendingMessagesProtocol {
     func routeToProfile()
     func createChat(_ memberID: UUID)
     func passUserData()
+    func setExpirationTime(_ expiration: String?)
 }
 
 protocol ChatPresentationLogic {
@@ -21,6 +22,12 @@ protocol ChatPresentationLogic {
 
 protocol ChatWorkerLogic {
     func createChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
+    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, Error>) -> Void)
+    func setExpirationTime(
+        _ chatID: UUID,
+        _ expiration: String?,
+        completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, Error>) -> Void
+    )
     func sendTextMessage(_ message: String)
 }
 
