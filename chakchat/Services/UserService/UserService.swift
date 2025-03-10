@@ -36,7 +36,7 @@ final class UserService: UserServiceProtocol {
             .success(
                 SuccessResponse<ProfileSettingsModels.ProfileUserData>(
                     data: ProfileSettingsModels.ProfileUserData(
-                        id: UUID(uuidString: "8D5DF9D0-B64E-4807-A49E-3A861F7BAD14") ?? UUID(),
+                        id: UUID(uuidString: "2ED634A9-4DA0-46ED-B1FD-9CC266523CFD") ?? UUID(),
                         name: "Kirill",
                         username: "mrdr",
                         phone: "79776002210",
@@ -145,9 +145,9 @@ final class UserService: UserServiceProtocol {
                             ),
                             ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "5E7CB0A7-E92D-46DC-939E-DAAEAEE6001C") ?? UUID(), name: "Vanya", username: "wartigan", phone: "79852602436", photo: nil, dateOfBirth: "25.02.2005", createdAt: Date()),
                             ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "3CC67FC4-227C-4CAF-A7B4-0863019FB393") ?? UUID(), name: "Kolya", username: "random", phone: "79251985423", photo: nil, dateOfBirth: "26.12.2005", createdAt: Date()),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "A03CDC5D-1659-449B-B6EA-593260C73B1A") ?? UUID(), name: "Liza", username: "lzkgmr", phone: "79164905214", photo: nil, dateOfBirth: "18.04.2003", createdAt: Date()),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "6E82FD04-67F6-4C1A-96E1-1B870BD4EF7F") ?? UUID(), name: "Bulat", username: "sunnyyssh", phone: "79033061099", photo: nil, dateOfBirth: "12.10.2005", createdAt: Date()),
-                            ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "948CD307-9D3D-42DD-844A-EB4F2EA19142") ?? UUID(), name: "Anya", username: "taiga", phone: "79167313908", photo: nil, dateOfBirth: "12.06.2005", createdAt: Date()),
+                            ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "7FAF4243-86BE-4AC4-B618-E4E44ABF0361") ?? UUID(), name: "Liza", username: "lzkgmr", phone: "79164905214", photo: nil, dateOfBirth: nil, createdAt: Date()),
+                            ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "272784A4-9071-42E7-90CD-2F9B15FA9090") ?? UUID(), name: "Bulat", username: "sunnyyssh", phone: "79776002211", photo: nil, dateOfBirth: nil, createdAt: Date()),
+                            ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "1A1E1213-5538-4414-BDEE-FE52EC8ECB4C") ?? UUID(), name: "Anya", username: "taiga", phone: "79776002212", photo: nil, dateOfBirth: nil, createdAt: Date()),
                             ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "8DC4F45E-57A7-425A-911D-198FBB1FF865") ?? UUID(), name: "Asshat", username: "justcipunz", phone: "79514223246", photo: nil, dateOfBirth: "13.11.2005", createdAt: Date()),
                             ProfileSettingsModels.ProfileUserData(id: UUID(uuidString: "3E6E5C76-5202-47AE-9CD3-F84C41E48422") ?? UUID(), name: "Vlad", username: "Zattox", phone: "79308097097", photo: nil, dateOfBirth: "02.06.2005", createdAt: Date())
                         ]

@@ -6,24 +6,46 @@
 //
 
 import Foundation
+import OSLog
 
 // MARK: - NewGroupInteractor
 final class NewGroupInteractor: NewGroupBusinessLogic {
-    
+        
     // MARK: - Properties
     private let presenter: NewGroupPresentationLogic
     private let worker: NewGroupWorkerLogic
     private let errorHandler: ErrorHandlerLogic
+    private let logger: OSLog
+    var onRouteToGroupChat: ((ChatsModels.GroupChat.Response) -> Void)?
     var onRouteToNewMessageScreen: (() -> Void)?
     
     // MARK: - Initialization
-    init(presenter: NewGroupPresentationLogic, worker: NewGroupWorkerLogic, errorHandler: ErrorHandlerLogic) {
+    init(
+        presenter: NewGroupPresentationLogic,
+        worker: NewGroupWorkerLogic,
+        logger: OSLog,
+        errorHandler: ErrorHandlerLogic
+    ) {
         self.presenter = presenter
         self.worker = worker
+        self.logger = logger
         self.errorHandler = errorHandler
     }
     
-    // MARK: - Public Methods
+    func createGroupChat(_ name: String, _ description: String?, _ members: [UUID]) {
+        worker.createGroupChat(name, description, members) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                routeToGroupChat(data)
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to create group chat", log: logger, type: .fault)
+                print(failure)
+            }
+        }
+    }
+
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
         worker.fetchUsers(name, username, page, limit) { [weak self] result in
             guard self != nil else { return }
@@ -39,8 +61,11 @@ final class NewGroupInteractor: NewGroupBusinessLogic {
     func handleError(_ error: Error) {
         _ = errorHandler.handleError(error)
     }
-    
     // MARK: - Routing
+    func routeToGroupChat(_ chatData: ChatsModels.GroupChat.Response) {
+        onRouteToGroupChat?(chatData)
+    }
+    
     func backToNewMessageScreen() {
         onRouteToNewMessageScreen?()
     }

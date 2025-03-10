@@ -31,7 +31,7 @@ final class AppCoordinator {
                                            userDefaultsManager: userDefaultsManager,
                                            state: SignupState._default,
                                            logger: OSLog(subsystem: "com.chakchat.mainlog", category: "MainLog"))
-        _ = EventManager()
+        
         self.mainAppContext = MainAppContext(keychainManager: signupContext.keychainManager,
                                              errorHandler: signupContext.errorHandler,
                                              userDefaultsManager: signupContext.userDefaultsManager,
@@ -148,7 +148,7 @@ final class AppCoordinator {
     
     func showNewMessageScreen() {
         let newMessageVC = NewMessageAssembly.build(with: mainAppContext, coordinator: self)
-        navigationController.pushViewController(newMessageVC, animated: true)
+        navigationController.setViewControllers([newMessageVC], animated: true)
     }
     
     func showUserProfileScreen(_ userData: ProfileSettingsModels.ProfileUserData) {
@@ -164,5 +164,15 @@ final class AppCoordinator {
     func showNewGroupScreen() {
         let newGroupVC = NewGroupAssembly.build(with: mainAppContext, coordinator: self)
         navigationController.pushViewController(newGroupVC, animated: true)
+    }
+    
+    func showGroupChatScreen(_ chatData: ChatsModels.GroupChat.Response) {
+        let groupChatVC = GroupChatAssembly.build(with: mainAppContext, coordinator: self, chatData)
+        navigationController.setViewControllers([groupChatVC], animated: true)
+    }
+    
+    func showGroupProfileEditScreen(_ chatData: GroupProfileEditModels.ProfileData) {
+        let groupEditVC = GroupProfileEditAssembly.build(with: mainAppContext, coordinator: self, chatData)
+        navigationController.pushViewController(groupEditVC, animated: true)
     }
 }

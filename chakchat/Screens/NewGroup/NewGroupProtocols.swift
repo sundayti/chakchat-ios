@@ -10,6 +10,8 @@ import Foundation
 // MARK: - NewGroupProtocols
 protocol NewGroupBusinessLogic: SearchInteractor {
     func backToNewMessageScreen()
+    func routeToGroupChat(_ chatData: ChatsModels.GroupChat.Response)
+    func createGroupChat(_ name: String, _ description: String?, _ members: [UUID])
 }
 
 protocol NewGroupPresentationLogic {
@@ -23,4 +25,5 @@ protocol NewGroupWorkerLogic {
         _ limit: Int,
         completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
+    func createGroupChat(_ name: String, _ description: String?, _ members: [UUID], completion: @escaping (Result<ChatsModels.GroupChat.Response, Error>) -> Void)
 }

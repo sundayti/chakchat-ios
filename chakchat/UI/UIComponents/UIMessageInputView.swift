@@ -26,7 +26,7 @@ final class MessageInputView: UIView {
     
     // MARK: - Properties
     private let textField = UITextField()
-    weak var interactor: ChatBusinessLogic?
+    weak var interactor: SendingMessagesProtocol?
     private let sendButton = UIButton()
     var bottomConstraint: NSLayoutConstraint!
     
