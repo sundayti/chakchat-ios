@@ -20,7 +20,7 @@ protocol ProfileSettingsScreenBusinessLogic {
                        completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     func uploadFile(_ image: UIImage, completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void)
     func putProfilePhoto(_ photoID: UUID, _ tempURL: URL)
-    
+    func deleteProfilePhoto()
     func signOut()
 }
 
@@ -40,4 +40,5 @@ protocol ProfileSettingsScreenWorkerLogic {
                      _ mimeType: String,
                      completion: @escaping (Result<SuccessModels.UploadResponse, Error>) -> Void)
     func putProfilePhoto(_ photoID: UUID, completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func deleteProfilePhoto(completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }
