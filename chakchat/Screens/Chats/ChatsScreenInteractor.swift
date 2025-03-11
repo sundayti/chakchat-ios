@@ -11,7 +11,7 @@ import Combine
 
 // MARK: - ChatsScreenInteractor
 final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
-    
+        
     // MARK: - Properties
     private let presenter: ChatsScreenPresentationLogic
     private let worker: ChatsScreenWorkerLogic
@@ -95,6 +95,25 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         }
     }
     
+    func loadChats() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.worker.loadChats() { result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let data):
+                        os_log("Loaded chats data", log: self.logger, type: .default)
+                        break
+                    case .failure(let failure):
+                        _ = self.errorHandler.handleError(failure)
+                        os_log("Failure in fetching chats:\n", log: self.logger, type: .fault)
+                        print(failure)
+                    }
+                }
+            }
+        }
+    }
+    
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
         worker.fetchUsers(name, username, page, limit) { [weak self] result in
             guard self != nil else { return }
@@ -109,32 +128,19 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     
     private func subscribeToEvents() {
         eventSubscriber.subscribe(CreatedPersonalChatEvent.self) { [weak self] event in
-            self?.handleChatCreatingEvent(event)
+            self?.handlePersonalChatCreatingEvent(event)
         }.store(in: &cancellables)
     }
     
-    func loadChats() {
-        let chats = worker.loadChats()
-        showChats(chats)
+    func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData) {
+        presenter.showChats(allChatsData)
     }
     
-    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
-        presenter.showChats(chats)
+    func handlePersonalChatCreatingEvent(_ event: CreatedPersonalChatEvent) {
+        print("Handle")
     }
     
-    
-    func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent) {
-        let chatData = ChatsModels.PersonalChat.Response(
-            chatID: event.chatID,
-            members: event.members,
-            blocked: event.blocked,
-            blockedBy: event.blockedBy,
-            createdAt: event.createdAt
-        )
-        addNewChat(chatData)
-    }
-    
-    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
         presenter.addNewChat(chatData)
     }
     

@@ -9,14 +9,14 @@ import Foundation
 
 // MARK: - ChatsScreenPresenter
 final class ChatsScreenPresenter: ChatsScreenPresentationLogic {
-    
+
     weak var view: ChatsScreenViewController?
     
-    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
-        view?.addNewChat(chatData)
+    func showChats(_ chats: ChatsModels.GeneralChatModel.ChatsData) {
+        view?.showChats(chats)
     }
     
-    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
-        view?.showChats(chats)
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        view?.addNewChat(chatData)
     }
 }

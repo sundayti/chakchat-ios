@@ -14,10 +14,12 @@ enum ChatsAssembly {
     static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator) -> UIViewController {
         let presenter = ChatsScreenPresenter()
         let userService = UserService()
+        let chatsService = ChatsService()
         let worker = ChatsScreenWorker(
             keychainManager: context.keychainManager,
             userDefaultManager: context.userDefaultsManager,
             userService: userService,
+            chatsService: chatsService,
             coreDataManager: context.coreDataManager,
             logger: context.logger
         )

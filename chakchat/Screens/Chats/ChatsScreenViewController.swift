@@ -34,7 +34,7 @@ final class ChatsScreenViewController: UIViewController {
     private lazy var settingButton: UIButton = UIButton(type: .system)
     private lazy var newChatButton: UIButton = UIButton(type: .system)
     private let chatsTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var chatsData: [ChatsModels.PersonalChat.Response]? = []
+    private var chatsData: [ChatsModels.GeneralChatModel.ChatData]? = []
     private let searchController: UISearchController
     private let interactor: ChatsScreenBusinessLogic
     
@@ -52,22 +52,22 @@ final class ChatsScreenViewController: UIViewController {
     override func viewDidLoad() {
         self.interactor.loadMeData()
         self.interactor.loadMeRestrictions()
-        //self.interactor.loadChats()
+        self.interactor.loadChats()
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
     }
     
     // MARK: - Public Methods
-    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
         chatsData?.append(chatData)
         DispatchQueue.main.async {
             self.chatsTableView.reloadData()
         }
     }
     
-    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
-        chatsData = chats
+    func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData) {
+        chatsData = allChatsData.chats
         DispatchQueue.main.async {
             self.chatsTableView.reloadData()
         }
