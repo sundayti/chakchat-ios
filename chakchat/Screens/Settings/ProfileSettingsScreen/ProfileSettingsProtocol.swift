@@ -26,6 +26,7 @@ protocol ProfileSettingsScreenBusinessLogic {
 
 protocol ProfileSettingsScreenPresentationLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData)
+    func deleteImage()
 }
 
 protocol ProfileSettingsScreenWorkerLogic {

@@ -18,4 +18,8 @@ final class ProfileSettingsPresenter: ProfileSettingsScreenPresentationLogic {
     func showUserData(_ userData: ProfileSettingsModels.ProfileUserData) {
         view?.configureUserData(userData)
     }
+    
+    func deleteImage() {
+        view?.deleteImage()
+    }
 }
