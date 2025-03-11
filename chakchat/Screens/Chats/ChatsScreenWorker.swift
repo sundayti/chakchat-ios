@@ -32,23 +32,8 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
         self.logger = logger
     }
     
-    // MARK: - Public Methods
     func loadChats() -> [ChatsModels.PersonalChat.Response]? {
-        var result: [ChatsModels.PersonalChat.Response] = []
-        if let chats = coreDataManager.fetchChats() {
-            for chat in chats {
-                guard let members = try? JSONDecoder().decode([UUID].self, from: chat.members) else { continue }
-                let chatResponse = ChatsModels.PersonalChat.Response(
-                    chatID: chat.chatID,
-                    members: members,
-                    blocked: chat.blocked,
-                    blockedBy: try? JSONDecoder().decode([UUID]?.self, from: chat.blockedBy ?? Data()),
-                    createdAt: chat.createdAt
-                )
-                result.append(chatResponse)
-            }
-        }
-        return result
+        return nil
     }
     
     func loadMeData(competion: @escaping (Result<Void, Error>) -> Void) {

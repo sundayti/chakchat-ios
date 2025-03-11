@@ -16,9 +16,7 @@ enum ChatsModels {
             let chats: [ChatData]
         }
         
-        protocol ChatInfo: Codable {}
-        
-        struct Personal: ChatInfo, Codable {
+        struct PersonalInfo: Codable {
             let blockedBy: [UUID]?
             
             enum CodingKeys: String, CodingKey {
@@ -26,7 +24,7 @@ enum ChatsModels {
             }
         }
 
-        struct Group: ChatInfo, Codable {
+        struct GroupInfo: Codable {
             let admin: UUID
             let name: String
             let description: String?
@@ -40,7 +38,7 @@ enum ChatsModels {
             }
         }
 
-        struct SecretPersonal: ChatInfo, Codable {
+        struct SecretPersonalInfo: Codable {
             let expiration: String?
             
             enum CodingKeys: String, CodingKey {
@@ -48,7 +46,7 @@ enum ChatsModels {
             }
         }
         
-        struct SecretGroup: ChatInfo, Codable {
+        struct SecretGroupInfo: Codable {
             let admin: UUID
             let name: String
             let description: String?
@@ -68,64 +66,49 @@ enum ChatsModels {
             let chatID: UUID
             let type: ChatType
             let members: [UUID]
-            let info: ChatInfo
-            let lastUpdateID: Int64?
-            let preview: Preview?
+            let createdAt: Date
+            let info: Info
             
             enum CodingKeys: String, CodingKey {
                 case chatID = "chat_id"
                 case type = "type"
                 case members = "members"
+                case createdAt = "created_at"
                 case info = "info"
-                case lastUpdateID = "last_update_id"
-                case preview = "preview"
             }
-            
-            func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: CodingKeys.self)
-                try container.encode(chatID, forKey: .chatID)
-                try container.encode(type, forKey: .type)
-                try container.encode(members, forKey: .members)
-                try container.encodeIfPresent(lastUpdateID, forKey: .lastUpdateID)
-                try container.encodeIfPresent(preview, forKey: .preview)
-                
-                switch type {
-                case .personal:
-                    if let personalInfo = info as? Personal {
-                        try container.encode(personalInfo, forKey: .info)
-                    }
-                case .group:
-                    if let groupInfo = info as? Group {
-                        try container.encode(groupInfo, forKey: .info)
-                    }
-                case .personalSecret:
-                    if let secretPersonalInfo = info as? SecretPersonal {
-                        try container.encode(secretPersonalInfo, forKey: .info)
-                    }
-                case .groupSecret:
-                    if let secretGroupInfo = info as? SecretGroup {
-                        try container.encode(secretGroupInfo, forKey: .info)
-                    }
-                }
-            }
+        }
+        
+        enum Info: Codable {
+            case personal(PersonalInfo)
+            case group(GroupInfo)
+            case secretPersonal(SecretPersonalInfo)
+            case secretGroup(SecretGroupInfo)
             
             init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                chatID = try container.decode(UUID.self, forKey: .chatID)
-                type = try container.decode(ChatType.self, forKey: .type)
-                members = try container.decode([UUID].self, forKey: .members)
-                lastUpdateID = try container.decodeIfPresent(Int64.self, forKey: .lastUpdateID)
-                preview = try container.decodeIfPresent(Preview.self, forKey: .preview)
-                
-                switch type {
-                case .personal:
-                    info = try container.decode(Personal.self, forKey: .info)
-                case .group:
-                    info = try container.decode(Group.self, forKey: .info)
-                case .personalSecret:
-                    info = try container.decode(SecretPersonal.self, forKey: .info)
-                case .groupSecret:
-                    info = try container.decode(SecretGroup.self, forKey: .info)
+                let container = try decoder.singleValueContainer()
+                if let info = try? container.decode(PersonalInfo.self) {
+                    self = .personal(info)
+                } else if let info = try? container.decode(GroupInfo.self) {
+                    self = .group(info)
+                } else if let info = try? container.decode(SecretPersonalInfo.self) {
+                    self = .secretPersonal(info)
+                } else if let info = try? container.decode(SecretGroupInfo.self) {
+                    self = .secretGroup(info)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Unknown ChatInfo type")
+                }
+            }
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .personal(let info):
+                    try container.encode(info)
+                case .group(let info):
+                    try container.encode(info)
+                case .secretPersonal(let info):
+                    try container.encode(info)
+                case .secretGroup(let info):
+                    try container.encode(info)
                 }
             }
         }

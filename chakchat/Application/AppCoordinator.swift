@@ -158,8 +158,11 @@ final class AppCoordinator {
         }
     }
     
-    func showChatScreen(_ userData: ProfileSettingsModels.ProfileUserData, _ isChatExisting: Bool) {
-        let chatVC = ChatAssembly.build(mainAppContext, coordinator: self, userData: userData, chatID: nil, existing: isChatExisting)
+    func showChatScreen(
+        _ userData: ProfileSettingsModels.ProfileUserData,
+        _ chatData: ChatsModels.GeneralChatModel.ChatData?
+    ) {
+        let chatVC = ChatAssembly.build(mainAppContext, coordinator: self, userData: userData, chatData: chatData)
         if let mainVC = mainChatVC {
             navigationController.setViewControllers([mainVC, chatVC], animated: true)
         } else {
