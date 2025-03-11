@@ -16,14 +16,24 @@ extension Chat {
         return NSFetchRequest<Chat>(entityName: "Chat")
     }
 
-    @NSManaged public var chatID: UUID?
-    @NSManaged public var type: String?
-    @NSManaged public var members: Data?
-    @NSManaged public var createdAt: Date?
-    @NSManaged public var info: Data?
+    @NSManaged public var chatID: UUID
+    @NSManaged public var type: String
+    @NSManaged public var members: Data
+    @NSManaged public var createdAt: Date
+    @NSManaged public var info: Data
 
 }
 
 extension Chat : Identifiable {
+    
+}
 
+extension Chat {
+    func getMembers() -> [UUID] {
+        let decoder = JSONDecoder()
+        if let members = try? decoder.decode([UUID].self, from: self.members) {
+            return members
+        }
+        return []
+    }
 }
