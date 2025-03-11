@@ -58,6 +58,8 @@ final class ProfileSettingsViewController: UIViewController {
     private var imageURL: URL?
     private let isNicknameCorrect = CurrentValueSubject<Bool, Never>(true)
     private let isApplyEnabled = CurrentValueSubject<Bool, Never>(true)
+    private var editMenuInteraction: UIEditMenuInteraction?
+    private let clearButton: UIButton = UIButton(type: .system)
     
     // MARK: - Initialization
     init(interactor: ProfileSettingsScreenBusinessLogic) {
@@ -94,6 +96,10 @@ final class ProfileSettingsViewController: UIViewController {
         }
     }
     
+    func deleteImage() {
+        configureIconImageView()
+    }
+    
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = Colors.backgroundSettings
@@ -102,7 +108,8 @@ final class ProfileSettingsViewController: UIViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
-        configureIconImageView(nil)
+        configureIconImageView()
+        configureClearButtonOnImage()
         configureNameTextField()
         configureUsernameTextField()
         configurePhoneTextField()
@@ -127,7 +134,7 @@ final class ProfileSettingsViewController: UIViewController {
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
-    private func configureIconImageView(_ image: UIImage?) {
+    private func configureIconImageView() {
         view.addSubview(iconImageView)
         iconImageView.setHeight(Constants.iconImageSize)
         iconImageView.setWidth(Constants.iconImageSize)
@@ -144,8 +151,36 @@ final class ProfileSettingsViewController: UIViewController {
         iconImageView.image = gearImage
         
         iconImageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconImageViewTapped))
-        iconImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    private func configureClearButtonOnImage() {
+        iconImageView.layoutIfNeeded()
+
+        clearButton.frame = iconImageView.bounds
+        clearButton.backgroundColor = .clear
+        clearButton.layer.cornerRadius = iconImageView.layer.cornerRadius
+        clearButton.layer.masksToBounds = true
+
+        let editAction = UIAction(
+            title: LocalizationManager.shared.localizedString(for: "edit"),
+            image: UIImage(systemName: "pencil")
+        ) { action in
+            self.chooseImage()
+        }
+
+        let deleteAction = UIAction(
+            title: LocalizationManager.shared.localizedString(for: "delete"),
+            image: UIImage(systemName: "trash"),
+            attributes: .destructive
+        ) { action in
+            self.sendDeleteImageRequest()
+        }
+
+        let menu = UIMenu(title: "", children: [editAction, deleteAction])
+        clearButton.menu = menu
+        clearButton.showsMenuAsPrimaryAction = true
+
+        iconImageView.addSubview(clearButton)
     }
 
     private func configureNameTextField() {
@@ -332,6 +367,21 @@ final class ProfileSettingsViewController: UIViewController {
             .store(in: &cancellables)
     }
     
+    private func chooseImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func sendDeleteImageRequest() {
+        guard iconImageView.image != nil else {
+            return
+        }
+        interactor.deleteProfilePhoto()
+    }
+    
     // MARK: - Actions
     @objc
     private func cancelButtonPressed() {
@@ -366,15 +416,6 @@ final class ProfileSettingsViewController: UIViewController {
             }
         })
         interactor.signOut()
-    }
-    
-    @objc
-    private func iconImageViewTapped() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
     }
     
     @objc
@@ -438,7 +479,7 @@ extension ProfileSettingsViewController : UIImagePickerControllerDelegate, UINav
         }
         picker.dismiss(animated: true, completion: nil)
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
