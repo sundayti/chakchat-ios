@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - UserProfileProtocols
 protocol UserProfileBusinessLogic {
-    func routeToChat(_ isChatExisting: Bool)
+    func routeToChat(_ isChatExisting: ChatsModels.GeneralChatModel.ChatData?)
     func searchForExistingChat()
     func createSecretChat()
     
@@ -31,13 +31,13 @@ protocol UserProfilePresentationLogic {
 protocol UserProfileWorkerLogic {
     func searchMessages()
     func switchNotification()
-    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, Error>) -> Void)
+    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
     
-    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
-    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
+    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
+    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
     
     func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, Error>) -> Void)
     
-    func searchForExistingChat(_ memberID: UUID) -> Bool
+    func searchForExistingChat(_ memberID: UUID) -> Chat?
     func getMyID() -> UUID
 }

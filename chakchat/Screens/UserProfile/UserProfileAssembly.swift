@@ -37,8 +37,8 @@ enum UserProfileAssembly {
         interactor.onRouteBack = { [weak coordinator] in
             coordinator?.popScreen()
         }
-        interactor.onRouteToChat = { [weak coordinator] userData, isChatExisting in
-            coordinator?.showChatScreen(userData, isChatExisting)
+        interactor.onRouteToChat = { [weak coordinator] userData, chatData in
+            coordinator?.showChatScreen(userData, chatData)
         }
         let view = UserProfileViewController(interactor: interactor)
         presenter.view = view

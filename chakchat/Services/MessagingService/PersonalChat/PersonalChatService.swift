@@ -13,7 +13,7 @@ final class PersonalChatService: PersonalChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.PersonalChat.CreateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.PersonalChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = MessaginServiceEndpoints.PersonalChatEndpoints.personalChat.rawValue
         let idempotencyKey = UUID().uuidString
@@ -32,7 +32,7 @@ final class PersonalChatService: PersonalChatServiceProtocol {
     func sendBlockChatRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.PersonalChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.PersonalChatEndpoints.personalChat.rawValue)/\(chatID)/block"
         
@@ -47,7 +47,7 @@ final class PersonalChatService: PersonalChatServiceProtocol {
     func sendUnblockRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.PersonalChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.PersonalChatEndpoints.personalChat.rawValue)/\(chatID)/unblock"
         

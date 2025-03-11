@@ -33,25 +33,18 @@ final class UserProfileWorker: UserProfileWorkerLogic {
     }
     
     // MARK: - Public Methods
-    // return true if chat exists else false
-    func searchForExistingChat(_ memberID: UUID) -> Bool {
-        let myID = getMyID()
-        let chat = coreDataManager.fetchChatByMembers(myID, memberID)
-        return chat != nil ? true : false
-    }
-    
     func getMyID() -> UUID {
         let myID = userDefaultsManager.loadID()
         return myID
     }
     
-    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, any Error>) -> Void) {
+    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         print("FAWF")
     }
 
-    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
+    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         let myID = getMyID()
-        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
+        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID, .personal)?.chatID else {
             completion(.failure(NSError(domain: "Chat does not exist", code: 1)))
             return
         }
@@ -68,9 +61,9 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         }
     }
     
-    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
+    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         let myID = getMyID()
-        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
+        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID, .personal)?.chatID else {
             completion(.failure(NSError(domain: "Chat does not exist", code: 1)))
             return
         }
@@ -90,7 +83,7 @@ final class UserProfileWorker: UserProfileWorkerLogic {
     
     func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, any Error>) -> Void) {
         let myID = getMyID()
-        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID)?.chatID else {
+        guard let chatID = coreDataManager.fetchChatByMembers(myID, memberID, .personal)?.chatID else {
             completion(.failure(NSError(domain: "Chat does not exist", code: 1)))
             return
         }
@@ -106,6 +99,13 @@ final class UserProfileWorker: UserProfileWorkerLogic {
             }
         }
     }
+    
+    func searchForExistingChat(_ memberID: UUID) -> Chat? {
+        let myID = getMyID()
+        let chat = coreDataManager.fetchChatByMembers(myID, memberID, ChatType.personal)
+        return chat != nil ? chat : nil
+    }
+    
     
     func searchMessages() {
         /// имплементация позже

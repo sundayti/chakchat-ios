@@ -19,7 +19,7 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     private let profileConfiguration: ProfileConfiguration
     private let logger: OSLog
     
-    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, Bool) -> Void)?
+    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, ChatsModels.GeneralChatModel.ChatData?) -> Void)?
     var onRouteBack: (() -> Void)?
     
     // MARK: - Initialization
@@ -94,8 +94,12 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     }
     
     func searchForExistingChat() {
-        let isChatExisting = worker.searchForExistingChat(userData.id)
-        routeToChat(isChatExisting)
+        if let chatData = worker.searchForExistingChat(userData.id) {
+            let convertedChatData = convertData(chatData)
+            routeToChat(convertedChatData)
+        } else {
+            routeToChat(nil)
+        }
     }
     
     func switchNotification() {
@@ -108,11 +112,24 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     }
     
     // MARK: - Routing
-    func routeToChat(_ isChatExisting: Bool) {
+    func routeToChat(_ isChatExisting: ChatsModels.GeneralChatModel.ChatData?) {
         onRouteToChat?(userData, isChatExisting)
     }
     
     func routeBack() {
         onRouteBack?()
+    }
+    
+    private func convertData(_ chatCoreData: Chat) -> ChatsModels.GeneralChatModel.ChatData? {
+        let decoder = JSONDecoder()
+        let chatData = ChatsModels.GeneralChatModel.ChatData(
+            chatID: chatCoreData.chatID,
+            type: ChatType(rawValue: chatCoreData.type) ?? ChatType.personal,
+            members: (try? decoder.decode([UUID].self, from: chatCoreData.members)) ?? [UUID()],
+            createdAt: chatCoreData.createdAt,
+            info: (try? decoder.decode(ChatsModels.GeneralChatModel.Info.self, from: chatCoreData.info))
+            ?? ChatsModels.GeneralChatModel.Info.personal(ChatsModels.GeneralChatModel.PersonalInfo(blockedBy: [UUID()]))
+        )
+        return chatData
     }
 }
