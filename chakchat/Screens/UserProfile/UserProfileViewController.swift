@@ -21,7 +21,7 @@ final class UserProfileViewController: UIViewController {
         static let arrowName: String = "arrow.left"
         static let borderRadius: CGFloat = 10
         static let buttonStackView: CGFloat = 10
-        static let buttonWidth: CGFloat = 310
+        static let buttonWidth: CGFloat = 230
         static let buttonHeigth: CGFloat = 50
         static let buttonTop: CGFloat = 25
         static let userTableHorizontal: CGFloat = -15
@@ -102,12 +102,29 @@ final class UserProfileViewController: UIViewController {
         if let birth = userData.dateOfBirth {
             userTableViewData[2].value = birth
         }
-        if profileConfiguration.fromGroupChat {
+        switch (profileConfiguration.isSecret, profileConfiguration.fromGroupChat) {
+        case (true, true):
             let chatButton = createButton("message.fill",
                                           LocalizationManager.shared.localizedString(for: "chat_l"))
             chatButton.addTarget(self, action: #selector(chatButtonPressed), for: .touchUpInside)
             buttonStackView.addArrangedSubview(chatButton)
+            buttonStackView.setWidth(310)
+        case (true, false):
+            break
+        case (false, true):
+            let chatButton = createButton("message.fill",
+                                          LocalizationManager.shared.localizedString(for: "chat_l"))
+            chatButton.addTarget(self, action: #selector(chatButtonPressed), for: .touchUpInside)
+            let secretChatButton = createButton("key.fill",
+                                                LocalizationManager.shared.localizedString(for: "secret_chat_l"))
+            buttonStackView.addArrangedSubview(chatButton)
+            buttonStackView.addArrangedSubview(secretChatButton)
             buttonStackView.setWidth(390)
+        case (false, false):
+            let secretChatButton = createButton("key.fill",
+                                                LocalizationManager.shared.localizedString(for: "secret_chat_l"))
+            buttonStackView.addArrangedSubview(secretChatButton)
+            buttonStackView.setWidth(310)
         }
     }
     
@@ -159,15 +176,12 @@ final class UserProfileViewController: UIViewController {
         
         let notificationButton = createButton("bell.badge.fill",
                                               LocalizationManager.shared.localizedString(for: "sound_l"))
-        let secretChatButton = createButton("key.fill",
-                                            LocalizationManager.shared.localizedString(for: "secret_chat_l"))
         let searchButton = createButton("magnifyingglass",
                                         LocalizationManager.shared.localizedString(for: "search_l"))
         let optionsButton = createButton("ellipsis",
                                          LocalizationManager.shared.localizedString(for: "more_l"))
         
         buttonStackView.addArrangedSubview(notificationButton)
-        buttonStackView.addArrangedSubview(secretChatButton)
         buttonStackView.addArrangedSubview(searchButton)
         buttonStackView.addArrangedSubview(optionsButton)
         
@@ -263,6 +277,10 @@ final class UserProfileViewController: UIViewController {
     
     @objc private func chatButtonPressed() {
         interactor.searchForExistingChat()
+    }
+    
+    @objc private func secretChatButtonPressed() {
+        
     }
     
     @objc private func backButtonPressed() {

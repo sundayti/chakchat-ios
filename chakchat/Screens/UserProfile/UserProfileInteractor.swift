@@ -44,6 +44,10 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         presenter.passUserData(userData, profileConfiguration)
     }
     
+    func createSecretChat() {
+        print("fawf")
+    }
+    
     func blockChat() {
         worker.blockChat(userData.id) { [weak self] result in
             guard let self = self else { return }

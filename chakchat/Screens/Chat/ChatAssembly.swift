@@ -14,6 +14,7 @@ enum ChatAssembly {
         _ context: MainAppContextProtocol,
         coordinator: AppCoordinator,
         userData: ProfileSettingsModels.ProfileUserData,
+        chatID: UUID?,
         existing: Bool,
         isSecret: Bool = false
     ) -> UIViewController {
@@ -37,6 +38,7 @@ enum ChatAssembly {
             userData: userData,
             eventPublisher: context.eventManager,
             isChatExisting: existing,
+            chatID: chatID,
             isSecret: isSecret,
             errorHandler: context.errorHandler,
             logger: context.logger

@@ -70,7 +70,7 @@ final class ChatViewController: UIViewController {
     }
     
     // MARK: - Public Methods
-    func configureWithData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    func configureWithData(_ userData: ProfileSettingsModels.ProfileUserData, _ isSecret: Bool) {
         let color = UIColor.random()
         let image = UIImage.imageWithText(
             text: userData.name,

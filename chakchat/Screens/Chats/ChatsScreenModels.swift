@@ -16,23 +16,117 @@ enum ChatsModels {
             let chats: [ChatData]
         }
         
+        protocol ChatInfo: Codable {}
+        
+        struct Personal: ChatInfo, Codable {
+            let blockedBy: [UUID]?
+            
+            enum CodingKeys: String, CodingKey {
+                case blockedBy = "blocked_by"
+            }
+        }
+
+        struct Group: ChatInfo, Codable {
+            let admin: UUID
+            let name: String
+            let description: String?
+            let groupPhoto: URL?
+            
+            enum CodingKeys: String, CodingKey {
+                case admin = "admin"
+                case name = "name"
+                case description = "description"
+                case groupPhoto = "group_photo"
+            }
+        }
+
+        struct SecretPersonal: ChatInfo, Codable {
+            let expiration: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case expiration = "expiration"
+            }
+        }
+        
+        struct SecretGroup: ChatInfo, Codable {
+            let admin: UUID
+            let name: String
+            let description: String?
+            let groupPhoto: URL?
+            let expiration: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case admin = "admin"
+                case name = "name"
+                case description = "description"
+                case groupPhoto = "group_photo"
+                case expiration = "expiration"
+            }
+        }
+        
         struct ChatData: Codable {
             let chatID: UUID
             let type: ChatType
-            let secret: Bool
-            let name: String
-            let chatPhoto: URL?
-            let lastUpdateID: Int64
-            let preview: [Preview]
+            let members: [UUID]
+            let info: ChatInfo
+            let lastUpdateID: Int64?
+            let preview: Preview?
             
             enum CodingKeys: String, CodingKey {
                 case chatID = "chat_id"
                 case type = "type"
-                case secret = "secret"
-                case name = "name"
-                case chatPhoto = "chat_photo"
+                case members = "members"
+                case info = "info"
                 case lastUpdateID = "last_update_id"
                 case preview = "preview"
+            }
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                try container.encode(chatID, forKey: .chatID)
+                try container.encode(type, forKey: .type)
+                try container.encode(members, forKey: .members)
+                try container.encodeIfPresent(lastUpdateID, forKey: .lastUpdateID)
+                try container.encodeIfPresent(preview, forKey: .preview)
+                
+                switch type {
+                case .personal:
+                    if let personalInfo = info as? Personal {
+                        try container.encode(personalInfo, forKey: .info)
+                    }
+                case .group:
+                    if let groupInfo = info as? Group {
+                        try container.encode(groupInfo, forKey: .info)
+                    }
+                case .personalSecret:
+                    if let secretPersonalInfo = info as? SecretPersonal {
+                        try container.encode(secretPersonalInfo, forKey: .info)
+                    }
+                case .groupSecret:
+                    if let secretGroupInfo = info as? SecretGroup {
+                        try container.encode(secretGroupInfo, forKey: .info)
+                    }
+                }
+            }
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                chatID = try container.decode(UUID.self, forKey: .chatID)
+                type = try container.decode(ChatType.self, forKey: .type)
+                members = try container.decode([UUID].self, forKey: .members)
+                lastUpdateID = try container.decodeIfPresent(Int64.self, forKey: .lastUpdateID)
+                preview = try container.decodeIfPresent(Preview.self, forKey: .preview)
+                
+                switch type {
+                case .personal:
+                    info = try container.decode(Personal.self, forKey: .info)
+                case .group:
+                    info = try container.decode(Group.self, forKey: .info)
+                case .personalSecret:
+                    info = try container.decode(SecretPersonal.self, forKey: .info)
+                case .groupSecret:
+                    info = try container.decode(SecretGroup.self, forKey: .info)
+                }
             }
         }
         

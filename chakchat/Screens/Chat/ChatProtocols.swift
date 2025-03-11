@@ -17,7 +17,7 @@ protocol ChatBusinessLogic: SendingMessagesProtocol {
 }
 
 protocol ChatPresentationLogic {
-    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData)
+    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData, _ isSecret: Bool)
 }
 
 protocol ChatWorkerLogic {

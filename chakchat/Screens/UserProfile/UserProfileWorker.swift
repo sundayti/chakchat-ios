@@ -44,6 +44,10 @@ final class UserProfileWorker: UserProfileWorkerLogic {
         let myID = userDefaultsManager.loadID()
         return myID
     }
+    
+    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, any Error>) -> Void) {
+        print("FAWF")
+    }
 
     func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
         let myID = getMyID()

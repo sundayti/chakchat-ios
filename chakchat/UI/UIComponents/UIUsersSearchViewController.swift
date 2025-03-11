@@ -61,7 +61,6 @@ final class UIUsersSearchViewController: UIViewController {
     // MARK: - Searching methods
     private func bindSearch() {
         searchTextPublisher
-            //.debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .removeDuplicates()
             .print("Datastream/search")
             .sink { [weak self] query in
