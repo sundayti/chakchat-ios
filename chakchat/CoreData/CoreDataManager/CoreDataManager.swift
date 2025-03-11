@@ -11,6 +11,29 @@ import CoreData
 // MARK: - CoreDataManager
 final class CoreDataManager: CoreDataManagerProtocol {
     
+    func saveChats(_ chatsData: ChatsModels.GeneralChatModel.ChatsData) {
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let encoder = JSONEncoder()
+        for chat in chatsData.chats {
+            let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "chatID == %@", chat.chatID as CVarArg)
+            if let existingChat = try? context.fetch(fetchRequest).first {
+                existingChat.type = chat.type.rawValue
+                existingChat.members = (try? encoder.encode(chat.members)) ?? Data()
+                existingChat.createdAt = chat.createdAt
+                existingChat.info = (try? encoder.encode(chat.info)) ?? Data()
+            } else {
+                let newChat = Chat(context: context)
+                newChat.chatID = chat.chatID
+                newChat.type = chat.type.rawValue
+                newChat.members = (try? encoder.encode(chat.members)) ?? Data()
+                newChat.createdAt = chat.createdAt
+                newChat.info = (try? encoder.encode(chat.info)) ?? Data()
+            }
+        }
+        CoreDataStack.shared.saveContext(for: "ChatsModel")
+    }
+    
     func fetchChats() -> [Chat]? {
         let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
         let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()

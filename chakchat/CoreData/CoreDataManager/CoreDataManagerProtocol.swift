@@ -8,6 +8,7 @@
 import Foundation
 
 protocol CoreDataManagerProtocol {
+    func saveChats(_ chatsData: ChatsModels.GeneralChatModel.ChatsData)
     func fetchChats() -> [Chat]?
     func createChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
     func fetchChatByMembers(_ myID: UUID, _ memberID: UUID, _ type: ChatType) -> Chat?
