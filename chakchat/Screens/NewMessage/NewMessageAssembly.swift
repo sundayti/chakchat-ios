@@ -30,8 +30,8 @@ enum NewMessageAssembly {
         interactor.onRouteToNewMessageScreen = { [weak coordinator] in
             coordinator?.showNewGroupScreen()
         }
-        interactor.onRouteToChat = { [weak coordinator] userData, isChatExisting in
-            coordinator?.showChatScreen(userData, isChatExisting)
+        interactor.onRouteToChat = { [weak coordinator] userData, chatData in
+            coordinator?.showChatScreen(userData, chatData)
         }
         let view = NewMessageViewController(interactor: interactor)
         presenter.view = view

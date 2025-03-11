@@ -44,10 +44,10 @@ final class NewMessageWorker: NewMessageWorkerLogic {
         }
     }
     
-    func searchForExistingChat(_ memberID: UUID) -> Bool {
+    func searchForExistingChat(_ memberID: UUID) -> Chat? {
         let myID = getMyID()
-        let chat = coreDataManager.fetchChatByMembers(myID, memberID)
-        return chat != nil ? true : false
+        let chat = coreDataManager.fetchChatByMembers(myID, memberID, ChatType.personal)
+        return chat != nil ? chat : nil
     }
     
     func getMyID() -> UUID {

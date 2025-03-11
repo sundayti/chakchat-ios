@@ -25,9 +25,9 @@ enum ProfileSettingsModels {
     }
     
     struct ChangeableProfileUserData: Codable {
-        var name: String
-        var username: String
-        var dateOfBirth: String?
+        let name: String
+        let username: String
+        let dateOfBirth: String?
     }
     
     struct NewPhotoRequest: Codable {

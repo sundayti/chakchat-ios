@@ -10,7 +10,10 @@ import Foundation
 // MARK: - NewMessageProtocols
 protocol NewMessageBusinessLogic: SearchInteractor {
     func backToChatsScreen()
-    func routeToChat(_ userData: ProfileSettingsModels.ProfileUserData, _ isChatExisting: Bool)
+    func routeToChat(
+        _ userData: ProfileSettingsModels.ProfileUserData,
+        _ chatData: ChatsModels.GeneralChatModel.ChatData?
+    )
     func newGroupRoute()
     func searchForExistingChat(_ userData: ProfileSettingsModels.ProfileUserData)
 }
@@ -27,5 +30,5 @@ protocol NewMessageWorkerLogic {
         completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
     
-    func searchForExistingChat(_ memberID: UUID) -> Bool
+    func searchForExistingChat(_ memberID: UUID) -> Chat?
 }

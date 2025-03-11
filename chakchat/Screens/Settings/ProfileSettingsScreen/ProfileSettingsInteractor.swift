@@ -129,7 +129,7 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
         worker.deleteProfilePhoto() { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let data):
+            case .success(_):
                 let updatePhotoEvent = UpdatePhotoEvent(newPhoto: nil)
                 self.eventPublisher.publish(event: updatePhotoEvent)
             case .failure(let failure):
