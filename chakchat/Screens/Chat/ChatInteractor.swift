@@ -14,14 +14,12 @@ final class ChatInteractor: ChatBusinessLogic {
     // MARK: - Properties
     private let presenter: ChatPresentationLogic
     private let worker: ChatWorkerLogic
-    private let userData: ProfileSettingsModels.ProfileUserData
     private let eventPublisher: EventPublisherProtocol
-    private let isChatExisting: Bool
-    private var chatID: UUID?
-    private let isSecret: Bool
+    private let userData: ProfileSettingsModels.ProfileUserData
     private let errorHandler: ErrorHandlerLogic
     private let logger: OSLog
     
+    private var chatData: ChatsModels.GeneralChatModel.ChatData?
     var onRouteBack: (() -> Void)?
     var onRouteToProfile: ((ProfileSettingsModels.ProfileUserData, ProfileConfiguration) -> Void)?
     
@@ -31,25 +29,25 @@ final class ChatInteractor: ChatBusinessLogic {
         worker: ChatWorkerLogic,
         userData: ProfileSettingsModels.ProfileUserData,
         eventPublisher: EventPublisherProtocol,
-        isChatExisting: Bool,
-        chatID: UUID?,
-        isSecret: Bool,
         errorHandler: ErrorHandlerLogic,
-        logger: OSLog
+        logger: OSLog,
+        chatData: ChatsModels.GeneralChatModel.ChatData?
     ) {
         self.presenter = presenter
         self.worker = worker
         self.userData = userData
         self.eventPublisher = eventPublisher
-        self.isChatExisting = isChatExisting
-        self.chatID = chatID
-        self.isSecret = isSecret
         self.errorHandler = errorHandler
         self.logger = logger
+        self.chatData = chatData
     }
-    
+    // если обычный чат еще не создан то он не может быть секретным
     func passUserData() {
-        presenter.passUserData(userData, isSecret)
+        if let chatD = chatData {
+            presenter.passUserData(userData, chatD.type.rawValue == "personal_secret")
+        } else {
+            presenter.passUserData(userData, false)
+        }
     }
     
     // MARK: - Public Methods
@@ -57,18 +55,8 @@ final class ChatInteractor: ChatBusinessLogic {
         worker.createChat(memberID) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let data):
+            case .success(_):
                 os_log("Chat with member(%@) created", log: logger, type: .default, memberID as CVarArg)
-                // если blocked == true, то показываем пользователю об этом.
-                let event = CreatedPersonalChatEvent(
-                    chatID: data.chatID,
-                    members: data.members,
-                    blocked: data.blocked,
-                    blockedBy: data.blockedBy,
-                    createdAt: data.createdAt
-                )
-                eventPublisher.publish(event: event)
-                self.chatID = data.chatID
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to create chat with member(%@):\n", log: logger, type: .fault, memberID as CVarArg)
@@ -78,18 +66,18 @@ final class ChatInteractor: ChatBusinessLogic {
     }
     
     func sendTextMessage(_ message: String) {
-        if !isChatExisting {
+        if chatData == nil {
             createChat(userData.id)
         }
         worker.sendTextMessage(message)
     }
     
     func setExpirationTime(_ expiration: String?) {
-        guard let chatID = chatID else { return }
+        guard let chatID = chatData?.chatID else { return }
         worker.setExpirationTime(chatID, expiration) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let data):
+            case .success(_):
                 os_log("Setted expiration time with member(%@)", log: logger, type: .default, userData.id as CVarArg)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
@@ -103,9 +91,14 @@ final class ChatInteractor: ChatBusinessLogic {
     func routeBack() {
         onRouteBack?()
     }
-    
+    // чат не может быть секретным если даже обычный еще не был создан
     func routeToProfile() {
-        let profileConfiguration = ProfileConfiguration(isSecret: isSecret, fromGroupChat: false)
-        onRouteToProfile?(userData, profileConfiguration)
+        if let chatD = chatData {
+            let profileConfiguration = ProfileConfiguration(isSecret: chatD.type.rawValue == "personal_secret", fromGroupChat: false)
+            onRouteToProfile?(userData, profileConfiguration)
+        } else {
+            let profileConfiguration = ProfileConfiguration(isSecret: false, fromGroupChat: false)
+            onRouteToProfile?(userData, profileConfiguration)
+        }
     }
 }

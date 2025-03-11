@@ -14,9 +14,7 @@ enum ChatAssembly {
         _ context: MainAppContextProtocol,
         coordinator: AppCoordinator,
         userData: ProfileSettingsModels.ProfileUserData,
-        chatID: UUID?,
-        existing: Bool,
-        isSecret: Bool = false
+        chatData: ChatsModels.GeneralChatModel.ChatData?
     ) -> UIViewController {
         
         let presenter = ChatPresenter()
@@ -37,12 +35,11 @@ enum ChatAssembly {
             worker: worker,
             userData: userData,
             eventPublisher: context.eventManager,
-            isChatExisting: existing,
-            chatID: chatID,
-            isSecret: isSecret,
             errorHandler: context.errorHandler,
-            logger: context.logger
+            logger: context.logger,
+            chatData: chatData
         )
+        
         interactor.onRouteToProfile = { [weak coordinator] userData, profileConfiguration in
             coordinator?.showUserProfileScreen(userData, profileConfiguration)
         }

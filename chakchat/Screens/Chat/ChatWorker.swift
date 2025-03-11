@@ -33,14 +33,14 @@ final class ChatWorker: ChatWorkerLogic {
     }
     
     // MARK: - Public Methods
-    func createChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, any Error>) -> Void) {
+    func createChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ChatsModels.PersonalChat.CreateRequest(memberID: memberID)
         personalChatService.sendCreateChatRequest(request, accessToken) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                coreDataManager.createPersonalChat(response.data)
+                self.coreDataManager.createChat(response.data)
                 completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))
@@ -52,7 +52,7 @@ final class ChatWorker: ChatWorkerLogic {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ChatsModels.PersonalChat.CreateRequest(memberID: memberID)
         secretPersonalChatService.sendCreateChatRequest(request, accessToken) { [weak self] result in
-            guard let self = self else { return }
+            guard self != nil else { return }
             switch result {
             case .success(let response):
                 // сохранить в кор дате
@@ -71,7 +71,7 @@ final class ChatWorker: ChatWorkerLogic {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ChatsModels.SecretPersonalChat.ExpirationRequest(expiration: expiration)
         secretPersonalChatService.sendSetExpirationRequest(request, chatID, accessToken) { [weak self] result in
-            guard let self = self else { return }
+            guard self != nil else { return }
             switch result {
             case .success(let response):
                 // сохранить в кор дате
