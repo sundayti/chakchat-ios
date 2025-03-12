@@ -25,7 +25,6 @@ final class SignupWorker: SignupWorkerLogic {
     // MARK: - Public Methods
     func sendRequest(_ request: SignupModels.SignupRequest, completion: @escaping (Result<SignupState, Error>) -> Void) {
         print("Send request to service")
-        
         identityService.sendSignupRequest(request) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {return}

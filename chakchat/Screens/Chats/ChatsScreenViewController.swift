@@ -34,7 +34,7 @@ final class ChatsScreenViewController: UIViewController {
     private lazy var settingButton: UIButton = UIButton(type: .system)
     private lazy var newChatButton: UIButton = UIButton(type: .system)
     private let chatsTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var chatsData: [ChatsModels.PersonalChat.Response]? = []
+    private var chatsData: [ChatsModels.GeneralChatModel.ChatData]? = []
     private let searchController: UISearchController
     private let interactor: ChatsScreenBusinessLogic
     
@@ -52,24 +52,27 @@ final class ChatsScreenViewController: UIViewController {
     override func viewDidLoad() {
         self.interactor.loadMeData()
         self.interactor.loadMeRestrictions()
-        //self.interactor.loadChats()
+        self.interactor.loadChats()
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
     }
     
     // MARK: - Public Methods
-    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
-        chatsData?.append(chatData)
-        DispatchQueue.main.async {
-            self.chatsTableView.reloadData()
-        }
+    func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData) {
+        chatsData = allChatsData.chats
+        chatsTableView.reloadData()
     }
     
-    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
-        chatsData = chats
-        DispatchQueue.main.async {
-            self.chatsTableView.reloadData()
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        chatsData?.append(chatData)
+        chatsTableView.reloadData()
+    }
+    
+    func deleteChat(_ chatID: UUID) {
+        if let i = chatsData?.firstIndex(where: {$0.chatID == chatID}) {
+            chatsData?.remove(at: i)
+            chatsTableView.reloadData()
         }
     }
     
@@ -189,16 +192,24 @@ extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource 
         }
         if let item = chatsData?[indexPath.row] {
             interactor.getUserDataByID(item.members) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let data):
-                    cell.configure(data.photo, data.name)
-                case .failure(let failure):
-                    interactor.handleError(failure)
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let data):
+                        cell.configure(data.photo, data.name)
+                    case .failure(let failure):
+                        self.interactor.handleError(failure)
+                    }
                 }
             }
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let chatData = chatsData?[indexPath.row] else { return }
+        interactor.routeToChat(chatData)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

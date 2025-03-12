@@ -13,7 +13,7 @@ final class SecretPersonalChatService: SecretPersonalChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.PersonalChat.CreateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretPersonalChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = MessaginServiceEndpoints.SecretPersonalChatEndpoints.secretPersonalChat.rawValue
         let idempotencyKey = UUID().uuidString
@@ -33,7 +33,7 @@ final class SecretPersonalChatService: SecretPersonalChatServiceProtocol {
         _ request: ChatsModels.SecretPersonalChat.ExpirationRequest,
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretPersonalChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.SecretPersonalChatEndpoints.secretPersonalChat.rawValue)/\(chatID)/expiration"
         

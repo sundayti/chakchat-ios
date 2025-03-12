@@ -13,11 +13,20 @@ final class NewMessageWorker: NewMessageWorkerLogic {
     // MARK: - Properties
     private let userService: UserServiceProtocol
     private let keychainManager: KeychainManagerBusinessLogic
+    private let userDefaultsManager: UserDefaultsManagerProtocol
+    private let coreDataManager: CoreDataManagerProtocol
     
     // MARK: - Initialization
-    init(userService: UserServiceProtocol, keychainManager: KeychainManagerBusinessLogic) {
+    init(
+        userService: UserServiceProtocol,
+        keychainManager: KeychainManagerBusinessLogic,
+        userDefaultsManager: UserDefaultsManagerProtocol,
+        coreDataManager: CoreDataManagerProtocol
+    ) {
         self.userService = userService
         self.keychainManager = keychainManager
+        self.userDefaultsManager = userDefaultsManager
+        self.coreDataManager = coreDataManager
     }
     
     // MARK: - Public Methods
@@ -33,5 +42,16 @@ final class NewMessageWorker: NewMessageWorkerLogic {
                 completion(.failure(failure))
             }
         }
+    }
+    
+    func searchForExistingChat(_ memberID: UUID) -> Chat? {
+        let myID = getMyID()
+        let chat = coreDataManager.fetchChatByMembers(myID, memberID, ChatType.personal)
+        return chat != nil ? chat : nil
+    }
+    
+    func getMyID() -> UUID {
+        let myID = userDefaultsManager.loadID()
+        return myID
     }
 }

@@ -7,20 +7,19 @@
 
 import Foundation
 
-// MARK: - CreatedPersonalChatEvent
-final class CreatedPersonalChatEvent: Event {
+final class CreatedChatEvent: Event {
     
     let chatID: UUID
+    let type: ChatType
     let members: [UUID]
-    let blocked: Bool
-    let blockedBy: [UUID]?
     let createdAt: Date
+    let info: ChatsModels.GeneralChatModel.Info
     
-    init(chatID: UUID, members: [UUID], blocked: Bool, blockedBy: [UUID]?, createdAt: Date) {
+    init(chatID: UUID, type: ChatType, members: [UUID], createdAt: Date, info: ChatsModels.GeneralChatModel.Info) {
         self.chatID = chatID
+        self.type = type
         self.members = members
-        self.blocked = blocked
-        self.blockedBy = blockedBy
         self.createdAt = createdAt
+        self.info = info
     }
 }

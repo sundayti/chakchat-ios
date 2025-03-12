@@ -16,23 +16,100 @@ enum ChatsModels {
             let chats: [ChatData]
         }
         
+        struct PersonalInfo: Codable {
+            let blockedBy: [UUID]?
+            
+            enum CodingKeys: String, CodingKey {
+                case blockedBy = "blocked_by"
+            }
+        }
+
+        struct GroupInfo: Codable {
+            let admin: UUID
+            let name: String
+            let description: String?
+            let groupPhoto: URL?
+            
+            enum CodingKeys: String, CodingKey {
+                case admin = "admin"
+                case name = "name"
+                case description = "description"
+                case groupPhoto = "group_photo"
+            }
+        }
+
+        struct SecretPersonalInfo: Codable {
+            let expiration: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case expiration = "expiration"
+            }
+        }
+        
+        struct SecretGroupInfo: Codable {
+            let admin: UUID
+            let name: String
+            let description: String?
+            let groupPhoto: URL?
+            let expiration: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case admin = "admin"
+                case name = "name"
+                case description = "description"
+                case groupPhoto = "group_photo"
+                case expiration = "expiration"
+            }
+        }
+        
         struct ChatData: Codable {
             let chatID: UUID
             let type: ChatType
-            let secret: Bool
-            let name: String
-            let chatPhoto: URL?
-            let lastUpdateID: Int64
-            let preview: [Preview]
+            let members: [UUID]
+            let createdAt: Date
+            let info: Info
             
             enum CodingKeys: String, CodingKey {
                 case chatID = "chat_id"
                 case type = "type"
-                case secret = "secret"
-                case name = "name"
-                case chatPhoto = "chat_photo"
-                case lastUpdateID = "last_update_id"
-                case preview = "preview"
+                case members = "members"
+                case createdAt = "created_at"
+                case info = "info"
+            }
+        }
+        
+        enum Info: Codable {
+            case personal(PersonalInfo)
+            case group(GroupInfo)
+            case secretPersonal(SecretPersonalInfo)
+            case secretGroup(SecretGroupInfo)
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                if let info = try? container.decode(PersonalInfo.self) {
+                    self = .personal(info)
+                } else if let info = try? container.decode(GroupInfo.self) {
+                    self = .group(info)
+                } else if let info = try? container.decode(SecretPersonalInfo.self) {
+                    self = .secretPersonal(info)
+                } else if let info = try? container.decode(SecretGroupInfo.self) {
+                    self = .secretGroup(info)
+                } else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Unknown ChatInfo type")
+                }
+            }
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .personal(let info):
+                    try container.encode(info)
+                case .group(let info):
+                    try container.encode(info)
+                case .secretPersonal(let info):
+                    try container.encode(info)
+                case .secretGroup(let info):
+                    try container.encode(info)
+                }
             }
         }
         

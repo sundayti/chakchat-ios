@@ -70,7 +70,7 @@ final class ChatViewController: UIViewController {
     }
     
     // MARK: - Public Methods
-    func configureWithData(_ userData: ProfileSettingsModels.ProfileUserData) {
+    func configureWithData(_ userData: ProfileSettingsModels.ProfileUserData, _ isSecret: Bool) {
         let color = UIColor.random()
         let image = UIImage.imageWithText(
             text: userData.name,
@@ -137,6 +137,14 @@ final class ChatViewController: UIViewController {
         titleStackView.setWidth(Constants.stackViewWidth)
         navigationItem.titleView = titleStackView
         navigationController?.navigationBar.layoutIfNeeded()
+        addTapGesture(to: iconImageView)
+        addTapGesture(to: nicknameLabel)
+    }
+    
+    private func addTapGesture(to view: UIView) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTitleTap))
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func configureSeparator() {
@@ -159,6 +167,10 @@ final class ChatViewController: UIViewController {
             constant: Constants.messageInputViewBottom
         )
         messageInputView.bottomConstraint.isActive = true
+    }
+    
+    @objc private func handleTitleTap() {
+        interactor.routeToProfile()
     }
     
     // MARK: - Actions

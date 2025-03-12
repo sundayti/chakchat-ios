@@ -74,6 +74,7 @@
 "create" = "Create";
 "group_name" = "Group name";
 "block_chat" = "Block chat";
+"unblock_chat" = "Unblock chat";
 "delete_chat" = "Delete chat";
 "choose_option" = "Choose option";
 "are_you_sure_block" = "Are you sure you want to block this chat?";

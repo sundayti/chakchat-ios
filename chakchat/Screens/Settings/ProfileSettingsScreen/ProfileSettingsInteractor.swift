@@ -50,28 +50,59 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
     }
 
     func putNewData(_ newUserData: ProfileSettingsModels.ChangeableProfileUserData) {
-        os_log("Saved new data in profile settings screen", log: logger, type: .default)
-        worker.putUserData(newUserData) { [weak self] result in
-            guard let self = self else {return}
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.worker.putUserData(newUserData) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else {return}
+                    switch result {
+                    case .success(_):
+                        os_log("Uploading user data complete", log: self.logger, type: .info)
+                        let updateProfileDataEvent = UpdateProfileDataEvent(
+                            newNickname: newUserData.name,
+                            newUsername: newUserData.username,
+                            newBirth: newUserData.dateOfBirth
+                        )
+                        os_log("Published event in profile settings screen", log: self.logger, type: .default)
+                        self.eventPublisher.publish(event: updateProfileDataEvent)
+                    case .failure(let failure):
+                        _ = self.errorHandler.handleError(failure)
+                        os_log("Uploading user data failed:\n", log: self.logger, type: .fault)
+                        print(failure)
+                    }
+                }
+            }
+        }
+        DispatchQueue.main.async {
+            self.onRouteToSettingsMenu?()
+        }
+    }
+    
+    func putProfilePhoto(_ image: UIImage) {
+        uploadFile(image) { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .success(_):
-                os_log("Uploading user data complete", log: logger, type: .info)
-                let updateProfileDataEvent = UpdateProfileDataEvent(
-                    newNickname: newUserData.name,
-                    newUsername: newUserData.username,
-                    newBirth: newUserData.dateOfBirth
-                )
-                os_log("Published event in profile settings screen", log: logger, type: .default)
-                eventPublisher.publish(event: updateProfileDataEvent)
+            case .success(let data):
+                os_log("Uploaded user photo to file storage", log: logger, type: .default)
+                worker.putProfilePhoto(data.fileId) { result in
+                    switch result {
+                    case .success(let data):
+                        os_log("Uploaded user photo", log: self.logger, type: .default)
+                        let updatePhotoEvent = UpdatePhotoEvent(newPhoto: data.photo)
+                        self.eventPublisher.publish(event: updatePhotoEvent)
+                    case .failure(let failure):
+                        _ = self.errorHandler.handleError(failure)
+                        os_log("Failed to upload user photo", log: self.logger, type: .fault)
+                        print(failure)
+                    }
+                }
             case .failure(let failure):
-                _ = self.errorHandler.handleError(failure)
-                os_log("Uploading user data failed:\n", log: logger, type: .fault)
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to upload user photo to file storage", log: logger, type: .fault)
                 print(failure)
             }
         }
-        os_log("Routed to settings menu screen", log: logger, type: .default)
-        onRouteToSettingsMenu?()
     }
+    
     
     func uploadFile(_ image: UIImage, completion: @escaping (Result<SuccessModels.UploadResponse, any Error>) -> Void) {
         os_log("Started saving image in profile setting screen", log: logger, type: .default)
@@ -93,20 +124,6 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
         }
     }
     
-    func putProfilePhoto(_ photoID: UUID, _ tempURL: URL) {
-        worker.putProfilePhoto(photoID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                let updatePhotoEvent = UpdatePhotoEvent(newPhoto: tempURL)
-                self.eventPublisher.publish(event: updatePhotoEvent)
-            case .failure(let failure):
-                _ = errorHandler.handleError(failure)
-                os_log("Failed to upload photo:\n", log: logger, type: .fault)
-                print(failure)
-            }
-        }
-    }
     
     func deleteProfilePhoto() {
         worker.deleteProfilePhoto() { [weak self] result in

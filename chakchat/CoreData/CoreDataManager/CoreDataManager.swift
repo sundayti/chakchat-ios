@@ -11,36 +11,68 @@ import CoreData
 // MARK: - CoreDataManager
 final class CoreDataManager: CoreDataManagerProtocol {
     
-    // MARK: - Public Methods
-    func fetchChats() -> [PersonalChat]? {
-        let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
-        let fetchRequest: NSFetchRequest<PersonalChat> = PersonalChat.fetchRequest()
-        var result: [PersonalChat] = []
+    func saveChats(_ chatsData: ChatsModels.GeneralChatModel.ChatsData) {
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let encoder = JSONEncoder()
+        for chat in chatsData.chats {
+            let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "chatID == %@", chat.chatID as CVarArg)
+            if let existingChat = try? context.fetch(fetchRequest).first {
+                existingChat.type = chat.type.rawValue
+                existingChat.members = (try? encoder.encode(chat.members)) ?? Data()
+                existingChat.createdAt = chat.createdAt
+                existingChat.info = (try? encoder.encode(chat.info)) ?? Data()
+            } else {
+                let newChat = Chat(context: context)
+                newChat.chatID = chat.chatID
+                newChat.type = chat.type.rawValue
+                newChat.members = (try? encoder.encode(chat.members)) ?? Data()
+                newChat.createdAt = chat.createdAt
+                newChat.info = (try? encoder.encode(chat.info)) ?? Data()
+            }
+        }
+        CoreDataStack.shared.saveContext(for: "ChatsModel")
+    }
+    
+    func fetchChats() -> [ChatsModels.GeneralChatModel.ChatData]? {
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()
         do {
             let chats = try context.fetch(fetchRequest)
+            var chatDataArray: [ChatsModels.GeneralChatModel.ChatData] = []
             for chat in chats {
-                result.append(chat)
+                do {
+                    let chatData = try chat.toChatData()
+                    chatDataArray.append(chatData)
+                } catch {
+                    print("Failed to convert chat to ChatData: \(error)")
+                    continue
+                }
             }
+            return chatDataArray
         } catch {
             print("Failed to fetch chats: \(error)")
             return nil
         }
-        return result
     }
     
-    func createPersonalChat(_ chatData: ChatsModels.PersonalChat.Response) {
-        let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
-        let chat = PersonalChat(context: context)
+    func createChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        let encoder = JSONEncoder()
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let chat = Chat(context: context)
         chat.chatID = chatData.chatID
-        chat.members = (try? JSONEncoder().encode(chatData.members)) ?? Data()
-        chat.blocked = chatData.blocked
-        chat.blockedBy = try? JSONEncoder().encode(chatData.blockedBy)
-        CoreDataStack.shared.saveContext(for: "PersonalChatModel")
+        chat.type = chatData.type.rawValue
+        chat.members = (try? encoder.encode(chatData.members)) ?? Data()
+        chat.createdAt = chatData.createdAt
+        chat.info = (try? encoder.encode(chatData.info)) ?? Data()
+        CoreDataStack.shared.saveContext(for: "ChatsModel")
     }
     
-    func fetchChatByMembers(_ myID: UUID, _ memberID: UUID) -> PersonalChat? {
-        let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
-        let fetchRequest: NSFetchRequest<PersonalChat> = PersonalChat.fetchRequest()
+    func fetchChatByMembers(_ myID: UUID, _ memberID: UUID, _ type: ChatType) -> Chat? {
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()
+        let predicate = NSPredicate(format: "type == %@", type.rawValue)
+        fetchRequest.predicate = predicate
         do {
             let chats = try context.fetch(fetchRequest)
             for chat in chats {
@@ -50,30 +82,25 @@ final class CoreDataManager: CoreDataManagerProtocol {
                 }
             }
         } catch {
-            print("Failed to fetch chat: \(error)")
+            print("Failed to fetch chat by members: \(error.localizedDescription)")
         }
         return nil
     }
     
-    func updateChat(_ chatData: ChatsModels.PersonalChat.Response) {
-        let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
-        
-        let fetchRequest: NSFetchRequest<PersonalChat> = PersonalChat.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "chatID == %@", chatData.chatID as CVarArg)
+    func updateChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()
         do {
             let chats = try context.fetch(fetchRequest)
             guard let chatToUpdate = chats.first else {
                 print("No chat with id:\(chatData.chatID)")
                 return
             }
-            let newBlocked = chatData.blocked
-            chatToUpdate.blocked = newBlocked
-            if let newBlockedBy = chatData.blockedBy {
-                chatToUpdate.blockedBy = try? JSONEncoder().encode(newBlockedBy)
-            }
             let newCreatedAt = chatData.createdAt
             chatToUpdate.createdAt = newCreatedAt
-            CoreDataStack.shared.saveContext(for: "PersonalChatModel")
+            let newInfo = (try? JSONEncoder().encode(chatData.info)) ?? Data()
+            chatToUpdate.info = newInfo
+            CoreDataStack.shared.saveContext(for: "ChatsModel")
             print("Chat with id:\(chatData.chatID) updated")
         } catch {
             print("Occurred error with chat(\(chatData.chatID)) update: \(error)")
@@ -81,9 +108,8 @@ final class CoreDataManager: CoreDataManagerProtocol {
     }
     
     func deleteChat(_ chatID: UUID) {
-        let context = CoreDataStack.shared.viewContext(for: "PersonalChatModel")
-        let fetchRequest: NSFetchRequest<PersonalChat> = PersonalChat.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "chatID == %@", chatID as CVarArg)
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()
         do {
             let chats = try context.fetch(fetchRequest)
             guard let chatToDelete = chats.first else {
@@ -92,7 +118,7 @@ final class CoreDataManager: CoreDataManagerProtocol {
             }
             context.delete(chatToDelete)
             CoreDataStack.shared.saveContext(for: "PersonalChatModel")
-            print("Chat with id:\(chatID) updated")
+            print("Chat with id:\(chatID) deleted")
         } catch {
             print("Occurred error with chat(\(chatID)) update: \(error)")
         }

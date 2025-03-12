@@ -12,19 +12,19 @@ protocol PersonalChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.PersonalChat.CreateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.PersonalChat.Response>, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, Error>) -> Void
     )
     
     func sendBlockChatRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.PersonalChat.Response>, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, Error>) -> Void
     )
     
     func sendUnblockRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.PersonalChat.Response>, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, Error>) -> Void
     )
     
     func sendDeleteChatRequest(

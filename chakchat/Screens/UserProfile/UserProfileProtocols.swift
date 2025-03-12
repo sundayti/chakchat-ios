@@ -9,8 +9,9 @@ import Foundation
 
 // MARK: - UserProfileProtocols
 protocol UserProfileBusinessLogic {
-    func routeToChat(_ isChatExisting: Bool)
+    func routeToChat(_ isChatExisting: ChatsModels.GeneralChatModel.ChatData?)
     func searchForExistingChat()
+    func createSecretChat()
     
     func blockChat()
     func unblockChat()
@@ -24,18 +25,25 @@ protocol UserProfileBusinessLogic {
 }
 
 protocol UserProfilePresentationLogic {
-    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData)
+    func passUserData(
+        _ isBlocked: Bool,
+        _ userData: ProfileSettingsModels.ProfileUserData,
+        _ profileConfiguration: ProfileConfiguration
+    )
+    func passBlocked()
+    func passUnblocked()
 }
 
 protocol UserProfileWorkerLogic {
     func searchMessages()
     func switchNotification()
+    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
     
-    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
-    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.PersonalChat.Response, Error>) -> Void)
+    func blockChat(_ chatID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
+    func unblockChat(_ chatID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
     
-    func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, Error>) -> Void)
+    func deleteChat(_ chatID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, Error>) -> Void)
     
-    func searchForExistingChat(_ memberID: UUID) -> Bool
+    func searchForExistingChat(_ memberID: UUID) -> Chat?
     func getMyID() -> UUID
 }

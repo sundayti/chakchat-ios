@@ -36,9 +36,6 @@
 		AA1C0E4B2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */; };
 		AA1C0E4D2D43C9B7008E47D8 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */; };
 		AA22CD7B2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */; };
-		AA2781492D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA2781472D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld */; };
-		AA2781542D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */; };
-		AA2781552D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */; };
 		AA2781582D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */; };
 		AA27815B2D7AE2300049ACAF /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27815A2D7AE2300049ACAF /* ChatCell.swift */; };
 		AA27815E2D7DA14B0049ACAF /* GroupChatAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27815D2D7DA14B0049ACAF /* GroupChatAssembly.swift */; };
@@ -60,6 +57,12 @@
 		AA2781812D7DE1DA0049ACAF /* GroupProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781802D7DE1DA0049ACAF /* GroupProfileEditViewController.swift */; };
 		AA2781832D7DE1E10049ACAF /* GroupProfileEditProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781822D7DE1E10049ACAF /* GroupProfileEditProtocols.swift */; };
 		AA2781852D7DE3770049ACAF /* GroupProfileEditModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781842D7DE3770049ACAF /* GroupProfileEditModels.swift */; };
+		AA2781872D7F01700049ACAF /* UserProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781862D7F016F0049ACAF /* UserProfileModels.swift */; };
+		AA2781E52D80AB350049ACAF /* ChatsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA2781E32D80AB350049ACAF /* ChatsModel.xcdatamodeld */; };
+		AA2781E82D80ABAB0049ACAF /* Chat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781E62D80ABAB0049ACAF /* Chat+CoreDataClass.swift */; };
+		AA2781E92D80ABAB0049ACAF /* Chat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781E72D80ABAB0049ACAF /* Chat+CoreDataProperties.swift */; };
+		AA2781EB2D80FC380049ACAF /* DeletedChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */; };
+		AA2781EF2D8112F50049ACAF /* BlockedChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -203,26 +206,9 @@
 		AAB300E52D6F4F0300BECA3B /* SecretUpdateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB300E42D6F4F0300BECA3B /* SecretUpdateServiceProtocol.swift */; };
 		AAB302002D72075E00BECA3B /* CoreDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB301FF2D72075E00BECA3B /* CoreDataManagerProtocol.swift */; };
 		AAB302022D72076400BECA3B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302012D72076400BECA3B /* CoreDataManager.swift */; };
-		AAB3021D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3020D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift */; };
-		AAB3021E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3020E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift */; };
-		AAB3021F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3020F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift */; };
-		AAB302202D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302102D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift */; };
-		AAB302212D72176B00BECA3B /* FileContent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302112D72176B00BECA3B /* FileContent+CoreDataClass.swift */; };
-		AAB302222D72176B00BECA3B /* FileContent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302122D72176B00BECA3B /* FileContent+CoreDataProperties.swift */; };
-		AAB302232D72176B00BECA3B /* TextContent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302132D72176B00BECA3B /* TextContent+CoreDataClass.swift */; };
-		AAB302242D72176B00BECA3B /* TextContent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302142D72176B00BECA3B /* TextContent+CoreDataProperties.swift */; };
-		AAB302252D72176B00BECA3B /* ChatData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302152D72176B00BECA3B /* ChatData+CoreDataClass.swift */; };
-		AAB302262D72176B00BECA3B /* ChatData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302162D72176B00BECA3B /* ChatData+CoreDataProperties.swift */; };
-		AAB302272D72176B00BECA3B /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302172D72176B00BECA3B /* Reaction+CoreDataClass.swift */; };
-		AAB302282D72176B00BECA3B /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302182D72176B00BECA3B /* Reaction+CoreDataProperties.swift */; };
-		AAB302292D72176B00BECA3B /* Preview+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302192D72176B00BECA3B /* Preview+CoreDataClass.swift */; };
-		AAB3022A2D72176B00BECA3B /* Preview+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3021A2D72176B00BECA3B /* Preview+CoreDataProperties.swift */; };
-		AAB3022B2D72176B00BECA3B /* Content+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3021B2D72176B00BECA3B /* Content+CoreDataClass.swift */; };
-		AAB3022C2D72176B00BECA3B /* Content+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3021C2D72176B00BECA3B /* Content+CoreDataProperties.swift */; };
 		AAB302462D74AF1700BECA3B /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302442D74AF1700BECA3B /* User+CoreDataClass.swift */; };
 		AAB302472D74AF1700BECA3B /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302452D74AF1700BECA3B /* User+CoreDataProperties.swift */; };
 		AAB302492D74B35500BECA3B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302482D74B35500BECA3B /* CoreDataStack.swift */; };
-		AAB3024B2D74DCCC00BECA3B /* ChatsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */; };
 		AAB3024C2D74DCD000BECA3B /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAB302412D74AD3700BECA3B /* UserModel.xcdatamodeld */; };
 		AAB3024F2D75BC2C00BECA3B /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB3024E2D75BC2C00BECA3B /* UserProfileInteractor.swift */; };
 		AAB302512D75BC3800BECA3B /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB302502D75BC3800BECA3B /* UserProfilePresenter.swift */; };
@@ -346,9 +332,6 @@
 		AA1C0E4A2D43C9A8008E47D8 /* ProfileSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocol.swift; sourceTree = "<group>"; };
 		AA1C0E4C2D43C9B7008E47D8 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		AA22CD7A2D65C5A200A7A4F1 /* IdentityServiceEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityServiceEndpoints.swift; sourceTree = "<group>"; };
-		AA2781482D79F60F0049ACAF /* PersonalChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalChat.xcdatamodel; sourceTree = "<group>"; };
-		AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonalChat+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonalChat+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedPersonalChatEvent.swift; sourceTree = "<group>"; };
 		AA27815A2D7AE2300049ACAF /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		AA27815D2D7DA14B0049ACAF /* GroupChatAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatAssembly.swift; sourceTree = "<group>"; };
@@ -370,6 +353,12 @@
 		AA2781802D7DE1DA0049ACAF /* GroupProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditViewController.swift; sourceTree = "<group>"; };
 		AA2781822D7DE1E10049ACAF /* GroupProfileEditProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditProtocols.swift; sourceTree = "<group>"; };
 		AA2781842D7DE3770049ACAF /* GroupProfileEditModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupProfileEditModels.swift; sourceTree = "<group>"; };
+		AA2781862D7F016F0049ACAF /* UserProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModels.swift; sourceTree = "<group>"; };
+		AA2781E42D80AB350049ACAF /* ChatsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatsModel.xcdatamodel; sourceTree = "<group>"; };
+		AA2781E62D80ABAB0049ACAF /* Chat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AA2781E72D80ABAB0049ACAF /* Chat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedChatEvent.swift; sourceTree = "<group>"; };
+		AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedChatEvent.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -515,26 +504,8 @@
 		AAB300DF2D6F337200BECA3B /* UpdateServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateServiceProtocol.swift; sourceTree = "<group>"; };
 		AAB300E22D6F4EFC00BECA3B /* SecretUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretUpdateService.swift; sourceTree = "<group>"; };
 		AAB300E42D6F4F0300BECA3B /* SecretUpdateServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretUpdateServiceProtocol.swift; sourceTree = "<group>"; };
-		AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatsModel.xcdatamodel; sourceTree = "<group>"; };
 		AAB301FF2D72075E00BECA3B /* CoreDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerProtocol.swift; sourceTree = "<group>"; };
 		AAB302012D72076400BECA3B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		AAB3020D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatsData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB3020E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatsData+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB3020F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReactionContent+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB302102D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReactionContent+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB302112D72176B00BECA3B /* FileContent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileContent+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB302122D72176B00BECA3B /* FileContent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileContent+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB302132D72176B00BECA3B /* TextContent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextContent+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB302142D72176B00BECA3B /* TextContent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextContent+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB302152D72176B00BECA3B /* ChatData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB302162D72176B00BECA3B /* ChatData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatData+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB302172D72176B00BECA3B /* Reaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reaction+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB302182D72176B00BECA3B /* Reaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB302192D72176B00BECA3B /* Preview+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB3021A2D72176B00BECA3B /* Preview+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB3021B2D72176B00BECA3B /* Content+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAB3021C2D72176B00BECA3B /* Content+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		AAB302402D744DC600BECA3B /* ChatsModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ChatsModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		AAB302422D74AD3700BECA3B /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		AAB302442D74AF1700BECA3B /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AAB302452D74AF1700BECA3B /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -690,6 +661,8 @@
 			isa = PBXGroup;
 			children = (
 				AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */,
+				AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */,
+				AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */,
 			);
 			path = ChatEvents;
 			sourceTree = "<group>";
@@ -1094,8 +1067,8 @@
 			isa = PBXGroup;
 			children = (
 				AA2781772D7DE1820049ACAF /* Group */,
-				AAB302672D76159400BECA3B /* Chat */,
 				AAB3024D2D75BBFC00BECA3B /* UserProfile */,
+				AAB302672D76159400BECA3B /* Chat */,
 				E1960A612D6DE4D7008E27C0 /* NewGroup */,
 				E1960A4E2D6BE5F4008E27C0 /* NewMessage */,
 				AA7BADF02D3FC7CA0030AC82 /* Settings */,
@@ -1382,9 +1355,8 @@
 		AAB301D92D72019B00BECA3B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */,
 				AAB302412D74AD3700BECA3B /* UserModel.xcdatamodeld */,
-				AA2781472D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld */,
+				AA2781E32D80AB350049ACAF /* ChatsModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1392,26 +1364,10 @@
 		AAB301FD2D72055900BECA3B /* GeneratedModels */ = {
 			isa = PBXGroup;
 			children = (
-				AA2781522D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift */,
-				AA2781532D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift */,
+				AA2781E62D80ABAB0049ACAF /* Chat+CoreDataClass.swift */,
+				AA2781E72D80ABAB0049ACAF /* Chat+CoreDataProperties.swift */,
 				AAB302442D74AF1700BECA3B /* User+CoreDataClass.swift */,
 				AAB302452D74AF1700BECA3B /* User+CoreDataProperties.swift */,
-				AAB3020D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift */,
-				AAB3020E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift */,
-				AAB3020F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift */,
-				AAB302102D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift */,
-				AAB302112D72176B00BECA3B /* FileContent+CoreDataClass.swift */,
-				AAB302122D72176B00BECA3B /* FileContent+CoreDataProperties.swift */,
-				AAB302132D72176B00BECA3B /* TextContent+CoreDataClass.swift */,
-				AAB302142D72176B00BECA3B /* TextContent+CoreDataProperties.swift */,
-				AAB302152D72176B00BECA3B /* ChatData+CoreDataClass.swift */,
-				AAB302162D72176B00BECA3B /* ChatData+CoreDataProperties.swift */,
-				AAB302172D72176B00BECA3B /* Reaction+CoreDataClass.swift */,
-				AAB302182D72176B00BECA3B /* Reaction+CoreDataProperties.swift */,
-				AAB302192D72176B00BECA3B /* Preview+CoreDataClass.swift */,
-				AAB3021A2D72176B00BECA3B /* Preview+CoreDataProperties.swift */,
-				AAB3021B2D72176B00BECA3B /* Content+CoreDataClass.swift */,
-				AAB3021C2D72176B00BECA3B /* Content+CoreDataProperties.swift */,
 			);
 			path = GeneratedModels;
 			sourceTree = "<group>";
@@ -1420,8 +1376,8 @@
 			isa = PBXGroup;
 			children = (
 				AAB302012D72076400BECA3B /* CoreDataManager.swift */,
-				AAB302482D74B35500BECA3B /* CoreDataStack.swift */,
 				AAB301FF2D72075E00BECA3B /* CoreDataManagerProtocol.swift */,
+				AAB302482D74B35500BECA3B /* CoreDataStack.swift */,
 			);
 			path = CoreDataManager;
 			sourceTree = "<group>";
@@ -1434,6 +1390,7 @@
 				AAB302582D75BC6D00BECA3B /* UserProfileWorker.swift */,
 				AAB302502D75BC3800BECA3B /* UserProfilePresenter.swift */,
 				AAB302562D75BC5E00BECA3B /* UserProfileViewController.swift */,
+				AA2781862D7F016F0049ACAF /* UserProfileModels.swift */,
 				AAB302542D75BC5500BECA3B /* UserProfileProtocols.swift */,
 			);
 			path = UserProfile;
@@ -1599,10 +1556,10 @@
 			isa = PBXGroup;
 			children = (
 				E1960A4F2D6BE62A008E27C0 /* NewMessageAssembly.swift */,
-				E1960A512D6BE63A008E27C0 /* NewMessagePresenter.swift */,
 				E1960A552D6BE66B008E27C0 /* NewMessageInteractor.swift */,
-				E1960A572D6BE69E008E27C0 /* NewMessageViewController.swift */,
 				E1960A5B2D6CBA97008E27C0 /* NewMessageWorker.swift */,
+				E1960A512D6BE63A008E27C0 /* NewMessagePresenter.swift */,
+				E1960A572D6BE69E008E27C0 /* NewMessageViewController.swift */,
 				E1960A532D6BE653008E27C0 /* NewMessageProtocols.swift */,
 			);
 			path = NewMessage;
@@ -1792,8 +1749,6 @@
 				E19609DB2D60E90A008E27C0 /* LanguageViewController.swift in Sources */,
 				E1960A5C2D6CBA97008E27C0 /* NewMessageWorker.swift in Sources */,
 				E1960A732D6E181A008E27C0 /* UIImage+Letters.swift in Sources */,
-				AA2781542D79FE3E0049ACAF /* PersonalChat+CoreDataClass.swift in Sources */,
-				AA2781552D79FE3E0049ACAF /* PersonalChat+CoreDataProperties.swift in Sources */,
 				AAB300CE2D6F0E4300BECA3B /* SecretPersonalChatService.swift in Sources */,
 				AA7BADFC2D3FCA560030AC82 /* SettingsScreenWorker.swift in Sources */,
 				AA84F04B2D4D0C0B00678ABA /* NotificationCell.swift in Sources */,
@@ -1808,7 +1763,6 @@
 				AAA839F72D65B9E800C870A4 /* IdentityService.swift in Sources */,
 				AA7BAE3D2D40E8920030AC82 /* UserDefaultsManager.swift in Sources */,
 				AA27816D2D7DB9220049ACAF /* GroupChatProfileInteractor.swift in Sources */,
-				AAB3024B2D74DCCC00BECA3B /* ChatsModel.xcdatamodeld in Sources */,
 				AA1C0E382D43A232008E47D8 /* UserDefaultsManagerProtocol.swift in Sources */,
 				AA1C0E3E2D43C452008E47D8 /* EventSubscriberProtocol.swift in Sources */,
 				AAB3026D2D7615B500BECA3B /* ChatWorker.swift in Sources */,
@@ -1859,6 +1813,7 @@
 				AA27815E2D7DA14B0049ACAF /* GroupChatAssembly.swift in Sources */,
 				AA9B62832D302F150064CB23 /* AppCoordinator.swift in Sources */,
 				E1960A452D6BE12C008E27C0 /* BlackListAssembly.swift in Sources */,
+				AA2781872D7F01700049ACAF /* UserProfileModels.swift in Sources */,
 				E1960A122D6A2C46008E27C0 /* AppThemeViewController.swift in Sources */,
 				E1960A332D6BA5B4008E27C0 /* HelpCell.swift in Sources */,
 				AA84F0202D4BBEB800678ABA /* PhoneVisibilityScreenProtocols.swift in Sources */,
@@ -1883,7 +1838,9 @@
 				AA9B62502D2EC7D10064CB23 /* VerifyModels.swift in Sources */,
 				E1960A312D6B79F4008E27C0 /* HelpViewController.swift in Sources */,
 				AAB300D32D6F283F00BECA3B /* ChatsService.swift in Sources */,
+				AA2781EB2D80FC380049ACAF /* DeletedChatEvent.swift in Sources */,
 				AAB302462D74AF1700BECA3B /* User+CoreDataClass.swift in Sources */,
+				AA2781EF2D8112F50049ACAF /* BlockedChatEvent.swift in Sources */,
 				AAB3026B2D7615AA00BECA3B /* ChatInteractor.swift in Sources */,
 				AAB302472D74AF1700BECA3B /* User+CoreDataProperties.swift in Sources */,
 				E1960A522D6BE63A008E27C0 /* NewMessagePresenter.swift in Sources */,
@@ -1899,25 +1856,9 @@
 				AAB300C02D6EF97600BECA3B /* GroupChatService.swift in Sources */,
 				AA7BADED2D3FA0440030AC82 /* ChatsScreenWorker.swift in Sources */,
 				AA9B62712D2FD2700064CB23 /* SignupProtocols.swift in Sources */,
-				AA2781492D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld in Sources */,
-				AAB3021D2D72176B00BECA3B /* ChatsData+CoreDataClass.swift in Sources */,
+				AA2781E52D80AB350049ACAF /* ChatsModel.xcdatamodeld in Sources */,
 				AA2781792D7DE1B50049ACAF /* GroupProfileEditAssembly.swift in Sources */,
-				AAB3021E2D72176B00BECA3B /* ChatsData+CoreDataProperties.swift in Sources */,
-				AAB3021F2D72176B00BECA3B /* ReactionContent+CoreDataClass.swift in Sources */,
-				AAB302202D72176B00BECA3B /* ReactionContent+CoreDataProperties.swift in Sources */,
-				AAB302212D72176B00BECA3B /* FileContent+CoreDataClass.swift in Sources */,
-				AAB302222D72176B00BECA3B /* FileContent+CoreDataProperties.swift in Sources */,
 				E1960A802D7C684D008E27C0 /* UIUserProfileButton.swift in Sources */,
-				AAB302232D72176B00BECA3B /* TextContent+CoreDataClass.swift in Sources */,
-				AAB302242D72176B00BECA3B /* TextContent+CoreDataProperties.swift in Sources */,
-				AAB302252D72176B00BECA3B /* ChatData+CoreDataClass.swift in Sources */,
-				AAB302262D72176B00BECA3B /* ChatData+CoreDataProperties.swift in Sources */,
-				AAB302272D72176B00BECA3B /* Reaction+CoreDataClass.swift in Sources */,
-				AAB302282D72176B00BECA3B /* Reaction+CoreDataProperties.swift in Sources */,
-				AAB302292D72176B00BECA3B /* Preview+CoreDataClass.swift in Sources */,
-				AAB3022A2D72176B00BECA3B /* Preview+CoreDataProperties.swift in Sources */,
-				AAB3022B2D72176B00BECA3B /* Content+CoreDataClass.swift in Sources */,
-				AAB3022C2D72176B00BECA3B /* Content+CoreDataProperties.swift in Sources */,
 				E1960A5E2D6CE42C008E27C0 /* UIUsersSearchViewController.swift in Sources */,
 				AA84F03D2D4CD86F00678ABA /* OnlineVisibilityScreenInteractor.swift in Sources */,
 				E19609FD2D627E9B008E27C0 /* FileStorageService.swift in Sources */,
@@ -2012,6 +1953,8 @@
 				AA9B624E2D2EC7C50064CB23 /* VerifyViewController.swift in Sources */,
 				AA92EC5F2D381B5E007DEC76 /* UIChakChatStackView.swift in Sources */,
 				AAB302512D75BC3800BECA3B /* UserProfilePresenter.swift in Sources */,
+				AA2781E82D80ABAB0049ACAF /* Chat+CoreDataClass.swift in Sources */,
+				AA2781E92D80ABAB0049ACAF /* Chat+CoreDataProperties.swift in Sources */,
 				E19609DF2D60E928008E27C0 /* LanguageProtocols.swift in Sources */,
 				AA84F0592D4D0C8300678ABA /* NotificationScreenProtocols.swift in Sources */,
 				AA27816B2D7DB91A0049ACAF /* GroupChatProfileAssembly.swift in Sources */,
@@ -2354,23 +2297,12 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		AA2781472D79F60F0049ACAF /* PersonalChatModel.xcdatamodeld */ = {
+		AA2781E32D80AB350049ACAF /* ChatsModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				AA2781482D79F60F0049ACAF /* PersonalChat.xcdatamodel */,
+				AA2781E42D80AB350049ACAF /* ChatsModel.xcdatamodel */,
 			);
-			currentVersion = AA2781482D79F60F0049ACAF /* PersonalChat.xcdatamodel */;
-			path = PersonalChatModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		AAB301DA2D7201AC00BECA3B /* ChatsModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				AAB302402D744DC600BECA3B /* ChatsModel 2.xcdatamodel */,
-				AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */,
-			);
-			currentVersion = AAB301DB2D7201AC00BECA3B /* ChatsModel.xcdatamodel */;
+			currentVersion = AA2781E42D80AB350049ACAF /* ChatsModel.xcdatamodel */;
 			path = ChatsModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

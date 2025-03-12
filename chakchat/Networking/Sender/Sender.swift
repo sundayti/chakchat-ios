@@ -23,7 +23,7 @@ final class Sender: SenderLogic {
         guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) else {
             fatalError("Cant get baseURL")
         }
-        
+        print("\(baseURL)\(endpoint)")
         guard let url = URL(string: "\(baseURL)\(endpoint)") else {
             completion(.failure(APIError.invalidURL))
             return
@@ -40,6 +40,11 @@ final class Sender: SenderLogic {
         }
         //body
         request.httpBody = body
+        if let b = request.httpBody {
+            let stringRequest = String(data: b, encoding: .utf8)
+            print(stringRequest as Any)
+        }
+        
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {

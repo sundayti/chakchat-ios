@@ -11,7 +11,7 @@ import Combine
 
 // MARK: - ChatsScreenInteractor
 final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
-    
+        
     // MARK: - Properties
     private let presenter: ChatsScreenPresentationLogic
     private let worker: ChatsScreenWorkerLogic
@@ -22,6 +22,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     
     private var cancellables = Set<AnyCancellable>()
     
+    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, ChatsModels.GeneralChatModel.ChatData) -> Void)?
     var onRouteToSettings: (() -> Void)?
     var onRouteToNewMessage: (() -> Void)?
     
@@ -43,16 +44,6 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         subscribeToEvents()
     }
     
-    // MARK: - Routing
-    func routeToSettingsScreen() {
-        os_log("Routed to settings screen", log: logger, type: .default)
-        onRouteToSettings?()
-    }
-    
-    func routeToNewMessageScreen() {
-        os_log("Routed to new message screen", log: logger, type: .default)
-        onRouteToNewMessage?()
-    }
     
     // MARK: - Public Methods
     func loadMeData() {
@@ -95,6 +86,26 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         }
     }
     
+    func loadChats() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.worker.loadChats() { result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let data):
+                        os_log("Loaded chats data", log: self.logger, type: .default)
+                        self.showChats(data)
+                    case .failure(let failure):
+                        self.showDBChats()
+                        _ = self.errorHandler.handleError(failure)
+                        os_log("Failure in fetching chats:\n", log: self.logger, type: .fault)
+                        print(failure)
+                    }
+                }
+            }
+        }
+    }
+    
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
         worker.fetchUsers(name, username, page, limit) { [weak self] result in
             guard self != nil else { return }
@@ -108,34 +119,52 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     }
     
     private func subscribeToEvents() {
-        eventSubscriber.subscribe(CreatedPersonalChatEvent.self) { [weak self] event in
-            self?.handleChatCreatingEvent(event)
+        eventSubscriber.subscribe(CreatedChatEvent.self) { [weak self] event in
+            self?.handleCreatedChatEvent(event)
+        }.store(in: &cancellables)
+        eventSubscriber.subscribe(DeletedChatEvent.self) { [weak self] event in
+            self?.handleDeletedChatEvent(event)
         }.store(in: &cancellables)
     }
     
-    func loadChats() {
-        let chats = worker.loadChats()
-        showChats(chats)
-    }
-    
-    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?) {
-        presenter.showChats(chats)
-    }
-    
-    
-    func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent) {
-        let chatData = ChatsModels.PersonalChat.Response(
+    func handleCreatedChatEvent(_ event: CreatedChatEvent) {
+        let newChat = ChatsModels.GeneralChatModel.ChatData(
             chatID: event.chatID,
+            type: event.type,
             members: event.members,
-            blocked: event.blocked,
-            blockedBy: event.blockedBy,
-            createdAt: event.createdAt
+            createdAt: event.createdAt,
+            info: event.info
         )
-        addNewChat(chatData)
+        DispatchQueue.main.async {
+            self.addNewChat(newChat)
+        }
     }
     
-    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response) {
+    func handleDeletedChatEvent(_ event: DeletedChatEvent) {
+        let chatToDelete = event.chatID
+        DispatchQueue.main.async {
+            self.deleteChat(chatToDelete)
+        }
+    }
+    
+    func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData) {
+        presenter.showChats(allChatsData)
+    }
+    
+    func showDBChats() {
+        let chats = worker.getDBChats()
+        if let chats {
+            let allChatsData = ChatsModels.GeneralChatModel.ChatsData(chats: chats)
+            presenter.showChats(allChatsData)
+        }
+    }
+    
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
         presenter.addNewChat(chatData)
+    }
+    
+    func deleteChat(_ chatID: UUID) {
+        presenter.deleteChat(chatID)
     }
     
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void) {
@@ -154,5 +183,32 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         _ = errorHandler.handleError(error)
         os_log("Failed:\n", log: logger, type: .fault)
         print(error)
+    }
+    
+    // MARK: - Routing
+    func routeToSettingsScreen() {
+        os_log("Routed to settings screen", log: logger, type: .default)
+        onRouteToSettings?()
+    }
+    
+    func routeToNewMessageScreen() {
+        os_log("Routed to new message screen", log: logger, type: .default)
+        onRouteToNewMessage?()
+    }
+    
+    func routeToChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        getUserDataByID(chatData.members) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let data):
+                    self.onRouteToChat?(data, chatData)
+                case .failure(let failure):
+                    _ = self.errorHandler.handleError(failure)
+                    os_log("Failure in routing to chat:\n", log: self.logger, type: .fault)
+                    print(failure)
+                }
+            }
+        }
     }
 }

@@ -119,7 +119,7 @@ final class NewMessageViewController: UIViewController {
     }
     
     private func handleSelectedUser(_ userData: ProfileSettingsModels.ProfileUserData) {
-        interactor.routeToUser(userData)
+        interactor.searchForExistingChat(userData)
     }
     
     // MARK: - Actions

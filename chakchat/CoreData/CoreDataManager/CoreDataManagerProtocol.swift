@@ -8,10 +8,11 @@
 import Foundation
 
 protocol CoreDataManagerProtocol {
-    func fetchChats() -> [PersonalChat]?
-    func createPersonalChat(_ chatData: ChatsModels.PersonalChat.Response)
-    func fetchChatByMembers(_ myID: UUID, _ memberID: UUID) -> PersonalChat?
-    func updateChat(_ chatData: ChatsModels.PersonalChat.Response)
+    func saveChats(_ chatsData: ChatsModels.GeneralChatModel.ChatsData)
+    func fetchChats() -> [ChatsModels.GeneralChatModel.ChatData]?
+    func createChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
+    func fetchChatByMembers(_ myID: UUID, _ memberID: UUID, _ type: ChatType) -> Chat?
+    func updateChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
     func deleteChat(_ chatID: UUID)
     
     func createUser(_ userData: ProfileSettingsModels.ProfileUserData)

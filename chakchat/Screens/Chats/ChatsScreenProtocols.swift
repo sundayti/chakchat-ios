@@ -12,23 +12,31 @@ protocol ChatsScreenBusinessLogic: SearchInteractor {
     func loadMeData()
     func loadMeRestrictions()
     func loadChats()
-    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?)
+    
+    func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData)
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
+    func deleteChat(_ chatID: UUID)
+    
     func routeToSettingsScreen()
     func routeToNewMessageScreen()
-    func handleChatCreatingEvent(_ event: CreatedPersonalChatEvent)
-    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response)
+    func routeToChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
+    
+    func handleCreatedChatEvent(_ event: CreatedChatEvent)
+    func handleDeletedChatEvent(_ event: DeletedChatEvent)
+
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }
 
 protocol ChatsScreenPresentationLogic {
-    func addNewChat(_ chatData: ChatsModels.PersonalChat.Response)
-    func showChats(_ chats: [ChatsModels.PersonalChat.Response]?)
+    func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData)
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
+    func deleteChat(_ chatID: UUID)
 }
 
 protocol ChatsScreenWorkerLogic {
-    func loadMeData(competion: @escaping (Result<Void, Error>) -> Void)
+    func loadMeData(completion: @escaping (Result<Void, Error>) -> Void)
     func loadMeRestrictions(completion: @escaping (Result<Void, Error>) -> Void)
-    func loadChats() -> [ChatsModels.PersonalChat.Response]?
+    func loadChats(completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatsData, Error>) -> Void)
     
     func fetchUsers(
         _ name: String?,
@@ -37,7 +45,9 @@ protocol ChatsScreenWorkerLogic {
         _ limit: Int,
         completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
+    
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func getDBChats() -> [ChatsModels.GeneralChatModel.ChatData]?
 }
 
 // MARK: - SearchInteractor Protocol

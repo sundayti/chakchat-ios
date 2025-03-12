@@ -10,8 +10,12 @@ import Foundation
 // MARK: - NewMessageProtocols
 protocol NewMessageBusinessLogic: SearchInteractor {
     func backToChatsScreen()
-    func routeToUser(_ userData: ProfileSettingsModels.ProfileUserData)
+    func routeToChat(
+        _ userData: ProfileSettingsModels.ProfileUserData,
+        _ chatData: ChatsModels.GeneralChatModel.ChatData?
+    )
     func newGroupRoute()
+    func searchForExistingChat(_ userData: ProfileSettingsModels.ProfileUserData)
 }
 
 protocol NewMessagePresentationLogic {
@@ -25,4 +29,6 @@ protocol NewMessageWorkerLogic {
         _ limit: Int,
         completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
+    
+    func searchForExistingChat(_ memberID: UUID) -> Chat?
 }

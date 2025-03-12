@@ -12,14 +12,14 @@ protocol SecretPersonalChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.PersonalChat.CreateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretPersonalChat.Response>, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, Error>) -> Void
     )
     
     func sendSetExpirationRequest(
         _ request: ChatsModels.SecretPersonalChat.ExpirationRequest,
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.SecretPersonalChat.Response>, Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, Error>) -> Void
     )
     
     func sendDeleteChatRequest(
