@@ -91,3 +91,6 @@
 "delete_member" = "Delete member";
 "delete_group" = "Delete group";
 "are_you_sure_delete" = "Are you sure you want to delete this group?";
+"edit" = "Edit";
+"delete" = "Delete";
+

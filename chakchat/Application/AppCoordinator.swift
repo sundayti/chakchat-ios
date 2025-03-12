@@ -44,8 +44,13 @@ final class AppCoordinator {
 
     // MARK: - Public Methods
     func start() {
-        let startVC = CreateStartScreen()
-        navigationController.pushViewController(startVC, animated: false)
+        if signupContext.keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) != nil {
+            let chatVC = ChatsAssembly.build(with: mainAppContext, coordinator: self)
+            navigationController.pushViewController(chatVC, animated: false)
+        } else {
+            let startVC = CreateStartScreen()
+            navigationController.pushViewController(startVC, animated: false)
+        }
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }

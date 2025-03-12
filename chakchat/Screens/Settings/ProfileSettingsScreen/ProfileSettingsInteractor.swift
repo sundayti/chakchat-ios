@@ -132,6 +132,7 @@ final class ProfileSettingsInteractor: ProfileSettingsScreenBusinessLogic {
             case .success(_):
                 let updatePhotoEvent = UpdatePhotoEvent(newPhoto: nil)
                 self.eventPublisher.publish(event: updatePhotoEvent)
+                presenter.deleteImage()
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to delete photo:\n", log: logger, type: .fault)
