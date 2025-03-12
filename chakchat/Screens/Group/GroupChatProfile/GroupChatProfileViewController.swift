@@ -291,6 +291,8 @@ final class GroupChatProfileViewController: UIViewController {
     
     private func handleMemberDeletion(_ memberID: UUID, _ i: Int) {
         interactor.deleteMember(memberID)
+        userTableViewData.remove(at: i)
+        userDataTable.reloadData()
     }
     
     private func deleteGroup() {
