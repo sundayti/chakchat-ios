@@ -10,11 +10,12 @@ import OSLog
 import Combine
 
 final class GroupChatInteractor: GroupChatBusinessLogic {
+    
     private let presenter: GroupChatPresentationLogic
     private let worker: GroupChatWorkerLogic
     private let eventSubscriber: EventSubscriberProtocol
     private let errorHandler: ErrorHandlerLogic
-    private let chatData: ChatsModels.GroupChat.Response
+    private let chatData: ChatsModels.GeneralChatModel.ChatData
     private let logger: OSLog
     
     private var cancellables = Set<AnyCancellable>()
@@ -26,7 +27,7 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
         worker: GroupChatWorkerLogic,
         eventSubscriber: EventSubscriberProtocol,
         errorHandler: ErrorHandlerLogic,
-        chatData: ChatsModels.GroupChat.Response,
+        chatData: ChatsModels.GeneralChatModel.ChatData,
         logger: OSLog
     ) {
         self.presenter = presenter

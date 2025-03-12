@@ -192,7 +192,7 @@ final class AppCoordinator {
         navigationController.pushViewController(newGroupVC, animated: true)
     }
     
-    func showGroupChatScreen(_ chatData: ChatsModels.GroupChat.Response) {
+    func showGroupChatScreen(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
         let groupChatVC = GroupChatAssembly.build(with: mainAppContext, coordinator: self, chatData)
         if let mainVC = mainChatVC {
             navigationController.setViewControllers([mainVC, groupChatVC], animated: true)

@@ -15,7 +15,7 @@ protocol GroupChatBusinessLogic: SendingMessagesProtocol {
 }
 
 protocol GroupChatPresentationLogic {
-    func passChatData(_ chatData: ChatsModels.GroupChat.Response)
+    func passChatData(_ chatData: ChatsModels.GeneralChatModel.ChatData)
 }
 
 protocol GroupChatWorkerLogic {
