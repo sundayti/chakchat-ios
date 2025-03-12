@@ -51,6 +51,10 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
         print("Handle new member")
     }
     
+    func handleDeletedMemberEvent(_ event: DeletedMemberEvent) {
+        print("Handle member deletion")
+    }
+    
     func routeBack() {
         onRouteBack?()
     }
@@ -58,6 +62,9 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
     private func subscribeToEvents() {
         eventSubscriber.subscribe(AddedMemberEvent.self) { [weak self] event in
             self?.handleAddedMemberEvent(event)
+        }.store(in: &cancellables)
+        eventSubscriber.subscribe(DeletedMemberEvent.self) { [weak self] event in
+            self?.handleDeletedMemberEvent(event)
         }.store(in: &cancellables)
     }
 }

@@ -64,7 +64,7 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
         worker.addMember(chatData.id, memberID) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let data):
+            case .success(_):
                 os_log("Member with id: %@ added in group(%@)", log: logger, type: .default, memberID as CVarArg, chatData.id as CVarArg)
                 let event = AddedMemberEvent(memberID: memberID)
                 eventPublisher.publish(event: event)
@@ -81,9 +81,10 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
             guard let self = self else { return }
             switch result {
             case .success(_):
-                // делаем ивент по удалению участника
                 os_log("Member with id: %@ deleted from group(%@)", log: logger, type: .default,
                        memberID as CVarArg, chatData.id as CVarArg)
+                let event = DeletedMemberEvent(memberID: memberID)
+                eventPublisher.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to delete member with id: %@ from group(%@)", log: logger, type: .default, memberID as CVarArg, chatData.id as CVarArg)

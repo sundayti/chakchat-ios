@@ -11,6 +11,7 @@ protocol GroupChatBusinessLogic: SendingMessagesProtocol {
     func routeBack()
     func passChatData()
     func handleAddedMemberEvent(_ event: AddedMemberEvent)
+    func handleDeletedMemberEvent(_ event: DeletedMemberEvent)
 }
 
 protocol GroupChatPresentationLogic {
