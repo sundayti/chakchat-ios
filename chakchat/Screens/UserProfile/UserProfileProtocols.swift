@@ -33,10 +33,10 @@ protocol UserProfileWorkerLogic {
     func switchNotification()
     func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
     
-    func blockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
-    func unblockChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
+    func blockChat(_ chatID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
+    func unblockChat(_ chatID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
     
-    func deleteChat(_ memberID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, Error>) -> Void)
+    func deleteChat(_ chatID: UUID, _ deleteMode: DeleteMode, completion: @escaping (Result<EmptyResponse, Error>) -> Void)
     
     func searchForExistingChat(_ memberID: UUID) -> Chat?
     func getMyID() -> UUID

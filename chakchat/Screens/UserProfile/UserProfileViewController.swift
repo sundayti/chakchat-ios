@@ -280,7 +280,7 @@ final class UserProfileViewController: UIViewController {
     }
     
     @objc private func secretChatButtonPressed() {
-        
+        interactor.createSecretChat()
     }
     
     @objc private func backButtonPressed() {

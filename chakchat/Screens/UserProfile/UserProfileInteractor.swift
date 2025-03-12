@@ -15,7 +15,9 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     private let presenter: UserProfilePresentationLogic
     private let worker: UserProfileWorkerLogic
     private let errorHandler: ErrorHandlerLogic
+    private let eventPublisher: EventPublisherProtocol
     private let userData: ProfileSettingsModels.ProfileUserData
+    private let chatData: ChatsModels.GeneralChatModel.ChatData?
     private let profileConfiguration: ProfileConfiguration
     private let logger: OSLog
     
@@ -27,14 +29,18 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         presenter: UserProfilePresentationLogic,
         worker: UserProfileWorkerLogic,
         errorHandler: ErrorHandlerLogic,
+        eventPublisher: EventPublisherProtocol,
         userData: ProfileSettingsModels.ProfileUserData,
+        chatData: ChatsModels.GeneralChatModel.ChatData?,
         profileConfiguration: ProfileConfiguration,
         logger: OSLog
     ) {
         self.presenter = presenter
         self.worker = worker
         self.errorHandler = errorHandler
+        self.eventPublisher = eventPublisher
         self.userData = userData
+        self.chatData = chatData
         self.profileConfiguration = profileConfiguration
         self.logger = logger
     }
@@ -45,46 +51,66 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     }
     
     func createSecretChat() {
-        print("fawf")
-    }
-    
-    func blockChat() {
-        worker.blockChat(userData.id) { [weak self] result in
+        worker.createSecretChat(userData.id) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
-                os_log("Chat with id:%@ is blocked", log: logger, type: .default, data.chatID as CVarArg)
-                // событие по блокировке чата
+                os_log("Secret chat with id: %@ created", log: logger, type: .default, data.chatID as CVarArg)
+                let event = CreatedChatEvent(
+                    chatID: data.chatID,
+                    type: data.type,
+                    members: data.members,
+                    createdAt: data.createdAt,
+                    info: data.info
+                )
+                eventPublisher.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
-                os_log("Failed to block chat with %@", log: logger, type: .fault, userData.id as CVarArg)
+                os_log("Failed to cread secret chat with %@", log: logger, type: .fault, userData.id as CVarArg)
+                print(failure)
+            }
+        }
+    }
+    
+    func blockChat() {
+        guard let chatID = chatData?.chatID else { return }
+        worker.blockChat(chatID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                os_log("Chat with id:%@ is blocked", log: logger, type: .default, chatID as CVarArg)
+            case .failure(let failure):
+                _ = errorHandler.handleError(failure)
+                os_log("Failed to block chat with %@", log: logger, type: .fault, chatID as CVarArg)
                 print(failure)
             }
         }
     }
     
     func unblockChat() {
-        worker.unblockChat(userData.id) { [weak self] result in
+        guard let chatID = chatData?.chatID else { return }
+        worker.unblockChat(chatID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(_):
-                os_log("Chat with id:%@ is unblocked", log: logger, type: .default, userData.id as CVarArg)
-                // событие по разблокировке чата
+                os_log("Chat with id:%@ is unblocked", log: logger, type: .default, chatID as CVarArg)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
-                os_log("Failed to unblock chat with %@", log: logger, type: .fault, userData.id as CVarArg)
+                os_log("Failed to unblock chat with %@", log: logger, type: .fault, chatID as CVarArg)
                 print(failure)
             }
         }
     }
     
     func deleteChat(_ deleteMode: DeleteMode) {
-        worker.deleteChat(userData.id, deleteMode) { [weak self] result in
+        guard let chatID = chatData?.chatID else { return }
+        worker.deleteChat(chatID, deleteMode) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(_):
                 os_log("Chat with id:%@ is deleted", log: logger, type: .default, userData.id as CVarArg)
-                // событие по удалению чата
+                let event = DeletedChatEvent(chatID: chatID)
+                eventPublisher.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to delete chat with %@", log: logger, type: .fault, userData.id as CVarArg)

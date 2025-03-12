@@ -14,23 +14,28 @@ enum UserProfileAssembly {
         _ context: MainAppContextProtocol,
         coordinator: AppCoordinator,
         userData: ProfileSettingsModels.ProfileUserData,
+        chatData: ChatsModels.GeneralChatModel.ChatData?,
         profileConfiguration: ProfileConfiguration
     ) -> UIViewController {
         let presenter = UserProfilePresenter()
         let updateService = UpdateService()
         let personalChatService = PersonalChatService()
+        let secretPersonalChatService = SecretPersonalChatService()
         let worker = UserProfileWorker(
             userDefaultsManager: context.userDefaultsManager,
             keychainManager: context.keychainManager,
             coreDataManager: context.coreDataManager,
-            personalChatService: personalChatService,
+            personalChatService: personalChatService, 
+            secretPersonalChatService: secretPersonalChatService,
             messagingService: updateService
         )
         let interactor = UserProfileInteractor(
             presenter: presenter,
             worker: worker,
             errorHandler: context.errorHandler,
+            eventPublisher: context.eventManager,
             userData: userData,
+            chatData: chatData,
             profileConfiguration: profileConfiguration,
             logger: context.logger
         )
