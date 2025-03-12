@@ -32,7 +32,7 @@ final class NewGroupWorker: NewGroupWorkerLogic {
         self.coreDataManager = coreDataManager
     }
     
-    func createGroupChat(_ name: String, _ description: String?, _ members: [UUID], completion: @escaping (Result<ChatsModels.GroupChat.Response, any Error>) -> Void) {
+    func createGroupChat(_ name: String, _ description: String?, _ members: [UUID], completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let adminID = getMyID()
         let membersWithAdmin: [UUID] = [adminID] + members

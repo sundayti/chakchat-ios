@@ -16,7 +16,7 @@ final class NewGroupInteractor: NewGroupBusinessLogic {
     private let worker: NewGroupWorkerLogic
     private let errorHandler: ErrorHandlerLogic
     private let logger: OSLog
-    var onRouteToGroupChat: ((ChatsModels.GroupChat.Response) -> Void)?
+    var onRouteToGroupChat: ((ChatsModels.GeneralChatModel.ChatData) -> Void)?
     var onRouteToNewMessageScreen: (() -> Void)?
     
     // MARK: - Initialization
@@ -62,7 +62,7 @@ final class NewGroupInteractor: NewGroupBusinessLogic {
         _ = errorHandler.handleError(error)
     }
     // MARK: - Routing
-    func routeToGroupChat(_ chatData: ChatsModels.GroupChat.Response) {
+    func routeToGroupChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
         onRouteToGroupChat?(chatData)
     }
     
