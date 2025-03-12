@@ -5,7 +5,7 @@
 //  Created by Кирилл Исаев on 09.03.2025.
 //
 
-import Foundation
+import UIKit
 
 protocol GroupChatProfileBusinessLogic: SearchInteractor {
     func passChatData()
@@ -13,6 +13,12 @@ protocol GroupChatProfileBusinessLogic: SearchInteractor {
     func deleteGroup()
     func addMember(_ memberID: UUID)
     func deleteMember(_ memberID: UUID)
+    
+    func updateGroupInfo(_ name: String, _ description: String?)
+    func updateGroupPhoto(_ image: UIImage?)
+    
+    func handleUpdatedGroupInfoEvent(_ event: UpdatedGroupInfoEvent)
+    func handleUpdatedGroupPhotoEvent(_ event: UpdatedGroupPhotoEvent)
     
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     
@@ -23,6 +29,8 @@ protocol GroupChatProfileBusinessLogic: SearchInteractor {
 
 protocol GroupChatProfilePresentationLogic {
     func passChatData(_ chatData: ChatsModels.GeneralChatModel.ChatData, _ isAdmin: Bool)
+    func updateGroupInfo(_ name: String, _ description: String?)
+    func updateGroupPhoto(_ image: UIImage?)
 }
 
 protocol GroupChatProfileWorkerLogic {

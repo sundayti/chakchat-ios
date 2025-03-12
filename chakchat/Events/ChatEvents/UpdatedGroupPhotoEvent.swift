@@ -5,4 +5,12 @@
 //  Created by Кирилл Исаев on 12.03.2025.
 //
 
-import Foundation
+import UIKit
+
+final class UpdatedGroupPhotoEvent: Event {
+    let photo: UIImage?
+    
+    init(photo: UIImage?) {
+        self.photo = photo
+    }
+}

@@ -122,6 +122,27 @@ final class GroupChatProfileViewController: UIViewController {
         }
     }
     
+    func updateGroupInfo(_ name: String, _ description: String?) {
+        groupNameLabel.text = name
+    }
+    
+    func updateGroupPhoto(_ image: UIImage?) {
+        if let image {
+            iconImageView.image = image
+        } else {
+            let color = UIColor.random()
+            guard let groupName = groupNameLabel.text else { return }
+            let image = UIImage.imageWithText(
+                text: groupName,
+                size: CGSize(width: Constants.configSize, height: Constants.configSize),
+                backgroundColor: Colors.backgroundSettings,
+                textColor: color,
+                borderColor: color,
+                borderWidth: Constants.borderWidth
+            )
+        }
+    }
+    
     // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = Colors.backgroundSettings

@@ -24,7 +24,7 @@ enum GroupChatProfileAssembly {
             worker: worker,
             errorHandler: context.errorHandler,
             chatData: chatData,
-            eventPublisher: context.eventManager,
+            eventManager: context.eventManager,
             logger: context.logger
         )
         interactor.onRouteToEdit = { [weak coordinator] chatData in

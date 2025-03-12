@@ -5,8 +5,9 @@
 //  Created by Кирилл Исаев on 09.03.2025.
 //
 
-import Foundation
+import UIKit
 import OSLog
+import Combine
 
 final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
     
@@ -14,8 +15,10 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
     private let worker: GroupChatProfileWorkerLogic
     private let errorHandler: ErrorHandlerLogic
     private let chatData: ChatsModels.GeneralChatModel.ChatData
-    private let eventPublisher: EventPublisherProtocol
+    private let eventManager: (EventPublisherProtocol & EventSubscriberProtocol)
     private let logger: OSLog
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var onRouteToChatMenu: (() -> Void)?
     var onRouteToEdit: ((GroupProfileEditModels.ProfileData) -> Void)?
@@ -26,15 +29,17 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
         worker: GroupChatProfileWorkerLogic,
         errorHandler: ErrorHandlerLogic,
         chatData: ChatsModels.GeneralChatModel.ChatData,
-        eventPublisher: EventPublisherProtocol,
+        eventManager: (EventPublisherProtocol & EventSubscriberProtocol),
         logger: OSLog
     ) {
         self.presenter = presenter
         self.worker = worker
         self.errorHandler = errorHandler
         self.chatData = chatData
-        self.eventPublisher = eventPublisher
+        self.eventManager = eventManager
         self.logger = logger
+        
+        subscribeToEvents()
     }
     
     func passChatData() {
@@ -52,7 +57,7 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
             case .success(_):
                 os_log("Group with id: %@ deleted", log: logger, type: .default, chatData.chatID as CVarArg)
                 let event = DeletedChatEvent(chatID: chatData.chatID)
-                eventPublisher.publish(event: event)
+                eventManager.publish(event: event)
                 routeToChatMenu()
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
@@ -69,7 +74,7 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
             case .success(_):
                 os_log("Member with id: %@ added in group(%@)", log: logger, type: .default, memberID as CVarArg, chatData.chatID as CVarArg)
                 let event = AddedMemberEvent(memberID: memberID)
-                eventPublisher.publish(event: event)
+                eventManager.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to add member with id: %@ in group(%@)", log: logger, type: .default, memberID as CVarArg, chatData.chatID as CVarArg)
@@ -86,13 +91,42 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
                 os_log("Member with id: %@ deleted from group(%@)", log: logger, type: .default,
                        memberID as CVarArg, chatData.chatID as CVarArg)
                 let event = DeletedMemberEvent(memberID: memberID)
-                eventPublisher.publish(event: event)
+                eventManager.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to delete member with id: %@ from group(%@)", log: logger, type: .default, memberID as CVarArg, chatData.chatID as CVarArg)
                 print(failure)
             }
         }
+    }
+    
+    func updateGroupInfo(_ name: String, _ description: String?) {
+        presenter.updateGroupInfo(name, description)
+    }
+    
+    func updateGroupPhoto(_ image: UIImage?) {
+        presenter.updateGroupPhoto(image)
+    }
+    
+    func handleUpdatedGroupInfoEvent(_ event: UpdatedGroupInfoEvent) {
+        DispatchQueue.main.async {
+            self.updateGroupInfo(event.name, event.description)
+        }
+    }
+    
+    func handleUpdatedGroupPhotoEvent(_ event: UpdatedGroupPhotoEvent) {
+        DispatchQueue.main.async {
+            self.updateGroupPhoto(event.photo)
+        }
+    }
+    
+    private func subscribeToEvents() {
+        eventManager.subscribe(UpdatedGroupInfoEvent.self) { [weak self] event in
+            self?.handleUpdatedGroupInfoEvent(event)
+        }.store(in: &cancellables)
+        eventManager.subscribe(UpdatedGroupPhotoEvent.self) { [weak self] event in
+            self?.handleUpdatedGroupPhotoEvent(event)
+        }.store(in: &cancellables)
     }
     
     func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
