@@ -11,17 +11,20 @@ final class GroupChatProfileWorker: GroupChatProfileWorkerLogic {
     private let keychainManager: KeychainManagerBusinessLogic
     private let userDefaultsManager: UserDefaultsManagerProtocol
     private let groupService: GroupChatServiceProtocol
+    private let userService: UserServiceProtocol
     private let coreDataManager: CoreDataManagerProtocol
     
     init(
         keychainManager: KeychainManagerBusinessLogic,
         userDefaultsManager: UserDefaultsManagerProtocol,
         groupService: GroupChatServiceProtocol,
+        userService: UserServiceProtocol,
         coreDataManager: CoreDataManagerProtocol
     ) {
         self.keychainManager = keychainManager
         self.userDefaultsManager = userDefaultsManager
         self.groupService = groupService
+        self.userService = userService
         self.coreDataManager = coreDataManager
     }
     
@@ -60,6 +63,19 @@ final class GroupChatProfileWorker: GroupChatProfileWorkerLogic {
             case .success(let response):
                 // сохраняем в coreData
                 completion(.success(response.data))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
+        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
+        userService.sendGetUsersRequest(name, username, page, limit, accessToken) { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(let users):
+                completion(.success(users.data))
             case .failure(let failure):
                 completion(.failure(failure))
             }

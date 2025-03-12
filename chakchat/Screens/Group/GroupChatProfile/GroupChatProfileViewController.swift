@@ -34,6 +34,7 @@ final class GroupChatProfileViewController: UIViewController {
     private let iconImageView: UIImageView = UIImageView()
     private let config = UIImage.SymbolConfiguration(pointSize: Constants.configSize, weight: .light, scale: .default)
     private let groupNameLabel: UILabel = UILabel()
+    private lazy var searchController: UISearchController = UISearchController()
     private let buttonStackView: UIStackView = UIStackView()
     
     // MARK: - Initialization
@@ -105,6 +106,7 @@ final class GroupChatProfileViewController: UIViewController {
         configureIconImageView()
         configureInitials()
         configureButtonStackView()
+        configureSearchController()
         
     }
     
@@ -171,6 +173,22 @@ final class GroupChatProfileViewController: UIViewController {
         buttonStackView.pinCenterX(view)
     }
     
+    private func configureSearchController() {
+        let searchResultsController = UIUsersSearchViewController(interactor: interactor)
+        searchResultsController.onUserSelected = { [weak self] user in
+            self?.handleSelectedUser(user)
+        }
+        searchController = UISearchController(searchResultsController: searchResultsController)
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "who_would_you_add")
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.searchBar.autocorrectionType = .no
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
+        definesPresentationContext = true
+    }
+    
     private func createMenu(_ optionsButton: UIButton) {
         let addMember = UIAction(title: LocalizationManager.shared.localizedString(for: "add_member"), image: UIImage(systemName: "lock.fill")) { _ in
             self.addMember()
@@ -181,7 +199,7 @@ final class GroupChatProfileViewController: UIViewController {
         let deleteGroup = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_group"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
             self.showDisclaimer()
         }
-        let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [addMember])
+        let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [addMember, deleteMember, deleteGroup])
         optionsButton.menu = menu
         optionsButton.showsMenuAsPrimaryAction = true
     }
@@ -206,6 +224,11 @@ final class GroupChatProfileViewController: UIViewController {
         button.layer.cornerRadius = Constants.borderRadius
         return button
     }
+    
+    private func handleSelectedUser(_ user: ProfileSettingsModels.ProfileUserData) {
+        
+    }
+    
     // will be implemented soon
     private func addMember() {
         print("Added member")
@@ -225,5 +248,14 @@ final class GroupChatProfileViewController: UIViewController {
     
     @objc private func backButtonPressed() {
         interactor.routeBack()
+    }
+}
+
+extension GroupChatProfileViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchVC = searchController.searchResultsController as? UIUsersSearchViewController else { return }
+        if let searchText = searchController.searchBar.text {
+            searchVC.searchTextPublisher.send(searchText)
+        }
     }
 }

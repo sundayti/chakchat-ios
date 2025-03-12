@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol GroupChatProfileBusinessLogic {
+protocol GroupChatProfileBusinessLogic: SearchInteractor {
     func passChatData()
     
     func deleteGroup()
@@ -37,6 +37,13 @@ protocol GroupChatProfileWorkerLogic {
         _ chatID: UUID,
         _ memberID: UUID,
         completion: @escaping (Result<ChatsModels.GroupChat.Response, Error>) -> Void
+    )
+    func fetchUsers(
+        _ name: String?,
+        _ username: String?,
+        _ page: Int,
+        _ limit: Int,
+        completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
     func getMyID() -> UUID
 }

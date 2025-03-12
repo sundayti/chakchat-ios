@@ -48,8 +48,9 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
             guard let self = self else { return }
             switch result {
             case .success(_):
-                // делаем ивент по удалению группы
                 os_log("Group with id: %@ deleted", log: logger, type: .default, chatData.id as CVarArg)
+                let event = DeletedChatEvent(chatID: chatData.id)
+                eventPublisher.publish(event: event)
                 routeToChatMenu()
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
@@ -90,6 +91,25 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
         }
     }
     
+    func fetchUsers(_ name: String?, _ username: String?, _ page: Int, _ limit: Int, completion: @escaping (Result<ProfileSettingsModels.Users, any Error>) -> Void) {
+        worker.fetchUsers(name, username, page, limit) { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func handleError(_ error: any Error) {
+        _ = errorHandler.handleError(error)
+        os_log("Failure:", log: logger, type: .fault)
+        print(error)
+    }
+    
+    //MARK: - Routing
     func routeToEdit() {
         let dataToEdit = GroupProfileEditModels.ProfileData(
             chatID: chatData.id,
@@ -107,7 +127,7 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
     func routeBack() {
         onRouteBack?()
     }
-    
+    //MARK: - Top secret methods
     private func getMyID() -> UUID {
         let myID = worker.getMyID()
         return myID
