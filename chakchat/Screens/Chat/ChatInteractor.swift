@@ -43,6 +43,8 @@ final class ChatInteractor: ChatBusinessLogic {
         self.errorHandler = errorHandler
         self.logger = logger
         self.chatData = chatData
+        
+        subscribeToEvents()
     }
     // если обычный чат еще не создан то он не может быть секретным
     func passUserData() {

@@ -180,7 +180,6 @@ final class GroupChatProfileViewController: UIViewController {
         }
         searchController = UISearchController(searchResultsController: searchResultsController)
         searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
         searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "who_would_you_add")
         searchController.searchBar.autocapitalizationType = .none
         searchController.searchBar.autocorrectionType = .no
@@ -226,12 +225,11 @@ final class GroupChatProfileViewController: UIViewController {
     }
     
     private func handleSelectedUser(_ user: ProfileSettingsModels.ProfileUserData) {
-        
+        interactor.addMember(user.id)
     }
     
-    // will be implemented soon
     private func addMember() {
-        print("Added member")
+        present(searchController, animated: true)
     }
     // will be implemented soon
     private func deleteMember() {

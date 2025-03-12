@@ -64,9 +64,10 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
         worker.addMember(chatData.id, memberID) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(_):
-                // делаем ивент по добавлению участника
+            case .success(let data):
                 os_log("Member with id: %@ added in group(%@)", log: logger, type: .default, memberID as CVarArg, chatData.id as CVarArg)
+                let event = AddedMemberEvent(memberID: memberID)
+                eventPublisher.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to add member with id: %@ in group(%@)", log: logger, type: .default, memberID as CVarArg, chatData.id as CVarArg)

@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import Combine
 
 final class GroupChatInteractor: GroupChatBusinessLogic {
     private let presenter: GroupChatPresentationLogic
@@ -15,6 +16,8 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
     private let errorHandler: ErrorHandlerLogic
     private let chatData: ChatsModels.GroupChat.Response
     private let logger: OSLog
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var onRouteBack: (() -> Void)?
     
@@ -32,6 +35,8 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
         self.errorHandler = errorHandler
         self.chatData = chatData
         self.logger = logger
+        
+        subscribeToEvents()
     }
     
     func sendTextMessage(_ message: String) {
@@ -41,8 +46,18 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
     func passChatData() {
         presenter.passChatData(chatData)
     }
+        
+    func handleAddedMemberEvent(_ event: AddedMemberEvent) {
+        print("Handle new member")
+    }
     
     func routeBack() {
         onRouteBack?()
+    }
+    
+    private func subscribeToEvents() {
+        eventSubscriber.subscribe(AddedMemberEvent.self) { [weak self] event in
+            self?.handleAddedMemberEvent(event)
+        }.store(in: &cancellables)
     }
 }
