@@ -17,7 +17,7 @@ enum ChatsAssembly {
         let chatsService = ChatsService()
         let worker = ChatsScreenWorker(
             keychainManager: context.keychainManager,
-            userDefaultManager: context.userDefaultsManager,
+            userDefaultsManager: context.userDefaultsManager,
             userService: userService,
             chatsService: chatsService,
             coreDataManager: context.coreDataManager,

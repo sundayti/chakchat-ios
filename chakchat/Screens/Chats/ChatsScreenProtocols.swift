@@ -13,6 +13,8 @@ protocol ChatsScreenBusinessLogic: SearchInteractor {
     func loadMeRestrictions()
     func loadChats()
     
+    func searchForExistingChat(_ userData: ProfileSettingsModels.ProfileUserData)
+    
     func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData)
     func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
     func deleteChat(_ chatID: UUID)
@@ -48,6 +50,8 @@ protocol ChatsScreenWorkerLogic {
     
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     func getDBChats() -> [ChatsModels.GeneralChatModel.ChatData]?
+    
+    func searchForExistingChat(_ memberID: UUID) -> Chat?
 }
 
 // MARK: - SearchInteractor Protocol
