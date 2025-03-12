@@ -8,7 +8,7 @@
 import UIKit
 
 enum GroupChatProfileAssembly {
-    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator, _ chatData: ChatsModels.GroupChat.Response) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator, _ chatData: ChatsModels.GeneralChatModel.ChatData) -> UIViewController {
         let presenter = GroupChatProfilePresenter()
         let groupService = GroupChatService()
         let userService = UserService()

@@ -14,13 +14,15 @@ protocol GroupChatProfileBusinessLogic: SearchInteractor {
     func addMember(_ memberID: UUID)
     func deleteMember(_ memberID: UUID)
     
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    
     func routeToChatMenu()
     func routeToEdit()
     func routeBack()
 }
 
 protocol GroupChatProfilePresentationLogic {
-    func passChatData(_ chatData: ChatsModels.GroupChat.Response, _ isAdmin: Bool)
+    func passChatData(_ chatData: ChatsModels.GeneralChatModel.ChatData, _ isAdmin: Bool)
 }
 
 protocol GroupChatProfileWorkerLogic {
@@ -31,12 +33,12 @@ protocol GroupChatProfileWorkerLogic {
     func addMember(
         _ chatID: UUID,
         _ memberID: UUID,
-        completion: @escaping (Result<ChatsModels.GroupChat.Response, Error>) -> Void
+        completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void
     )
     func deleteMember(
         _ chatID: UUID,
         _ memberID: UUID,
-        completion: @escaping (Result<ChatsModels.GroupChat.Response, Error>) -> Void
+        completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void
     )
     func fetchUsers(
         _ name: String?,
@@ -45,5 +47,8 @@ protocol GroupChatProfileWorkerLogic {
         _ limit: Int,
         completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
     )
+    
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    
     func getMyID() -> UUID
 }

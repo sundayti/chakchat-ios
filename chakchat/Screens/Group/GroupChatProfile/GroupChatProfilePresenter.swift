@@ -10,7 +10,7 @@ import Foundation
 final class GroupChatProfilePresenter: GroupChatProfilePresentationLogic {
     weak var view: GroupChatProfileViewController?
     
-    func passChatData(_ chatData: ChatsModels.GroupChat.Response, _ isAdmin: Bool) {
+    func passChatData(_ chatData: ChatsModels.GeneralChatModel.ChatData, _ isAdmin: Bool) {
         view?.configureWithUserData(chatData, isAdmin)
     }
 }
