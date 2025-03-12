@@ -29,6 +29,13 @@ final class GroupChatProfileViewController: UIViewController {
         static let userTableEstimateRow: CGFloat = 60
     }
     
+    private enum Localization: String {
+        case deleteGroup = "delete_group"
+        case deleteMember = "delete_member"
+        case deleteGroupDisclaimer = "are_you_sure_delete_group"
+        case deleteMemberDisclaimer = "are_you_sure_delete_member"
+    }
+    
     // MARK: - Properties
     private let interactor: GroupChatProfileBusinessLogic
     private let iconImageView: UIImageView = UIImageView()
@@ -229,20 +236,28 @@ final class GroupChatProfileViewController: UIViewController {
             self.deleteMember()
         }
         let deleteGroup = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_group"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
-            self.showDisclaimer()
+            self.showDisclaimer(Localization.deleteGroup.rawValue, Localization.deleteGroupDisclaimer.rawValue)
         }
         let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [addMember, deleteMember, deleteGroup])
         optionsButton.menu = menu
         optionsButton.showsMenuAsPrimaryAction = true
     }
-    
-    private func showDisclaimer() {
-        let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: "delete_group"), message: LocalizationManager.shared.localizedString(for: "are_you_sure_delete"), preferredStyle: .alert)
-        let blockAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), style: .destructive) { _ in
-            self.deleteGroup()
+    /// параметры по умолчанию нужны для того чтобы в случае удаления участника
+    /// я мог помнить о том какой у него UUID и какой индекс в таблице
+    private func showDisclaimer(_ event: String, _ deleteWhat: String, _ memberID: UUID = UUID(), _ i: Int = 0) {
+        let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: event), message: LocalizationManager.shared.localizedString(for: deleteWhat), preferredStyle: .alert)
+        if event == Localization.deleteGroup.rawValue {
+            let deleteAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: event), style: .destructive) { _ in
+                self.deleteGroup()
+            }
+            alert.addAction(deleteAction)
+        } else {
+            let deleteAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: event), style: .destructive) { _ in
+                self.handleMemberDeletion(memberID, i)
+            }
+            alert.addAction(deleteAction)
         }
         let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .cancel, handler: nil)
-        alert.addAction(blockAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
@@ -264,9 +279,18 @@ final class GroupChatProfileViewController: UIViewController {
     private func addMember() {
         present(searchController, animated: true)
     }
-    // will be implemented soon
+    
     private func deleteMember() {
-        print("Deleted member")
+        for cell in userDataTable.visibleCells {
+            if let indexPath = userDataTable.indexPath(for: cell) {
+                let item = userTableViewData[indexPath.row]
+                (cell as? UISearchControllerCell)?.configure(item.photo, item.name, deletable: true)
+            }
+        }
+    }
+    
+    private func handleMemberDeletion(_ memberID: UUID, _ i: Int) {
+        interactor.deleteMember(memberID)
     }
     
     private func deleteGroup() {
@@ -306,6 +330,14 @@ extension GroupChatProfileViewController: UITableViewDelegate, UITableViewDataSo
         }
         let item = userTableViewData[indexPath.row]
         cell.configure(item.photo, item.name, deletable: false)
+        cell.deleteAction = { [weak self] in
+            self?.showDisclaimer(
+                Localization.deleteMember.rawValue,
+                Localization.deleteMemberDisclaimer.rawValue,
+                item.id,
+                indexPath.row
+            )
+        }
         return cell
     }
 }
