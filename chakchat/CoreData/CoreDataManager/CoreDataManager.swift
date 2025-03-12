@@ -117,7 +117,7 @@ final class CoreDataManager: CoreDataManagerProtocol {
                 return
             }
             context.delete(chatToDelete)
-            CoreDataStack.shared.saveContext(for: "PersonalChatModel")
+            CoreDataStack.shared.saveContext(for: "ChatsModel")
             print("Chat with id:\(chatID) deleted")
         } catch {
             print("Occurred error with chat(\(chatID)) update: \(error)")

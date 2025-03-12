@@ -56,7 +56,7 @@ final class PersonalChatService: PersonalChatServiceProtocol {
             "Content-Type": "application/json"
         ]
         
-        Sender.send(endpoint: endpoint, method: .delete, headers: headers, completion: completion)
+        Sender.send(endpoint: endpoint, method: .put, headers: headers, completion: completion)
     }
     
     func sendDeleteChatRequest(
@@ -65,7 +65,7 @@ final class PersonalChatService: PersonalChatServiceProtocol {
         _ accessToken: String,
         completion: @escaping (Result<SuccessResponse<EmptyResponse>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.PersonalChatEndpoints.personalChat.rawValue)/\(chatID)/\(deleteMode.rawValue)"
+        let endpoint = "\(MessaginServiceEndpoints.PersonalChatEndpoints.personalChat.rawValue)/\(chatID)"
         
         let headers = [
             "Authorization": "Bearer \(accessToken)",
