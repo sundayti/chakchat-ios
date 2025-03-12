@@ -35,13 +35,12 @@ final class ChatsScreenViewController: UIViewController {
     private lazy var newChatButton: UIButton = UIButton(type: .system)
     private let chatsTableView: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var chatsData: [ChatsModels.GeneralChatModel.ChatData]? = []
-    private let searchController: UISearchController
+    private lazy var searchController: UISearchController = UISearchController()
     private let interactor: ChatsScreenBusinessLogic
     
     // MARK: - Lifecycle
     init(interactor: ChatsScreenBusinessLogic) {
         self.interactor = interactor
-        searchController = UISearchController(searchResultsController: UIUsersSearchViewController(interactor: interactor))
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,7 +95,13 @@ final class ChatsScreenViewController: UIViewController {
     }
     
     private func configureSearchController() {
+        let searchResultsController = UIUsersSearchViewController(interactor: interactor)
+        searchResultsController.onUserSelected = { [weak self] user in
+            self?.handleUserPicked(user)
+        }
+        searchController = UISearchController(searchResultsController: searchResultsController)
         searchController.searchResultsUpdater = self
+        searchController.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         searchController.searchBar.placeholder = Constants.searchPlaceholder
@@ -141,6 +146,10 @@ final class ChatsScreenViewController: UIViewController {
         chatsTableView.separatorInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 5)
     }
     
+    private func handleUserPicked(_ user: ProfileSettingsModels.ProfileUserData) {
+        interactor.searchForExistingChat(user)
+    }
+    
     // MARK: - Actions
     @objc
     private func settingButtonPressed() {
@@ -162,11 +171,19 @@ final class ChatsScreenViewController: UIViewController {
 }
 
 // MARK: - UISearchResultsUpdating
-extension ChatsScreenViewController: UISearchResultsUpdating {
+extension ChatsScreenViewController: UISearchResultsUpdating, UISearchControllerDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchVC = searchController.searchResultsController as? UIUsersSearchViewController else { return }
         if let searchText = searchController.searchBar.text {
             searchVC.searchTextPublisher.send(searchText)
+        }
+    }
+    func willPresentSearchController(_ searchController: UISearchController) {
+        self.chatsTableView.alpha = 0
+    }
+    func willDismissSearchController(_ searchController: UISearchController) {
+        UIView.animate(withDuration: 0.3) {
+            self.chatsTableView.alpha = 1
         }
     }
 }
