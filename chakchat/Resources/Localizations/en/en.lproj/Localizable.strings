@@ -94,4 +94,5 @@
 "are_you_sure_delete_member" = "Are you sure you want to delete this member?";
 "edit" = "Edit";
 "delete" = "Delete";
+"at_least_one" = "Choose at least one member";
 
