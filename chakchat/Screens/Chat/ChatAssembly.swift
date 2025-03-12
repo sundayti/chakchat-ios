@@ -34,7 +34,7 @@ enum ChatAssembly {
             presenter: presenter,
             worker: worker,
             userData: userData,
-            eventPublisher: context.eventManager,
+            eventManager: context.eventManager,
             errorHandler: context.errorHandler,
             logger: context.logger,
             chatData: chatData

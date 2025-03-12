@@ -14,6 +14,7 @@ protocol ChatBusinessLogic: SendingMessagesProtocol {
     func createChat(_ memberID: UUID)
     func passUserData()
     func setExpirationTime(_ expiration: String?)
+    func handleChatBlock(_ event: BlockedChatEvent)
 }
 
 protocol ChatPresentationLogic {

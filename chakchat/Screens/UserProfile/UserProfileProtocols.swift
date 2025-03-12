@@ -25,7 +25,13 @@ protocol UserProfileBusinessLogic {
 }
 
 protocol UserProfilePresentationLogic {
-    func passUserData(_ userData: ProfileSettingsModels.ProfileUserData, _ profileConfiguration: ProfileConfiguration)
+    func passUserData(
+        _ isBlocked: Bool,
+        _ userData: ProfileSettingsModels.ProfileUserData,
+        _ profileConfiguration: ProfileConfiguration
+    )
+    func passBlocked()
+    func passUnblocked()
 }
 
 protocol UserProfileWorkerLogic {

@@ -65,7 +65,7 @@ final class PersonalChatService: PersonalChatServiceProtocol {
         _ accessToken: String,
         completion: @escaping (Result<SuccessResponse<EmptyResponse>, any Error>) -> Void
     ) {
-        let endpoint = "\(MessaginServiceEndpoints.PersonalChatEndpoints.personalChat.rawValue)/\(chatID)/delete/\(deleteMode)"
+        let endpoint = "\(MessaginServiceEndpoints.PersonalChatEndpoints.personalChat.rawValue)/\(chatID)/\(deleteMode.rawValue)"
         
         let headers = [
             "Authorization": "Bearer \(accessToken)",

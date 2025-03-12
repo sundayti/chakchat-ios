@@ -23,7 +23,7 @@ final class Sender: SenderLogic {
         guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Keys.baseURL) else {
             fatalError("Cant get baseURL")
         }
-        
+        print("\(baseURL)\(endpoint)")
         guard let url = URL(string: "\(baseURL)\(endpoint)") else {
             completion(.failure(APIError.invalidURL))
             return

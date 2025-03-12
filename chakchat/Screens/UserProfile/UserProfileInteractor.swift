@@ -47,7 +47,8 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
     
     // MARK: - Public Methods
     func passUserData() {
-        presenter.passUserData(userData, profileConfiguration)
+        let isBlocked = checkIsBlocked(chatData)
+        presenter.passUserData(isBlocked, userData, profileConfiguration)
     }
     
     func createSecretChat() {
@@ -77,8 +78,11 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         worker.blockChat(chatID) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let data):
+            case .success(_):
                 os_log("Chat with id:%@ is blocked", log: logger, type: .default, chatID as CVarArg)
+                let event = BlockedChatEvent(blocked: true)
+                eventPublisher.publish(event: event)
+                presenter.passBlocked()
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to block chat with %@", log: logger, type: .fault, chatID as CVarArg)
@@ -94,6 +98,9 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
             switch result {
             case .success(_):
                 os_log("Chat with id:%@ is unblocked", log: logger, type: .default, chatID as CVarArg)
+                let event = BlockedChatEvent(blocked: false)
+                eventPublisher.publish(event: event)
+                presenter.passUnblocked()
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to unblock chat with %@", log: logger, type: .fault, chatID as CVarArg)
@@ -157,5 +164,21 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
             ?? ChatsModels.GeneralChatModel.Info.personal(ChatsModels.GeneralChatModel.PersonalInfo(blockedBy: [UUID()]))
         )
         return chatData
+    }
+    
+    private func checkIsBlocked(_ chatData: ChatsModels.GeneralChatModel.ChatData?) -> Bool {
+        let myID = worker.getMyID()
+        if let chatData {
+            if case .personal(let personalInfo) = chatData.info {
+                if let blockedBy = personalInfo.blockedBy {
+                    if blockedBy.contains(myID) {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+            }
+        }
+        return false
     }
 }

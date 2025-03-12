@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import Combine
 
 // MARK: - ChatInteractor
 final class ChatInteractor: ChatBusinessLogic {
@@ -14,7 +15,7 @@ final class ChatInteractor: ChatBusinessLogic {
     // MARK: - Properties
     private let presenter: ChatPresentationLogic
     private let worker: ChatWorkerLogic
-    private let eventPublisher: EventPublisherProtocol
+    private let eventManager: (EventPublisherProtocol & EventSubscriberProtocol)
     private let userData: ProfileSettingsModels.ProfileUserData
     private let errorHandler: ErrorHandlerLogic
     private let logger: OSLog
@@ -23,12 +24,14 @@ final class ChatInteractor: ChatBusinessLogic {
     var onRouteBack: (() -> Void)?
     var onRouteToProfile: ((ProfileSettingsModels.ProfileUserData, ChatsModels.GeneralChatModel.ChatData?, ProfileConfiguration) -> Void)?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     // MARK: - Initialization
     init(
         presenter: ChatPresentationLogic,
         worker: ChatWorkerLogic,
         userData: ProfileSettingsModels.ProfileUserData,
-        eventPublisher: EventPublisherProtocol,
+        eventManager: (EventPublisherProtocol & EventSubscriberProtocol),
         errorHandler: ErrorHandlerLogic,
         logger: OSLog,
         chatData: ChatsModels.GeneralChatModel.ChatData?
@@ -36,7 +39,7 @@ final class ChatInteractor: ChatBusinessLogic {
         self.presenter = presenter
         self.worker = worker
         self.userData = userData
-        self.eventPublisher = eventPublisher
+        self.eventManager = eventManager
         self.errorHandler = errorHandler
         self.logger = logger
         self.chatData = chatData
@@ -64,7 +67,7 @@ final class ChatInteractor: ChatBusinessLogic {
                     createdAt: data.createdAt,
                     info: data.info
                 )
-                eventPublisher.publish(event: event)
+                eventManager.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to create chat with member(%@):\n", log: logger, type: .fault, memberID as CVarArg)
@@ -93,6 +96,16 @@ final class ChatInteractor: ChatBusinessLogic {
                 print(failure)
             }
         }
+    }
+    
+    private func subscribeToEvents() {
+        eventManager.subscribe(BlockedChatEvent.self) { [weak self] event in
+            self?.handleChatBlock(event)
+        }.store(in: &cancellables)
+    }
+    
+    func handleChatBlock(_ event: BlockedChatEvent) {
+        print("Handle block/unblock")
     }
     
     // MARK: - Routing

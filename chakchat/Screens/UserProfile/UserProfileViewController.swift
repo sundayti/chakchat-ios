@@ -36,6 +36,7 @@ final class UserProfileViewController: UIViewController {
     private let config = UIImage.SymbolConfiguration(pointSize: Constants.configSize, weight: .light, scale: .default)
     private let nicknameLabel: UILabel = UILabel()
     private let buttonStackView: UIStackView = UIStackView()
+    private var optionsMenu: UIMenu = UIMenu()
     private let userDataTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
     private var userTableViewData: [(title: String, value: String)] = [
         (LocalizationManager.shared.localizedString(for: "username"), ""),
@@ -79,6 +80,7 @@ final class UserProfileViewController: UIViewController {
     
     // MARK: - Public Methods
     func configureWithUserData(
+        _ isBlocked: Bool,
         _ userData: ProfileSettingsModels.ProfileUserData,
         _ profileConfiguration: ProfileConfiguration
     ) {
@@ -117,15 +119,58 @@ final class UserProfileViewController: UIViewController {
             chatButton.addTarget(self, action: #selector(chatButtonPressed), for: .touchUpInside)
             let secretChatButton = createButton("key.fill",
                                                 LocalizationManager.shared.localizedString(for: "secret_chat_l"))
+            secretChatButton.addTarget(self, action: #selector(secretChatButtonPressed), for: .touchUpInside)
             buttonStackView.addArrangedSubview(chatButton)
             buttonStackView.addArrangedSubview(secretChatButton)
             buttonStackView.setWidth(390)
         case (false, false):
             let secretChatButton = createButton("key.fill",
                                                 LocalizationManager.shared.localizedString(for: "secret_chat_l"))
+            secretChatButton.addTarget(self, action: #selector(secretChatButtonPressed), for: .touchUpInside)
             buttonStackView.addArrangedSubview(secretChatButton)
             buttonStackView.setWidth(310)
         }
+        if isBlocked {
+            let unblockAction = UIAction(title: LocalizationManager.shared.localizedString(for: "unblock_chat"), image: UIImage(systemName: "lock.open.fill")) { _ in
+                self.unblockChat()
+            }
+            let deleteAction = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_chat"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
+                self.showBlockDeletion()
+            }
+            optionsMenu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [unblockAction, deleteAction])
+            setMenu(optionsMenu)
+        } else {
+            let blockAction = UIAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), image: UIImage(systemName: "lock.fill")) { _ in
+                self.showBlockConfirmation()
+            }
+            let deleteAction = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_chat"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
+                self.showBlockDeletion()
+            }
+            optionsMenu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [blockAction, deleteAction])
+            setMenu(optionsMenu)
+        }
+    }
+    
+    func passBlock() {
+        let unblockAction = UIAction(title: LocalizationManager.shared.localizedString(for: "unblock_chat"), image: UIImage(systemName: "lock.open.fill")) { _ in
+            self.unblockChat()
+        }
+        let deleteAction = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_chat"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
+            self.showBlockDeletion()
+        }
+        optionsMenu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [unblockAction, deleteAction])
+        setMenu(optionsMenu)
+    }
+    
+    func passUnblock() {
+        let blockAction = UIAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), image: UIImage(systemName: "lock.fill")) { _ in
+            self.showBlockConfirmation()
+        }
+        let deleteAction = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_chat"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
+            self.showBlockDeletion()
+        }
+        optionsMenu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [blockAction, deleteAction])
+        setMenu(optionsMenu)
     }
     
     // MARK: - UI Configuration
@@ -180,7 +225,6 @@ final class UserProfileViewController: UIViewController {
                                         LocalizationManager.shared.localizedString(for: "search_l"))
         let optionsButton = createButton("ellipsis",
                                          LocalizationManager.shared.localizedString(for: "more_l"))
-        
         buttonStackView.addArrangedSubview(notificationButton)
         buttonStackView.addArrangedSubview(searchButton)
         buttonStackView.addArrangedSubview(optionsButton)
@@ -192,18 +236,15 @@ final class UserProfileViewController: UIViewController {
         buttonStackView.setHeight(Constants.buttonHeigth)
         buttonStackView.pinTop(nicknameLabel.bottomAnchor, Constants.buttonTop)
         buttonStackView.pinCenterX(view)
-        
-        let blockAction = UIAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), image: UIImage(systemName: "lock.fill")) { _ in
-            self.showBlockConfirmation()
-        }
-        let deleteAction = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_chat"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
-            self.showBlockDeletion()
-        }
-        let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [blockAction, deleteAction])
-        optionsButton.menu = menu
-        optionsButton.showsMenuAsPrimaryAction = true
+        setMenu(optionsMenu)
     }
     
+    private func setMenu(_ menu: UIMenu) {
+        let optionButton = buttonStackView.subviews[2] as? UIButton
+        optionButton?.menu = menu
+        optionButton?.showsMenuAsPrimaryAction = true
+    }
+
     private func createButton(_ systemName: String, _ title: String) -> UIButton {
         let button = UIUserProfileButton()
         button.configure(withSymbol: systemName, title: title)
@@ -265,6 +306,10 @@ final class UserProfileViewController: UIViewController {
     // MARK: - Interactor methods
     private func blockChat() {
         interactor.blockChat()
+    }
+    
+    private func unblockChat() {
+        interactor.unblockChat()
     }
     
     private func deleteChatForMe() {

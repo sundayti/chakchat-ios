@@ -62,6 +62,7 @@
 		AA2781E82D80ABAB0049ACAF /* Chat+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781E62D80ABAB0049ACAF /* Chat+CoreDataClass.swift */; };
 		AA2781E92D80ABAB0049ACAF /* Chat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781E72D80ABAB0049ACAF /* Chat+CoreDataProperties.swift */; };
 		AA2781EB2D80FC380049ACAF /* DeletedChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */; };
+		AA2781EF2D8112F50049ACAF /* BlockedChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -357,6 +358,7 @@
 		AA2781E62D80ABAB0049ACAF /* Chat+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AA2781E72D80ABAB0049ACAF /* Chat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedChatEvent.swift; sourceTree = "<group>"; };
+		AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedChatEvent.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 			children = (
 				AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */,
 				AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */,
+				AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */,
 			);
 			path = ChatEvents;
 			sourceTree = "<group>";
@@ -1837,6 +1840,7 @@
 				AAB300D32D6F283F00BECA3B /* ChatsService.swift in Sources */,
 				AA2781EB2D80FC380049ACAF /* DeletedChatEvent.swift in Sources */,
 				AAB302462D74AF1700BECA3B /* User+CoreDataClass.swift in Sources */,
+				AA2781EF2D8112F50049ACAF /* BlockedChatEvent.swift in Sources */,
 				AAB3026B2D7615AA00BECA3B /* ChatInteractor.swift in Sources */,
 				AAB302472D74AF1700BECA3B /* User+CoreDataProperties.swift in Sources */,
 				E1960A522D6BE63A008E27C0 /* NewMessagePresenter.swift in Sources */,
@@ -2300,7 +2304,7 @@
 			);
 			currentVersion = AA2781E42D80AB350049ACAF /* ChatsModel.xcdatamodel */;
 			name = ChatsModel.xcdatamodeld;
-			path = "/Users/mrdr/Desktop/chakchat-ios/chakchat/CoreData/Models/ChatsModel.xcdatamodeld";
+			path = ChatsModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
