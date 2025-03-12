@@ -5,12 +5,20 @@
 //  Created by Кирилл Исаев on 09.03.2025.
 //
 
-import Foundation
+import UIKit
 
 final class GroupChatProfilePresenter: GroupChatProfilePresentationLogic {
     weak var view: GroupChatProfileViewController?
     
-    func passChatData(_ chatData: ChatsModels.GroupChat.Response, _ isAdmin: Bool) {
+    func passChatData(_ chatData: ChatsModels.GeneralChatModel.ChatData, _ isAdmin: Bool) {
         view?.configureWithUserData(chatData, isAdmin)
+    }
+    
+    func updateGroupInfo(_ name: String, _ description: String?) {
+        view?.updateGroupInfo(name, description)
+    }
+    
+    func updateGroupPhoto(_ image: UIImage?) {
+        view?.updateGroupPhoto(image)
     }
 }

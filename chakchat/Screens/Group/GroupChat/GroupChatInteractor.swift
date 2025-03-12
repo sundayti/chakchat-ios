@@ -7,14 +7,18 @@
 
 import Foundation
 import OSLog
+import Combine
 
 final class GroupChatInteractor: GroupChatBusinessLogic {
+    
     private let presenter: GroupChatPresentationLogic
     private let worker: GroupChatWorkerLogic
     private let eventSubscriber: EventSubscriberProtocol
     private let errorHandler: ErrorHandlerLogic
-    private let chatData: ChatsModels.GroupChat.Response
+    private let chatData: ChatsModels.GeneralChatModel.ChatData
     private let logger: OSLog
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var onRouteBack: (() -> Void)?
     
@@ -23,7 +27,7 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
         worker: GroupChatWorkerLogic,
         eventSubscriber: EventSubscriberProtocol,
         errorHandler: ErrorHandlerLogic,
-        chatData: ChatsModels.GroupChat.Response,
+        chatData: ChatsModels.GeneralChatModel.ChatData,
         logger: OSLog
     ) {
         self.presenter = presenter
@@ -32,6 +36,8 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
         self.errorHandler = errorHandler
         self.chatData = chatData
         self.logger = logger
+        
+        subscribeToEvents()
     }
     
     func sendTextMessage(_ message: String) {
@@ -41,8 +47,25 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
     func passChatData() {
         presenter.passChatData(chatData)
     }
+        
+    func handleAddedMemberEvent(_ event: AddedMemberEvent) {
+        print("Handle new member")
+    }
+    
+    func handleDeletedMemberEvent(_ event: DeletedMemberEvent) {
+        print("Handle member deletion")
+    }
     
     func routeBack() {
         onRouteBack?()
+    }
+    
+    private func subscribeToEvents() {
+        eventSubscriber.subscribe(AddedMemberEvent.self) { [weak self] event in
+            self?.handleAddedMemberEvent(event)
+        }.store(in: &cancellables)
+        eventSubscriber.subscribe(DeletedMemberEvent.self) { [weak self] event in
+            self?.handleDeletedMemberEvent(event)
+        }.store(in: &cancellables)
     }
 }

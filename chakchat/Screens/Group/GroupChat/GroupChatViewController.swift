@@ -69,22 +69,24 @@ final class GroupChatViewController: UIViewController {
     }
     
     // MARK: - Data Configuration
-    func configureWithData(_ chatData: ChatsModels.GroupChat.Response) {
-        let color = UIColor.random()
-        let image = UIImage.imageWithText(
-            text: chatData.name,
-            size: CGSize(width: Constants.navigationItemHeight, height:  Constants.navigationItemHeight),
-            backgroundColor: Colors.background,
-            textColor: color,
-            borderColor: color,
-            borderWidth: Constants.borderWidth
-        )
-        iconImageView.image = image
-        if let photoURL = chatData.groupPhoto {
-            iconImageView.image = ImageCacheManager.shared.getImage(for: photoURL as NSURL)
-            iconImageView.layer.cornerRadius = Constants.cornerRadius
+    func configureWithData(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        if case .group(let groupInfo) = chatData.info {
+            let color = UIColor.random()
+            let image = UIImage.imageWithText(
+                text: groupInfo.name,
+                size: CGSize(width: Constants.navigationItemHeight, height:  Constants.navigationItemHeight),
+                backgroundColor: Colors.background,
+                textColor: color,
+                borderColor: color,
+                borderWidth: Constants.borderWidth
+            )
+            iconImageView.image = image
+            if let photoURL = groupInfo.groupPhoto {
+                iconImageView.image = ImageCacheManager.shared.getImage(for: photoURL as NSURL)
+                iconImageView.layer.cornerRadius = Constants.cornerRadius
+            }
+            groupNameLabel.text = groupInfo.name
         }
-        groupNameLabel.text = chatData.name
     }
     
     // MARK: - UI Configuration

@@ -29,11 +29,21 @@ final class GroupChatProfileViewController: UIViewController {
         static let userTableEstimateRow: CGFloat = 60
     }
     
+    private enum Localization: String {
+        case deleteGroup = "delete_group"
+        case deleteMember = "delete_member"
+        case deleteGroupDisclaimer = "are_you_sure_delete_group"
+        case deleteMemberDisclaimer = "are_you_sure_delete_member"
+    }
+    
     // MARK: - Properties
     private let interactor: GroupChatProfileBusinessLogic
     private let iconImageView: UIImageView = UIImageView()
     private let config = UIImage.SymbolConfiguration(pointSize: Constants.configSize, weight: .light, scale: .default)
     private let groupNameLabel: UILabel = UILabel()
+    private lazy var searchController: UISearchController = UISearchController()
+    private let userDataTable: UITableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var userTableViewData: [ProfileSettingsModels.ProfileUserData] = []
     private let buttonStackView: UIStackView = UIStackView()
     
     // MARK: - Initialization
@@ -71,22 +81,24 @@ final class GroupChatProfileViewController: UIViewController {
     }
     
     // MARK: - User Data Configuration
-    func configureWithUserData(_ chatData: ChatsModels.GroupChat.Response, _ isAdmin: Bool) {
-        let color = UIColor.random()
-        let image = UIImage.imageWithText(
-            text: chatData.name,
-            size: CGSize(width: Constants.configSize, height: Constants.configSize),
-            backgroundColor: Colors.backgroundSettings,
-            textColor: color,
-            borderColor: color,
-            borderWidth: Constants.borderWidth
-        )
-        iconImageView.image = image
-        if let photoURL = chatData.groupPhoto {
-            iconImageView.image = ImageCacheManager.shared.getImage(for: photoURL as NSURL)
-            iconImageView.layer.cornerRadius = Constants.cornerRadius
+    func configureWithUserData(_ chatData: ChatsModels.GeneralChatModel.ChatData, _ isAdmin: Bool) {
+        if case .group(let groupInfo) = chatData.info {
+            let color = UIColor.random()
+            let image = UIImage.imageWithText(
+                text: groupInfo.name,
+                size: CGSize(width: Constants.configSize, height: Constants.configSize),
+                backgroundColor: Colors.backgroundSettings,
+                textColor: color,
+                borderColor: color,
+                borderWidth: Constants.borderWidth
+            )
+            iconImageView.image = image
+            if let photoURL = groupInfo.groupPhoto {
+                iconImageView.image = ImageCacheManager.shared.getImage(for: photoURL as NSURL)
+                iconImageView.layer.cornerRadius = Constants.cornerRadius
+            }
+            groupNameLabel.text = groupInfo.name
         }
-        groupNameLabel.text = chatData.name
         if isAdmin {
             configureEditButton()
             let optionsButton = createButton("ellipsis",
@@ -94,6 +106,40 @@ final class GroupChatProfileViewController: UIViewController {
             createMenu(optionsButton)
         } else {
             buttonStackView.setWidth(230)
+        }
+        
+        interactor.getUserDataByID(chatData.members) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let data):
+                    self.userTableViewData.append(data)
+                    self.userDataTable.reloadData()
+                case .failure(let failure):
+                    self.interactor.handleError(failure)
+                }
+            }
+        }
+    }
+    
+    func updateGroupInfo(_ name: String, _ description: String?) {
+        groupNameLabel.text = name
+    }
+    
+    func updateGroupPhoto(_ image: UIImage?) {
+        if let image {
+            iconImageView.image = image
+        } else {
+            let color = UIColor.random()
+            guard let groupName = groupNameLabel.text else { return }
+            let image = UIImage.imageWithText(
+                text: groupName,
+                size: CGSize(width: Constants.configSize, height: Constants.configSize),
+                backgroundColor: Colors.backgroundSettings,
+                textColor: color,
+                borderColor: color,
+                borderWidth: Constants.borderWidth
+            )
         }
     }
     
@@ -105,6 +151,7 @@ final class GroupChatProfileViewController: UIViewController {
         configureIconImageView()
         configureInitials()
         configureButtonStackView()
+        configureSearchController()
         
     }
     
@@ -171,6 +218,37 @@ final class GroupChatProfileViewController: UIViewController {
         buttonStackView.pinCenterX(view)
     }
     
+    private func configureUserDataTable() {
+        view.addSubview(userDataTable)
+        userDataTable.delegate = self
+        userDataTable.dataSource = self
+        userDataTable.separatorStyle = .singleLine
+        userDataTable.separatorInset = .zero
+        userDataTable.isUserInteractionEnabled = false
+        userDataTable.pinHorizontal(view, -15)
+        userDataTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
+        userDataTable.pinTop(buttonStackView.bottomAnchor, 10)
+        userDataTable.register(UISearchControllerCell.self, forCellReuseIdentifier: UISearchControllerCell.cellIdentifier)
+        userDataTable.backgroundColor = view.backgroundColor
+        userDataTable.rowHeight = UITableView.automaticDimension
+        userDataTable.estimatedRowHeight = 60
+    }
+    
+    private func configureSearchController() {
+        let searchResultsController = UIUsersSearchViewController(interactor: interactor)
+        searchResultsController.onUserSelected = { [weak self] user in
+            self?.handleSelectedUser(user)
+        }
+        searchController = UISearchController(searchResultsController: searchResultsController)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = LocalizationManager.shared.localizedString(for: "who_would_you_add")
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.searchBar.autocorrectionType = .no
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
+        definesPresentationContext = true
+    }
+    
     private func createMenu(_ optionsButton: UIButton) {
         let addMember = UIAction(title: LocalizationManager.shared.localizedString(for: "add_member"), image: UIImage(systemName: "lock.fill")) { _ in
             self.addMember()
@@ -179,20 +257,28 @@ final class GroupChatProfileViewController: UIViewController {
             self.deleteMember()
         }
         let deleteGroup = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_group"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
-            self.showDisclaimer()
+            self.showDisclaimer(Localization.deleteGroup.rawValue, Localization.deleteGroupDisclaimer.rawValue)
         }
-        let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [addMember])
+        let menu = UIMenu(title: LocalizationManager.shared.localizedString(for: "choose_option"), children: [addMember, deleteMember, deleteGroup])
         optionsButton.menu = menu
         optionsButton.showsMenuAsPrimaryAction = true
     }
-    
-    private func showDisclaimer() {
-        let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: "delete_group"), message: LocalizationManager.shared.localizedString(for: "are_you_sure_delete"), preferredStyle: .alert)
-        let blockAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "block_chat"), style: .destructive) { _ in
-            self.deleteGroup()
+    /// параметры по умолчанию нужны для того чтобы в случае удаления участника
+    /// я мог помнить о том какой у него UUID и какой индекс в таблице
+    private func showDisclaimer(_ event: String, _ deleteWhat: String, _ memberID: UUID = UUID(), _ i: Int = 0) {
+        let alert = UIAlertController(title: LocalizationManager.shared.localizedString(for: event), message: LocalizationManager.shared.localizedString(for: deleteWhat), preferredStyle: .alert)
+        if event == Localization.deleteGroup.rawValue {
+            let deleteAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: event), style: .destructive) { _ in
+                self.deleteGroup()
+            }
+            alert.addAction(deleteAction)
+        } else {
+            let deleteAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: event), style: .destructive) { _ in
+                self.handleMemberDeletion(memberID, i)
+            }
+            alert.addAction(deleteAction)
         }
         let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .cancel, handler: nil)
-        alert.addAction(blockAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
@@ -206,13 +292,28 @@ final class GroupChatProfileViewController: UIViewController {
         button.layer.cornerRadius = Constants.borderRadius
         return button
     }
-    // will be implemented soon
-    private func addMember() {
-        print("Added member")
+    
+    private func handleSelectedUser(_ user: ProfileSettingsModels.ProfileUserData) {
+        interactor.addMember(user.id)
     }
-    // will be implemented soon
+    
+    private func addMember() {
+        present(searchController, animated: true)
+    }
+    
     private func deleteMember() {
-        print("Deleted member")
+        for cell in userDataTable.visibleCells {
+            if let indexPath = userDataTable.indexPath(for: cell) {
+                let item = userTableViewData[indexPath.row]
+                (cell as? UISearchControllerCell)?.configure(item.photo, item.name, deletable: true)
+            }
+        }
+    }
+    
+    private func handleMemberDeletion(_ memberID: UUID, _ i: Int) {
+        interactor.deleteMember(memberID)
+        userTableViewData.remove(at: i)
+        userDataTable.reloadData()
     }
     
     private func deleteGroup() {
@@ -225,5 +326,41 @@ final class GroupChatProfileViewController: UIViewController {
     
     @objc private func backButtonPressed() {
         interactor.routeBack()
+    }
+}
+
+extension GroupChatProfileViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchVC = searchController.searchResultsController as? UIUsersSearchViewController else { return }
+        if let searchText = searchController.searchBar.text {
+            searchVC.searchTextPublisher.send(searchText)
+        }
+    }
+}
+
+extension GroupChatProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userTableViewData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UISearchControllerCell.cellIdentifier, for: indexPath) as? UISearchControllerCell else {
+            return UITableViewCell()
+        }
+        let item = userTableViewData[indexPath.row]
+        cell.configure(item.photo, item.name, deletable: false)
+        cell.deleteAction = { [weak self] in
+            self?.showDisclaimer(
+                Localization.deleteMember.rawValue,
+                Localization.deleteMemberDisclaimer.rawValue,
+                item.id,
+                indexPath.row
+            )
+        }
+        return cell
     }
 }

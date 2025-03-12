@@ -10,10 +10,12 @@ import Foundation
 protocol GroupChatBusinessLogic: SendingMessagesProtocol {
     func routeBack()
     func passChatData()
+    func handleAddedMemberEvent(_ event: AddedMemberEvent)
+    func handleDeletedMemberEvent(_ event: DeletedMemberEvent)
 }
 
 protocol GroupChatPresentationLogic {
-    func passChatData(_ chatData: ChatsModels.GroupChat.Response)
+    func passChatData(_ chatData: ChatsModels.GeneralChatModel.ChatData)
 }
 
 protocol GroupChatWorkerLogic {

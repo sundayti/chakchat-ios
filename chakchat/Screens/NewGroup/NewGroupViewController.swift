@@ -37,7 +37,7 @@ final class NewGroupViewController: UIViewController {
     private var iconImageView: UIImageView = UIImageView()
     private let groupLabel: UILabel = UILabel()
     private let groupTextField: UITextField = UITextField()
-
+    private let messageLabel: UILabel = UILabel()
     
     // MARK: - Initialization
     init(interactor: NewGroupBusinessLogic) {
@@ -81,6 +81,7 @@ final class NewGroupViewController: UIViewController {
         configureIconImageView()
         configureGroupTextFiled()
         configureTableView()
+        configureErrorMessage()
     }
     
     private func configureBackButton() {
@@ -184,6 +185,22 @@ final class NewGroupViewController: UIViewController {
         underlineLayer.pinLeft(groupTextField.leadingAnchor, 0)
         underlineLayer.pinRight(groupTextField.trailingAnchor, 0)
     }
+    
+    private func configureErrorMessage() {
+        view.addSubview(messageLabel)
+        messageLabel.text = LocalizationManager.shared.localizedString(for: "at_least_one")
+        messageLabel.textColor = .red
+        messageLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        messageLabel.textAlignment = .center
+        messageLabel.backgroundColor = .white
+        messageLabel.layer.cornerRadius = 10
+        messageLabel.layer.masksToBounds = true
+        messageLabel.alpha = 0
+        messageLabel.pinTop(view, 250)
+        messageLabel.pinCenterX(view)
+        messageLabel.setWidth(350)
+        messageLabel.setHeight(50)
+    }
 
     
     // MARK: - Supporting Methods
@@ -230,10 +247,22 @@ final class NewGroupViewController: UIViewController {
         }
         let members = users.map { $0.id }
         if members.count == 0 {
-            print("Choose at least one member")
+            showErrorMessage()
             return
         }
         interactor.createGroupChat(name, nil, members)
+    }
+    
+    private func showErrorMessage() {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.messageLabel.alpha = 1
+        }) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                UIView.animate(withDuration: 0.25) {
+                    self.messageLabel.alpha = 0
+                }
+            }
+        }
     }
     
     @objc

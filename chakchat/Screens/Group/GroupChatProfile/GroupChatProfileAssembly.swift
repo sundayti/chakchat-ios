@@ -8,13 +8,15 @@
 import UIKit
 
 enum GroupChatProfileAssembly {
-    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator, _ chatData: ChatsModels.GroupChat.Response) -> UIViewController {
+    static func build(with context: MainAppContextProtocol, coordinator: AppCoordinator, _ chatData: ChatsModels.GeneralChatModel.ChatData) -> UIViewController {
         let presenter = GroupChatProfilePresenter()
         let groupService = GroupChatService()
+        let userService = UserService()
         let worker = GroupChatProfileWorker(
             keychainManager: context.keychainManager, 
             userDefaultsManager: context.userDefaultsManager,
             groupService: groupService,
+            userService: userService,
             coreDataManager: context.coreDataManager
         )
         let interactor = GroupChatProfileInteractor(
@@ -22,7 +24,7 @@ enum GroupChatProfileAssembly {
             worker: worker,
             errorHandler: context.errorHandler,
             chatData: chatData,
-            eventPublisher: context.eventManager,
+            eventManager: context.eventManager,
             logger: context.logger
         )
         interactor.onRouteToEdit = { [weak coordinator] chatData in

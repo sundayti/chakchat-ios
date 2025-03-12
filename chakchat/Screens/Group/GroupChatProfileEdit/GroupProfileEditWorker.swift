@@ -25,13 +25,14 @@ final class GroupProfileEditWorker: GroupProfileEditWorkerLogic {
         self.coreDataManager = coreDataManager
     }
     
-    func updateChat(_ chatID: UUID, _ name: String, _ description: String?, completion: @escaping (Result<ChatsModels.GroupChat.Response, any Error>) -> Void) {
+    func updateChat(_ chatID: UUID, _ name: String, _ description: String?, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ChatsModels.GroupChat.UpdateRequest(name: name, description: description)
         groupService.sendUpdateChatRequest(chatID, request, accessToken) { [weak self] result in
-            guard self != nil else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let response):
+                self.coreDataManager.updateChat(response.data)
                 completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))
@@ -39,13 +40,14 @@ final class GroupProfileEditWorker: GroupProfileEditWorkerLogic {
         }
     }
     
-    func updateGroupPhoto(_ chatID: UUID, _ photoID: UUID, completion: @escaping (Result<ChatsModels.GroupChat.Response, any Error>) -> Void) {
+    func updateGroupPhoto(_ chatID: UUID, _ photoID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
         let request = ChatsModels.GroupChat.PhotoUpdateRequest(photoID: photoID)
         groupService.sendUpdatePhotoRequest(request, chatID, accessToken) { [weak self] result in
-            guard self != nil else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let response):
+                self.coreDataManager.updateChat(response.data)
                 completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))

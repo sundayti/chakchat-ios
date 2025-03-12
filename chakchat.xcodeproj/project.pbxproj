@@ -63,6 +63,10 @@
 		AA2781E92D80ABAB0049ACAF /* Chat+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781E72D80ABAB0049ACAF /* Chat+CoreDataProperties.swift */; };
 		AA2781EB2D80FC380049ACAF /* DeletedChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */; };
 		AA2781EF2D8112F50049ACAF /* BlockedChatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */; };
+		AA75DCB92D81C4CD00775199 /* AddedMemberEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA75DCB82D81C4CD00775199 /* AddedMemberEvent.swift */; };
+		AA75DCBB2D81C71E00775199 /* DeletedMemberEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA75DCBA2D81C71E00775199 /* DeletedMemberEvent.swift */; };
+		AA75DCBF2D81E42400775199 /* UpdatedGroupInfoEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA75DCBE2D81E42400775199 /* UpdatedGroupInfoEvent.swift */; };
+		AA75DCC12D81E43200775199 /* UpdatedGroupPhotoEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA75DCC02D81E43200775199 /* UpdatedGroupPhotoEvent.swift */; };
 		AA7BADE12D3F9E570030AC82 /* ChatsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */; };
 		AA7BADE32D3F9F050030AC82 /* ChatsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */; };
 		AA7BADE52D3F9F220030AC82 /* ChatsScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */; };
@@ -359,6 +363,10 @@
 		AA2781E72D80ABAB0049ACAF /* Chat+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedChatEvent.swift; sourceTree = "<group>"; };
 		AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedChatEvent.swift; sourceTree = "<group>"; };
+		AA75DCB82D81C4CD00775199 /* AddedMemberEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedMemberEvent.swift; sourceTree = "<group>"; };
+		AA75DCBA2D81C71E00775199 /* DeletedMemberEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedMemberEvent.swift; sourceTree = "<group>"; };
+		AA75DCBE2D81E42400775199 /* UpdatedGroupInfoEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedGroupInfoEvent.swift; sourceTree = "<group>"; };
+		AA75DCC02D81E43200775199 /* UpdatedGroupPhotoEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatedGroupPhotoEvent.swift; sourceTree = "<group>"; };
 		AA7BADE02D3F9E570030AC82 /* ChatsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenAssembly.swift; sourceTree = "<group>"; };
 		AA7BADE22D3F9F050030AC82 /* ChatsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenInteractor.swift; sourceTree = "<group>"; };
 		AA7BADE42D3F9F220030AC82 /* ChatsScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsScreenProtocols.swift; sourceTree = "<group>"; };
@@ -663,6 +671,10 @@
 				AA2781572D7A0BB00049ACAF /* CreatedPersonalChatEvent.swift */,
 				AA2781EA2D80FC380049ACAF /* DeletedChatEvent.swift */,
 				AA2781EE2D8112F50049ACAF /* BlockedChatEvent.swift */,
+				AA75DCB82D81C4CD00775199 /* AddedMemberEvent.swift */,
+				AA75DCBA2D81C71E00775199 /* DeletedMemberEvent.swift */,
+				AA75DCBE2D81E42400775199 /* UpdatedGroupInfoEvent.swift */,
+				AA75DCC02D81E43200775199 /* UpdatedGroupPhotoEvent.swift */,
 			);
 			path = ChatEvents;
 			sourceTree = "<group>";
@@ -1716,6 +1728,7 @@
 				AAB302552D75BC5500BECA3B /* UserProfileProtocols.swift in Sources */,
 				AA87FC6B2D55037E00E8D066 /* UserProfileScreenAssembly.swift in Sources */,
 				AA84EFFB2D49129C00678ABA /* ConfidentialityScreenAssembly.swift in Sources */,
+				AA75DCBF2D81E42400775199 /* UpdatedGroupInfoEvent.swift in Sources */,
 				AA84F0162D4BBE6900678ABA /* PhoneVisibilityScreenAssembly.swift in Sources */,
 				E19609D52D60E8C6008E27C0 /* LanguageInteractor.swift in Sources */,
 				AA84F0012D4912C900678ABA /* ConfidentialityScreenViewController.swift in Sources */,
@@ -1731,6 +1744,7 @@
 				E11D350F2D40C3F400A698EA /* Colors.swift in Sources */,
 				AA84F0362D4BEF3E00678ABA /* BirthVisibilityScreenViewController.swift in Sources */,
 				AA84F02E2D4BEF1800678ABA /* BirthVisibilityScreenInteractor.swift in Sources */,
+				AA75DCC12D81E43200775199 /* UpdatedGroupPhotoEvent.swift in Sources */,
 				AA1C0E3A2D43A5D7008E47D8 /* EventManager.swift in Sources */,
 				AAA5F3DD2D393A9A00B9D50E /* MockSendCodeService.swift in Sources */,
 				AAB300D02D6F0E4C00BECA3B /* SecretPersonalChatServiceProtocol.swift in Sources */,
@@ -1781,6 +1795,7 @@
 				AA84F00A2D491AB600678ABA /* ConfidentialityMenuCell.swift in Sources */,
 				AAA5F3E22D39561E00B9D50E /* ErrorHandlerProtocols.swift in Sources */,
 				AAB302492D74B35500BECA3B /* CoreDataStack.swift in Sources */,
+				AA75DCBB2D81C71E00775199 /* DeletedMemberEvent.swift in Sources */,
 				AA84F03F2D4CD87600678ABA /* OnlineVisibilityScreenPresenter.swift in Sources */,
 				AAB3024F2D75BC2C00BECA3B /* UserProfileInteractor.swift in Sources */,
 				AA84F0052D4912DB00678ABA /* ConfidentialityScreenModels.swift in Sources */,
@@ -1909,6 +1924,7 @@
 				AA27815B2D7AE2300049ACAF /* ChatCell.swift in Sources */,
 				AA87FC6D2D55038900E8D066 /* UserProfileScreenInteractor.swift in Sources */,
 				AAB300DC2D6F2FFC00BECA3B /* SecretGroupChatServiceProtocol.swift in Sources */,
+				AA75DCB92D81C4CD00775199 /* AddedMemberEvent.swift in Sources */,
 				AA9B62432D2EC4840064CB23 /* KeychainManagerProtocol.swift in Sources */,
 				AA84F04F2D4D0C3E00678ABA /* NotificationScreenInteractor.swift in Sources */,
 				AA84F0412D4CD87D00678ABA /* OnlineVisibilityScreenWorker.swift in Sources */,

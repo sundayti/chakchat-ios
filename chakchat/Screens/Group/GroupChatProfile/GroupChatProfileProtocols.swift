@@ -5,14 +5,22 @@
 //  Created by Кирилл Исаев on 09.03.2025.
 //
 
-import Foundation
+import UIKit
 
-protocol GroupChatProfileBusinessLogic {
+protocol GroupChatProfileBusinessLogic: SearchInteractor {
     func passChatData()
     
     func deleteGroup()
     func addMember(_ memberID: UUID)
     func deleteMember(_ memberID: UUID)
+    
+    func updateGroupInfo(_ name: String, _ description: String?)
+    func updateGroupPhoto(_ image: UIImage?)
+    
+    func handleUpdatedGroupInfoEvent(_ event: UpdatedGroupInfoEvent)
+    func handleUpdatedGroupPhotoEvent(_ event: UpdatedGroupPhotoEvent)
+    
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
     
     func routeToChatMenu()
     func routeToEdit()
@@ -20,7 +28,9 @@ protocol GroupChatProfileBusinessLogic {
 }
 
 protocol GroupChatProfilePresentationLogic {
-    func passChatData(_ chatData: ChatsModels.GroupChat.Response, _ isAdmin: Bool)
+    func passChatData(_ chatData: ChatsModels.GeneralChatModel.ChatData, _ isAdmin: Bool)
+    func updateGroupInfo(_ name: String, _ description: String?)
+    func updateGroupPhoto(_ image: UIImage?)
 }
 
 protocol GroupChatProfileWorkerLogic {
@@ -31,12 +41,22 @@ protocol GroupChatProfileWorkerLogic {
     func addMember(
         _ chatID: UUID,
         _ memberID: UUID,
-        completion: @escaping (Result<ChatsModels.GroupChat.Response, Error>) -> Void
+        completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void
     )
     func deleteMember(
         _ chatID: UUID,
         _ memberID: UUID,
-        completion: @escaping (Result<ChatsModels.GroupChat.Response, Error>) -> Void
+        completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void
     )
+    func fetchUsers(
+        _ name: String?,
+        _ username: String?,
+        _ page: Int,
+        _ limit: Int,
+        completion: @escaping (Result<ProfileSettingsModels.Users, Error>) -> Void
+    )
+    
+    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    
     func getMyID() -> UUID
 }

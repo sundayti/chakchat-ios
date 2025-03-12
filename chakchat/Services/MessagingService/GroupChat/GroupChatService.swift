@@ -13,7 +13,7 @@ final class GroupChatService: GroupChatServiceProtocol {
     func sendCreateChatRequest(
         _ request: ChatsModels.GroupChat.CreateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue
         let idempotencyKey = UUID().uuidString
@@ -33,7 +33,7 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ chatID: UUID,
         _ request: ChatsModels.GroupChat.UpdateRequest,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)"
         
@@ -66,7 +66,7 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ chatID: UUID,
         _ memberID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/member/\(memberID)"
         
@@ -82,7 +82,7 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ chatID: UUID,
         _ memberID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/member/\(memberID)"
         
@@ -98,7 +98,7 @@ final class GroupChatService: GroupChatServiceProtocol {
         _ request: ChatsModels.GroupChat.PhotoUpdateRequest,
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/photo"
         
@@ -115,7 +115,7 @@ final class GroupChatService: GroupChatServiceProtocol {
     func sendDeletePhotoRequest(
         _ chatID: UUID,
         _ accessToken: String,
-        completion: @escaping (Result<SuccessResponse<ChatsModels.GroupChat.Response>, any Error>) -> Void
+        completion: @escaping (Result<SuccessResponse<ChatsModels.GeneralChatModel.ChatData>, any Error>) -> Void
     ) {
         let endpoint = "\(MessaginServiceEndpoints.GroupChatEndpoints.groupChat.rawValue)/\(chatID)/photo"
         
