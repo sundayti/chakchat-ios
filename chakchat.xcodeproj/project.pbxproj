@@ -2303,7 +2303,6 @@
 				AA2781E42D80AB350049ACAF /* ChatsModel.xcdatamodel */,
 			);
 			currentVersion = AA2781E42D80AB350049ACAF /* ChatsModel.xcdatamodel */;
-			name = ChatsModel.xcdatamodeld;
 			path = ChatsModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
