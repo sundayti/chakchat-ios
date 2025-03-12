@@ -48,14 +48,14 @@ final class ChatWorker: ChatWorkerLogic {
         }
     }
     
-    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, any Error>) -> Void) {
+    func setExpirationTime(_ chatID: UUID, _ expiration: String?, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        let request = ChatsModels.PersonalChat.CreateRequest(memberID: memberID)
-        secretPersonalChatService.sendCreateChatRequest(request, accessToken) { [weak self] result in
-            guard self != nil else { return }
+        let request = ChatsModels.SecretPersonalChat.ExpirationRequest(expiration: expiration)
+        secretPersonalChatService.sendSetExpirationRequest(request, chatID, accessToken) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let response):
-                // сохранить в кор дате
+                self.coreDataManager.updateChat(response.data)
                 completion(.success(response.data))
             case .failure(let failure):
                 completion(.failure(failure))
@@ -65,20 +65,5 @@ final class ChatWorker: ChatWorkerLogic {
     
     func sendTextMessage(_ message: String) {
         print("Sended message: \(message)")
-    }
-    
-    func setExpirationTime(_ chatID: UUID, _ expiration: String?, completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, any Error>) -> Void) {
-        guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        let request = ChatsModels.SecretPersonalChat.ExpirationRequest(expiration: expiration)
-        secretPersonalChatService.sendSetExpirationRequest(request, chatID, accessToken) { [weak self] result in
-            guard self != nil else { return }
-            switch result {
-            case .success(let response):
-                // сохранить в кор дате
-                completion(.success(response.data))
-            case .failure(let failure):
-                completion(.failure(failure))
-            }
-        }
     }
 }

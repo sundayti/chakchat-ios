@@ -22,11 +22,10 @@ protocol ChatPresentationLogic {
 
 protocol ChatWorkerLogic {
     func createChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void)
-    func createSecretChat(_ memberID: UUID, completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, Error>) -> Void)
     func setExpirationTime(
         _ chatID: UUID,
         _ expiration: String?,
-        completion: @escaping (Result<ChatsModels.SecretPersonalChat.Response, Error>) -> Void
+        completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatData, Error>) -> Void
     )
     func sendTextMessage(_ message: String)
 }

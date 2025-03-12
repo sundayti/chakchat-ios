@@ -15,18 +15,22 @@ protocol ChatsScreenBusinessLogic: SearchInteractor {
     
     func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData)
     func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
+    func deleteChat(_ chatID: UUID)
     
     func routeToSettingsScreen()
     func routeToNewMessageScreen()
+    func routeToChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
     
-    func handlePersonalChatCreatingEvent(_ event: CreatedPersonalChatEvent)
+    func handleCreatedChatEvent(_ event: CreatedChatEvent)
+    func handleDeletedChatEvent(_ event: DeletedChatEvent)
 
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
 }
 
 protocol ChatsScreenPresentationLogic {
-    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
     func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData)
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
+    func deleteChat(_ chatID: UUID)
 }
 
 protocol ChatsScreenWorkerLogic {
@@ -43,6 +47,7 @@ protocol ChatsScreenWorkerLogic {
     )
     
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func getDBChats() -> [ChatsModels.GeneralChatModel.ChatData]?
 }
 
 // MARK: - SearchInteractor Protocol

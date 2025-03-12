@@ -104,4 +104,9 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
             }
         }
     }
+    
+    func getDBChats() -> [ChatsModels.GeneralChatModel.ChatData]? {
+        let chats = coreDataManager.fetchChats()
+        return chats
+    }
 }

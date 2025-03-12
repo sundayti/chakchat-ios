@@ -19,4 +19,8 @@ final class ChatsScreenPresenter: ChatsScreenPresentationLogic {
     func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
         view?.addNewChat(chatData)
     }
+    
+    func deleteChat(_ chatID: UUID) {
+        view?.deleteChat(chatID)
+    }
 }

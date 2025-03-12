@@ -31,6 +31,9 @@ enum ChatsAssembly {
             eventSubscriber: context.eventManager,
             keychainManager: context.keychainManager
         )
+        interactor.onRouteToChat = { [weak coordinator] userData, chatData in
+            coordinator?.showChatScreen(userData, chatData)
+        }
         interactor.onRouteToSettings = { [weak coordinator] in
             coordinator?.showSettingsScreen()
         }

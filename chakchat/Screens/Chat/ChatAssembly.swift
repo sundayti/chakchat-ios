@@ -40,8 +40,8 @@ enum ChatAssembly {
             chatData: chatData
         )
         
-        interactor.onRouteToProfile = { [weak coordinator] userData, profileConfiguration in
-            coordinator?.showUserProfileScreen(userData, profileConfiguration)
+        interactor.onRouteToProfile = { [weak coordinator] userData, chatData, profileConfiguration in
+            coordinator?.showUserProfileScreen(userData, chatData, profileConfiguration)
         }
         interactor.onRouteBack = { [weak coordinator] in
             coordinator?.popScreen()

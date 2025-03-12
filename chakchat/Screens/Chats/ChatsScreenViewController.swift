@@ -59,17 +59,20 @@ final class ChatsScreenViewController: UIViewController {
     }
     
     // MARK: - Public Methods
-    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
-        chatsData?.append(chatData)
-        DispatchQueue.main.async {
-            self.chatsTableView.reloadData()
-        }
-    }
-    
     func showChats(_ allChatsData: ChatsModels.GeneralChatModel.ChatsData) {
         chatsData = allChatsData.chats
-        DispatchQueue.main.async {
-            self.chatsTableView.reloadData()
+        chatsTableView.reloadData()
+    }
+    
+    func addNewChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        chatsData?.append(chatData)
+        chatsTableView.reloadData()
+    }
+    
+    func deleteChat(_ chatID: UUID) {
+        if let i = chatsData?.firstIndex(where: {$0.chatID == chatID}) {
+            chatsData?.remove(at: i)
+            chatsTableView.reloadData()
         }
     }
     
@@ -189,16 +192,24 @@ extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource 
         }
         if let item = chatsData?[indexPath.row] {
             interactor.getUserDataByID(item.members) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let data):
-                    cell.configure(data.photo, data.name)
-                case .failure(let failure):
-                    interactor.handleError(failure)
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let data):
+                        cell.configure(data.photo, data.name)
+                    case .failure(let failure):
+                        self.interactor.handleError(failure)
+                    }
                 }
             }
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let chatData = chatsData?[indexPath.row] else { return }
+        interactor.routeToChat(chatData)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

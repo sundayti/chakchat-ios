@@ -21,7 +21,7 @@ final class ChatInteractor: ChatBusinessLogic {
     
     private var chatData: ChatsModels.GeneralChatModel.ChatData?
     var onRouteBack: (() -> Void)?
-    var onRouteToProfile: ((ProfileSettingsModels.ProfileUserData, ProfileConfiguration) -> Void)?
+    var onRouteToProfile: ((ProfileSettingsModels.ProfileUserData, ChatsModels.GeneralChatModel.ChatData?, ProfileConfiguration) -> Void)?
     
     // MARK: - Initialization
     init(
@@ -55,8 +55,16 @@ final class ChatInteractor: ChatBusinessLogic {
         worker.createChat(memberID) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(_):
+            case .success(let data):
                 os_log("Chat with member(%@) created", log: logger, type: .default, memberID as CVarArg)
+                let event = CreatedChatEvent(
+                    chatID: data.chatID,
+                    type: data.type,
+                    members: data.members,
+                    createdAt: data.createdAt,
+                    info: data.info
+                )
+                eventPublisher.publish(event: event)
             case .failure(let failure):
                 _ = errorHandler.handleError(failure)
                 os_log("Failed to create chat with member(%@):\n", log: logger, type: .fault, memberID as CVarArg)
@@ -95,10 +103,10 @@ final class ChatInteractor: ChatBusinessLogic {
     func routeToProfile() {
         if let chatD = chatData {
             let profileConfiguration = ProfileConfiguration(isSecret: chatD.type.rawValue == "personal_secret", fromGroupChat: false)
-            onRouteToProfile?(userData, profileConfiguration)
+            onRouteToProfile?(userData, chatD, profileConfiguration)
         } else {
             let profileConfiguration = ProfileConfiguration(isSecret: false, fromGroupChat: false)
-            onRouteToProfile?(userData, profileConfiguration)
+            onRouteToProfile?(userData, nil, profileConfiguration)
         }
     }
 }
