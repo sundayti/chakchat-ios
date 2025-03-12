@@ -22,7 +22,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     
     private var cancellables = Set<AnyCancellable>()
     
-    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, ChatsModels.GeneralChatModel.ChatData) -> Void)?
+    var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, ChatsModels.GeneralChatModel.ChatData?) -> Void)?
     var onRouteToSettings: (() -> Void)?
     var onRouteToNewMessage: (() -> Void)?
     
@@ -167,6 +167,15 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         presenter.deleteChat(chatID)
     }
     
+    func searchForExistingChat(_ userData: ProfileSettingsModels.ProfileUserData) {
+        if let chatData = worker.searchForExistingChat(userData.id) {
+            let convertedChatData = convertFromCoreData(chatData)
+            onRouteToChat?(userData, convertedChatData)
+        } else {
+            onRouteToChat?(userData, nil)
+        }
+    }
+    
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void) {
         worker.getUserDataByID(users) { [weak self] result in
             guard self != nil else { return }
@@ -210,5 +219,18 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
                 }
             }
         }
+    }
+    // нужно потом избавиться от этого кринжа
+    private func convertFromCoreData(_ chatCoreData: Chat) -> ChatsModels.GeneralChatModel.ChatData {
+        let decoder = JSONDecoder()
+        let chatData = ChatsModels.GeneralChatModel.ChatData(
+            chatID: chatCoreData.chatID,
+            type: ChatType(rawValue: chatCoreData.type) ?? ChatType.personal,
+            members: (try? decoder.decode([UUID].self, from: chatCoreData.members)) ?? [UUID()],
+            createdAt: chatCoreData.createdAt,
+            info: (try? decoder.decode(ChatsModels.GeneralChatModel.Info.self, from: chatCoreData.info))
+            ?? ChatsModels.GeneralChatModel.Info.personal(ChatsModels.GeneralChatModel.PersonalInfo(blockedBy: [UUID()]))
+        )
+        return chatData
     }
 }

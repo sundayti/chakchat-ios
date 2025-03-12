@@ -13,7 +13,7 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     
     // MARK: - Properties
     private let keychainManager: KeychainManagerBusinessLogic
-    private let userDefaultManager: UserDefaultsManagerProtocol
+    private let userDefaultsManager: UserDefaultsManagerProtocol
     private let coreDataManager: CoreDataManagerProtocol
     private let userService: UserServiceProtocol
     private let chatsService: ChatsServiceProtocol
@@ -21,14 +21,14 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     
     // MARK: - Initialization
     init(keychainManager: KeychainManagerBusinessLogic,
-         userDefaultManager: UserDefaultsManagerProtocol,
+         userDefaultsManager: UserDefaultsManagerProtocol,
          userService: UserServiceProtocol,
          chatsService: ChatsServiceProtocol,
          coreDataManager: CoreDataManagerProtocol,
          logger: OSLog
     ) {
         self.keychainManager = keychainManager
-        self.userDefaultManager = userDefaultManager
+        self.userDefaultsManager = userDefaultsManager
         self.coreDataManager = coreDataManager
         self.userService = userService
         self.chatsService = chatsService
@@ -41,7 +41,7 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                self.userDefaultManager.saveUserData(response.data)
+                self.userDefaultsManager.saveUserData(response.data)
             case .failure(let failure):
                 completion(.failure(failure))
             }
@@ -54,7 +54,7 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                self.userDefaultManager.saveRestrictions(response.data)
+                self.userDefaultsManager.saveRestrictions(response.data)
             case .failure(let failure):
                 completion(.failure(failure))
             }
@@ -91,7 +91,7 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        let myID = userDefaultManager.loadID()
+        let myID = userDefaultsManager.loadID()
         for usr in users where usr != myID {
             userService.sendGetUserRequest(usr, accessToken) { [weak self] result in
                 guard self != nil else { return }
@@ -108,5 +108,16 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     func getDBChats() -> [ChatsModels.GeneralChatModel.ChatData]? {
         let chats = coreDataManager.fetchChats()
         return chats
+    }
+    
+    func getMyID() -> UUID {
+        let myID = userDefaultsManager.loadID()
+        return myID
+    }
+    
+    func searchForExistingChat(_ memberID: UUID) -> Chat? {
+        let myID = getMyID()
+        let chat = coreDataManager.fetchChatByMembers(myID, memberID, ChatType.personal)
+        return chat != nil ? chat : nil
     }
 }
