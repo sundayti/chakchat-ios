@@ -171,8 +171,12 @@ final class AppCoordinator {
         }
     }
     
-    func showUserProfileScreen(_ userData: ProfileSettingsModels.ProfileUserData, _ profileConfiguration: ProfileConfiguration) {
-        let userProfileVC = UserProfileAssembly.build(mainAppContext, coordinator: self, userData: userData, profileConfiguration: profileConfiguration)
+    func showUserProfileScreen(
+        _ userData: ProfileSettingsModels.ProfileUserData,
+        _ chatData: ChatsModels.GeneralChatModel.ChatData?,
+        _ profileConfiguration: ProfileConfiguration
+    ) {
+        let userProfileVC = UserProfileAssembly.build(mainAppContext, coordinator: self, userData: userData,  chatData: chatData, profileConfiguration: profileConfiguration)
         navigationController.pushViewController(userProfileVC, animated: true)
     }
 

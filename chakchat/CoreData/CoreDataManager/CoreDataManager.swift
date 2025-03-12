@@ -34,12 +34,22 @@ final class CoreDataManager: CoreDataManagerProtocol {
         CoreDataStack.shared.saveContext(for: "ChatsModel")
     }
     
-    func fetchChats() -> [Chat]? {
+    func fetchChats() -> [ChatsModels.GeneralChatModel.ChatData]? {
         let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
         let fetchRequest: NSFetchRequest<Chat> = Chat.fetchRequest()
         do {
             let chats = try context.fetch(fetchRequest)
-            return chats
+            var chatDataArray: [ChatsModels.GeneralChatModel.ChatData] = []
+            for chat in chats {
+                do {
+                    let chatData = try chat.toChatData()
+                    chatDataArray.append(chatData)
+                } catch {
+                    print("Failed to convert chat to ChatData: \(error)")
+                    continue
+                }
+            }
+            return chatDataArray
         } catch {
             print("Failed to fetch chats: \(error)")
             return nil
