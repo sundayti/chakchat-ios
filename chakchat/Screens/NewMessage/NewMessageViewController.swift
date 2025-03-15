@@ -25,7 +25,7 @@ final class NewMessageViewController: UIViewController {
     private var searchController: UISearchController = UISearchController()
     private let newGroupButton: UINewGroupButton = UINewGroupButton()
     private let tableView: UITableView = UITableView()
-    private var newGroupButtonTopConstraint: NSLayoutConstraint!
+    private var newGroupButtonTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var shouldAnimateNewGroupButton = false
     
     // MARK: - Initialization

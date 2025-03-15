@@ -12,21 +12,16 @@ final class ChatsScreenViewController: UIViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let cancelAnimationDuration: TimeInterval = 0.1
-        static let animationTransformX: CGFloat = -10
-        static let animationTransformY: CGFloat = 0
         static let cancelButtonTitle: String = LocalizationManager.shared.localizedString(for: "cancel")
         static let cancelKey: String = "cancelButton"
-        
         static let searchPlaceholder: String = LocalizationManager.shared.localizedString(for: "search")
-        static let searchTrailing: CGFloat = 16
-        static let saerchLeading: CGFloat = 16
-        static let searchTop: CGFloat = 10
-        
         static let headerText: String = LocalizationManager.shared.localizedString(for: "chats")
+        
         static let symbolSize: CGFloat = 30
         static let settingsName: String = "gearshape"
         static let plusName: String = "plus"
+        static let chatsTableStartTop: CGFloat = -10
+        static let chatsTableEndTop: CGFloat = 0
     }
     
     // MARK: - Properties
@@ -37,6 +32,8 @@ final class ChatsScreenViewController: UIViewController {
     private var chatsData: [ChatsModels.GeneralChatModel.ChatData]? = []
     private lazy var searchController: UISearchController = UISearchController()
     private let interactor: ChatsScreenBusinessLogic
+    private var chatsTableTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    private var shouldAnimateChatsTableView = false
     
     // MARK: - Lifecycle
     init(interactor: ChatsScreenBusinessLogic) {
@@ -55,6 +52,19 @@ final class ChatsScreenViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: .languageDidChange, object: nil)
         configureUI()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if shouldAnimateChatsTableView {
+            if searchController.isActive {
+                animateChatsTableView(constant: Constants.chatsTableEndTop)
+            } else {
+                animateChatsTableView(constant: Constants.chatsTableStartTop)
+            }
+        }
+        shouldAnimateChatsTableView = false
     }
     
     // MARK: - Public Methods
@@ -79,11 +89,8 @@ final class ChatsScreenViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = Colors.background
         configureTitleLabel()
-        navigationItem.titleView = titleLabel
         configureSettingsButton()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingButton)
         configureNewChatButton()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newChatButton)
         configureSearchController()
         configureChatsTableView()
     }
@@ -92,6 +99,7 @@ final class ChatsScreenViewController: UIViewController {
         view.addSubview(titleLabel)
         titleLabel.font = Fonts.systemB24
         titleLabel.text = Constants.headerText
+        navigationItem.titleView = titleLabel
     }
     
     private func configureSearchController() {
@@ -121,6 +129,7 @@ final class ChatsScreenViewController: UIViewController {
         settingButton.contentHorizontalAlignment = .fill
         settingButton.contentVerticalAlignment = .fill
         settingButton.addTarget(self, action: #selector(settingButtonPressed), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingButton)
     }
     
     private func configureNewChatButton() {
@@ -132,22 +141,31 @@ final class ChatsScreenViewController: UIViewController {
         newChatButton.contentHorizontalAlignment = .fill
         newChatButton.contentVerticalAlignment = .fill
         newChatButton.addTarget(self, action: #selector(plusButtonPressed), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newChatButton)
     }
     
     private func configureChatsTableView() {
         view.addSubview(chatsTableView)
-        chatsTableView.pinTop(view.safeAreaLayoutGuide.topAnchor, 0)
+        chatsTableTopConstraint = chatsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.chatsTableStartTop)
+        chatsTableTopConstraint.isActive = true
         chatsTableView.pinHorizontal(view)
         chatsTableView.pinBottom(view.bottomAnchor, 0)
         chatsTableView.backgroundColor = Colors.background
+        chatsTableView.separatorInset = .zero
         chatsTableView.delegate = self
         chatsTableView.dataSource = self
         chatsTableView.register(ChatCell.self, forCellReuseIdentifier: "ChatCell")
-        chatsTableView.separatorInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 5)
     }
     
     private func handleUserPicked(_ user: ProfileSettingsModels.ProfileUserData) {
         interactor.searchForExistingChat(user)
+    }
+    
+    private func animateChatsTableView(constant: CGFloat) {
+        UIView.animate(withDuration: 0.3) {
+            self.chatsTableTopConstraint.constant = constant
+            self.view.layoutIfNeeded()
+        }
     }
     
     // MARK: - Actions
@@ -179,12 +197,10 @@ extension ChatsScreenViewController: UISearchResultsUpdating, UISearchController
         }
     }
     func willPresentSearchController(_ searchController: UISearchController) {
-        self.chatsTableView.alpha = 0
+        shouldAnimateChatsTableView = true
     }
     func willDismissSearchController(_ searchController: UISearchController) {
-        UIView.animate(withDuration: 0.3) {
-            self.chatsTableView.alpha = 1
-        }
+        shouldAnimateChatsTableView = true
     }
 }
 
@@ -203,6 +219,22 @@ extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil 
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
             return UITableViewCell()
@@ -214,6 +246,7 @@ extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource 
                     switch result {
                     case .success(let chatInfo):
                         cell.configure(chatInfo.chatPhotoURL, chatInfo.chatName)
+                        cell.backgroundColor = .clear
                     case .failure(let failure):
                         self.interactor.handleError(failure)
                     }
@@ -230,6 +263,6 @@ extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 80
     }
 }

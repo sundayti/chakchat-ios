@@ -13,9 +13,9 @@ final class ChatCell: UITableViewCell {
     static let cellIdentifier: String = "ChatCell"
     
     private enum Constants {
-        static let size: CGFloat = 80
-        static let radius: CGFloat = 40
-        static let picX: CGFloat = 10
+        static let size: CGFloat = 50
+        static let radius: CGFloat = 25
+        static let picX: CGFloat = 5
         static let picY: CGFloat = 10
         static let borderWidth: CGFloat = 5
     }
@@ -90,7 +90,7 @@ final class ChatCell: UITableViewCell {
         nicknameLabel.font = Fonts.systemR20
         nicknameLabel.textColor = Colors.text
         nicknameLabel.pinCenterY(contentView)
-        nicknameLabel.pinLeft(iconImageView.trailingAnchor, Constants.picX)
+        nicknameLabel.pinLeft(iconImageView.trailingAnchor, 10)
     }
     
     // MARK: - Supporting Methods
