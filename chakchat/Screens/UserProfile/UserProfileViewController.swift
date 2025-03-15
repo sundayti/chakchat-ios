@@ -21,7 +21,7 @@ final class UserProfileViewController: UIViewController {
         static let arrowName: String = "arrow.left"
         static let borderRadius: CGFloat = 10
         static let buttonStackView: CGFloat = 10
-        static let buttonWidth: CGFloat = 230
+        static let buttonWidth: CGFloat = 360
         static let buttonHeigth: CGFloat = 50
         static let buttonTop: CGFloat = 25
         static let userTableHorizontal: CGFloat = -15
