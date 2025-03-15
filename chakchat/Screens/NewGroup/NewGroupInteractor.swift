@@ -34,14 +34,16 @@ final class NewGroupInteractor: NewGroupBusinessLogic {
     
     func createGroupChat(_ name: String, _ description: String?, _ members: [UUID]) {
         worker.createGroupChat(name, description, members) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                routeToGroupChat(data)
-            case .failure(let failure):
-                _ = errorHandler.handleError(failure)
-                os_log("Failed to create group chat", log: logger, type: .fault)
-                print(failure)
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let data):
+                    self.routeToGroupChat(data)
+                case .failure(let failure):
+                    _ = self.errorHandler.handleError(failure)
+                    os_log("Failed to create group chat", log: self.logger, type: .fault)
+                    print(failure)
+                }
             }
         }
     }
