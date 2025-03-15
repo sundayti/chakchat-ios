@@ -27,7 +27,7 @@ final class UISearchControllerCell: UITableViewCell {
             height: Constants.size
         )
     )
-    private let deleteButton: UIButton = UIButton(type: .system)
+    public let deleteButton: UIButton = UIButton(type: .system)
     var deleteAction: (() -> Void)?
     
     // MARK: - Initialization

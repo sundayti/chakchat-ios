@@ -202,6 +202,11 @@ final class AppCoordinator {
         }
     }
     
+    func showGroupChatProfile(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
+        let groupChatProfileVC = GroupChatProfileAssembly.build(with: mainAppContext, coordinator: self, chatData)
+        navigationController.pushViewController(groupChatProfileVC, animated: true)
+    }
+    
     func showGroupProfileEditScreen(_ chatData: GroupProfileEditModels.ProfileData) {
         let groupEditVC = GroupProfileEditAssembly.build(with: mainAppContext, coordinator: self, chatData)
         navigationController.pushViewController(groupEditVC, animated: true)

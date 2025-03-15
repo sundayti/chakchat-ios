@@ -27,6 +27,9 @@ enum GroupChatAssembly {
         interactor.onRouteBack = { [weak coordinator] in
             coordinator?.popScreen()
         }
+        interactor.onRouteToGroupProfile = { [weak coordinator] chatData in
+            coordinator?.showGroupChatProfile(chatData)
+        }
         let view = GroupChatViewController(interactor: interactor)
         presenter.view = view
         return view

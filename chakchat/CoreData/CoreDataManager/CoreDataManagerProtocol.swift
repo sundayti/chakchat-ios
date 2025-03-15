@@ -14,6 +14,7 @@ protocol CoreDataManagerProtocol {
     func fetchChatByMembers(_ myID: UUID, _ memberID: UUID, _ type: ChatType) -> Chat?
     func updateChat(_ chatData: ChatsModels.GeneralChatModel.ChatData)
     func deleteChat(_ chatID: UUID)
+    func deleteAllChats()
     
     func createUser(_ userData: ProfileSettingsModels.ProfileUserData)
     func createUsers(_ usersData: ProfileSettingsModels.Users)

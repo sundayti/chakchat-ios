@@ -124,6 +124,18 @@ final class CoreDataManager: CoreDataManagerProtocol {
         }
     }
     
+    func deleteAllChats() {
+        let context = CoreDataStack.shared.viewContext(for: "ChatsModel")
+        let request: NSFetchRequest<NSFetchRequestResult> = Chat.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try context.execute(deleteRequest)
+            CoreDataStack.shared.saveContext(for: "ChatsModel")
+        } catch {
+            print("Delete error: \(error)")
+        }
+    }
+    
     func createUser(_ userData: ProfileSettingsModels.ProfileUserData) {
         let context = CoreDataStack.shared.viewContext(for: "UserModel")
         let user = User(context: context)

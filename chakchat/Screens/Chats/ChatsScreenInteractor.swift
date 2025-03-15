@@ -23,6 +23,7 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     private var cancellables = Set<AnyCancellable>()
     
     var onRouteToChat: ((ProfileSettingsModels.ProfileUserData, ChatsModels.GeneralChatModel.ChatData?) -> Void)?
+    var onRouteToGroupChat: ((ChatsModels.GeneralChatModel.ChatData) -> Void)?
     var onRouteToSettings: (() -> Void)?
     var onRouteToNewMessage: (() -> Void)?
     
@@ -176,6 +177,31 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
         }
     }
     
+    func getChatInfo(_ chat: ChatsModels.GeneralChatModel.ChatData, completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatInfo, any Error>) -> Void) {
+        switch chat.type {
+        case .personal, .personalSecret:
+            getUserDataByID(chat.members) { [weak self] result in
+                guard self != nil else { return }
+                switch result {
+                case .success(let data):
+                    let chatInfo = ChatsModels.GeneralChatModel.ChatInfo(chatName: data.name, chatPhotoURL: data.photo)
+                    completion(.success(chatInfo))
+                case .failure(let failure):
+                    completion(.failure(failure))
+                }
+            }
+        case .group, .groupSecret:
+            if case .group(let groupInfo) = chat.info {
+                let info = ChatsModels.GeneralChatModel.ChatInfo(chatName: groupInfo.name, chatPhotoURL: groupInfo.groupPhoto)
+                completion(.success(info))
+            }
+            if case .secretGroup(let groupSecretInfo) = chat.info {
+                let info = ChatsModels.GeneralChatModel.ChatInfo(chatName: groupSecretInfo.name, chatPhotoURL: groupSecretInfo.groupPhoto)
+                completion(.success(info))
+            }
+        }
+    }
+    
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void) {
         worker.getUserDataByID(users) { [weak self] result in
             guard self != nil else { return }
@@ -206,18 +232,24 @@ final class ChatsScreenInteractor: ChatsScreenBusinessLogic {
     }
     
     func routeToChat(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
-        getUserDataByID(chatData.members) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                switch result {
-                case .success(let data):
-                    self.onRouteToChat?(data, chatData)
-                case .failure(let failure):
-                    _ = self.errorHandler.handleError(failure)
-                    os_log("Failure in routing to chat:\n", log: self.logger, type: .fault)
-                    print(failure)
+        switch chatData.type {
+        case .personal, .personalSecret:
+            getUserDataByID(chatData.members) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let data):
+                        self.onRouteToChat?(data, chatData)
+                    case .failure(let failure):
+                        _ = self.errorHandler.handleError(failure)
+                        os_log("Failure in routing to chat:\n", log: self.logger, type: .fault)
+                        print(failure)
+                    }
                 }
             }
+        case .group, .groupSecret:
+            self.onRouteToGroupChat?(chatData)
+            break
         }
     }
     // нужно потом избавиться от этого кринжа

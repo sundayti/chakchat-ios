@@ -21,6 +21,7 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
     private var cancellables = Set<AnyCancellable>()
     
     var onRouteBack: (() -> Void)?
+    var onRouteToGroupProfile: ((ChatsModels.GeneralChatModel.ChatData) -> Void)?
     
     init(
         presenter: GroupChatPresentationLogic,
@@ -58,6 +59,10 @@ final class GroupChatInteractor: GroupChatBusinessLogic {
     
     func routeBack() {
         onRouteBack?()
+    }
+    
+    func routeToChatProfile() {
+        onRouteToGroupProfile?(chatData)
     }
     
     private func subscribeToEvents() {
