@@ -16,11 +16,7 @@ final class ChatViewController: UIViewController {
         static let borderWidth: CGFloat = 5
         static let cornerRadius: CGFloat = 22
         static let spacing: CGFloat = 12
-        static let stackViewWidth: CGFloat = 300
         static let arrowName: String = "arrow.left"
-        static let separatorTop: CGFloat = 10
-        static let separatorHeight: CGFloat = 1
-        static let separatorHorizontal: CGFloat = 0
         static let messageInputViewHorizontal: CGFloat = 8
         static let messageInputViewHeigth: CGFloat = 50
         static let messageInputViewBottom: CGFloat = 0
@@ -29,10 +25,8 @@ final class ChatViewController: UIViewController {
     // MARK: - Properties
     private let interactor: ChatBusinessLogic
     private let messageInputView = MessageInputView()
-    private let titleStackView: UIStackView = UIStackView()
     private let iconImageView: UIImageView = UIImageView()
     private let nicknameLabel: UILabel = UILabel()
-    private let separator: UIView = UIView()
     private var tapGesture: UITapGestureRecognizer?
     
     // MARK: - Initialization
@@ -95,8 +89,6 @@ final class ChatViewController: UIViewController {
         configureBackButton()
         configureIconImageView()
         configureNicknameLabel()
-        configureTitleStackView()
-        configureSeparator()
         configureMessageView()
     }
 
@@ -117,27 +109,23 @@ final class ChatViewController: UIViewController {
     }
     
     private func configureIconImageView() {
+        view.addSubview(iconImageView)
         iconImageView.layer.cornerRadius = Constants.cornerRadius
         iconImageView.clipsToBounds = true
         iconImageView.setWidth(Constants.navigationItemHeight)
         iconImageView.setHeight(Constants.navigationItemHeight)
+        addTapGesture(to: iconImageView)
+        
+        let barButtonItem = UIBarButtonItem(customView: iconImageView)
+        navigationItem.rightBarButtonItem = barButtonItem
     }
     
     private func configureNicknameLabel() {
+        view.addSubview(nicknameLabel)
+        nicknameLabel.textAlignment = .center
         nicknameLabel.font = Fonts.systemSB20
         nicknameLabel.textColor = Colors.text
-    }
-    
-    private func configureTitleStackView() {
-        titleStackView.addArrangedSubview(iconImageView)
-        titleStackView.addArrangedSubview(nicknameLabel)
-        titleStackView.axis = .horizontal
-        titleStackView.spacing = Constants.spacing
-        titleStackView.setHeight(Constants.navigationItemHeight)
-        titleStackView.setWidth(Constants.stackViewWidth)
-        navigationItem.titleView = titleStackView
-        navigationController?.navigationBar.layoutIfNeeded()
-        addTapGesture(to: iconImageView)
+        navigationItem.titleView = nicknameLabel
         addTapGesture(to: nicknameLabel)
     }
     
@@ -145,15 +133,6 @@ final class ChatViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTitleTap))
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
-    }
-    
-    private func configureSeparator() {
-        view.addSubview(separator)
-        separator.backgroundColor = .orange
-        separator.setHeight(Constants.separatorHeight)
-        separator.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.separatorTop)
-        separator.pinLeft(view.leadingAnchor, Constants.separatorHorizontal)
-        separator.pinRight(view.trailingAnchor, Constants.separatorHorizontal)
     }
     
     private func configureMessageView() {
