@@ -109,7 +109,7 @@ final class ChatsScreenViewController: UIViewController {
         searchController.searchBar.autocorrectionType = .no
         searchController.searchBar.setValue(LocalizationManager.shared.localizedString(for: "cancel"), forKey: "cancelButtonText")
         definesPresentationContext = true
-        navigationItem.hidesSearchBarWhenScrolling = true
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     private func configureSettingsButton() {
