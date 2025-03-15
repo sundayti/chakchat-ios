@@ -104,6 +104,7 @@ final class GroupChatProfileViewController: UIViewController {
             let optionsButton = createButton("ellipsis",
                                              LocalizationManager.shared.localizedString(for: "more_l"))
             createMenu(optionsButton)
+            buttonStackView.addArrangedSubview(optionsButton)
         } else {
             buttonStackView.setWidth(230)
         }
@@ -140,6 +141,7 @@ final class GroupChatProfileViewController: UIViewController {
                 borderColor: color,
                 borderWidth: Constants.borderWidth
             )
+            iconImageView.image = image
         }
     }
     
@@ -151,6 +153,7 @@ final class GroupChatProfileViewController: UIViewController {
         configureIconImageView()
         configureInitials()
         configureButtonStackView()
+        configureUserDataTable()
         configureSearchController()
         
     }
@@ -224,7 +227,6 @@ final class GroupChatProfileViewController: UIViewController {
         userDataTable.dataSource = self
         userDataTable.separatorStyle = .singleLine
         userDataTable.separatorInset = .zero
-        userDataTable.isUserInteractionEnabled = false
         userDataTable.pinHorizontal(view, -15)
         userDataTable.pinBottom(view.safeAreaLayoutGuide.bottomAnchor, 20)
         userDataTable.pinTop(buttonStackView.bottomAnchor, 10)
@@ -250,10 +252,10 @@ final class GroupChatProfileViewController: UIViewController {
     }
     
     private func createMenu(_ optionsButton: UIButton) {
-        let addMember = UIAction(title: LocalizationManager.shared.localizedString(for: "add_member"), image: UIImage(systemName: "lock.fill")) { _ in
+        let addMember = UIAction(title: LocalizationManager.shared.localizedString(for: "add_member"), image: UIImage(systemName: "person.crop.circle.fill.badge.plus")) { _ in
             self.addMember()
         }
-        let deleteMember = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_member"), image: UIImage(systemName: "person.crop.circle.fill.badge.plus"), attributes: .destructive) { _ in
+        let deleteMember = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_member"), image: UIImage(systemName: "person.crop.circle.fill.badge.minus"), attributes: .destructive) { _ in
             self.deleteMember()
         }
         let deleteGroup = UIAction(title: LocalizationManager.shared.localizedString(for: "delete_group"), image: UIImage(systemName: "trash.fill"), attributes: .destructive) { _ in
@@ -278,7 +280,8 @@ final class GroupChatProfileViewController: UIViewController {
             }
             alert.addAction(deleteAction)
         }
-        let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: LocalizationManager.shared.localizedString(for: "cancel"), style: .cancel) { _ in
+        }
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
@@ -353,6 +356,7 @@ extension GroupChatProfileViewController: UITableViewDelegate, UITableViewDataSo
         }
         let item = userTableViewData[indexPath.row]
         cell.configure(item.photo, item.name, deletable: false)
+        cell.deleteAction = nil
         cell.deleteAction = { [weak self] in
             self?.showDisclaimer(
                 Localization.deleteMember.rawValue,
@@ -364,3 +368,4 @@ extension GroupChatProfileViewController: UITableViewDelegate, UITableViewDataSo
         return cell
     }
 }
+

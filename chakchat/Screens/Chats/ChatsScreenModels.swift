@@ -16,14 +16,19 @@ enum ChatsModels {
             let chats: [ChatData]
         }
         
+        struct ChatInfo {
+            let chatName: String
+            let chatPhotoURL: URL?
+        }
+        
         struct PersonalInfo: Codable {
-            let blockedBy: [UUID]?
+            let blockedBy: [UUID]
             
             enum CodingKeys: String, CodingKey {
                 case blockedBy = "blocked_by"
             }
         }
-
+        /// сделал кастомный декодер потому что по умолчанию пустая строка не может преобразоваться в URL?
         struct GroupInfo: Codable {
             let admin: UUID
             let name: String
@@ -31,10 +36,21 @@ enum ChatsModels {
             let groupPhoto: URL?
             
             enum CodingKeys: String, CodingKey {
-                case admin = "admin"
+                case admin = "admin_id"
                 case name = "name"
                 case description = "description"
                 case groupPhoto = "group_photo"
+            }
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                admin = try container.decode(UUID.self, forKey: .admin)
+                name = try container.decode(String.self, forKey: .name)
+                description = try container.decodeIfPresent(String.self, forKey: .description)
+                if let groupPhotoString = try container.decodeIfPresent(String.self, forKey: .groupPhoto), !groupPhotoString.isEmpty {
+                    groupPhoto = URL(string: groupPhotoString)
+                } else {
+                    groupPhoto = nil
+                }
             }
         }
 

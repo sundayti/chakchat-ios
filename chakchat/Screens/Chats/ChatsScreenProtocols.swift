@@ -26,7 +26,10 @@ protocol ChatsScreenBusinessLogic: SearchInteractor {
     func handleCreatedChatEvent(_ event: CreatedChatEvent)
     func handleDeletedChatEvent(_ event: DeletedChatEvent)
 
-    func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, Error>) -> Void)
+    func getChatInfo(
+        _ chat: ChatsModels.GeneralChatModel.ChatData,
+        completion: @escaping (Result<ChatsModels.GeneralChatModel.ChatInfo, Error>) -> Void
+    )
 }
 
 protocol ChatsScreenPresentationLogic {

@@ -9,6 +9,7 @@ import Foundation
 
 protocol GroupChatBusinessLogic: SendingMessagesProtocol {
     func routeBack()
+    func routeToChatProfile()
     func passChatData()
     func handleAddedMemberEvent(_ event: AddedMemberEvent)
     func handleDeletedMemberEvent(_ event: DeletedMemberEvent)

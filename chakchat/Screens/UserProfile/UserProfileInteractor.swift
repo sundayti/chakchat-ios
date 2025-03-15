@@ -170,13 +170,12 @@ final class UserProfileInteractor: UserProfileBusinessLogic {
         let myID = worker.getMyID()
         if let chatData {
             if case .personal(let personalInfo) = chatData.info {
-                if let blockedBy = personalInfo.blockedBy {
+                let blockedBy = personalInfo.blockedBy
                     if blockedBy.contains(myID) {
                         return true
                     } else {
                         return false
                     }
-                }
             }
         }
         return false

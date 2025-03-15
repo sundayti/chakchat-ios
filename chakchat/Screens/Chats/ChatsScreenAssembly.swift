@@ -34,6 +34,9 @@ enum ChatsAssembly {
         interactor.onRouteToChat = { [weak coordinator] userData, chatData in
             coordinator?.showChatScreen(userData, chatData)
         }
+        interactor.onRouteToGroupChat = { [weak coordinator] chatData in
+            coordinator?.showGroupChatScreen(chatData)
+        }
         interactor.onRouteToSettings = { [weak coordinator] in
             coordinator?.showSettingsScreen()
         }

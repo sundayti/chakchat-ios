@@ -142,6 +142,14 @@ final class GroupChatViewController: UIViewController {
         titleStackView.setWidth(Constants.stackViewWidth)
         navigationItem.titleView = titleStackView
         navigationController?.navigationBar.layoutIfNeeded()
+        addTapGesture(to: iconImageView)
+        addTapGesture(to: groupNameLabel)
+    }
+    
+    private func addTapGesture(to view: UIView) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTitleTap))
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - Separator Configuration
@@ -166,6 +174,10 @@ final class GroupChatViewController: UIViewController {
             constant: Constants.messageInputViewBottom
         )
         messageInputView.bottomConstraint.isActive = true
+    }
+    
+    @objc private func handleTitleTap() {
+        interactor.routeToChatProfile()
     }
     
     // MARK: - Actions

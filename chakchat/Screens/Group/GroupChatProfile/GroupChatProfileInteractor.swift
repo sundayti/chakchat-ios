@@ -52,18 +52,21 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
     
     func deleteGroup() {
         worker.deleteGroup(chatData.chatID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                os_log("Group with id: %@ deleted", log: logger, type: .default, chatData.chatID as CVarArg)
-                let event = DeletedChatEvent(chatID: chatData.chatID)
-                eventManager.publish(event: event)
-                routeToChatMenu()
-            case .failure(let failure):
-                _ = errorHandler.handleError(failure)
-                os_log("Failed to delete group with id: %@", log: logger, type: .fault, chatData.chatID as CVarArg)
-                print(failure)
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(_):
+                    os_log("Group with id: %@ deleted", log: self.logger, type: .default, self.chatData.chatID as CVarArg)
+                    let event = DeletedChatEvent(chatID: self.chatData.chatID)
+                    self.eventManager.publish(event: event)
+                    self.routeToChatMenu()
+                case .failure(let failure):
+                    _ = self.errorHandler.handleError(failure)
+                    os_log("Failed to delete group with id: %@", log: self.logger, type: .fault, self.chatData.chatID as CVarArg)
+                    print(failure)
+                }
             }
+
         }
     }
     
@@ -166,7 +169,7 @@ final class GroupChatProfileInteractor: GroupChatProfileBusinessLogic {
                 chatID: chatData.chatID,
                 name: groupInfo.name,
                 description: groupInfo.description,
-                photoURL: groupInfo.groupPhoto
+                photoURL: nil
             )
             onRouteToEdit?(dataToEdit)
         }

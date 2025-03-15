@@ -91,9 +91,9 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     
     func getUserDataByID(_ users: [UUID], completion: @escaping (Result<ProfileSettingsModels.ProfileUserData, any Error>) -> Void) {
         guard let accessToken = keychainManager.getString(key: KeychainManager.keyForSaveAccessToken) else { return }
-        let myID = userDefaultsManager.loadID()
-        for usr in users where usr != myID {
-            userService.sendGetUserRequest(usr, accessToken) { [weak self] result in
+        let myID = getMyID()
+        for user in users where user != myID {
+            userService.sendGetUserRequest(user, accessToken) { [weak self] result in
                 guard self != nil else { return }
                 switch result {
                 case .success(let response):
@@ -108,6 +108,10 @@ final class ChatsScreenWorker: ChatsScreenWorkerLogic {
     func getDBChats() -> [ChatsModels.GeneralChatModel.ChatData]? {
         let chats = coreDataManager.fetchChats()
         return chats
+    }
+    
+    func deleteDBchats() {
+        coreDataManager.deleteAllChats()
     }
     
     func getMyID() -> UUID {

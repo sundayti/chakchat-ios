@@ -208,12 +208,12 @@ extension ChatsScreenViewController: UITableViewDelegate, UITableViewDataSource 
             return UITableViewCell()
         }
         if let item = chatsData?[indexPath.row] {
-            interactor.getUserDataByID(item.members) { [weak self] result in
+            interactor.getChatInfo(item) { [weak self] result in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     switch result {
-                    case .success(let data):
-                        cell.configure(data.photo, data.name)
+                    case .success(let chatInfo):
+                        cell.configure(chatInfo.chatPhotoURL, chatInfo.chatName)
                     case .failure(let failure):
                         self.interactor.handleError(failure)
                     }
