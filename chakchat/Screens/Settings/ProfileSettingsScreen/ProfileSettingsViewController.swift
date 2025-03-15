@@ -264,13 +264,22 @@ final class ProfileSettingsViewController: UIViewController {
         guard let newUsername = usernameTextField.getText() else {
             throw CriticalError.noData
         }
-        let newBirth = birthTextField.getText()
-        
+        if let newBirth = birthTextField.getText() {
+            let date = dateFormatter.date(from: newBirth)
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let bToRequest = dateFormatter.string(from: date ?? Date())
+            return ProfileSettingsModels.ChangeableProfileUserData(
+                name: newNickname,
+                username: newUsername,
+                dateOfBirth: bToRequest
+            )
+        }
         return ProfileSettingsModels.ChangeableProfileUserData(
             name: newNickname,
             username: newUsername,
-            dateOfBirth: newBirth
+            dateOfBirth: nil
         )
+
     }
     
     private func bindDynamicCheck() {
