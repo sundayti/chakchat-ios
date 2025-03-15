@@ -15,7 +15,6 @@ final class GroupChatViewController: UIViewController {
         static let borderWidth: CGFloat = 5
         static let cornerRadius: CGFloat = 22
         static let spacing: CGFloat = 12
-        static let stackViewWidth: CGFloat = 300
         static let arrowName: String = "arrow.left"
         static let messageInputViewHorizontal: CGFloat = 8
         static let messageInputViewHeigth: CGFloat = 50
@@ -25,7 +24,6 @@ final class GroupChatViewController: UIViewController {
     // MARK: - Properties
     private let interactor: GroupChatBusinessLogic
     private let messageInputView = MessageInputView()
-    private let titleStackView: UIStackView = UIStackView()
     private let iconImageView: UIImageView = UIImageView()
     private let groupNameLabel: UILabel = UILabel()
     private var tapGesture: UITapGestureRecognizer?
@@ -90,7 +88,6 @@ final class GroupChatViewController: UIViewController {
         configureBackButton()
         configureIconImageView()
         configureNicknameLabel()
-        configureTitleStackView()
         configureMessageView()
     }
     
@@ -111,27 +108,23 @@ final class GroupChatViewController: UIViewController {
     }
     
     private func configureIconImageView() {
+        view.addSubview(iconImageView)
         iconImageView.layer.cornerRadius = Constants.cornerRadius
         iconImageView.clipsToBounds = true
         iconImageView.setWidth(Constants.navigationItemHeight)
         iconImageView.setHeight(Constants.navigationItemHeight)
+        addTapGesture(to: iconImageView)
+
+        let barButtonItem = UIBarButtonItem(customView: iconImageView)
+        navigationItem.rightBarButtonItem = barButtonItem
     }
     
     private func configureNicknameLabel() {
+        view.addSubview(groupNameLabel)
+        groupNameLabel.textAlignment = .center
         groupNameLabel.font = Fonts.systemSB20
         groupNameLabel.textColor = Colors.text
-    }
-    
-    private func configureTitleStackView() {
-        titleStackView.addArrangedSubview(iconImageView)
-        titleStackView.addArrangedSubview(groupNameLabel)
-        titleStackView.axis = .horizontal
-        titleStackView.spacing = Constants.spacing
-        titleStackView.setHeight(Constants.navigationItemHeight)
-        titleStackView.setWidth(Constants.stackViewWidth)
-        navigationItem.titleView = titleStackView
-        navigationController?.navigationBar.layoutIfNeeded()
-        addTapGesture(to: iconImageView)
+        navigationItem.titleView = groupNameLabel
         addTapGesture(to: groupNameLabel)
     }
     
