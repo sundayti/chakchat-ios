@@ -18,9 +18,6 @@ final class ChatViewController: UIViewController {
         static let spacing: CGFloat = 12
         static let stackViewWidth: CGFloat = 300
         static let arrowName: String = "arrow.left"
-        static let separatorTop: CGFloat = 10
-        static let separatorHeight: CGFloat = 1
-        static let separatorHorizontal: CGFloat = 0
         static let messageInputViewHorizontal: CGFloat = 8
         static let messageInputViewHeigth: CGFloat = 50
         static let messageInputViewBottom: CGFloat = 0
@@ -32,7 +29,6 @@ final class ChatViewController: UIViewController {
     private let titleStackView: UIStackView = UIStackView()
     private let iconImageView: UIImageView = UIImageView()
     private let nicknameLabel: UILabel = UILabel()
-    private let separator: UIView = UIView()
     private var tapGesture: UITapGestureRecognizer?
     
     // MARK: - Initialization
@@ -96,7 +92,6 @@ final class ChatViewController: UIViewController {
         configureIconImageView()
         configureNicknameLabel()
         configureTitleStackView()
-        configureSeparator()
         configureMessageView()
     }
 
@@ -145,15 +140,6 @@ final class ChatViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTitleTap))
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
-    }
-    
-    private func configureSeparator() {
-        view.addSubview(separator)
-        separator.backgroundColor = .orange
-        separator.setHeight(Constants.separatorHeight)
-        separator.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.separatorTop)
-        separator.pinLeft(view.leadingAnchor, Constants.separatorHorizontal)
-        separator.pinRight(view.trailingAnchor, Constants.separatorHorizontal)
     }
     
     private func configureMessageView() {

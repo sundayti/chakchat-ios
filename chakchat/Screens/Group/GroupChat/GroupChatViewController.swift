@@ -17,9 +17,6 @@ final class GroupChatViewController: UIViewController {
         static let spacing: CGFloat = 12
         static let stackViewWidth: CGFloat = 300
         static let arrowName: String = "arrow.left"
-        static let separatorTop: CGFloat = 10
-        static let separatorHeight: CGFloat = 1
-        static let separatorHorizontal: CGFloat = 0
         static let messageInputViewHorizontal: CGFloat = 8
         static let messageInputViewHeigth: CGFloat = 50
         static let messageInputViewBottom: CGFloat = 0
@@ -31,7 +28,6 @@ final class GroupChatViewController: UIViewController {
     private let titleStackView: UIStackView = UIStackView()
     private let iconImageView: UIImageView = UIImageView()
     private let groupNameLabel: UILabel = UILabel()
-    private let separator: UIView = UIView()
     private var tapGesture: UITapGestureRecognizer?
     
     // MARK: - Initialization
@@ -50,7 +46,6 @@ final class GroupChatViewController: UIViewController {
         interactor.passChatData()
     }
     
-    // MARK: - Changing image color
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -68,7 +63,6 @@ final class GroupChatViewController: UIViewController {
         }
     }
     
-    // MARK: - Data Configuration
     func configureWithData(_ chatData: ChatsModels.GeneralChatModel.ChatData) {
         if case .group(let groupInfo) = chatData.info {
             let color = UIColor.random()
@@ -97,11 +91,9 @@ final class GroupChatViewController: UIViewController {
         configureIconImageView()
         configureNicknameLabel()
         configureTitleStackView()
-        configureSeparator()
         configureMessageView()
     }
     
-    // MARK: - Back Button Configuration
     private func configureBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.arrowName), style: .plain, target: self, action: #selector(backButtonPressed))
         navigationItem.leftBarButtonItem?.tintColor = Colors.text
@@ -118,7 +110,6 @@ final class GroupChatViewController: UIViewController {
         }
     }
     
-    // MARK: - Icon Image View Configuration
     private func configureIconImageView() {
         iconImageView.layer.cornerRadius = Constants.cornerRadius
         iconImageView.clipsToBounds = true
@@ -126,13 +117,11 @@ final class GroupChatViewController: UIViewController {
         iconImageView.setHeight(Constants.navigationItemHeight)
     }
     
-    // MARK: - Nuckname Label Configuration
     private func configureNicknameLabel() {
         groupNameLabel.font = Fonts.systemSB20
         groupNameLabel.textColor = Colors.text
     }
     
-    // MARK: - Title Stack View Configuration
     private func configureTitleStackView() {
         titleStackView.addArrangedSubview(iconImageView)
         titleStackView.addArrangedSubview(groupNameLabel)
@@ -152,17 +141,6 @@ final class GroupChatViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    // MARK: - Separator Configuration
-    private func configureSeparator() {
-        view.addSubview(separator)
-        separator.backgroundColor = .orange
-        separator.setHeight(Constants.separatorHeight)
-        separator.pinTop(view.safeAreaLayoutGuide.topAnchor, Constants.separatorTop)
-        separator.pinLeft(view.leadingAnchor, Constants.separatorHorizontal)
-        separator.pinRight(view.trailingAnchor, Constants.separatorHorizontal)
-    }
-    
-    // MARK: - Message View Configuration
     private func configureMessageView() {
         view.addSubview(messageInputView)
         messageInputView.interactor = interactor
